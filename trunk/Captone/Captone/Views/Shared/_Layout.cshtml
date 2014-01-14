@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Css/Index.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery-1.4.3.min.js"></script>
+    <link href="~/Content/Css/tooltip.css" rel="stylesheet" />
+    <script src="~/Content/js/tooltip.js"></script>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="cboxOverlay" style="display: none;"></div>
+    <div class="container">
+        <div id="slidebar">
+            <a href="Index.cshtml">
+                <img src="~/Content/Images/logo.png">
+            </a>
+            <!--search-->
+            <div class="searchForm">
+                <input type="text" class="search" value="Search..." onfocus="if(this.value == 'Search...') {this.value=''}" onblur="if(this.value == ''){this.value ='Search...'}">
+                <input type="submit" class="searchsubmit" value="">
+            </div>
+            <!--end search -->
+
+            <!--navigation-->
+            <ul id="nav" class="sf-menu sf-vertical sf-js-enabled sf-shadow">
+                <li class="current-menu-item">
+                    <a href="index.html" style="margin-left: 0px;">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="index.html" style="margin-left: 0px;">Đăng nhập</a>
+                </li>
+                <li>
+                    <a href="index.html" style="margin-left: 0px;">Đăng kí</a>
+                </li>
+                <li>
+                    <a href="index.html" style="margin-left: 0px;">Gửi yêu cầu</a>
+                </li>
+                <li>
+                    <a href="index.html" style="margin-left: 0px;">Trang quản lý</a>
+                </li>
+            </ul>
+            <ul class="social">
+                <li>
+                    <h6>Thắc mắc và liên hệ</h6>
+                </li>
+
+                <li><a href="#" class="facebook"></a></li>     
+                 
+                <li><a href="#" class="yahoo" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>crystal_sun_92@yahoo.com')"></a></li>
+                <li><a href="#" class="skype" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>Longbv')"></a></li>
+            </ul>
+        </div>
+        @RenderBody()
+    </div>
+    <div class="footer">
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+    
+    </script>
+</body>
+    
+</html>
