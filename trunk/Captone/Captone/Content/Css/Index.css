@@ -30,6 +30,7 @@
 }
 
 .search {
+    color: white;
     width: 175px;
     height: 26px;
     padding: 0px 10px;
@@ -261,6 +262,7 @@ ol, ul {
     width: 100%;
     padding-top: 35px;
     padding-bottom: 25px;
+    margin-top:43%;
 }
 
 #slidebar h6 {
@@ -270,4 +272,16 @@ ol, ul {
     margin-bottom: 20px;
     margin-top: -20px;
     margin-left: -35px;
+}
+.address-content {
+    margin-left:74%;
+    margin-top:-47.5%;
+}
+
+.address-header {
+    height: 38px;
+    background: url('../Images/line-divider.png') bottom left repeat-x;
+}
+.clear {
+    clear: both;
 }
