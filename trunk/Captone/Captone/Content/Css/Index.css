@@ -5,6 +5,7 @@
 
 .container {
     background: url('../Images/sidebar.png') transparent repeat-y;
+    height: 690px;
 }
 
 .container {
@@ -262,7 +263,7 @@ ol, ul {
     width: 100%;
     padding-top: 35px;
     padding-bottom: 25px;
-    margin-top:43%;
+    margin-top: 43%;
 }
 
 #slidebar h6 {
@@ -273,15 +274,42 @@ ol, ul {
     margin-top: -20px;
     margin-left: -35px;
 }
+
 .address-content {
-    margin-left:74%;
-    margin-top:-47.5%;
+    margin-left: 74%;
+    margin-top: -52.5%;
 }
 
 .address-header {
     height: 38px;
     background: url('../Images/line-divider.png') bottom left repeat-x;
 }
+
 .clear {
     clear: both;
+}
+/*table design*/
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+th {
+  
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.distance {
+    height: 35px;
 }
