@@ -313,3 +313,22 @@ td, th {
 .distance {
     height: 35px;
 }
+
+
+li.viewstaff li{
+    display: block;
+    background: #606060;
+    height:20px;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+
+    li.viewstaff ul {
+        display:none;
+        padding:0;
+       
+    }
+        li.viewstaff:hover ul {
+            display:block;
+            
+        }
