@@ -130,14 +130,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\Index.css" />
+    <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\tooltip.css" />
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\drop-arrow-white.png" />
     <Content Include="Content\Images\drop-arrow.png" />
     <Content Include="Content\Images\dropdown.png" />
     <Content Include="Content\Images\facebook_32.png" />
+    <Content Include="Content\Images\folder_blue_favourites.png" />
     <Content Include="Content\Images\footer.png" />
     <Content Include="Content\Images\header.png" />
+    <Content Include="Content\Images\icon512x512.png" />
+    <Content Include="Content\Images\key-icon.png" />
     <Content Include="Content\Images\line-divider.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\nav-item.png" />
@@ -146,7 +150,9 @@
     <Content Include="Content\Images\sidebar-divider.png" />
     <Content Include="Content\Images\sidebar.png" />
     <Content Include="Content\Images\skype_32.png" />
+    <Content Include="Content\Images\stock_mail_send.png" />
     <Content Include="Content\Images\tab-bg.png" />
+    <Content Include="Content\Images\tracking-route-icon.png" />
     <Content Include="Content\Images\yahoo_32.png" />
     <Content Include="Content\js\bootstrap-tooltip.js" />
     <Content Include="Content\js\jquery-1.4.3.min.js" />
@@ -238,6 +244,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
