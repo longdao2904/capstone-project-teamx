@@ -8,6 +8,7 @@
     <link href="~/Content/Css/tooltip.css" rel="stylesheet" />
     <script src="~/Content/js/tooltip.js"></script>
     <link href="~/Content/Css/Register.css" rel="stylesheet" />
+    <link href="~/Content/Css/Login.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -32,7 +33,7 @@
                     <a href="index.html" style="margin-left: 0px;">Trang chủ</a>
                 </li>
                 <li>
-                    <a href="index.html" style="margin-left: 0px;">Đăng nhập</a>
+                    <a href="@Url.Action("Login", "Home")" style="margin-left: 0px;">Đăng nhập</a>
                 </li>
                 <li>
                     <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>

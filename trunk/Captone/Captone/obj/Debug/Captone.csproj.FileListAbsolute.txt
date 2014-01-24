@@ -88,3 +88,33 @@ D:\Capstone\trunk\Captone\Captone\bin\System.Web.WebPages.Razor.xml
 D:\Capstone\trunk\Captone\Captone\obj\Debug\Captone.csprojResolveAssemblyReference.cache
 D:\Capstone\trunk\Captone\Captone\obj\Debug\Captone.dll
 D:\Capstone\trunk\Captone\Captone\obj\Debug\Captone.pdb
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Captone.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Captone.pdb
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Antlr3.Runtime.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\EntityFramework.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Microsoft.Web.Infrastructure.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Newtonsoft.Json.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Net.Http.Formatting.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Http.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Http.WebHost.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Mvc.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Optimization.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Providers.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Razor.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.Deployment.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.Razor.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\WebGrease.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\EntityFramework.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\Newtonsoft.Json.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Net.Http.Formatting.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Http.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Http.WebHost.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Mvc.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.Razor.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.Deployment.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\bin\System.Web.WebPages.Razor.xml
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\obj\Debug\Captone.csprojResolveAssemblyReference.cache
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\obj\Debug\Captone.dll
+D:\Capstone Project\capstone-project-teamx\trunk\Captone\Captone\obj\Debug\Captone.pdb

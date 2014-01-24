@@ -130,8 +130,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\Index.css" />
+    <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\tooltip.css" />
+    <Content Include="Content\Images\5star rating.jpg" />
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\drop-arrow-white.png" />
     <Content Include="Content\Images\drop-arrow.png" />
@@ -245,6 +247,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
