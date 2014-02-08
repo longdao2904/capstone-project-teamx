@@ -19,7 +19,12 @@ namespace Captone.Controllers
         {
             return View();
         }
-        public ActionResult Login() {
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult SentRequestForm()
+        {
             return View();
         }
 

@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <script src="~/Content/js/jquery-1.9.1.min.js"></script>     
+     <script src="~/Content/js/googleMap.js"></script>
     <link href="~/Content/Css/Index.css" rel="stylesheet" />
-    <script src="~/Content/js/jquery-1.4.3.min.js"></script>
     <link href="~/Content/Css/tooltip.css" rel="stylesheet" />
     <script src="~/Content/js/tooltip.js"></script>
     <link href="~/Content/Css/Register.css" rel="stylesheet" />
     <link href="~/Content/Css/Login.css" rel="stylesheet" />
+    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -39,7 +41,7 @@
                     <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>
                 </li>
                 <li>
-                    <a href="index.html" style="margin-left: 0px;">Gửi yêu cầu</a>
+                    <a href="@Url.Action("SentRequestForm", "Home")" style="margin-left: 0px;">Gửi yêu cầu</a>
                 </li>
                 <li class="viewstaff">
                     <a href="index.html" style="margin-left: 0px;">Trang quản lý</a>
@@ -49,7 +51,7 @@
                         <li>abc</li>
                     </ul>
                 </li>
-                
+
             </ul>
             <ul class="social">
                 <li>
@@ -116,7 +118,7 @@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
-    
+       
     </script>
 </body>
 
