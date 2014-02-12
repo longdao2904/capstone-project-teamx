@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <script src="~/Content/js/jquery-1.9.1.min.js"></script>     
-     <script src="~/Content/js/googleMap.js"></script>
+    <script src="~/Content/js/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/js/googleMap.js"></script>
+    <script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <link href="~/Content/Css/Index.css" rel="stylesheet" />
     <link href="~/Content/Css/tooltip.css" rel="stylesheet" />
     <script src="~/Content/js/tooltip.js"></script>
@@ -17,54 +19,56 @@
 </head>
 <body>
     <div id="cboxOverlay" style="display: none;"></div>
-    <div class="container">
-        <div id="slidebar">
-            <a href="Index.cshtml">
-                <img src="~/Content/Images/logo.png">
-            </a>
-            <!--search-->
-            <div class="searchForm">
-                <input type="text" class="search" value="Search..." onfocus="if(this.value == 'Search...') {this.value=''}" onblur="if(this.value == ''){this.value ='Search...'}">
-                <input type="submit" class="searchsubmit" value="">
+    <div class="Overall">
+        <div class="container">
+            <div id="slidebar">
+                <a href="Index.cshtml">
+                    <img src="~/Content/Images/logo.png">
+                </a>
+                <!--search-->
+                <div class="searchForm">
+                    <input type="text" class="search" value="Search..." onfocus="if(this.value == 'Search...') {this.value=''}" onblur="if(this.value == ''){this.value ='Search...'}">
+                    <input type="submit" class="searchsubmit" value="">
+                </div>
+                <!--end search -->
+
+                <!--navigation-->
+                <ul id="nav" class="sf-menu sf-vertical sf-js-enabled sf-shadow">
+                    <li class="current-menu-item">
+                        <a href="index.html" style="margin-left: 0px;">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Login", "Home")" style="margin-left: 0px;">Đăng nhập</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("SentRequestForm", "Home")" style="margin-left: 0px;">Gửi yêu cầu</a>
+                    </li>
+                    <li class="viewstaff">
+                        <a href="index.html" style="margin-left: 0px;">Trang quản lý</a>
+                        <ul class="sf-menu sf-vertical sf-js-enabled sf-shadow">
+                            <li>abc</li>
+                            <li>abc</li>
+                            <li>abc</li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="social">
+                    <li>
+                        <h6>Thắc mắc và liên hệ</h6>
+                    </li>
+
+                    <li><a href="#" class="facebook"></a></li>
+
+                    <li><a href="#" class="yahoo" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>crystal_sun_92@yahoo.com')"></a></li>
+                    <li><a href="#" class="skype" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>Longbv')"></a></li>
+                </ul>
             </div>
-            <!--end search -->
-
-            <!--navigation-->
-            <ul id="nav" class="sf-menu sf-vertical sf-js-enabled sf-shadow">
-                <li class="current-menu-item">
-                    <a href="index.html" style="margin-left: 0px;">Trang chủ</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Login", "Home")" style="margin-left: 0px;">Đăng nhập</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("SentRequestForm", "Home")" style="margin-left: 0px;">Gửi yêu cầu</a>
-                </li>
-                <li class="viewstaff">
-                    <a href="index.html" style="margin-left: 0px;">Trang quản lý</a>
-                    <ul class="sf-menu sf-vertical sf-js-enabled sf-shadow">
-                        <li>abc</li>
-                        <li>abc</li>
-                        <li>abc</li>
-                    </ul>
-                </li>
-
-            </ul>
-            <ul class="social">
-                <li>
-                    <h6>Thắc mắc và liên hệ</h6>
-                </li>
-
-                <li><a href="#" class="facebook"></a></li>
-
-                <li><a href="#" class="yahoo" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>crystal_sun_92@yahoo.com')"></a></li>
-                <li><a href="#" class="skype" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>Longbv')"></a></li>
-            </ul>
+            @RenderBody()
         </div>
-        @RenderBody()
     </div>
     <div class="clear"></div>
     <!-- Address -->
