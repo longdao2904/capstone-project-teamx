@@ -44,6 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -125,6 +127,72 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Assigning.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Coach.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CoachType.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryStatu.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iDeliver.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iDeliver.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iDeliver.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageFee.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Route.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Station.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trip.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserInfo.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Volume.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -220,6 +288,23 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <EntityDeploy Include="Models\iDeliver.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\iDeliver.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\iDeliver.edmx.diagram">
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\iDeliver.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -236,7 +321,9 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -251,13 +338,16 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SentRequestForm.cshtml" />
+    <Content Include="Views\Home\SuccessRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

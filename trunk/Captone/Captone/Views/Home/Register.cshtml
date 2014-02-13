@@ -32,8 +32,8 @@
                 </div>
                 <div class="third">
                     <br />
-                    <img src="~/Content/Images/folder_blue_favourites.png" style="height:55px;width:55px" />
-                     <p style="margin-left: 70px; margin-top: -70px">
+                    <img src="~/Content/Images/folder_blue_favourites.png" style="height: 55px; width: 55px" />
+                    <p style="margin-left: 70px; margin-top: -70px">
                         <b>Góp ý và đánh giá</b>
                         <br />
                         Cho phép bạn đóng góp ý kiến cá nhân và đánh giá chất lượng dịch vụ
@@ -50,22 +50,25 @@
                     </div>
                     <br />
                     <div class="right-main">
-                        <div class="email">
-                            <p class="regis-size">Địa chỉ email</p>
-                            <input type="text" class="inputField" />
-                        </div>
-                        <div class="username">
-                            <p class="regis-size">Tên đăng nhập</p>
-                            <input type="text" class="inputField" />
-                        </div>
-                        <div class="password">
-                            <p class="regis-size">Mật khẩu</p>
-                            <input type="text" class="inputField" />
-                        </div>
-                        <div class="phone">
-                            <p class="regis-size">Số điện thoại</p>
-                            <input type="text" class="inputField" />
-                        </div>
+                        <form action="/Home/AddRegister" method="post" enctype="multipart/form-data">
+                            <div class="email">
+                                <p class="regis-size">Địa chỉ email</p>
+                                <input type="text" class="inputField" name="Email" />
+                            </div>
+                            <div class="username">
+                                <p class="regis-size">Tên đăng nhập</p>
+                                <input type="text" class="inputField" name="Username" />
+                            </div>
+                            <div class="password">
+                                <p class="regis-size">Mật khẩu</p>
+                                <input type="password" class="inputField" name="Password" />
+                            </div>
+                            <div class="phone">
+                                <p class="regis-size">Số điện thoại</p>
+                                <input type="text" class="inputField" name="Phone" />
+                            </div>
+                              <button type="submit" class="button-submit" style="margin-top: 50px; margin-left: 80px">Đăng kí</button>
+                        </form>
                     </div>
                 </div>
             </div>
