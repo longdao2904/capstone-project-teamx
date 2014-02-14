@@ -12,14 +12,32 @@
        <br />
             <div class="login-paragragh">
                 Tên đăng nhập của bạn
-            <input type="text" class="textField" />
+            <input type="text" class="textField" id="Username" />
                 và mật khẩu đăng nhập của bạn 
-        <input type="text" class="textField" />.
-        Nếu chưa có tài khoản, hãy đăng kí <a href="#">tại đây</a>.<br />
+        <input type="password" class="textField" id="Password" />.
+        Nếu chưa có tài khoản, hãy đăng kí <a href="/Home/Register">tại đây</a>.<br />
                 <br />
             </div>
-            <button type="submit" class="button-submit" >Đăng nhập</button>
+            <input type="submit" value="Đăng nhập" class="button-submit" onclick="CheckLogin()"/>
         </div>
     </div>
 
 </div>
+<script type="text/javascript">
+    function CheckLogin() {
+        var username = document.getElementById('Username').value;
+        var password = document.getElementById('Password').value;
+        $.ajax({
+            url: "/Home/CheckLogin",
+            type: "GET",
+            data: { Username: username, Password: password },
+            success: function (result) {
+                if(result) {
+                    location.href = "/Home/Index";
+                }
+                
+            }
+    });
+    }
+
+</script>

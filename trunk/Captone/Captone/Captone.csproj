@@ -223,6 +223,7 @@
     <Content Include="Content\Images\stock_mail_send.png" />
     <Content Include="Content\Images\tab-bg.png" />
     <Content Include="Content\Images\tracking-route-icon.png" />
+    <Content Include="Content\Images\user32.png" />
     <Content Include="Content\Images\yahoo_32.png" />
     <Content Include="Content\js\bootstrap-tooltip.js" />
     <Content Include="Content\js\googleMap.js" />
