@@ -84,13 +84,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">420</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">136</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">127</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">166</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
 <XPD:REF name="Model">HHEgLLK3qUOAwShZiArcMwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="REIAc1RO+kaXTnYXyrPtWQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Cyhj2Zv7Q0esfP6kDh1kSgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Search routes</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Search information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="fm0O3PPwk0+ZXxpISp8ioAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -148,7 +148,7 @@
 <XPD:OBJ name="OwnedViews[6]" type="UMLAssociationView" guid="dRCSm/0NEkuPOaE8YhMq8gAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">244,227;420,176</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">244,228;420,180</XPD:ATTR>
 <XPD:REF name="Model">D0GcX9tYPU2+Uwzqa3q7mQAA</XPD:REF>
 <XPD:REF name="Head">/H9B9RN2rk2rOqHHV7LVqAAA</XPD:REF>
 <XPD:REF name="Tail">Ms/ou+zV3UmUZyksaDCJ5AAA</XPD:REF>
@@ -347,13 +347,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">432</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">512</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">127</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">166</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">41</XPD:ATTR>
 <XPD:REF name="Model">HHEgLLK3qUOAwShZiArcMwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Q8KsnpD3C0SZ+vace+G7TwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Sx9CFAOdLUimXkXdagrtawAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Search routes</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Search information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="4X27E7gjNE6DWwi+nRtYZAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -629,7 +629,7 @@
 <XPD:REF name="Associations[4]">QSiq2FlGM0eAuyQASo4NnQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLUseCase" guid="HHEgLLK3qUOAwShZiArcMwAA">
-<XPD:ATTR name="Name" type="string">Search routes</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Search information</XPD:ATTR>
 <XPD:REF name="Namespace">KPEAsRVQ7U2CT7Q/VETDoQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">8</XPD:ATTR>
 <XPD:REF name="Views[0]">/H9B9RN2rk2rOqHHV7LVqAAA</XPD:REF>
