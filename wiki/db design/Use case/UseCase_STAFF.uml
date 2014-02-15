@@ -37,7 +37,7 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">236</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">1088</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">392</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">457</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">265</XPD:ATTR>
 <XPD:ATTR name="Caption" type="string">System</XPD:ATTR>
 </XPD:OBJ>
@@ -204,13 +204,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">284</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">304</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">129</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">141</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
 <XPD:REF name="Model">dVROVS4M0EO8PXS5diUIAgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="mY7xtI4E8EOBkyI/WLKePgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="rdhARPZlYUa5L+DDMGrhcwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Searching</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Search package</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="4fLxGf9md02vCTKWMbMZIAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -270,13 +270,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">808</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">224</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">127</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">199</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
 <XPD:REF name="Model">DAV2hMxFgEi/zLSez9idJQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="1SWxC3i2gkKuSNMI+iY+zgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="5iEW1mpzVEuIvCst/Wy4PQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Update status</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Update package status</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="LOVsQvs5AEy0HhFOyiz6GgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -939,7 +939,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Ia2UGRbllUmpScSL7p3xvwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="XLLkAUAfi0ql6tyuG4r8YwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Delete request</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Reject request</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="hUc4dxmYsk+EiWHhZYHa4QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1042,7 +1042,7 @@
 <XPD:OBJ name="OwnedViews[31]" type="UMLIncludeView" guid="MldspuLNJ0uEoXRb+dO+kgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">808,232;669,201</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">808,227;669,200</XPD:ATTR>
 <XPD:REF name="Model">A7JPlUrBo0asn533AFfShgAA</XPD:REF>
 <XPD:REF name="Head">qYWl/188r0OdSinlCv5yBAAA</XPD:REF>
 <XPD:REF name="Tail">l3LSLLg7x0Gc52ZOmB8ZEAAA</XPD:REF>
@@ -1241,7 +1241,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="8hakjIPV4EaTOEGElIrmNgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="QQlathk/qU6XFPDeGxqg1wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Add new coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="OW3ijKKrFEO/7TEZNWivigAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1274,7 +1274,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="UwRiEGd/EkKYExwrTA5o6gAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="8+ZGEg+PCECF7pxqArfxlQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Edit coach information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="e/tubVZb4kyrOZz+zW+9GQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1307,7 +1307,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="mIIffll8f0WhBxQxgX5XZgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Y6sLVzFWGkS/XDIlHBsPvAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Delete a coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="8HBvwk5gikuxKxXjMthdDAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1923,7 +1923,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="EUA3SdGORUybA97X9xCehwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="m4AKa3APUUG2Vlg7mr7LHAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Delete request</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Reject request</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="TOJJxRWry0Gf4YeDUzmwGwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2246,14 +2246,14 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">464</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">1196</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">127</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">1192</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">199</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
 <XPD:REF name="Model">DAV2hMxFgEi/zLSez9idJQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="JBQxDtq8fk239+SkviElgwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="piYiYWBOgEiSyPyb5nzR7QAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Update status</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Update package status</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="ucthp1YxzUm8OLN4XZrSZQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2388,7 +2388,7 @@
 <XPD:OBJ name="OwnedViews[71]" type="UMLGeneralizationView" guid="khAatwc6NkSSr7oFsBvElAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">464,1218;396,1218</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">464,1216;396,1217</XPD:ATTR>
 <XPD:REF name="Model">xuRrPF09AEuAC3XN7pOpLAAA</XPD:REF>
 <XPD:REF name="Head">jvdkcoD140WzlWP7MogtZAAA</XPD:REF>
 <XPD:REF name="Tail">lELcfydGhkWUbk2RNkN+eAAA</XPD:REF>
@@ -2471,13 +2471,13 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">364</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">1432</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">129</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">141</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
 <XPD:REF name="Model">dVROVS4M0EO8PXS5diUIAgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="c6INBbdyWUOt8TUodHxcogAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="uFgtOSRbwE25RkixWtmqSwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Searching</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Search package</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="qnB52m2TeUmLecf9FhAInwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3099,7 +3099,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="fjYWhxcI9EutTOt3k44gvAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="KIVL5zIUAEeKctEmd7lltAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Add new coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="OUSM/cdJukq7X3kDcuLjuAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3132,7 +3132,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="YFt7I0bZvU+c+czwmYj8EAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="7EJ3tNitIESbAy3QphkzOgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Edit coach information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="uE/7VwQzf02MAIbJIfExFQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3165,7 +3165,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="JBwvrS4daEe/XA1h6UqVjgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="lZoUfBagyk2+SgS1KUlcAQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Delete a coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="h8hqLJE6uEuzD7FaxqCnHwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3448,7 +3448,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="VXce03oPxUGFtSPJ1Q6qEwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="xZu1TfQsVEe7v5Xa+Mzp5wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Add new coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="i9gviCnoBkWATZWTZTYOSQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3481,7 +3481,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="zV1KYUSbEEK77qdXuHrjRAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="HLLYLMKrc0GyaLSkhXlMxAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Edit coach information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="ytfNLW4AwEu+mPzVbPUN6AAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3514,7 +3514,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Qa2+eomf1EWYqOtitoUY2wAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="5uh1L3Sb1kOgzKeDyfc9PAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Delete a coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="y2MpzTX53UuICOb9kYvkCAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3693,7 +3693,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="bILW4dQE20engXPcSFeGlQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="FPjWgQEoK06wXUMiADApGQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Add new coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="f2rpnsCK/EGXtmSxyuW9qQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3726,7 +3726,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="daxMHmd5zU66k3Llunzh5AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="3pVDgxEb20OxuiSgPeIQ2wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Edit coach information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="u8qeDsyPMUyCNCxwdTPsgAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3759,7 +3759,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="uuy3muD3HkSrB+UTjJjqwAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="q2hqJK/8DE2D41l2ggsY9wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Delete a coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Tp6RoQvFB0qqN1CMkyTuzwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3938,7 +3938,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="tuIQjyYU9U+yIoKAU5Eu4AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="gXiPyMlrtUa1kswSUdJ5vAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Add new coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="f6sv7vSWwE+PEh2S/Bj5/QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3971,7 +3971,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="w1FZJ7ZIlEywwP2o7z03xAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="sF4066F5y0i5ZYsJixmuDAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Edit coach information</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="W/iKpScCvUOp6vXUJLySXgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -4004,7 +4004,7 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Wcy1Uh4WNkCHiqpc2ExjkgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="M7tcgMVCgUaYTZL83S1XWgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">Delete a coach</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="xFYOVthRGEaoju1ba6XZPQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -4651,7 +4651,7 @@
 <XPD:REF name="Associations[2]">P/Waavh1H0+OvE6RiKRjJQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[6]" type="UMLUseCase" guid="dVROVS4M0EO8PXS5diUIAgAA">
-<XPD:ATTR name="Name" type="string">Searching</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Search package</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">8</XPD:ATTR>
 <XPD:REF name="Views[0]">s77yW5LkuEyhvBU4byeARQAA</XPD:REF>
@@ -4747,7 +4747,7 @@
 <XPD:REF name="Includes[0]">4W8aZJtOUUCivMcmSqwcTwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[15]" type="UMLUseCase" guid="DAV2hMxFgEi/zLSez9idJQAA">
-<XPD:ATTR name="Name" type="string">Update status</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Update package status</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">8</XPD:ATTR>
 <XPD:REF name="Views[0]">l3LSLLg7x0Gc52ZOmB8ZEAAA</XPD:REF>
@@ -5018,7 +5018,7 @@
 <XPD:REF name="Includers[0]">4W8aZJtOUUCivMcmSqwcTwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[28]" type="UMLUseCase" guid="8goxCIUZyEG5wdO8KgcziQAA">
-<XPD:ATTR name="Name" type="string">Delete request</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Reject request</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">8</XPD:ATTR>
 <XPD:REF name="Views[0]">lQn4F5AERki5/DZ8ExTO8wAA</XPD:REF>
@@ -5187,7 +5187,7 @@
 <XPD:REF name="Associations[1]">Po+bPLd7ykG4O5UtDrch+QAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[39]" type="UMLUseCase" guid="hlYgpP30l0uybgeQTQlKUQAA">
-<XPD:ATTR name="Name" type="string">Create new/Add</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Add new coach</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">20</XPD:ATTR>
 <XPD:REF name="Views[0]">Xm+0JhqBd0OoXpnquKXGVgAA</XPD:REF>
@@ -5221,7 +5221,7 @@
 <XPD:REF name="Specializations[0]">SdOIiCMLxUmv4ZxCAIxc6gAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[40]" type="UMLUseCase" guid="/zgap51Prk6pwX63qkcoWgAA">
-<XPD:ATTR name="Name" type="string">Edit information/details</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Edit coach information</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">20</XPD:ATTR>
 <XPD:REF name="Views[0]">C/nwK2oim0ygXFWh+Z4GMAAA</XPD:REF>
@@ -5252,7 +5252,7 @@
 <XPD:REF name="Generalizations[4]">h+9GxliQO0mQrCLJtPjiAQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[41]" type="UMLUseCase" guid="QuFsmHtURU+S/MtYBM/EBAAA">
-<XPD:ATTR name="Name" type="string">Remove/Delete</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">Delete a coach</XPD:ATTR>
 <XPD:REF name="Namespace">MXxh3HOWzU2qUafY8R26/QAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">20</XPD:ATTR>
 <XPD:REF name="Views[0]">fl+vhqSk60+OfTeVmBBKlwAA</XPD:REF>
@@ -5517,8 +5517,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">qvp6ku45skS/Gw7fnIY8ZwAA</XPD:REF>
-<XPD:REF name="Views[1]">CZOfGT0lT0mhxkJjAEhJgQAA</XPD:REF>
-<XPD:REF name="Views[2]">xceW6+ShTkCn8/W4fcnZAgAA</XPD:REF>
+<XPD:REF name="Views[1]">xceW6+ShTkCn8/W4fcnZAgAA</XPD:REF>
+<XPD:REF name="Views[2]">CZOfGT0lT0mhxkJjAEhJgQAA</XPD:REF>
 <XPD:REF name="Views[3]">R/RTB8Cvzk6Bi/Is7GZ1gAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="9uI++hRNSUGxFCIcx0SvKAAA">
@@ -5526,8 +5526,8 @@
 <XPD:REF name="Participant">M22pPdm2lEi1RsnD0x/JCwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">DU/Z5ivL/kCnIz9cBW5CIwAA</XPD:REF>
-<XPD:REF name="Views[1]">p6Rlc/o+lECaQnpOgZdo1gAA</XPD:REF>
-<XPD:REF name="Views[2]">24EFtvo2M0WVt6yKWSSa4gAA</XPD:REF>
+<XPD:REF name="Views[1]">24EFtvo2M0WVt6yKWSSa4gAA</XPD:REF>
+<XPD:REF name="Views[2]">p6Rlc/o+lECaQnpOgZdo1gAA</XPD:REF>
 <XPD:REF name="Views[3]">+qx8F0NUW0mJbhVUjYMNVgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -5564,8 +5564,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">JrQIQ6p40kymT301bUyGQwAA</XPD:REF>
-<XPD:REF name="Views[1]">iXXexUUndEyELzqPwH5/YgAA</XPD:REF>
-<XPD:REF name="Views[2]">S4b46g3OAEO4GAsEEW8etgAA</XPD:REF>
+<XPD:REF name="Views[1]">S4b46g3OAEO4GAsEEW8etgAA</XPD:REF>
+<XPD:REF name="Views[2]">iXXexUUndEyELzqPwH5/YgAA</XPD:REF>
 <XPD:REF name="Views[3]">5E4ZG7XVBE6bJZZCw4p+mwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="RMMjI2VQN0SZurgmrEtA7QAA">
@@ -5573,8 +5573,8 @@
 <XPD:REF name="Participant">SbAJvekCVEiPTNTaxJ2BOQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">EmsgolfsqE2o97eaLD2PngAA</XPD:REF>
-<XPD:REF name="Views[1]">7PZoAeh61kSwFhusLsJIywAA</XPD:REF>
-<XPD:REF name="Views[2]">om9MYMwz5067sHQKbneFIQAA</XPD:REF>
+<XPD:REF name="Views[1]">om9MYMwz5067sHQKbneFIQAA</XPD:REF>
+<XPD:REF name="Views[2]">7PZoAeh61kSwFhusLsJIywAA</XPD:REF>
 <XPD:REF name="Views[3]">b3sKum6LgkKWqDLrISYnjwAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -5633,8 +5633,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">IQEavFmMWEmh6vNZALnxNwAA</XPD:REF>
-<XPD:REF name="Views[1]">qMV1ON+eY0u+VC8KLgNXhwAA</XPD:REF>
-<XPD:REF name="Views[2]">CVJ69hM8wEm1Ptc6Rt1EnAAA</XPD:REF>
+<XPD:REF name="Views[1]">CVJ69hM8wEm1Ptc6Rt1EnAAA</XPD:REF>
+<XPD:REF name="Views[2]">qMV1ON+eY0u+VC8KLgNXhwAA</XPD:REF>
 <XPD:REF name="Views[3]">m8bK/HaW+kCRJtWVNzlA9wAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="VrJoWK2yC0ezmfmnd5KbCgAA">
@@ -5642,8 +5642,8 @@
 <XPD:REF name="Participant">dVROVS4M0EO8PXS5diUIAgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">WZRZekh1MkeLuxuLlAUfngAA</XPD:REF>
-<XPD:REF name="Views[1]">/7eSOFJVjEWZ/UYJsuQMSAAA</XPD:REF>
-<XPD:REF name="Views[2]">HTCwBTzM+kqz3XDWqZwZPgAA</XPD:REF>
+<XPD:REF name="Views[1]">HTCwBTzM+kqz3XDWqZwZPgAA</XPD:REF>
+<XPD:REF name="Views[2]">/7eSOFJVjEWZ/UYJsuQMSAAA</XPD:REF>
 <XPD:REF name="Views[3]">+YIfo5W7HEqfljLSpWyVNAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -5660,8 +5660,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">J0aJ8bAAhEKSfnq3T1gKDQAA</XPD:REF>
-<XPD:REF name="Views[1]">v/A0deSR7EKCIxx4FmOjggAA</XPD:REF>
-<XPD:REF name="Views[2]">yvty9iTqQEm0rYtwNZ6BTQAA</XPD:REF>
+<XPD:REF name="Views[1]">yvty9iTqQEm0rYtwNZ6BTQAA</XPD:REF>
+<XPD:REF name="Views[2]">v/A0deSR7EKCIxx4FmOjggAA</XPD:REF>
 <XPD:REF name="Views[3]">sdXsHy3lskGBtubPQgTCuAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="uXC1C3ccJ0u1/PCZrvKDRAAA">
@@ -5669,8 +5669,8 @@
 <XPD:REF name="Participant">ITlIKv/XmkiT0upzFl3jagAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">G7dfokx8sE6+O5fvzldj0QAA</XPD:REF>
-<XPD:REF name="Views[1]">0Fe3xycQ7UuXP7J9+r3bcwAA</XPD:REF>
-<XPD:REF name="Views[2]">d5v4g0CVUUOm+21wj+SEcwAA</XPD:REF>
+<XPD:REF name="Views[1]">d5v4g0CVUUOm+21wj+SEcwAA</XPD:REF>
+<XPD:REF name="Views[2]">0Fe3xycQ7UuXP7J9+r3bcwAA</XPD:REF>
 <XPD:REF name="Views[3]">TjpXGCUcw0KMMG/PVVrDlAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -5687,8 +5687,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">BYyKOsgjf0OBIvgF+kpiZAAA</XPD:REF>
-<XPD:REF name="Views[1]">KcX+dBMksU6C3ub4D5YJFAAA</XPD:REF>
-<XPD:REF name="Views[2]">6rhKqhZLe0K5CNvH7FaRpQAA</XPD:REF>
+<XPD:REF name="Views[1]">6rhKqhZLe0K5CNvH7FaRpQAA</XPD:REF>
+<XPD:REF name="Views[2]">KcX+dBMksU6C3ub4D5YJFAAA</XPD:REF>
 <XPD:REF name="Views[3]">kO2ASUV74UWBiDa4R492FgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="Po+bPLd7ykG4O5UtDrch+QAA">
@@ -5696,8 +5696,8 @@
 <XPD:REF name="Participant">opR4zx7fe0q0kwIDUBeapgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">QbWeqofzW02bNoL6v8w0eAAA</XPD:REF>
-<XPD:REF name="Views[1]">/WG2HmfFFUaZCnO8B7KJGAAA</XPD:REF>
-<XPD:REF name="Views[2]">nDuV0wAOS0O6pnzA7FnWtwAA</XPD:REF>
+<XPD:REF name="Views[1]">nDuV0wAOS0O6pnzA7FnWtwAA</XPD:REF>
+<XPD:REF name="Views[2]">/WG2HmfFFUaZCnO8B7KJGAAA</XPD:REF>
 <XPD:REF name="Views[3]">RYE6RriMUk+LvnePIduH3AAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -5746,8 +5746,8 @@
 <XPD:REF name="Participant">ZOux2NfbY0mo4Ux9S2SCHwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">16</XPD:ATTR>
 <XPD:REF name="Views[0]">jvzAtBMw302cKFLoMdxTOgAA</XPD:REF>
-<XPD:REF name="Views[1]">Cegd6k2yCk+EW+h80iBXqgAA</XPD:REF>
-<XPD:REF name="Views[2]">28/dBbib8067INPoJqIwfAAA</XPD:REF>
+<XPD:REF name="Views[1]">28/dBbib8067INPoJqIwfAAA</XPD:REF>
+<XPD:REF name="Views[2]">Cegd6k2yCk+EW+h80iBXqgAA</XPD:REF>
 <XPD:REF name="Views[3]">8uOnPL3WbkGDRMEX2hylYQAA</XPD:REF>
 <XPD:REF name="Views[4]">zZjpDbSAiE2XYhK3V6x1EgAA</XPD:REF>
 <XPD:REF name="Views[5]">SvFIQbhlxEmA8/OtwWB1NAAA</XPD:REF>
@@ -5767,8 +5767,8 @@
 <XPD:REF name="Participant">ICHNXWPDbUq8tpDUuXQ8uwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">16</XPD:ATTR>
 <XPD:REF name="Views[0]">4sc4Q256rUmPooJFniEYGgAA</XPD:REF>
-<XPD:REF name="Views[1]">QyJbgSwcrEmA44TpZcimIwAA</XPD:REF>
-<XPD:REF name="Views[2]">5wcflzu+nkWz8K3nQzF/TgAA</XPD:REF>
+<XPD:REF name="Views[1]">5wcflzu+nkWz8K3nQzF/TgAA</XPD:REF>
+<XPD:REF name="Views[2]">QyJbgSwcrEmA44TpZcimIwAA</XPD:REF>
 <XPD:REF name="Views[3]">kBBvCVjX+Umnig/5I6F0hwAA</XPD:REF>
 <XPD:REF name="Views[4]">rq9uzhUf3k2TOsPp/ICa7gAA</XPD:REF>
 <XPD:REF name="Views[5]">6ZFSufbUuEybHC/hkQu+HgAA</XPD:REF>
