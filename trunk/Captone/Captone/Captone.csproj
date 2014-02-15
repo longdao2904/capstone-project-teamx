@@ -40,6 +40,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -110,6 +119,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -122,8 +134,12 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,7 +159,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DeliveryStatu.cs">
+    <Compile Include="Models\DeliveryStatus.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\iDeliver.Context.cs">
@@ -173,16 +189,10 @@
     <Compile Include="Models\Request.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Station.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trip.cs">
@@ -195,8 +205,14 @@
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Repositories\Interfaces\IAccountRepository.cs" />
+    <Compile Include="Services\Interfaces\AccountService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Css\admin.css" />
     <Content Include="Content\Css\Index.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
@@ -209,19 +225,120 @@
     <Content Include="Content\Images\facebook_32.png" />
     <Content Include="Content\Images\folder_blue_favourites.png" />
     <Content Include="Content\Images\footer.png" />
+    <Content Include="Content\Images\forms\bg_related_act.gif" />
+    <Content Include="Content\Images\forms\bubble_inner.gif" />
+    <Content Include="Content\Images\forms\bubble_left.gif" />
+    <Content Include="Content\Images\forms\bubble_right.gif" />
+    <Content Include="Content\Images\forms\choose-file.gif" />
+    <Content Include="Content\Images\forms\error_left.gif" />
+    <Content Include="Content\Images\forms\error_right.gif" />
+    <Content Include="Content\Images\forms\form_inp.gif" />
+    <Content Include="Content\Images\forms\form_inp_error.gif" />
+    <Content Include="Content\Images\forms\form_reset.gif" />
+    <Content Include="Content\Images\forms\form_select.gif" />
+    <Content Include="Content\Images\forms\form_select_small.gif" />
+    <Content Include="Content\Images\forms\form_submit.gif" />
+    <Content Include="Content\Images\forms\form_textarea.gif" />
+    <Content Include="Content\Images\forms\header_related_act.gif" />
+    <Content Include="Content\Images\forms\icon_calendar.jpg" />
+    <Content Include="Content\Images\forms\icon_edit.gif" />
+    <Content Include="Content\Images\forms\icon_list_arrow.gif" />
+    <Content Include="Content\Images\forms\icon_minus.gif" />
+    <Content Include="Content\Images\forms\icon_plus.gif" />
+    <Content Include="Content\Images\forms\lines_dotted_short.gif" />
+    <Content Include="Content\Images\forms\step_1.gif" />
+    <Content Include="Content\Images\forms\step_dark_left.gif" />
+    <Content Include="Content\Images\forms\step_dark_right.gif" />
+    <Content Include="Content\Images\forms\step_dark_round.gif" />
+    <Content Include="Content\Images\forms\step_light_left.gif" />
+    <Content Include="Content\Images\forms\step_light_right.gif" />
+    <Content Include="Content\Images\forms\step_light_round.gif" />
+    <Content Include="Content\Images\forms\upload_file.gif" />
     <Content Include="Content\Images\header.png" />
     <Content Include="Content\Images\icon512x512.png" />
     <Content Include="Content\Images\key-icon.png" />
     <Content Include="Content\Images\line-divider.png" />
+    <Content Include="Content\Images\login\icon_back_login.gif" />
+    <Content Include="Content\Images\login\inp_login.gif" />
+    <Content Include="Content\Images\login\loginbox_bg.png" />
+    <Content Include="Content\Images\login\login_bg.jpg" />
+    <Content Include="Content\Images\login\submit_login.gif" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\nav-item.png" />
     <Content Include="Content\Images\search-bg.png" />
     <Content Include="Content\Images\search-submit.png" />
+    <Content Include="Content\Images\shared\blank.gif" />
+    <Content Include="Content\Images\shared\border_bit.jpg" />
+    <Content Include="Content\Images\shared\cal_th_repeat.jpg" />
+    <Content Include="Content\Images\shared\cal_top_bg.jpg" />
+    <Content Include="Content\Images\shared\cal_top_repeat.jpg" />
+    <Content Include="Content\Images\shared\checkbox.gif" />
+    <Content Include="Content\Images\shared\content_repeat.jpg" />
+    <Content Include="Content\Images\shared\corner_bottom_left.jpg" />
+    <Content Include="Content\Images\shared\corner_bottom_right.jpg" />
+    <Content Include="Content\Images\shared\corner_top_left.jpg" />
+    <Content Include="Content\Images\shared\corner_top_right.jpg" />
+    <Content Include="Content\Images\shared\icon_idlogo.jpg" />
+    <Content Include="Content\Images\shared\logo.png" />
+    <Content Include="Content\Images\shared\nav\account_drop_bg.gif" />
+    <Content Include="Content\Images\shared\nav\account_line.gif" />
+    <Content Include="Content\Images\shared\nav\back_0.gif" />
+    <Content Include="Content\Images\shared\nav\back_1x.gif" />
+    <Content Include="Content\Images\shared\nav\Copy of pro_line_1.gif" />
+    <Content Include="Content\Images\shared\nav\divider.jpg" />
+    <Content Include="Content\Images\shared\nav\icon_acc_inbox.gif" />
+    <Content Include="Content\Images\shared\nav\icon_acc_personal.gif" />
+    <Content Include="Content\Images\shared\nav\icon_acc_projects.gif" />
+    <Content Include="Content\Images\shared\nav\icon_acc_settings.gif" />
+    <Content Include="Content\Images\shared\nav\icon_acc_stats.gif" />
+    <Content Include="Content\Images\shared\nav\nav_logout.gif" />
+    <Content Include="Content\Images\shared\nav\nav_myaccount.gif" />
+    <Content Include="Content\Images\shared\nav\pro_line_0x.gif" />
+    <Content Include="Content\Images\shared\nav\pro_line_1.gif" />
+    <Content Include="Content\Images\shared\nav\pro_line_2.gif" />
+    <Content Include="Content\Images\shared\nav\repeat.jpg" />
+    <Content Include="Content\Images\shared\side_shadowleft.jpg" />
+    <Content Include="Content\Images\shared\side_shadowright.jpg" />
+    <Content Include="Content\Images\shared\top_bg.jpg" />
+    <Content Include="Content\Images\shared\top_search_btn.gif" />
+    <Content Include="Content\Images\shared\top_search_inp.gif" />
+    <Content Include="Content\Images\shared\top_search_select.gif" />
+    <Content Include="Content\Images\shared\year_next.gif" />
+    <Content Include="Content\Images\shared\year_prev.gif" />
     <Content Include="Content\Images\sidebar-divider.png" />
     <Content Include="Content\Images\sidebar.png" />
     <Content Include="Content\Images\skype_32.png" />
     <Content Include="Content\Images\stock_mail_send.png" />
     <Content Include="Content\Images\tab-bg.png" />
+    <Content Include="Content\Images\table\actions_slider_bg.gif" />
+    <Content Include="Content\Images\table\action_delete.gif" />
+    <Content Include="Content\Images\table\action_edit.gif" />
+    <Content Include="Content\Images\table\content_round_repeat.jpg" />
+    <Content Include="Content\Images\table\content_round_top.jpg" />
+    <Content Include="Content\Images\table\dropdown_actions.gif" />
+    <Content Include="Content\Images\table\icon_close_blue.gif" />
+    <Content Include="Content\Images\table\icon_close_green.gif" />
+    <Content Include="Content\Images\table\icon_close_red.gif" />
+    <Content Include="Content\Images\table\icon_close_yellow.gif" />
+    <Content Include="Content\Images\table\message_blue.gif" />
+    <Content Include="Content\Images\table\message_green.gif" />
+    <Content Include="Content\Images\table\message_red.gif" />
+    <Content Include="Content\Images\table\message_yellow.gif" />
+    <Content Include="Content\Images\table\paging_far_left.gif" />
+    <Content Include="Content\Images\table\paging_far_right.gif" />
+    <Content Include="Content\Images\table\paging_left.gif" />
+    <Content Include="Content\Images\table\paging_right.gif" />
+    <Content Include="Content\Images\table\select_number_rows.gif" />
+    <Content Include="Content\Images\table\table_header.jpg" />
+    <Content Include="Content\Images\table\table_header_checkbox.jpg" />
+    <Content Include="Content\Images\table\table_header_options.jpg" />
+    <Content Include="Content\Images\table\table_header_repeat.jpg" />
+    <Content Include="Content\Images\table\table_icon_1.gif" />
+    <Content Include="Content\Images\table\table_icon_2.gif" />
+    <Content Include="Content\Images\table\table_icon_3.gif" />
+    <Content Include="Content\Images\table\table_icon_4.gif" />
+    <Content Include="Content\Images\table\table_icon_5.gif" />
+    <Content Include="Content\Images\table\table_sort_arrow.gif" />
     <Content Include="Content\Images\tracking-route-icon.png" />
     <Content Include="Content\Images\user32.png" />
     <Content Include="Content\Images\yahoo_32.png" />
@@ -306,6 +423,8 @@
       <DependentUpon>iDeliver.edmx</DependentUpon>
       <LastGenOutput>iDeliver.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -340,9 +459,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SentRequestForm.cshtml" />
     <Content Include="Views\Home\SuccessRegister.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
