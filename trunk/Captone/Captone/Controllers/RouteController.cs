@@ -26,7 +26,7 @@ namespace Captone.Controllers
         //
         // GET: /Route/Details/5
 
-        public ActionResult Details(string id = null)
+        public ActionResult Details(Int32 id)
         {
             Route route = db.Routes.Find(id);
             if (route == null)
