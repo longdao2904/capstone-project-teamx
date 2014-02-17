@@ -1,0 +1,50 @@
+﻿@model Captone.Models.Station
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Station</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StationName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StationLocation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationLocation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BreakTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BreakTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StationPhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationPhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.StationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

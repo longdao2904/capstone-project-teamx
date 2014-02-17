@@ -1,0 +1,22 @@
+﻿@model Captone.Models.CoachType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CoachType</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Seats)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Seats)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CoachTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,37 @@
+﻿@model Captone.Models.CoachType
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CoachType</legend>
+
+        @Html.HiddenFor(model => model.CoachTypeID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Seats)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Seats)
+            @Html.ValidationMessageFor(model => model.Seats)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

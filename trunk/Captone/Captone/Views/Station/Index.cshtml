@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Captone.Models.Station>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="tblContent">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StationLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BreakTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StationPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StationLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BreakTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StationPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StationID })
+        </td>
+    </tr>
+}
+
+</table>

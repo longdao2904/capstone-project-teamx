@@ -1,0 +1,36 @@
+﻿@model Captone.Models.Coach
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Coach</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NumberPlate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumberPlate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RouteID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RouteID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CoachType.CoachTypeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CoachType.CoachTypeID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CoachID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
