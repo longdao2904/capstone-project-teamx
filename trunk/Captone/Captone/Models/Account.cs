@@ -16,9 +16,9 @@ namespace Captone.Models
     {
         public Account()
         {
-            this.Comment = new HashSet<Comment>();
-            this.Rating = new HashSet<Rating>();
-            this.Request = new HashSet<Request>();
+            this.Comments = new HashSet<Comment>();
+            this.Ratings = new HashSet<Rating>();
+            this.Requests = new HashSet<Request>();
         }
     
         public string Username { get; set; }
@@ -27,9 +27,9 @@ namespace Captone.Models
         public string Email { get; set; }
         public string Phone { get; set; }
     
-        public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<Rating> Rating { get; set; }
-        public virtual ICollection<Request> Request { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Request> Requests { get; set; }
         public virtual UserInfo UserInfo { get; set; }
     }
 }

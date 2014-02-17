@@ -19,9 +19,9 @@ namespace Captone.Models
         public string CommentContent { get; set; }
         public System.DateTime DatePost { get; set; }
         public bool Status { get; set; }
-        public string RouteID { get; set; }
+        public int StationID { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual Route Route { get; set; }
+        public virtual Station Station { get; set; }
     }
 }

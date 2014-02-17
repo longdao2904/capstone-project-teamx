@@ -45,6 +45,9 @@
                         <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>
                     </li>
                     <li>
+                        @if(Session["USERNAME"] == null)
+                        {
+                        }
                         <a href="@Url.Action("SentRequestForm", "Home")" style="margin-left: 0px;">Gửi yêu cầu</a>
                     </li>
                 </ul>

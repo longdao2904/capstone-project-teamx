@@ -139,11 +139,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Services\AccountService.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -159,7 +154,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DeliveryStatus.cs">
+    <Compile Include="Models\DeliveryStatu.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\iDeliver.Context.cs">
@@ -203,6 +198,11 @@
     </Compile>
     <Compile Include="Models\Volume.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
@@ -406,6 +406,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <EntityDeploy Include="Models\iDeliver.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
@@ -423,8 +425,6 @@
       <DependentUpon>iDeliver.edmx</DependentUpon>
       <LastGenOutput>iDeliver.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -450,7 +450,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

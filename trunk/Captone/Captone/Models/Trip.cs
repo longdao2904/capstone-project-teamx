@@ -16,7 +16,7 @@ namespace Captone.Models
     {
         public Trip()
         {
-            this.Assigning = new HashSet<Assigning>();
+            this.Assignings = new HashSet<Assigning>();
         }
     
         public int TripID { get; set; }
@@ -29,7 +29,7 @@ namespace Captone.Models
         public string RouteID { get; set; }
         public int CoachID { get; set; }
     
-        public virtual ICollection<Assigning> Assigning { get; set; }
+        public virtual ICollection<Assigning> Assignings { get; set; }
         public virtual Coach Coach { get; set; }
         public virtual Route Route { get; set; }
     }

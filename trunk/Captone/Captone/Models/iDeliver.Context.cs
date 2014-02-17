@@ -7,15 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Captone.Repositories.Interfaces;
-
 namespace Captone.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
-    public partial class iDeliverEntities : DbContext, IUnitOfWork
+    
+    public partial class iDeliverEntities : DbContext
     {
         public iDeliverEntities()
             : base("name=iDeliverEntities")
@@ -27,25 +25,20 @@ namespace Captone.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Account> Account { get; set; }
-        public DbSet<Assigning> Assigning { get; set; }
-        public DbSet<Coach> Coach { get; set; }
-        public DbSet<CoachType> CoachType { get; set; }
-        public DbSet<Comment> Comment { get; set; }
-        public DbSet<DeliveryStatus> DeliveryStatus { get; set; }
-        public DbSet<Invoice> Invoice { get; set; }
-        public DbSet<ManageFee> ManageFee { get; set; }
-        public DbSet<Rating> Rating { get; set; }
-        public DbSet<Request> Request { get; set; }
-        public DbSet<Route> Route { get; set; }
-        public DbSet<Station> Station { get; set; }
-        public DbSet<Trip> Trip { get; set; }
-        public DbSet<UserInfo> UserInfo { get; set; }
-        public DbSet<Volume> Volume { get; set; }
-
-        void IUnitOfWork.SaveChanges()
-        {
-            base.SaveChanges();
-        }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Assigning> Assignings { get; set; }
+        public DbSet<Coach> Coaches { get; set; }
+        public DbSet<CoachType> CoachTypes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<DeliveryStatu> DeliveryStatus { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<ManageFee> ManageFees { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Route> Routes { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<UserInfo> UserInfoes { get; set; }
+        public DbSet<Volume> Volumes { get; set; }
     }
 }

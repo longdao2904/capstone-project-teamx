@@ -16,8 +16,8 @@ namespace Captone.Models
     {
         public ManageFee()
         {
-            this.Invoice = new HashSet<Invoice>();
-            this.Request = new HashSet<Request>();
+            this.Invoices = new HashSet<Invoice>();
+            this.Requests = new HashSet<Request>();
         }
     
         public int FeeID { get; set; }
@@ -27,7 +27,7 @@ namespace Captone.Models
         public double MinVolume { get; set; }
         public double MaxVolume { get; set; }
     
-        public virtual ICollection<Invoice> Invoice { get; set; }
-        public virtual ICollection<Request> Request { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

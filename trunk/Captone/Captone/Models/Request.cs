@@ -16,8 +16,8 @@ namespace Captone.Models
     {
         public Request()
         {
-            this.Assigning = new HashSet<Assigning>();
-            this.Invoice = new HashSet<Invoice>();
+            this.Assignings = new HashSet<Assigning>();
+            this.Invoices = new HashSet<Invoice>();
         }
     
         public int RequestID { get; set; }
@@ -35,9 +35,9 @@ namespace Captone.Models
         public string ReceiverAddress { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual ICollection<Assigning> Assigning { get; set; }
-        public virtual DeliveryStatus DeliveryStatus { get; set; }
-        public virtual ICollection<Invoice> Invoice { get; set; }
+        public virtual ICollection<Assigning> Assignings { get; set; }
+        public virtual DeliveryStatu DeliveryStatu { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ManageFee ManageFee { get; set; }
         public virtual Station Station { get; set; }
         public virtual Station Station1 { get; set; }

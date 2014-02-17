@@ -16,7 +16,7 @@ namespace Captone.Models
     {
         public Coach()
         {
-            this.Trip = new HashSet<Trip>();
+            this.Trips = new HashSet<Trip>();
         }
     
         public int CoachID { get; set; }
@@ -25,6 +25,6 @@ namespace Captone.Models
         public int CoachTypeID { get; set; }
     
         public virtual CoachType CoachType { get; set; }
-        public virtual ICollection<Trip> Trip { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
     }
 }
