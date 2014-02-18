@@ -10,17 +10,10 @@
 namespace Captone.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Volume
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int VolumeID { get; set; }
-        public Nullable<double> MaxVolume { get; set; }
-        public Nullable<double> MinVolume { get; set; }
-        public int RouteID { get; set; }
-        public int CoachTypeID { get; set; }
-    
-        public virtual CoachType CoachType { get; set; }
-        public virtual Route Route { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

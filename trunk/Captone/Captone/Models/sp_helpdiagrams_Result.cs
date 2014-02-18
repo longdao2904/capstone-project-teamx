@@ -10,19 +10,13 @@
 namespace Captone.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DeliveryStatus
+    public partial class sp_helpdiagrams_Result
     {
-        public DeliveryStatus()
-        {
-            this.Request = new HashSet<Request>();
-        }
-    
-        public int DeliveryStatusID { get; set; }
-        public string StatusName { get; set; }
-        public string Note { get; set; }
-    
-        public virtual ICollection<Request> Request { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

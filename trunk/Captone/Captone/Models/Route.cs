@@ -20,9 +20,9 @@ namespace Captone.Models
             this.Volumes = new HashSet<Volume>();
         }
     
-        public string RouteID { get; set; }
+        public int RouteID { get; set; }
         public string RouteName { get; set; }
-        public Nullable<int> StartPoint { get; set; }
+        public int StartPoint { get; set; }
         public Nullable<int> EndPoint { get; set; }
         public Nullable<double> AvgRateLevel { get; set; }
         public Nullable<int> CoachID { get; set; }
