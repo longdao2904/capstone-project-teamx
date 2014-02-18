@@ -192,16 +192,7 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Station.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trip.cs">
