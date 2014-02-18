@@ -139,6 +139,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CoachController.cs" />
+    <Compile Include="Controllers\CoachTypeController.cs" />
+    <Compile Include="Controllers\RouteController.cs" />
+    <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Controllers\TripController.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -187,7 +192,16 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Station.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trip.cs">
@@ -450,9 +464,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -462,6 +474,31 @@
     <Content Include="Views\Home\SentRequestForm.cshtml" />
     <Content Include="Views\Home\SuccessRegister.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Station\Create.cshtml" />
+    <Content Include="Views\Station\Delete.cshtml" />
+    <Content Include="Views\Station\Details.cshtml" />
+    <Content Include="Views\Station\Edit.cshtml" />
+    <Content Include="Views\Station\Index.cshtml" />
+    <Content Include="Views\Coach\Create.cshtml" />
+    <Content Include="Views\Coach\Delete.cshtml" />
+    <Content Include="Views\Coach\Details.cshtml" />
+    <Content Include="Views\Coach\Edit.cshtml" />
+    <Content Include="Views\Coach\Index.cshtml" />
+    <Content Include="Views\CoachType\Create.cshtml" />
+    <Content Include="Views\CoachType\Delete.cshtml" />
+    <Content Include="Views\CoachType\Details.cshtml" />
+    <Content Include="Views\CoachType\Edit.cshtml" />
+    <Content Include="Views\CoachType\Index.cshtml" />
+    <Content Include="Views\Route\Create.cshtml" />
+    <Content Include="Views\Route\Delete.cshtml" />
+    <Content Include="Views\Route\Details.cshtml" />
+    <Content Include="Views\Route\Edit.cshtml" />
+    <Content Include="Views\Route\Index.cshtml" />
+    <Content Include="Views\Trip\Create.cshtml" />
+    <Content Include="Views\Trip\Delete.cshtml" />
+    <Content Include="Views\Trip\Details.cshtml" />
+    <Content Include="Views\Trip\Edit.cshtml" />
+    <Content Include="Views\Trip\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
