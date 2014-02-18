@@ -12,9 +12,9 @@ namespace Captone.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryStatus
+    public partial class DeliveryStatu
     {
-        public DeliveryStatus()
+        public DeliveryStatu()
         {
             this.Requests = new HashSet<Request>();
         }

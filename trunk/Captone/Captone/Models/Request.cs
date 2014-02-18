@@ -36,7 +36,7 @@ namespace Captone.Models
     
         public virtual Account Account { get; set; }
         public virtual ICollection<Assigning> Assignings { get; set; }
-        public virtual DeliveryStatus DeliveryStatus { get; set; }
+        public virtual DeliveryStatu DeliveryStatu { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ManageFee ManageFee { get; set; }
         public virtual Station Station { get; set; }

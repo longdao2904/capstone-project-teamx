@@ -571,7 +571,7 @@
           <EntitySet Name="Coaches" EntityType="Models.Coach" />
           <EntitySet Name="CoachTypes" EntityType="Models.CoachType" />
           <EntitySet Name="Comments" EntityType="Models.Comment" />
-          <EntitySet Name="DeliveryStatus1" EntityType="Models.DeliveryStatus" />
+          <EntitySet Name="DeliveryStatus" EntityType="Models.DeliveryStatu" />
           <EntitySet Name="Invoices" EntityType="Models.Invoice" />
           <EntitySet Name="ManageFees" EntityType="Models.ManageFee" />
           <EntitySet Name="Ratings" EntityType="Models.Rating" />
@@ -623,7 +623,7 @@
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_Request_DeliveryStatus" Association="Models.FK_Request_DeliveryStatus">
-            <End Role="DeliveryStatus" EntitySet="DeliveryStatus1" />
+            <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_ManageFee" Association="Models.FK_Invoice_ManageFee">
@@ -755,7 +755,7 @@
           <NavigationProperty Name="Account" Relationship="Models.FK_Comment_Account" FromRole="Comment" ToRole="Account" />
           <NavigationProperty Name="Station" Relationship="Models.FK_Comment_Station" FromRole="Comment" ToRole="Station" />
         </EntityType>
-        <EntityType Name="DeliveryStatus">
+        <EntityType Name="DeliveryStatu">
           <Key>
             <PropertyRef Name="DeliveryStatusID" />
           </Key>
@@ -1030,7 +1030,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_DeliveryStatus">
-          <End Role="DeliveryStatus" Type="Models.DeliveryStatus" Multiplicity="0..1" />
+          <End Role="DeliveryStatus" Type="Models.DeliveryStatu" Multiplicity="0..1" />
           <End Role="Request" Type="Models.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryStatus">
@@ -1228,8 +1228,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryStatus1">
-            <EntityTypeMapping TypeName="Models.DeliveryStatus">
+          <EntitySetMapping Name="DeliveryStatus">
+            <EntityTypeMapping TypeName="Models.DeliveryStatu">
               <MappingFragment StoreEntitySet="DeliveryStatus">
                 <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />

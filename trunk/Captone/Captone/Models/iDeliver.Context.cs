@@ -33,7 +33,7 @@ namespace Captone.Models
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<CoachType> CoachTypes { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<DeliveryStatus> DeliveryStatus { get; set; }
+        public DbSet<DeliveryStatu> DeliveryStatus { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<ManageFee> ManageFees { get; set; }
         public DbSet<Rating> Ratings { get; set; }
