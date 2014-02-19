@@ -5,20 +5,20 @@ using Captone.Services.Interfaces;
 
 namespace Captone.Areas.Admin.Controllers
 {
-    public class AccountController : Controller
+    public class CustomerController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        public CustomerController(IAccountService accountService)
         {
             _accountService = accountService;
         }
 
         public ActionResult Index()
         {
-            return View(_accountService.GetAllAccounts());
+            return View(_accountService.GetAllCustomers());
         }
 
-        public ActionResult Edit(string username)
+        public ActionResult Create(string username)
         {
             return View();
         }

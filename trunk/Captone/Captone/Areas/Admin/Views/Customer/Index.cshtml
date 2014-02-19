@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Captone.Models.Account>
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -114,9 +114,9 @@
                                                 <td>@account.Email</td>
                                                 <td>@account.Role</td>
                                                 <td class="options-width">
-                                                    <a href="/Account/Edit?Username=@account.Username" class="icon-1 info-tooltip"></a>
-                                                    <a href="/Account/Delete?Username=@account.Username" class="icon-2 info-tooltip"></a>
-                                                    <a href="/Account/Details?Username=@account.Username" class="icon-3 info-tooltip"></a>
+                                                    <a href="/Admin/Customer/Edit?Username=@account.Username" class="icon-1 info-tooltip"></a>
+                                                    <a href="/Admin/Customer/Delete?Username=@account.Username" class="icon-2 info-tooltip"></a>
+                                                    <a href="/Admin/Customer/Details?Username=@account.Username" class="icon-3 info-tooltip"></a>
                                                 </td>
                                             </tr>
                                         }
@@ -150,7 +150,7 @@
                                         <a href="" class="page-far-right"></a>
                                     </td>
                                     <td>
-                                        <input id="_input" type="text" class="styledselect_pages" autocomplete="off" readonly="" tabindex="0"><div id="_container" class="selectbox-wrapper2" style="display: none; width: 130px;">
+                                        <input id="_input" type="text" class="styledselect_pages" autocomplete="off" readonly="readonly" tabindex="0"><div id="_container" class="selectbox-wrapper2" style="display: none; width: 130px;">
                                             <ul>
                                                 <li id="_input_" class="selected2">Number of rows</li>
                                                 <li id="_input_">1</li>

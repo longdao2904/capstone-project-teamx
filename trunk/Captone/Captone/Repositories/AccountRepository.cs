@@ -15,9 +15,14 @@ namespace Captone.Repositories
         {
         }
 
-        public List<Account> GetAllAccounts()
+        public IQueryable<Account> GetAllAccounts()
         {
-            return GetDbSet<Account>().ToList();
+            return GetDbSet<Account>();
+        }
+
+        public void Edit(Account account)
+        {
+            Update(account);
         }
     }
 }

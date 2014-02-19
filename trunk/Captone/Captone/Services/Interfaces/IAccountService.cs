@@ -7,6 +7,9 @@ namespace Captone.Services.Interfaces
 {
     public interface IAccountService
     {
-        List<Account> GetAllAccounts();
+        List<Account> GetAllCustomers();
+        List<Account> GetAllStaff();
+        bool EditAccount(Account account, string role);
+        Account GetAccount(string username);
     }
 }
