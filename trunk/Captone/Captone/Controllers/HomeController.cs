@@ -25,29 +25,27 @@ namespace Captone.Controllers
         {
             return View();
         }
+
+
+
         public ActionResult SentRequestForm()
         {
-            var ManageFee = _db.ManageFees.ToList();
-            return View(ManageFee);
+
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var ManageFee = _db.ManageFees.ToList();
+                return View(ManageFee);
+            }
         }
         public ActionResult SuccessRegister()
         {
             return View();
         }
 
-        public ActionResult AddRegister(FormCollection col)
-        {
-            Account account = new Account();
-            account.Email = col["Email"];
-            account.Username = col["Username"];
-            account.Password = col["Password"];
-            account.Phone = col["Phone"];
-            account.Role = "Customer";
-            Session["USERNAME"] = account.Username;
-            _db.Accounts.Add(account);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
         public Boolean CheckLogin(String Username, String Password)
         {
             var check = _db.Accounts.Where(p => p.Username == Username && p.Password == Password);
@@ -58,9 +56,8 @@ namespace Captone.Controllers
             }
 
             return false;
-
         }
-
+ 
         public ActionResult AddUserInfo(FormCollection col)
         {
             UserInfo info = new UserInfo();
@@ -72,17 +69,24 @@ namespace Captone.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public void CalculateFee(float minWeight, float maxWeight, float minVolume, float maxVolume)
-        {
 
+        public string CalculateFee(double minWeight, double maxWeight)
+        {
             var fee = (from m
                            in _db.ManageFees
                        where minWeight == m.MinWeight &&
-                             maxWeight == m.MaxWeight &&
-                             minVolume == m.MinVolume &&
-                             maxVolume == m.MaxVolume
-                       select new { m.Fee });
-            ViewData["FEE"] = fee;
+                             maxWeight == m.MaxWeight
+                       select new { m.Fee }).Single();
+
+            return fee.ToString();
+        }
+
+        public ActionResult GetAddressStation()
+        {
+            var address = (from m
+                       in _db.Stations
+                           select new { m.StationName, m.StationLocation }).ToList();
+            return Json(address, JsonRequestBehavior.AllowGet);
         }
     }
 }
