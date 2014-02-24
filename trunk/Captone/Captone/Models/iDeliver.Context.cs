@@ -7,15 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
 namespace Captone.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Captone.Repositories.Interfaces;
-
-    public partial class iDeliverEntities : DbContext, IUnitOfWork
+    
+    public partial class iDeliverEntities : DbContext
     {
         public iDeliverEntities()
             : base("name=iDeliverEntities")
@@ -42,9 +40,5 @@ namespace Captone.Models
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserInfo> UserInfoes { get; set; }
         public DbSet<Volume> Volumes { get; set; }
-        void IUnitOfWork.SaveChanges()
-        {
-            base.SaveChanges();
-        }
     }
 }

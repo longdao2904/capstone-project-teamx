@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
+using System.Data.SqlClient;
+using System.Data.EntityClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,8 +41,8 @@ namespace Captone.Controllers
             }
             else
             {
-                var ManageFee = _db.ManageFees.ToList();
-                return View(ManageFee);
+                var manageFee = _db.ManageFees.ToList();
+                return View(manageFee);
             }
         }
         public ActionResult SuccessRegister()
@@ -48,7 +52,7 @@ namespace Captone.Controllers
 
         public Boolean CheckLogin(String Username, String Password)
         {
-            var check = _db.Accounts.Where(p => p.Username == Username && p.Password == Password);
+            var check = _db.Accounts.Where(p => p.Username == Username && p.Password == Password).Single();
             if (check != null)
             {
                 Session["USERNAME"] = Username;
@@ -81,12 +85,20 @@ namespace Captone.Controllers
             return fee.ToString();
         }
 
-        public ActionResult GetAddressStation()
+        public ActionResult GetAddressStation(string stationLocation)
         {
-            var address = (from m
-                       in _db.Stations
-                           select new { m.StationName, m.StationLocation }).ToList();
+    
+           // var address = (from m
+                       //        in _db.Stations
+                     //      where m.StationLocation.Contains(stationLocation)
+                    //       select new {m.StationName, m.StationLocation}
+                   //       ).ToList();
+          //  return Json(address, JsonRequestBehavior.AllowGet);
+
+            string str = "select * from dbo.Station where StationLocation like N'%" + stationLocation + "%'";
+           var address = _db.Database.SqlQuery<Station>(str).ToList();
             return Json(address, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

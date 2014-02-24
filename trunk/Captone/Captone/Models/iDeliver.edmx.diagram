@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="120918c5a24840f094cda377e1de42a6" Name="Diagram1">
+      <Diagram DiagramId="8e026b3e37b24c9f86fb6abd640615ca" Name="Diagram1">
         <EntityTypeShape EntityType="iDeliverModel.Account" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Assigning" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Coach" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
@@ -37,10 +37,10 @@
         <AssociationConnector Association="iDeliverModel.FK_Rating_Station" ManuallyRouted="false" />
         <AssociationConnector Association="iDeliverModel.FK_Request_Station" ManuallyRouted="false" />
         <AssociationConnector Association="iDeliverModel.FK_Request_Station1" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_EndStation" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_StartStation" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Route_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Route_Station1" ManuallyRouted="false" />
         <AssociationConnector Association="iDeliverModel.FK_Trip_Route" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Volume_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Volume_Route1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

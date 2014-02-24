@@ -41,10 +41,6 @@
             <End Role="Station" EntitySet="Station" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.Store.FK_EndStation">
-            <End Role="Station" EntitySet="Station" />
-            <End Role="Route" EntitySet="Route" />
-          </AssociationSet>
           <AssociationSet Name="FK_Invoice_ManageFee" Association="iDeliverModel.Store.FK_Invoice_ManageFee">
             <End Role="ManageFee" EntitySet="ManageFee" />
             <End Role="Invoice" EntitySet="Invoice" />
@@ -81,7 +77,11 @@
             <End Role="Station" EntitySet="Station" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.Store.FK_StartStation">
+          <AssociationSet Name="FK_Route_Station" Association="iDeliverModel.Store.FK_Route_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Route_Station1" Association="iDeliverModel.Store.FK_Route_Station1">
             <End Role="Station" EntitySet="Station" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
@@ -101,7 +101,7 @@
             <End Role="CoachType" EntitySet="CoachType" />
             <End Role="Volume" EntitySet="Volume" />
           </AssociationSet>
-          <AssociationSet Name="FK_Volume_Route" Association="iDeliverModel.Store.FK_Volume_Route">
+          <AssociationSet Name="FK_Volume_Route1" Association="iDeliverModel.Store.FK_Volume_Route1">
             <End Role="Route" EntitySet="Route" />
             <End Role="Volume" EntitySet="Volume" />
           </AssociationSet>
@@ -213,9 +213,9 @@
           <Key>
             <PropertyRef Name="RouteID" />
           </Key>
-          <Property Name="RouteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="RouteName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="StartPoint" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartPoint" Type="int" />
           <Property Name="EndPoint" Type="int" />
           <Property Name="AvgRateLevel" Type="float" />
           <Property Name="CoachID" Type="int" />
@@ -244,7 +244,7 @@
           <Property Name="RealArrivalTime" Type="time" />
           <Property Name="AvailableVolume" Type="float" />
           <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="CoachID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
@@ -263,7 +263,7 @@
           <Property Name="VolumeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="MaxVolume" Type="float" />
           <Property Name="MinVolume" Type="float" />
-          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="CoachTypeID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Assigning_Request">
@@ -323,18 +323,6 @@
             </Principal>
             <Dependent Role="Comment">
               <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EndStation">
-          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
-          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="Route">
-              <PropertyRef Name="EndPoint" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -446,8 +434,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StartStation">
-          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+        <Association Name="FK_Route_Station">
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
           <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
@@ -455,6 +443,18 @@
             </Principal>
             <Dependent Role="Route">
               <PropertyRef Name="StartPoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_Station1">
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="EndPoint" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -506,7 +506,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Volume_Route">
+        <Association Name="FK_Volume_Route1">
           <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="1" />
           <End Role="Volume" Type="iDeliverModel.Store.Volume" Multiplicity="*" />
           <ReferentialConstraint>
@@ -607,11 +607,11 @@
             <End Role="Station" EntitySet="Stations" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.FK_EndStation">
+          <AssociationSet Name="FK_Route_Station" Association="iDeliverModel.FK_Route_Station">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
-          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.FK_StartStation">
+          <AssociationSet Name="FK_Route_Station1" Association="iDeliverModel.FK_Route_Station1">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
@@ -619,7 +619,7 @@
             <End Role="Route" EntitySet="Routes" />
             <End Role="Trip" EntitySet="Trips" />
           </AssociationSet>
-          <AssociationSet Name="FK_Volume_Route" Association="iDeliverModel.FK_Volume_Route">
+          <AssociationSet Name="FK_Volume_Route1" Association="iDeliverModel.FK_Volume_Route1">
             <End Role="Route" EntitySet="Routes" />
             <End Role="Volume" EntitySet="Volumes" />
           </AssociationSet>
@@ -757,18 +757,18 @@
           <Key>
             <PropertyRef Name="RouteID" />
           </Key>
-          <Property Name="RouteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="RouteName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="StartPoint" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RouteName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StartPoint" Type="Int32" />
           <Property Name="EndPoint" Type="Int32" />
           <Property Name="AvgRateLevel" Type="Double" />
           <Property Name="CoachID" Type="Int32" />
           <Property Name="Duration" Type="Double" />
           <Property Name="Distance" Type="Double" />
-          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_EndStation" FromRole="Route" ToRole="Station" />
-          <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_StartStation" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_Route_Station" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_Route_Station1" FromRole="Route" ToRole="Station" />
           <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
-          <NavigationProperty Name="Volumes" Relationship="iDeliverModel.FK_Volume_Route" FromRole="Route" ToRole="Volume" />
+          <NavigationProperty Name="Volumes" Relationship="iDeliverModel.FK_Volume_Route1" FromRole="Route" ToRole="Volume" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -784,8 +784,8 @@
           <NavigationProperty Name="Ratings" Relationship="iDeliverModel.FK_Rating_Station" FromRole="Station" ToRole="Rating" />
           <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_Station" FromRole="Station" ToRole="Request" />
           <NavigationProperty Name="Requests1" Relationship="iDeliverModel.FK_Request_Station1" FromRole="Station" ToRole="Request" />
-          <NavigationProperty Name="Routes" Relationship="iDeliverModel.FK_EndStation" FromRole="Station" ToRole="Route" />
-          <NavigationProperty Name="Routes1" Relationship="iDeliverModel.FK_StartStation" FromRole="Station" ToRole="Route" />
+          <NavigationProperty Name="Routes" Relationship="iDeliverModel.FK_Route_Station" FromRole="Station" ToRole="Route" />
+          <NavigationProperty Name="Routes1" Relationship="iDeliverModel.FK_Route_Station1" FromRole="Station" ToRole="Route" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -798,7 +798,7 @@
           <Property Name="RealArrivalTime" Type="Time" Precision="7" />
           <Property Name="AvailableVolume" Type="Double" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="CoachID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Assignings" Relationship="iDeliverModel.FK_Assigning_Trip" FromRole="Trip" ToRole="Assigning" />
           <NavigationProperty Name="Coach" Relationship="iDeliverModel.FK_Trip_Coach" FromRole="Trip" ToRole="Coach" />
@@ -821,10 +821,10 @@
           <Property Name="VolumeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="MaxVolume" Type="Double" />
           <Property Name="MinVolume" Type="Double" />
-          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="CoachTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CoachType" Relationship="iDeliverModel.FK_Volume_CoachType" FromRole="Volume" ToRole="CoachType" />
-          <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_Volume_Route" FromRole="Volume" ToRole="Route" />
+          <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_Volume_Route1" FromRole="Volume" ToRole="Route" />
         </EntityType>
         <Association Name="FK_Comment_Account">
           <End Role="Account" Type="iDeliverModel.Account" Multiplicity="1" />
@@ -1030,7 +1030,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EndStation">
+        <Association Name="FK_Route_Station">
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="StartPoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_Station1">
           <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
           <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1039,18 +1051,6 @@
             </Principal>
             <Dependent Role="Route">
               <PropertyRef Name="EndPoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StartStation">
-          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
-          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="Route">
-              <PropertyRef Name="StartPoint" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1066,7 +1066,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Volume_Route">
+        <Association Name="FK_Volume_Route1">
           <End Role="Route" Type="iDeliverModel.Route" Multiplicity="1" />
           <End Role="Volume" Type="iDeliverModel.Volume" Multiplicity="*" />
           <ReferentialConstraint>

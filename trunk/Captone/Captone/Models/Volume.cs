@@ -17,7 +17,7 @@ namespace Captone.Models
         public int VolumeID { get; set; }
         public Nullable<double> MaxVolume { get; set; }
         public Nullable<double> MinVolume { get; set; }
-        public int RouteID { get; set; }
+        public string RouteID { get; set; }
         public int CoachTypeID { get; set; }
     
         public virtual CoachType CoachType { get; set; }
