@@ -6,7 +6,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -24,8 +25,12 @@
             @Html.LabelFor(model => model.StationLocation)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.StationLocation)
+            <div id="location">
+                @Html.EditorFor(model => model.StationLocation)
+            </div>
+            <input type="button" value="Encode" onclick="decodeM()">
             @Html.ValidationMessageFor(model => model.StationLocation)
+            <input type="text" id="coords" />
         </div>
 
         <div class="editor-label">
@@ -64,4 +69,31 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        //function codeAddress() {
+        //    var geocoder = new google.maps.Geocoder();
+        //    var address = document.getElementById("StationLocation").value;
+        //    geocoder.geocode( { 'address': address}, function(results, status) {
+        //        if (status == google.maps.GeocoderStatus.OK) {
+        //            var position = results[0].geometry.location;
+        //            alert("Longtitude: " + results[0].geometry.location.lat.value)
+        //        } else {
+        //            alert("Geocode was not successful for the following reason: " + status);
+        //        }
+        //    })
+        //}
+        function decodeM() {
+            var address = document.getElementById("StationLocation").value;
+            $.ajax({
+                url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+                type: "POST",
+                success: function (res) {
+                    alert("Latitude: " + res.results[0].geometry.location.lat + ", Longtitude: " + res.results[0].geometry.location.lng)
+                    console.log(res.results[0].geometry.location.lat);
+                    console.log(res.results[0].geometry.location.lng);
+                    document.getElementById('coords').innerHTML = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+                }
+            });
+        }
+    </script>
 }
