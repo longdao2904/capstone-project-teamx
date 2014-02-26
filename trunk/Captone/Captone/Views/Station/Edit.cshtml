@@ -26,9 +26,17 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.StationLocation)
         </div>
-        <div class="editor-field">
+        <div class="editor-field" onchange="decodeM()">
             @Html.EditorFor(model => model.StationLocation)
             @Html.ValidationMessageFor(model => model.StationLocation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Province)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Province)
+            @Html.ValidationMessageFor(model => model.Province)
         </div>
 
         <div class="editor-label">
@@ -55,6 +63,14 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
+        <div class="editor-label" hidden="hidden">
+            @Html.LabelFor(model => model.Coordinate)
+        </div>
+        <div class="editor-field" hidden="hidden">
+            @Html.EditorFor(model => model.Coordinate)
+            @Html.ValidationMessageFor(model => model.Coordinate)
+        </div>
+
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -67,4 +83,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function decodeM() {
+            var address = document.getElementById("StationLocation").value;
+            $.ajax({
+                url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+                type: "POST",
+                success: function (res) {
+                    alert("Coordinate: " + res.results[0].geometry.location.lat + ", " + res.results[0].geometry.location.lng);
+                    document.getElementById('Coordinate').value = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+                }
+            });
+        }
+    </script>
 }
