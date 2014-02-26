@@ -5,7 +5,7 @@
 
 .container {
     background: url('../Images/sidebar.png') transparent repeat-y;
-    height: 690px;
+    height: 990px;
 }
 
 .container {
@@ -23,7 +23,7 @@
 .searchsubmit {
     position: absolute;
     top: 25px;
-    left: 195px;
+    left: 148px;
     width: 34px;
     height: 26px;
     border: 0px;
@@ -32,7 +32,7 @@
 
 .search {
     color: white;
-    width: 175px;
+    width: 128px;
     height: 26px;
     padding: 0px 10px;
     margin: 0px;
@@ -55,6 +55,7 @@
         margin-left: 15px;
         padding-top: 25px;
         margin-bottom: 20px;
+        width: 180px;
         background: url('../Images/sidebar-divider.png') no-repeat;
     }
 
@@ -85,7 +86,7 @@
     }
 
 .sf-vertical, .sf-vertical li {
-    width: 234px;
+    width: 180px;
 }
 
 #slidebar #nav > li.current-menu-item {
@@ -147,6 +148,7 @@ a > .sf-sub-indicator {
 .main {
     width: 680px;
     float: left;
+    margin-left: -50px;
 }
 
 ul.tabs {
@@ -242,6 +244,7 @@ ul.tabs {
 
 .social {
     background: url('../Images/sidebar-divider.png');
+    width: 140px;
 }
 
     .social a {
@@ -276,8 +279,8 @@ ol, ul {
 }
 
 .address-content {
-    margin-left: 74%;
-    margin-top: -52.5%;
+  margin-left: 54%;
+margin-top: -52.5%
 }
 
 .address-header {
@@ -332,3 +335,6 @@ li.viewstaff li{
             display:block;
             
         }
+.render-body {
+    margin-left: -60px;
+}

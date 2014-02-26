@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8e026b3e37b24c9f86fb6abd640615ca" Name="Diagram1">
+      <Diagram DiagramId="126d59c0c10446a48f6d006778408c97" Name="Diagram1">
         <EntityTypeShape EntityType="iDeliverModel.Account" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Assigning" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Coach" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
@@ -17,6 +17,7 @@
         <EntityTypeShape EntityType="iDeliverModel.Request" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Route" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Station" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.sysdiagram" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Trip" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.UserInfo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Volume" Width="1.5" PointX="8.25" PointY="22.375" IsExpanded="true" />

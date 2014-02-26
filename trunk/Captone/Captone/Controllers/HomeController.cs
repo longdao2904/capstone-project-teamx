@@ -100,5 +100,16 @@ namespace Captone.Controllers
             return Json(address, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult PostRequest(FormCollection col)
+        {
+
+            return View();
+        }
+        public List<Route> SearchRoute(string routes)
+        {
+
+            var list = new List<Route>();
+            return list;
+        } 
     }
 }
