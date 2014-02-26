@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "SentRequestForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<Captone.Models.ManageFee>
+@using Captone.Models
+@{
+    string username = Session["USERNAME"].ToString();
+    
+}
+<div class="request-container">
+
+    <div class="request-header">
+        <p>Gửi yêu cầu</p>
+    </div>
+    <div class="request-main">
+        <div class="input-distance">
+            <h4>Tên Người Gửi</h4>
+            <input type="text" name="" class="request-input-value" value="@username"/><br />
+        </div>
+        <div class="input-distance">
+            <h4>Địa Chỉ Người Gửi</h4>
+            <input type="text" name="address1" class="request-input-value" id="AddressOfSender" onchange="SuggestAddress()" />
+        </div>
+        <div class="bub-container">
+            <input type="checkbox" id="bulb" class="light" onclick="showPopUp()" />
+
+            <label for="bulb"></label>
+        </div>
+
+        <div class="input-distance">
+            <h4>Tên Người Nhận</h4>
+            <input type="text" name="" class="request-input-value" /><br />
+        </div>
+        <div class="input-distance">
+            <h4>Địa Chỉ Người Nhận</h4>
+            <input type="text" name="address2" class="request-input-value" id="AddressOfReceiver" onchange="CalculateGoogleMap()"/>
+        </div>
+         <div class="bub-container2">
+            <input type="checkbox" id="bulb2" class="light" onclick="showGoogleMap()" />
+
+            <label for="bulb2"></label>
+        </div>
+        <div class="input-distance">
+            <h4>Khối Lượng Ước Tính (kg)</h4>
+            <select class="request-input-value" style="height: 32px; width: 305px; text-indent: 115px;" id="Weigh">
+                <option></option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.FeeID">@item.MinWeight - @item.MaxWeight </option>
+                }
+            </select>
+        </div>
+        <div class="input-distance">
+            <h4>Thể Tính Ước Tính</h4>
+            <select class="request-input-value" q style="height: 32px; width: 305px; text-indent: 115px;" id="Volume">
+                <option></option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.FeeID">@item.MinVolume - @item.MaxVolume </option>
+                }
+            </select>
+        </div>
+        <div>
+            <input type="button" class="button-submit" id="buttonSuggest" style="margin-left: 200px; margin-top: 12px;" value="Xem giá ước tính" onclick="showPop()" disabled="disabled" />
+
+            <div class="pop" id="SuggestFee">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function showPopUp() {
+        var bulb = document.getElementById("bulb").checked;
+        if (bulb) {
+            //when bulb turn on
+            checkStation();
+        } else {
+
+        }
+
+    }
+    function showGoogleMap() {
+        var bulb = document.getElementById("bulb2").checked;
+        if (bulb) {
+            showMap();
+        } else {
+            document.getElementById("hide").innerHTML = "";
+        }
+
+    }
+    function SuggestAddress() {
+
+        var address = document.getElementById("AddressOfSender").value;
+        if (address != null) {
+            $('.bub-container').show();
+        } if (address == "") {
+            $('.bub-container').hide();
+            document.getElementById("bulb").checked = false;
+            
+        }
+    }
+    function CalculateGoogleMap() {
+        var address = document.getElementById("AddressOfReceiver").value;
+        if (address != null) {
+            $('.bub-container2').show();
+        } if (address == "") {
+            $('.bub-container2').hide();
+            document.getElementById("bulb2").checked = false;
+
+        }
+    }
+    $(function () {
+        SetWeigh();
+    });
+    function showMap() {
+        var sender = document.getElementById('AddressOfSender').value;
+        var receiver = document.getElementById('AddressOfReceiver').value;
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+
+        var myOptions = {
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        directionsDisplay.setMap(map);
+
+        var request = {
+            origin: sender + '',
+            destination: receiver + '',
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+
+                // Display the distance:
+                document.getElementById('distance').innerHTML = "Khoảng cách: " +
+                  Math.round((response.routes[0].legs[0].distance.value) * 1.609344 / 1000) + " km";
+
+                // Display the duration:
+                document.getElementById('duration').innerHTML = "Thời gian: " +
+                     Math.round((response.routes[0].legs[0].duration.value) / 3600) + " giờ";
+
+                directionsDisplay.setDirections(response);
+            }
+        });
+    }
+    function showPop() {
+        $('.pop').show();
+    }
+    function hid() {
+        $('.pop').hide();
+    }
+    function SetWeigh() {
+        var weigh = document.getElementById("Weigh");
+        weigh.onchange = function () {
+            SetVolume(this);
+            CalculateFee();
+            if (weigh.value == "") {
+                document.getElementById("buttonSuggest").disabled = true;
+            }
+            else {
+                document.getElementById("buttonSuggest").disabled = false;
+            }
+
+        };
+    }
+    function SetVolume(weigh) {
+        var volume = document.getElementById("Volume");
+        volume.value = weigh.value;
+    }
+
+    function CalculateFee() {
+        var select = document.getElementById("Weigh");
+        var options = select.options[select.selectedIndex].text;
+        var select1 = document.getElementById("Volume");
+        var options1 = select1.options[select1.selectedIndex].text;
+        var weigh = options.split(" - ");
+        var volume = options1.split(" - ");
+        $.ajax({
+            url: "/Home/CalculateFee",
+            type: "Post",
+            data: { minWeight: weigh[0], maxWeight: weigh[1] },
+            success: function (result) {
+                var fee = result.split(" = ");
+                $("#SuggestFee").html("Giá ước tính: " + fee[1].substring(0, fee[1].length - 1) + "VND" + "  " + "<a href='#' onclick='hid()'>Đóng</a>");
+            }
+        });
+    }
+
+
+    function checkStation() {
+        var index = 0;
+
+        var dis = [];
+        var str = document.getElementById('AddressOfSender').value;
+        var sender = str.split(",");
+        $.ajax({
+            url: "/Home/GetAddressStation",
+            contentType: "application/json",
+            dataType: "json",
+            data: { stationLocation: sender[sender.length - 1] },
+            success: function (result) {
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                for (var i in result) {
+                    var request = {
+                        origin: sender + '',
+                        destination: result[i].StationLocation + '',
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+
+                    (function (record) {
+                        directionsService.route(request, function (response, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                                // Display the distance:
+                                if (index < result.length) {
+                                    for (var m = 0; m < response.routes[0].legs.length; m++) {
+                                        var d = result[index++].StationName + " : " + response.routes[0].legs[m].distance.value;
+                                        dis.push(d);
+                                        alert(dis);
+                                    }
+                                    directionsDisplay.setDirections(response);
+                                    if (record == result.length - 1) {
+                                        ShortestDistance(dis);
+                                    }
+                                }
+                            }
+                        });
+                    })(i);
+                }
+            }
+        });
+    }
+    function ShortestDistance(dis) {
+        var test = dis[0];
+        var index = 0;
+        for (var i = 1; i < dis.length; i++) {
+            if (dis[i] < test) {
+                test = dis[i];
+                index = i;
+            }
+        }
+        alert(test);
+    }
+</script>
