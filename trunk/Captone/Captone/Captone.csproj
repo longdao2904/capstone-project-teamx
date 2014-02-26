@@ -145,6 +145,7 @@
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\TripController.cs" />
+    <Compile Include="Controllers\VolumeController.cs" />
     <Compile Include="Extensions\Constants.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
@@ -194,6 +195,12 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -228,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\admin.css" />
+    <Content Include="Content\Css\Staff.css" />
     <Content Include="Content\Css\Index.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
@@ -497,17 +505,24 @@
     <Content Include="Views\CoachType\Details.cshtml" />
     <Content Include="Views\CoachType\Edit.cshtml" />
     <Content Include="Views\CoachType\Index.cshtml" />
-    <Content Include="Views\Route\Create.cshtml" />
-    <Content Include="Views\Route\Delete.cshtml" />
-    <Content Include="Views\Route\Details.cshtml" />
-    <Content Include="Views\Route\Edit.cshtml" />
-    <Content Include="Views\Route\Index.cshtml" />
-    <Content Include="Views\Trip\Create.cshtml" />
-    <Content Include="Views\Trip\Delete.cshtml" />
-    <Content Include="Views\Trip\Details.cshtml" />
-    <Content Include="Views\Trip\Edit.cshtml" />
-    <Content Include="Views\Trip\Index.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
+    <Content Include="Views\Shared\NavigationStaff.cshtml" />
+    <Content Include="Views\Shared\_LayoutStaff.cshtml" />
+    <Content Include="Views\Route\Index.cshtml" />
+    <Content Include="Views\Route\Details.cshtml" />
+    <Content Include="Views\Route\Create.cshtml" />
+    <Content Include="Views\Route\Edit.cshtml" />
+    <Content Include="Views\Route\Delete.cshtml" />
+    <Content Include="Views\Trip\Index.cshtml" />
+    <Content Include="Views\Trip\Details.cshtml" />
+    <Content Include="Views\Trip\Create.cshtml" />
+    <Content Include="Views\Trip\Edit.cshtml" />
+    <Content Include="Views\Trip\Delete.cshtml" />
+    <Content Include="Views\Volume\Index.cshtml" />
+    <Content Include="Views\Volume\Details.cshtml" />
+    <Content Include="Views\Volume\Create.cshtml" />
+    <Content Include="Views\Volume\Edit.cshtml" />
+    <Content Include="Views\Volume\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

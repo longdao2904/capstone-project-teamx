@@ -30,6 +30,8 @@ namespace Captone.Models
         public Nullable<double> BreakTime { get; set; }
         public string StationPhone { get; set; }
         public string Description { get; set; }
+        public string Coordinate { get; set; }
+        public string Province { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<Captone.Models.Station>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Station Management";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Station List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table id="tblContent">
+<table>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.StationName)

@@ -71,7 +71,7 @@ namespace Captone.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "CoachTypeID", coach.CoachTypeID);
+            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats", coach.CoachTypeID);
             return View(coach);
         }
 

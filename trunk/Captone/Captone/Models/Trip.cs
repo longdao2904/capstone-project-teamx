@@ -26,7 +26,7 @@ namespace Captone.Models
         public Nullable<System.TimeSpan> RealArrivalTime { get; set; }
         public Nullable<double> AvailableVolume { get; set; }
         public System.DateTime Date { get; set; }
-        public string RouteID { get; set; }
+        public int RouteID { get; set; }
         public int CoachID { get; set; }
     
         public virtual ICollection<Assigning> Assignings { get; set; }

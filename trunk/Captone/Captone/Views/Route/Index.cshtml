@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Captone.Models.Route>
+
+@{
+    ViewBag.Title = "Route Management";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<h2>Route List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RouteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Station1.StationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Station.StationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvgRateLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Distance)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RouteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Station1.StationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Station.StationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvgRateLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Distance)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RouteID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RouteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RouteID })
+        </td>
+    </tr>
+}
+
+</table>

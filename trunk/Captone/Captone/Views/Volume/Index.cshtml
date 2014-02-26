@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Captone.Models.Volume>
+
+@{
+    ViewBag.Title = "Volume Management";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxVolume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinVolume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Route.RouteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoachType.Seats)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxVolume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinVolume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Route.RouteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CoachType.Seats)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VolumeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VolumeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VolumeID })
+        </td>
+    </tr>
+}
+
+</table>

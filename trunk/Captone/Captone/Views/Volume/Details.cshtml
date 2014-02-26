@@ -1,0 +1,43 @@
+﻿@model Captone.Models.Volume
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Volume</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MaxVolume)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaxVolume)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MinVolume)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MinVolume)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Route.RouteName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Route.RouteName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CoachType.CoachTypeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CoachType.CoachTypeID)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.VolumeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

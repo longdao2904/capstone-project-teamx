@@ -1,0 +1,74 @@
+﻿<div class="nav">
+    <div class="table">
+        <div class="nav-divider">&nbsp;</div>
+
+        @*Station tab*@
+        <ul class="select">
+            <li><a href="/Station"><b>Station</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li>@Html.ActionLink("Create a station", "Create", "Station", null, new {area = "Admin"})</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        @*Coach tab*@
+        <ul class="current">
+            <li><a href="/Coach"><b>Coach</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li>@Html.ActionLink("Add new coach", "Create", "Coach", null, new {area = "Admin"})</li>
+                        <li>@Html.ActionLink("Coach Type", "Index", "CoachType", null, new {area = "Admin"})</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        @*Volume tab*@
+        <ul class="select">
+            <li><a href="/Volume"><b>Volume</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li>@Html.ActionLink("Create new trip", "Create", "Trip", null, new {area = "Admin"})</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        @*Route tab*@
+        <ul class="select">
+            <li><a href="/Route"><b>Route</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li>@Html.ActionLink("Create new route", "Create", "Route", null, new {area = "Admin"})</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        @*Trip tab*@
+        <ul class="select">
+            <li><a href="/Trip"><b>Trip</b></a>
+                <div class="select_sub show">
+                    <ul class="sub">
+                        <li>@Html.ActionLink("Create new trip", "Create", "Trip", null, new {area = "Admin"})</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <div class="nav-divider">&nbsp;</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

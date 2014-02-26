@@ -22,17 +22,18 @@ namespace Captone.Models
     
         public int RequestID { get; set; }
         public string Username { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int DeliveryStatusID { get; set; }
         public Nullable<int> FeeID { get; set; }
         public Nullable<double> EstimateWeight { get; set; }
         public Nullable<double> EstimateVolume { get; set; }
         public System.DateTime DateRequest { get; set; }
         public string Description { get; set; }
-        public bool IsActive { get; set; }
         public int FromLocation { get; set; }
         public int ToLocation { get; set; }
         public string SenderAddress { get; set; }
         public string ReceiverAddress { get; set; }
+        public string SenderPhone { get; set; }
+        public string ReceiverPhone { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<Assigning> Assignings { get; set; }

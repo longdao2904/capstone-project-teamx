@@ -1,0 +1,74 @@
+﻿@model Captone.Models.Trip
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Trip</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateDepartureTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateArrivalTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RealDepartureTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RealDepartureTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RealArrivalTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RealArrivalTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AvailableVolume)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AvailableVolume)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Route.RouteName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Route.RouteName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Coach.NumberPlate)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

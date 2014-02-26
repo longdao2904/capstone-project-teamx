@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Captone.Models;
 using System.IO;
+using System.Web.Security;
 namespace Captone.Controllers
 {
     public class HomeController : Controller
@@ -17,20 +18,28 @@ namespace Captone.Controllers
         //
         // GET: /Home/
         private iDeliverEntities _db = new iDeliverEntities();
+
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult Register()
         {
             return View();
         }
+
         public ActionResult Login()
         {
             return View();
         }
 
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
 
+            return RedirectToAction("Index", "Home");
+        }
 
         public ActionResult SentRequestForm()
         {
@@ -45,6 +54,7 @@ namespace Captone.Controllers
                 return View(manageFee);
             }
         }
+
         public ActionResult SuccessRegister()
         {
             return View();
