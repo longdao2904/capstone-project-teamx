@@ -73,8 +73,19 @@ namespace Captone.Services
                     }
                 }
             }
-
-            return listTrip;
+            int temp = toStation;
+            while (temp != fromStation)
+            {
+                for (int i = 0; i < routes.Count; i++)
+                {
+                    if (routes[i].RouteID == temp)
+                    {
+                        listRoute.Add(routes[i]);
+                    }
+                }
+                temp = trace[temp];
+            }
+            return listRoute;
         }
 
         //check the diection always forward

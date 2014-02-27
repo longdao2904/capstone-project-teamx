@@ -8,6 +8,7 @@ namespace Captone.Services.Interfaces
 {
     public interface IAssigningService
     {
-        List<Trip> ProcessingRequest(Request requests);
+        List<Route> ProcessingRequest(Request requests);
+        bool CheckForward(string coordinateA, string coordinateB, string coordinateC)
     }
 }
