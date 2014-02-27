@@ -34,10 +34,42 @@ namespace Captone.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Register(Account model)
+        {
+            if (ModelState.IsValid)
+            {
+                Account tmp = new Account();
+                tmp.Username = model.Username;
+                tmp.Password = model.Password;
+                tmp.Email = model.Email;
+                tmp.Phone = model.Phone;
+                tmp.Role = "Customer";
+                tmp.BannedStatus = false;
+                // Attempt to register the user
+                _db.Accounts.Add(tmp);
+                try
+                {
+                    _db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "Register error");
+                    //ViewBag.Message = e.StackTrace;
+                    //return PartialView("Error");
+                }
+                Session["USERNAME"] = tmp.Username;
+                return RedirectToAction("Index", "Home");
+            }
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
+            Session["USERNAME"] = null;
+            Session["UserRole"] = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -66,6 +98,7 @@ namespace Captone.Controllers
             if (check != null)
             {
                 Session["USERNAME"] = Username;
+                Session["UserRole"] = check.Role;
                 return true;
             }
 
@@ -84,6 +117,7 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
         }
 
+        #region Request
         public string CalculateFee(double minWeight, double maxWeight)
         {
             var fee = (from m
@@ -110,16 +144,19 @@ namespace Captone.Controllers
             return Json(address, JsonRequestBehavior.AllowGet);
 
         }
+
         public ActionResult PostRequest(FormCollection col)
         {
 
             return View();
         }
+
         public List<Route> SearchRoute(string routes)
         {
 
             var list = new List<Route>();
             return list;
-        } 
+        }
+        #endregion
     }
 }

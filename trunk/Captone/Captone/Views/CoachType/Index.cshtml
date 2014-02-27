@@ -1,32 +1,42 @@
 ﻿@model IEnumerable<Captone.Models.CoachType>
 
 @{
-    ViewBag.Title = "Coach Type Management";
-    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    ViewBag.Title = "Các loại xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm một loại xe", "Create")
 </p>
-<table id="tblContent">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Seats)
-        </th>
-        <th></th>
-    </tr>
+<p>
+    <a href="~/Coach/Index"><i class="fa fa-list-alt"> Danh sách xe </i></a>
+</p>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Seats)
+                    </th>
+                    <th></th>
+                </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Seats)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CoachTypeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CoachTypeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CoachTypeID })
-        </td>
-    </tr>
-}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seats)
+                        </td>
+                        <td>
+                            <a href="/CoachType/Edit/@item.CoachTypeID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/CoachType/Details/@item.CoachTypeID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/CoachType/Delete/@item.CoachTypeID"><i class="fa fa-minus-square fa-fw"></i></a>
+                        </td>
+                    </tr>
+                }
 
-</table>
+            </table>
+        </div>
+    </div>
+</div>

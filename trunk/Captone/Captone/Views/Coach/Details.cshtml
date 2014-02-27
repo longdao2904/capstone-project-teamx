@@ -1,10 +1,8 @@
 ﻿@model Captone.Models.Coach
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Coach Details";
 }
-
-<h2>Details</h2>
 
 <fieldset>
     <legend>Coach</legend>
@@ -30,7 +28,10 @@
         @Html.DisplayFor(model => model.CoachType.Seats)
     </div>
 </fieldset>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.CoachID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="/Coach/Edit/@Model.CoachID">
+        <input type="button" class="btn btn-primary" value="Edit" /></a>
+    <a href="/Coach/Index">
+        <input type="button" class="btn btn-info" value="Back to list" /></a>
 </p>

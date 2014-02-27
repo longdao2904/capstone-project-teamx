@@ -1,101 +1,222 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <script src="~/Content/js/jquery-1.9.1.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Core CSS - Include with every page -->
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="~/Content/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="~/Content/css/plugins/timeline/timeline.css" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
     <script src="~/Content/js/googleMap.js"></script>
     <script src="~/Content/js/jquery.bpopup.min.js"></script>
-    <script type="text/javascript"
-        src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <link href="~/Content/Css/Index.css" rel="stylesheet" />
-    <link href="~/Content/Css/tooltip.css" rel="stylesheet" />
-    <script src="~/Content/js/tooltip.js"></script>
-    <link href="~/Content/Css/Register.css" rel="stylesheet" />
-    <link href="~/Content/Css/Login.css" rel="stylesheet" />
-    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
+    <script src="~/Content/js/sb-admin.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div id="cboxOverlay" style="display: none;"></div>
-    <div class="Overall">
-
-        <div class="container">
-            <div id="slidebar">
-                <a href="Index.cshtml" style="margin-left: -28px">
-                    <img src="~/Content/Images/logo.png">
-                </a>
-                <!--search-->
-                <div class="searchForm">
-                    <input type="text" class="search" value="Search..." onfocus="if(this.value == 'Search...') {this.value=''}" onblur="if(this.value == ''){this.value ='Search...'}">
-                    <input type="submit" class="searchsubmit" value="">
+    <div id="wrapper">
+        <div class="row">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <!-- /.navbar-header -->
+                <div class="col-lg-4">
+                    <a class="navbar-brand" href="/Home/Index"><i class="fa fa-truck fa-fw"></i>i-Deliver</a>
                 </div>
-                <!--end search -->
+                <div class="col-lg-4" style="margin-top: 0.5%;">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="nav navbar-top-links navbar-right" style="margin-right:20%; margin-top:2%;">
+                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                @if (Session["USERNAME"] != null)
+                                {
+                                    string username = @Session["USERNAME"].ToString().ToUpper();
+                                    <i class="fa fa-user fa-fw"></i> @username
+                                    <a href="/Home/LogOff"> | Sign out <i class="fa fa-sign-out"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="/Home/Login"><i class="fa fa-sign-in fa-fw"></i> Sign in</a>
+                                }
+                            </div>
+                        <!-- /.dropdown -->
+                    </ul>
+                </div>
+                <!-- /.navbar-top-links -->
 
-                <!--navigation-->
-                <ul id="nav" class="sf-menu sf-vertical sf-js-enabled sf-shadow">
-                    <li class="current-menu-item">
-                        <a href="@Url.Action("Index", "Home")" style="margin-left: 0px;">Trang chủ</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Login", "Home")" style="margin-left: 0px;">Đăng nhập</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Register", "Home")" style="margin-left: 0px;">Đăng kí</a>
-                    </li>
-                    <li>
-                        @if (Session["USERNAME"] == null)
-                        {
-                        }
-                        <a href="@Url.Action("SentRequestForm", "Home")" style="margin-left: 0px;">Gửi yêu cầu</a>
-                    </li>
-                </ul>
-                <ul class="social">
-                    <li>
-                        <h6>Thắc mắc và liên hệ</h6>
-                    </li>
-
-                    <li><a href="#" class="facebook"></a></li>
-
-                    <li><a href="#" class="yahoo" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>crystal_sun_92@yahoo.com')"></a></li>
-                    <li><a href="#" class="skype" onmouseover="tooltip.pop(this, '<h3>Vui lòng liên hệ:</h3>Longbv')"></a></li>
-                </ul>
-            </div>
-            <div style="margin-left: 69%">
-                @if (Session["USERNAME"] == null)
-                {
-                }
-                else
-                {
-                    string username = (string)Session["USERNAME"];
-                    <p>
-                        Chào mừng bạn,<img src="~/Content/Images/user32.png" />
-
-                        <a href="#" style="text-decoration: none">@username</a>
-                    </p>
-                   
-                }
-
-            </div>
-            <div class="render-body">
-                @RenderBody()
-            </div>
+            </nav>
         </div>
     </div>
-    <div class="clear"></div>
-        <div class="map-google" id="hide">
-        <div class="address-content">
-            <div id="duration"></div>
-            <div id="distance"></div>
-            <div id="map" style="width: 400px; height: 300px;"></div>
-            <div id="shortest">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
+                </li>
+                <li>
+                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
+                </li>
+                <li class="active">
+                    <a href="#"><i class="fa fa-user fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
+                    @if ((string)Session["USERNAME"] == null)
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Home/Login">Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a href="/Home/Register">Đăng ký</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="#">Đổi mật khẩu</a>
+                            </li>
+                        </ul>
+                    }
+                    <!-- /.nav-second-level -->
+                </li>
+                @if ((string)Session["UserRole"] == "Staff")
+                {
+                    <li class="active">
+                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Coach/Index">Xe</a>
+                            </li>
+                            <li>
+                                <a href="/Volume/Index">Tải trọng</a>
+                            </li>
+                            <li>
+                                <a href="/Station/Index">Trạm</a>
+                            </li>
+                            <li>
+                                <a href="/Trip/Index">Chuyến</a>
+                            </li>
+                            <li>
+                                <a href="/Route/Index">Tuyến</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                }
+                @if ((string)Session["UserRole"] == "Admin")
+                {
+                    <li class="active">
+                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Nhân viên</a>
+                            </li>
+                            <li>
+                                <a href="#">Biểu giá vận chuyển</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                }
+            </ul>
+            <!-- /#side-menu -->
+        </div>
+        <!-- /.sidebar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i>Google Maps
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="jumbotron">
+                            Maps render here
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
             </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i>Danh sách trạm
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-comment fa-fw"></i>Station 1
+                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                    </span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-comment fa-fw"></i>Station 2
+                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                    </span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-comment fa-fw"></i>Station 3
+                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                    </span>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <i class="fa fa-comment fa-fw"></i>Station 4
+                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                    </span>
+                            </a>
+                        </div>
+                        <!-- /.list-group -->
+                        <a href="/Station/Index" class="btn btn-default btn-block">Xem tất cả các trạm</a>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-th"></i> @ViewBag.Title
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        @RenderBody()
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-8 -->
+
         </div>
-        </div>
-    <div class="clear"></div>
-    <div class="footer">
+        <!-- /.row -->
     </div>
 
     @Scripts.Render("~/bundles/jquery")

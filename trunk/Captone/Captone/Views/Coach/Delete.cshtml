@@ -11,29 +11,33 @@
     <legend>Coach</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumberPlate)
+        @Html.DisplayNameFor(model => model.NumberPlate)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.NumberPlate)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RouteID)
+        @Html.DisplayNameFor(model => model.RouteID)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.RouteID)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CoachType.CoachTypeID)
+        @Html.DisplayNameFor(model => model.CoachType.CoachTypeID)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CoachType.CoachTypeID)
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+<br />
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <a href="/Coach/Edit/@Model.CoachID">
+            <input type="submit" class="btn btn-primary" value="Delete" /></a>
+        <a href="/Coach/Index">
+            <input type="button" class="btn btn-info" value="Back to list" /></a>
     </p>
 }

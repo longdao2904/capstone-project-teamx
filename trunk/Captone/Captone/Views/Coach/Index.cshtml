@@ -1,46 +1,53 @@
 ﻿@model IEnumerable<Captone.Models.Coach>
 
 @{
-    ViewBag.Title = "Coach Management";
-    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    ViewBag.Title = "Danh sách các xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Coach List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm một xe", "Create")
 </p>
-<table id="tblContent">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberPlate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RouteID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CoachType.Seats)
-        </th>
-        <th></th>
-    </tr>
+<p>
+    <a href="~/CoachType/Index"><i class="fa fa-list-alt"> Các loại xe </i></a>
+</p>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumberPlate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RouteID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CoachType.Seats)
+                    </th>
+                    <th></th>
+                </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberPlate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RouteID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CoachType.Seats)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CoachID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CoachID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CoachID })
-        </td>
-    </tr>
-}
-
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumberPlate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RouteID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CoachType.Seats)
+                        </td>
+                        <td>
+                            <a href="/Coach/Edit/@item.CoachID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/Coach/Details/@item.CoachID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/Coach/Delete/@item.CoachID"><i class="fa fa-minus-square fa-fw"></i></a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

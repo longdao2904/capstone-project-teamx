@@ -1,55 +1,63 @@
 ﻿@model IEnumerable<Captone.Models.Station>
 
 @{
-    ViewBag.Title = "Station Management";
-    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    ViewBag.Title = "Danh sách các trạm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Station List</h2>
+<p>
+    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm trạm mới", "Create")
+</p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StationName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StationLocation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BreakTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StationPhone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StationLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BreakTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StationPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StationName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StationLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BreakTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StationPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a href="/Station/Edit/@item.StationID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/Station/Details/@item.StationID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/Station/Delete/@item.StationID"><i class="fa fa-minus-square fa-fw"></i></a>
+                        </td>
+                    </tr>
+                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StationLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BreakTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StationPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StationID })
-        </td>
-    </tr>
-}
-
-</table>
+            </table>
+        </div>
+    </div>
+</div>
