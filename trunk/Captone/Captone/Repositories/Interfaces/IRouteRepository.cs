@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Captone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Captone.Repositories.Interfaces
 {
-    public class IRouteRepository
+    public interface IRouteRepository
     {
+        IQueryable<Route> GetAllRoutes();
     }
 }
