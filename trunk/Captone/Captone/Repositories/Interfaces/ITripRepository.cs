@@ -4,10 +4,10 @@ using Captone.Models;
 
 namespace Captone.Repositories.Interfaces
 {
-    public interface IAccountRepository
+    public interface ITripRepository
     {
-        IQueryable<Account> GetAllAccounts();
-        void Edit(Account account);
+        IQueryable<Trip> GetAll();
+        void Edit(Trip trip);
     }
 }
 

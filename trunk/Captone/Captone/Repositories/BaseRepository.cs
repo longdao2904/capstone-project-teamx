@@ -49,5 +49,10 @@ namespace Captone.Repositories
             SetEntityState(entity, EntityState.Modified);
             UnitOfWork.SaveChanges();
         }
+
+        protected virtual DbSet<TEntity> GetAll<TEntity>() where TEntity : class
+        {
+            return Context.Set<TEntity>();
+        }
     }
 }

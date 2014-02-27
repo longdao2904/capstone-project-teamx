@@ -139,12 +139,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FeeController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\CoachTypeController.cs" />
-    <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\StationController.cs" />
-    <Compile Include="Controllers\TripController.cs" />
     <Compile Include="Controllers\VolumeController.cs" />
     <Compile Include="Extensions\Constants.cs" />
     <Compile Include="Models\Account.cs">
@@ -195,16 +194,7 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Station.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trip.cs">
@@ -216,6 +206,10 @@
     <Compile Include="Models\Volume.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\CoachRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ITripRepository.cs" />
+    <Compile Include="Repositories\TripRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICoachRepository.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -231,7 +225,11 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Repositories\Interfaces\IAccountRepository.cs" />
+    <Compile Include="Services\CoachService.cs" />
+    <Compile Include="Services\AssigningService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IAssigningService.cs" />
+    <Compile Include="Services\Interfaces\ICoachService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\admin.css" />
@@ -447,12 +445,14 @@
     </Content>
     <Content Include="Models\iDeliver.edmx.diagram">
       <DependentUpon>iDeliver.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Models\iDeliver.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>iDeliver.edmx</DependentUpon>
       <LastGenOutput>iDeliver.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Fee\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

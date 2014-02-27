@@ -79,9 +79,18 @@ namespace Captone {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 20.
+        /// </summary>
+        internal static string MaxStation {
+            get {
+                return ResourceManager.GetString("MaxStation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All customers.
         /// </summary>
-        public static string Navigator_AllCustomer {
+        internal static string Navigator_AllCustomer {
             get {
                 return ResourceManager.GetString("Navigator_AllCustomer", resourceCulture);
             }

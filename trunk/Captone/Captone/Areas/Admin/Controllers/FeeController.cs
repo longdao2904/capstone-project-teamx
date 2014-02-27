@@ -6,36 +6,33 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Captone.Models;
-using Captone.Services.Interfaces;
 
 namespace Captone.Controllers
 {
-    public class CoachController : Controller
+    public class FeeController : Controller
     {
+        private iDeliverEntities db = new iDeliverEntities();
+
         //
         // GET: /Coach/
-        private readonly iDeliverEntities db = new iDeliverEntities();
-        private readonly ICoachService _coachService;
-        public CoachController(ICoachService coachService)
-        {
-            _coachService = coachService;
-        }
 
         public ActionResult Index()
         {
-            return View(_coachService.GetAllCoaches());
+            var fee = db.ManageFees.Include(c => c.Fee);
+            return View(fee.ToList());
         }
+
         //
         // GET: /Coach/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Coach coach = db.Coaches.Find(id);
-            if (coach == null)
+            ManageFee manageFee = db.ManageFees.Find(id);
+            if (manageFee == null)
             {
                 return HttpNotFound();
             }
-            return View(coach);
+            return View(manageFee);
         }
 
         //
@@ -43,7 +40,7 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats");
+            ViewBag.ManageFeesID = new SelectList(db.ManageFees, "CoachTypeID", "Seats");
             return View();
         }
 
@@ -51,17 +48,17 @@ namespace Captone.Controllers
         // POST: /Coach/Create
 
         [HttpPost]
-        public ActionResult Create(Coach coach)
+        public ActionResult Create(ManageFee manageFee)
         {
             if (ModelState.IsValid)
             {
-                db.Coaches.Add(coach);
+                db.ManageFees.Add(manageFee);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats", coach.CoachTypeID);
-            return View(coach);
+            ViewBag.ManageFeesID = new SelectList(db.ManageFees, "CoachType", "Seats", manageFee.FeeID);
+            return View(manageFee);
         }
 
         //
@@ -74,7 +71,7 @@ namespace Captone.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats", coach.CoachTypeID);
+            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "CoachTypeID", coach.CoachTypeID);
             return View(coach);
         }
 

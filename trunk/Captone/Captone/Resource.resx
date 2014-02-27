@@ -123,6 +123,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
   </data>
+  <data name="MaxStation" xml:space="preserve">
+    <value>20</value>
+  </data>
   <data name="Navigator_AllCustomer" xml:space="preserve">
     <value>All customers</value>
   </data>
