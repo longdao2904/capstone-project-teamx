@@ -143,11 +143,10 @@
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\CoachTypeController.cs" />
+    <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\StationController.cs" />
-<<<<<<< .mine
-=======
+    <Compile Include="Controllers\TripController.cs" />
     <Compile Include="Controllers\VolumeController.cs" />
->>>>>>> .r150
     <Compile Include="Extensions\Constants.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
@@ -194,13 +193,15 @@
     <Compile Include="Models\Request.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs" />
+    <Compile Include="Models\sp_helpdiagrams_Result.cs" />
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -210,38 +211,88 @@
     <Compile Include="Models\Volume.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\CoachRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITripRepository.cs" />
-    <Compile Include="Repositories\TripRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ICoachRepository.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Repositories\AccountRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\BaseRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CoachRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\IAccountRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\ICoachRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\IStationRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\ITripRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\RouteRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\StationRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\TripRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AccountRepository.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Repositories\Interfaces\IAccountRepository.cs" />
-    <Compile Include="Services\CoachService.cs" />
-    <Compile Include="Services\AssigningService.cs" />
-    <Compile Include="Services\Interfaces\IAccountService.cs" />
-    <Compile Include="Services\Interfaces\IAssigningService.cs" />
-    <Compile Include="Services\Interfaces\ICoachService.cs" />
+    <Compile Include="Services\AccountService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\AssigningService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\CoachService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\IAssigningService.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Interfaces\IAssigningService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Interfaces\ICoachService.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Captone.dll" />
+    <Content Include="bin\Captone.pdb" />
     <Content Include="Content\Css\admin.css" />
     <Content Include="Content\Css\Staff.css" />
     <Content Include="Content\Css\Index.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\Register.css" />
     <Content Include="Content\Css\tooltip.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\5star rating.jpg" />
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\drop-arrow-white.png" />
@@ -335,8 +386,6 @@
     <Content Include="Content\Images\sidebar-divider.png" />
     <Content Include="Content\Images\sidebar.png" />
     <Content Include="Content\Images\skype_32.png" />
-    <Content Include="Content\Images\station.png" />
-    <Content Include="Content\Images\station2.png" />
     <Content Include="Content\Images\stock_mail_send.png" />
     <Content Include="Content\Images\tab-bg.png" />
     <Content Include="Content\Images\table\actions_slider_bg.gif" />
@@ -372,15 +421,24 @@
     <Content Include="Content\Images\user32.png" />
     <Content Include="Content\Images\yahoo_32.png" />
     <Content Include="Content\js\bootstrap-tooltip.js" />
-    <Content Include="Content\js\googleMap.js" />
-    <Content Include="Content\js\jquery-1.9.1.min.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\demo\dashboard-demo.js" />
+    <Content Include="Content\js\demo\flot-demo.js" />
+    <Content Include="Content\js\demo\morris-demo.js" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery.bpopup.min.js" />
-    <Content Include="Content\js\jquery.easing-1.3.pack.js" />
-    <Content Include="Content\js\jquery.fancybox-1.3.4.js" />
-    <Content Include="Content\js\jquery.mousewheel-3.0.4.pack.js" />
-    <Content Include="Content\js\makermanager.js" />
-    <Content Include="Content\js\SentRequest.js" />
-    <Content Include="Content\js\tooltip.js" />
+    <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Content\js\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="Content\js\plugins\flot\excanvas.min.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\js\plugins\metisMenu\jquery.metisMenu.js" />
+    <Content Include="Content\js\plugins\morris\morris.js" />
+    <Content Include="Content\js\plugins\morris\raphael-2.1.0.min.js" />
+    <Content Include="Content\js\sb-admin.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -460,6 +518,39 @@
       <LastGenOutput>iDeliver.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Admin\Views\Fee\Index.cshtml" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -496,7 +587,6 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SentRequestForm.cshtml" />
     <Content Include="Views\Home\SuccessRegister.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Station\Create.cshtml" />
     <Content Include="Views\Station\Delete.cshtml" />
     <Content Include="Views\Station\Details.cshtml" />
@@ -512,9 +602,6 @@
     <Content Include="Views\CoachType\Details.cshtml" />
     <Content Include="Views\CoachType\Edit.cshtml" />
     <Content Include="Views\CoachType\Index.cshtml" />
-    <Content Include="Views\Shared\Navigation.cshtml" />
-    <Content Include="Views\Shared\NavigationStaff.cshtml" />
-    <Content Include="Views\Shared\_LayoutStaff.cshtml" />
     <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\Route\Details.cshtml" />
     <Content Include="Views\Route\Create.cshtml" />

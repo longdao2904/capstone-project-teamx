@@ -31,6 +31,7 @@ namespace Captone.Controllers
 
         public ActionResult Login()
         {
+ 
             return View();
         }
 

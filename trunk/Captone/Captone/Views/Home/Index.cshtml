@@ -4,69 +4,21 @@
 }
 <div class="main">
     <div class="page-content">
-        <ul class="tabs">
-            <li><a href="#" class="current">Information</a></li>
-            <li><a href="#" class="">News</a></li>
-            <li><a href="#" class="">Recent videos</a></li>
-            <li><a href="#" class="">Latest gallery</a></li>
+        @*Tab nav*@
+        <ul class="nav nav-pills">
+            <li><a href="#request-pills" data-toggle="tab">Quản lý các yêu cầu chuyển phát</a></li>
+            <li><a href="#jouney-pills" data-toggle="tab">Quản lý hành trình</a></li>
         </ul>
-    
-        <div class="panes">
-
-            <!-- Information  -->
-            <div style="display: block;">
-
-                <p class="info-box">
-                    <img src="img/mono-icons/smile32.png" title="smile32.png" alt="smile32.png" class="alignleft">
-                    Pellentesque habitant morbi ser fames turpis egestas tortor malesuada fames ete turpis egestas tortor quam, feugiat vitae.
-                </p>
-
-                <p class="info-box">
-                    <img src="img/mono-icons/boxdownload32.png" title="boxdownload32.png" alt="" class="alignleft">
-                    Pellentesque habitant morbi ser fames turpis egestas tortor malesuada fames ete turpis egestas tortor quam, feugiat vitae.
-                </p>
-
-                <p class="info-box">
-                    <img src="img/mono-icons/risegraph32.png" title="risegraph32.png" alt="risegraph32.png" class="alignleft">
-                    Pellentesque habitant morbi ser fames turpis egestas tortor malesuada fames ete turpis egestas tortor quam, feugiat vitae.
-                </p>
-
-                <p class="info-box">
-                    <img src="img/mono-icons/camera32.png" title="camera32.png" alt="" class="alignleft">
-                    Pellentesque habitant morbi ser fames turpis egestas tortor malesuada fames ete turpis egestas tortor quam, feugiat vitae.
-                </p>
-
+        @*Tab content*@
+        <div class="tab-content">
+            <div class="tab-pane fade" id="request-pills">
+                <h4>Home Tab</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
-            <!-- ENDS Information -->
-
-            <!-- Post list -->
-            <div style="display: none;">
-                <ul class="blocks-list">
-                    <li>
-                        <a href="single.html" class="border">
-                            <img src="img/dummies/114x86.jpg" alt="Post"></a>
-                        <div class="the-excerpt">
-                            <strong>Pellentesque habitant morbi tristique</strong>  senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.																			<a href="single.html" class="link-arrow">Read more →</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single.html" class="border">
-                            <img src="img/dummies/114x86.jpg" alt="Post"></a>
-                        <div class="the-excerpt">
-                            <strong>Pellentesque habitant morbi tristique</strong>  senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.																			<a href="single.html" class="link-arrow">Read more →</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single.html" class="border">
-                            <img src="img/dummies/114x86.jpg" alt="Post"></a>
-                        <div class="the-excerpt">
-                            <strong>Pellentesque habitant morbi tristique</strong>  senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.																			<a href="single.html" class="link-arrow">Read more →</a>
-                        </div>
-                    </li>
-                </ul>
+            <div class="tab-pane fade active in" id="jouney-pills">
+                <h4>Profile Tab</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
-            <!-- ENDS Post list -->
-
         </div>
     </div>
 </div>
