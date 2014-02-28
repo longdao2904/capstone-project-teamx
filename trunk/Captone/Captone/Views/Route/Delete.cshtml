@@ -1,60 +1,59 @@
 ﻿@model Captone.Models.Route
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa tuyến";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Route</legend>
+    <legend>Bạn muốn xóa tuyến @Model.RouteName ?</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RouteName)
+        @Html.DisplayNameFor(model => model.RouteName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.RouteName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station1.StationName)
+        @Html.DisplayNameFor(model => model.Station1.StationName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station1.StationName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station.StationName)
+        @Html.DisplayNameFor(model => model.Station.StationName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station.StationName)
     </div>
 
-    <div class="display-label">
+    @*<div class="display-label">
          @Html.DisplayNameFor(model => model.AvgRateLevel)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AvgRateLevel)
-    </div>
+    </div>*@
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Duration)
+        @Html.DisplayNameFor(model => model.Duration)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Duration)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Distance)
+        @Html.DisplayNameFor(model => model.Distance)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Distance)
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+<br />
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
     </p>
 }

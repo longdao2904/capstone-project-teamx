@@ -1,16 +1,14 @@
 ﻿@model Captone.Models.Trip
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Thay đổi thông tin chuyến";
 }
-
-<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Trip</legend>
+        <legend>Thông tin chuyến</legend>
 
         @Html.HiddenFor(model => model.TripID)
 
@@ -77,16 +75,13 @@
             @Html.DropDownList("CoachID", String.Empty)
             @Html.ValidationMessageFor(model => model.CoachID)
         </div>
-
+        <br />
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

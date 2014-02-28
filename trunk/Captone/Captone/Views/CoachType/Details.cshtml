@@ -1,22 +1,27 @@
 ﻿@model Captone.Models.CoachType
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Loại xe";
 }
-
-<h2>Details</h2>
-
 <fieldset>
-    <legend>CoachType</legend>
-
+    <legend>Thông tin loại xe</legend>
+    <blockquote>
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Seats)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Seats)
     </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Capacity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Capacity)
+    </div>
+    </blockquote>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.CoachTypeID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="/CoachType/Edit/@Model.CoachTypeID">
+        <input type="button" class="btn btn-primary" value="Chỉnh sửa thông tin" /></a>
+    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/CoachType/Index'" />
 </p>

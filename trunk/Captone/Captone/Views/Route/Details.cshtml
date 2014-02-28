@@ -1,57 +1,56 @@
 ﻿@model Captone.Models.Route
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết tuyến";
 }
 
-<h2>Details</h2>
-
 <fieldset>
-    <legend>Route</legend>
+    <legend>Thông tin chi tiết tuyến @Model.RouteName</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RouteName)
+        @Html.DisplayNameFor(model => model.RouteName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.RouteName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station1.StationName)
+        @Html.DisplayNameFor(model => model.Station1.StationName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station1.StationName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station.StationName)
+        @Html.DisplayNameFor(model => model.Station.StationName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station.StationName)
     </div>
 
-    <div class="display-label">
+    @*<div class="display-label">
          @Html.DisplayNameFor(model => model.AvgRateLevel)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AvgRateLevel)
-    </div>
+    </div>*@
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Duration)
+        @Html.DisplayNameFor(model => model.Duration)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Duration)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Distance)
+        @Html.DisplayNameFor(model => model.Distance)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Distance)
     </div>
 </fieldset>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.RouteID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Route/Edit/@Model.RouteID    '" />
+    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
 </p>

@@ -1,74 +1,73 @@
 ﻿@model Captone.Models.Trip
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa chuyến";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Trip</legend>
+    <legend>Bạn muốn xóa chuyến này ?</legend>
+    <blockquote>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.EstimateDepartureTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateDepartureTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.EstimateArrivalTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateArrivalTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RealDepartureTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RealDepartureTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RealDepartureTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RealDepartureTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RealArrivalTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RealArrivalTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RealArrivalTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RealArrivalTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.AvailableVolume)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AvailableVolume)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AvailableVolume)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AvailableVolume)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Date)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Date)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Date)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Date)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Route.RouteName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Route.RouteName)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Route.RouteName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Route.RouteName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Coach.NumberPlate)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Coach.NumberPlate)
+        </div>
+    </blockquote>
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
     </p>
 }

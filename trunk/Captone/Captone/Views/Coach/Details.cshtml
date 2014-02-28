@@ -1,12 +1,12 @@
 ﻿@model Captone.Models.Coach
 
 @{
-    ViewBag.Title = "Coach Details";
+    ViewBag.Title = "Thông tin xe";
 }
 
 <fieldset>
-    <legend>Coach</legend>
-
+    <legend>Chi tiết xe @Model.NumberPlate </legend>
+    <blockquote>
     <div class="display-label">
          @Html.DisplayNameFor(model => model.NumberPlate)
     </div>
@@ -27,6 +27,7 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.CoachType.Seats)
     </div>
+    </blockquote>
 </fieldset>
 <br />
 <p>

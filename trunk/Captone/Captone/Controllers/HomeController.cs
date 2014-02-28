@@ -118,7 +118,6 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
         }
 
-    
         public string CalculateFee(double minWeight, double maxWeight)
         {
             var fee = (from m

@@ -19,6 +19,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Seats)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Capacity)
+                    </th>
                     <th></th>
                 </tr>
 
@@ -27,6 +30,9 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Seats)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capacity)
                         </td>
                         <td>
                             <a href="/CoachType/Edit/@item.CoachTypeID"><i class="fa fa-edit fa-fw"></i></a>|

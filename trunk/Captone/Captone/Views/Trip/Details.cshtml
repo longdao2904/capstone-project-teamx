@@ -1,71 +1,70 @@
 ﻿@model Captone.Models.Trip
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Thông tin chuyến xe";
 }
 
-<h2>Details</h2>
-
 <fieldset>
-    <legend>Trip</legend>
+    <legend>Chuyến xe theo tuyến @Model.Route.RouteName</legend>
+    <blockquote>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.EstimateDepartureTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateDepartureTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.EstimateArrivalTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateArrivalTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RealDepartureTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RealDepartureTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RealDepartureTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RealDepartureTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RealArrivalTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RealArrivalTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.RealArrivalTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RealArrivalTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.AvailableVolume)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.AvailableVolume)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AvailableVolume)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AvailableVolume)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Date)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Date)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Date)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Date)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Route.RouteName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Route.RouteName)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Route.RouteName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Route.RouteName)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Coach.NumberPlate)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Coach.NumberPlate)
+        </div>
+    </blockquote>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.TripID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Trip/Edit/@Model.TripID'" />
+    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
 </p>

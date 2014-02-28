@@ -38,7 +38,7 @@
         <br />
         <p>
             <input type="submit" class="btn btn-primary" value="Save" />
-            <a href="/Coach/Index"><input type="button" class="btn btn-info" value="Back to list" /></a>
+            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Coach/Index'" />
         </p>
     </fieldset>
 }
@@ -46,3 +46,11 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    function changeClass() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+
+    window.onload = changeClass();
+</script>

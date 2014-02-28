@@ -1,16 +1,14 @@
 ﻿@model Captone.Models.Route
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Thay đổi thông tin tuyến";
 }
-
-<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Route</legend>
+        <legend>Thông tin tuyến</legend>
 
         @Html.HiddenFor(model => model.RouteID)
 
@@ -38,13 +36,13 @@
             @Html.ValidationMessageFor(model => model.EndPoint)
         </div>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.AvgRateLevel)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.AvgRateLevel)
             @Html.ValidationMessageFor(model => model.AvgRateLevel)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Duration)
@@ -61,16 +59,13 @@
             @Html.EditorFor(model => model.Distance)
             @Html.ValidationMessageFor(model => model.Distance)
         </div>
-
+        <br />
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
