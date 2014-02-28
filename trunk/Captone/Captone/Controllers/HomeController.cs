@@ -161,8 +161,8 @@ namespace Captone.Controllers
             request.ReceiverAddress = col["ReceiverAddress"];
             request.SenderPhone = col["SenderPhone"];
             request.ReceiverPhone = col["ReceiverPhone"];
-            request.ReceiverName = col["ReceiverName"];
-            request.TypeOfPayment = col["TypeOfPayment"];
+            //request.ReceiverName = col["ReceiverName"];
+            //request.TypeOfPayment = col["TypeOfPayment"];
             _db.Requests.Add(request);
             _db.SaveChanges();
             return RedirectToAction("Index");

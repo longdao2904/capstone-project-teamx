@@ -146,7 +146,6 @@
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\TripController.cs" />
-    <Compile Include="Controllers\VolumeController.cs" />
     <Compile Include="Extensions\Constants.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
@@ -196,19 +195,13 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs" />
-    <Compile Include="Models\sp_helpdiagrams_Result.cs" />
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserInfo.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Volume.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -499,24 +492,6 @@
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Staff\Edit.cshtml" />
-    <EntityDeploy Include="Models\iDeliver.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\iDeliver.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\iDeliver.edmx.diagram">
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Models\iDeliver.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-      <LastGenOutput>iDeliver.cs</LastGenOutput>
-    </Content>
     <Content Include="Areas\Admin\Views\Fee\Index.cshtml" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
@@ -551,6 +526,23 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <EntityDeploy Include="Models\iDeliver.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\iDeliver.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\iDeliver.edmx.diagram">
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\iDeliver.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -612,11 +604,6 @@
     <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\Edit.cshtml" />
     <Content Include="Views\Trip\Delete.cshtml" />
-    <Content Include="Views\Volume\Index.cshtml" />
-    <Content Include="Views\Volume\Details.cshtml" />
-    <Content Include="Views\Volume\Create.cshtml" />
-    <Content Include="Views\Volume\Edit.cshtml" />
-    <Content Include="Views\Volume\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

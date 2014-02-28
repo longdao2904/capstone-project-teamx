@@ -22,37 +22,21 @@ namespace Captone.Models
     
         public int RequestID { get; set; }
         public string Username { get; set; }
-<<<<<<< .mine
-        public int DeliveryStatusID { get; set; }
-        public int FeeID { get; set; }
-        public string EstimateWeight { get; set; }
-        public string EstimateVolume { get; set; }
-=======
         public int DeliveryStatusID { get; set; }
         public Nullable<int> FeeID { get; set; }
-        public Nullable<double> EstimateWeight { get; set; }
-        public Nullable<double> EstimateVolume { get; set; }
->>>>>>> .r150
+        public string EstimateWeight { get; set; }
+        public string EstimateVolume { get; set; }
         public System.DateTime DateRequest { get; set; }
         public string Description { get; set; }
-<<<<<<< .mine
-        public Nullable<int> FromLocation { get; set; }
-        public Nullable<int> ToLocation { get; set; }
-=======
         public int FromLocation { get; set; }
         public int ToLocation { get; set; }
->>>>>>> .r150
         public string SenderAddress { get; set; }
         public string ReceiverAddress { get; set; }
-<<<<<<< .mine
         public string SenderPhone { get; set; }
-        public string ReceiverPhone { get; set; }
         public string ReceiverName { get; set; }
-        public string TypeOfPayment { get; set; }
-=======
-        public string SenderPhone { get; set; }
         public string ReceiverPhone { get; set; }
->>>>>>> .r150
+        public Nullable<bool> Type { get; set; }
+        public string TypeOfPayment { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<Assigning> Assignings { get; set; }

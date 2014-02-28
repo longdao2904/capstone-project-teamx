@@ -17,7 +17,6 @@ namespace Captone.Models
         public Route()
         {
             this.Trips = new HashSet<Trip>();
-            this.Volumes = new HashSet<Volume>();
         }
     
         public int RouteID { get; set; }
@@ -27,10 +26,10 @@ namespace Captone.Models
         public Nullable<double> AvgRateLevel { get; set; }
         public Nullable<double> Duration { get; set; }
         public Nullable<double> Distance { get; set; }
+        public Nullable<double> Container { get; set; }
     
         public virtual Station Station { get; set; }
         public virtual Station Station1 { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
-        public virtual ICollection<Volume> Volumes { get; set; }
     }
 }

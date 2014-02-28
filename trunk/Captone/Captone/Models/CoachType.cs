@@ -17,13 +17,12 @@ namespace Captone.Models
         public CoachType()
         {
             this.Coaches = new HashSet<Coach>();
-            this.Volumes = new HashSet<Volume>();
         }
     
         public int CoachTypeID { get; set; }
         public int Seats { get; set; }
+        public Nullable<double> Capacity { get; set; }
     
         public virtual ICollection<Coach> Coaches { get; set; }
-        public virtual ICollection<Volume> Volumes { get; set; }
     }
 }

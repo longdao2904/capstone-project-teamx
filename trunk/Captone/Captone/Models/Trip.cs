@@ -24,7 +24,9 @@ namespace Captone.Models
         public Nullable<System.TimeSpan> EstimateArrivalTime { get; set; }
         public Nullable<System.TimeSpan> RealDepartureTime { get; set; }
         public Nullable<System.TimeSpan> RealArrivalTime { get; set; }
+        public Nullable<double> EstimateVolume { get; set; }
         public Nullable<double> AvailableVolume { get; set; }
+        public Nullable<double> RealVolume { get; set; }
         public System.DateTime Date { get; set; }
         public int RouteID { get; set; }
         public int CoachID { get; set; }
