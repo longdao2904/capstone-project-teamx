@@ -146,9 +146,26 @@ namespace Captone.Controllers
         }
 
         public ActionResult PostRequest(FormCollection col)
-        {
+        {   Request request = new Request();
+            request.Username = col["Username"];
+            request.DeliveryStatusID = 1;
+            request.FeeID = int.Parse(col["FeeID"]);
+            request.EstimateWeight = col["EstimateWeight"];
+            request.EstimateVolume = col["EstimateVolume"];
+            request.DateRequest = DateTime.Parse(col["DateRequest"]);
+            request.Description = "";
+            request.FromLocation = int.Parse(col["FromLocation"]);
+            request.ToLocation = int.Parse(col["ToLocation"]);
+            request.SenderAddress = col["SenderAddress"];
+            request.ReceiverAddress = col["ReceiverAddress"];
+            request.SenderPhone = col["SenderPhone"];
+            request.ReceiverPhone = col["ReceiverPhone"];
+            request.ReceiverName = col["ReceiverName"];
+            request.TypeOfPayment = col["TypeOfPayment"];
+            _db.Requests.Add(request);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
 
-            return View();
         }
 
         public List<Route> SearchRoute(string routes)

@@ -42,11 +42,19 @@
             <End Role="Station" EntitySet="Station" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.Store.FK_EndStation">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_ManageFee" Association="iDeliverModel.Store.FK_Invoice_ManageFee">
+=======
           <AssociationSet Name="FK_EndStation" Association="Models.Store.FK_EndStation">
             <End Role="Station" EntitySet="Station" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_ManageFee" Association="Models.Store.FK_Invoice_ManageFee">
+>>>>>>> .r150
             <End Role="ManageFee" EntitySet="ManageFee" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
@@ -82,11 +90,19 @@
             <End Role="Station" EntitySet="Station" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.Store.FK_StartStation">
+=======
           <AssociationSet Name="FK_StartStation" Association="Models.Store.FK_StartStation">
+>>>>>>> .r150
             <End Role="Station" EntitySet="Station" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_Trip_Coach" Association="iDeliverModel.Store.FK_Trip_Coach">
+=======
           <AssociationSet Name="FK_Trip_Coach" Association="Models.Store.FK_Trip_Coach">
+>>>>>>> .r150
             <End Role="Coach" EntitySet="Coach" />
             <End Role="Trip" EntitySet="Trip" />
           </AssociationSet>
@@ -102,7 +118,11 @@
             <End Role="CoachType" EntitySet="CoachType" />
             <End Role="Volume" EntitySet="Volume" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_Volume_Route" Association="iDeliverModel.Store.FK_Volume_Route">
+=======
           <AssociationSet Name="FK_Volume_Route" Association="Models.Store.FK_Volume_Route">
+>>>>>>> .r150
             <End Role="Route" EntitySet="Route" />
             <End Role="Volume" EntitySet="Volume" />
           </AssociationSet>
@@ -200,16 +220,34 @@
           </Key>
           <Property Name="RequestID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
+<<<<<<< .mine
+          <Property Name="DeliveryStatusID" Type="int" Nullable="false" />
+          <Property Name="FeeID" Type="int" Nullable="false" />
+          <Property Name="EstimateWeight" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EstimateVolume" Type="nvarchar" Nullable="false" MaxLength="50" />
+=======
           <Property Name="DeliveryStatusID" Type="int" Nullable="false" />
           <Property Name="FeeID" Type="int" />
           <Property Name="EstimateWeight" Type="float" />
           <Property Name="EstimateVolume" Type="float" />
+>>>>>>> .r150
           <Property Name="DateRequest" Type="date" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
+<<<<<<< .mine
+          <Property Name="FromLocation" Type="int" />
+          <Property Name="ToLocation" Type="int" />
+          <Property Name="SenderAddress" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ReceiverAddress" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="SenderPhone" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ReceiverPhone" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ReceiverName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="TypeOfPayment" Type="nvarchar" Nullable="false" MaxLength="50" />
+=======
           <Property Name="FromLocation" Type="int" Nullable="false" />
           <Property Name="ToLocation" Type="int" Nullable="false" />
           <Property Name="SenderAddress" Type="nvarchar" MaxLength="500" />
           <Property Name="ReceiverAddress" Type="nvarchar" MaxLength="500" />
+>>>>>>> .r150
           <Property Name="SenderPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="ReceiverPhone" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -229,7 +267,7 @@
           <Key>
             <PropertyRef Name="StationID" />
           </Key>
-          <Property Name="StationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StationID" Type="int" Nullable="false" />
           <Property Name="StationName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="StationLocation" Type="nvarchar" Nullable="false" MaxLength="500" />
           <Property Name="BreakTime" Type="float" />
@@ -341,6 +379,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_EndStation">
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="EndPoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+=======
         <Association Name="FK_EndStation">
           <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
           <End Role="Route" Type="Models.Store.Route" Multiplicity="*" />
@@ -353,6 +405,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+>>>>>>> .r150
         <Association Name="FK_Invoice_ManageFee">
           <End Role="ManageFee" Type="Models.Store.ManageFee" Multiplicity="0..1" />
           <End Role="Invoice" Type="Models.Store.Invoice" Multiplicity="*" />
@@ -414,8 +467,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_DeliveryStatus">
+<<<<<<< .mine
+          <End Role="DeliveryStatus" Type="iDeliverModel.Store.DeliveryStatus" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
+=======
           <End Role="DeliveryStatus" Type="Models.Store.DeliveryStatus" Multiplicity="1" />
           <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="DeliveryStatus">
               <PropertyRef Name="DeliveryStatusID" />
@@ -426,8 +484,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
+<<<<<<< .mine
+          <End Role="ManageFee" Type="iDeliverModel.Store.ManageFee" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
+=======
           <End Role="ManageFee" Type="Models.Store.ManageFee" Multiplicity="0..1" />
           <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -438,8 +501,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station">
+<<<<<<< .mine
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
+=======
           <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
           <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -450,8 +518,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station1">
+<<<<<<< .mine
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
+=======
           <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
           <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -461,9 +534,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_StartStation">
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
+=======
         <Association Name="FK_StartStation">
           <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
           <End Role="Route" Type="Models.Store.Route" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -521,9 +600,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_Volume_Route">
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="1" />
+          <End Role="Volume" Type="iDeliverModel.Store.Volume" Multiplicity="*" />
+=======
         <Association Name="FK_Volume_Route">
           <End Role="Route" Type="Models.Store.Route" Multiplicity="1" />
           <End Role="Volume" Type="Models.Store.Volume" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Route">
               <PropertyRef Name="RouteID" />
@@ -654,11 +739,19 @@
             <End Role="Station" EntitySet="Stations" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.FK_EndStation">
+=======
           <AssociationSet Name="FK_EndStation" Association="Models.FK_EndStation">
+>>>>>>> .r150
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.FK_StartStation">
+=======
           <AssociationSet Name="FK_StartStation" Association="Models.FK_StartStation">
+>>>>>>> .r150
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
@@ -666,7 +759,11 @@
             <End Role="Route" EntitySet="Routes" />
             <End Role="Trip" EntitySet="Trips" />
           </AssociationSet>
+<<<<<<< .mine
+          <AssociationSet Name="FK_Volume_Route" Association="iDeliverModel.FK_Volume_Route">
+=======
           <AssociationSet Name="FK_Volume_Route" Association="Models.FK_Volume_Route">
+>>>>>>> .r150
             <End Role="Route" EntitySet="Routes" />
             <End Role="Volume" EntitySet="Volumes" />
           </AssociationSet>
@@ -710,12 +807,21 @@
           <Property Name="BackupPassword" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Role" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+<<<<<<< .mine
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BannedStatus" Type="Boolean" />
+          <NavigationProperty Name="Comments" Relationship="iDeliverModel.FK_Comment_Account" FromRole="Account" ToRole="Comment" />
+          <NavigationProperty Name="Ratings" Relationship="iDeliverModel.FK_Rating_Account" FromRole="Account" ToRole="Rating" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_Account" FromRole="Account" ToRole="Request" />
+          <NavigationProperty Name="UserInfo" Relationship="iDeliverModel.FK_UserInfo_Account" FromRole="Account" ToRole="UserInfo" />
+=======
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="BannedStatus" Type="Boolean" />
           <NavigationProperty Name="Comments" Relationship="Models.FK_Comment_Account" FromRole="Account" ToRole="Comment" />
           <NavigationProperty Name="Ratings" Relationship="Models.FK_Rating_Account" FromRole="Account" ToRole="Rating" />
           <NavigationProperty Name="Requests" Relationship="Models.FK_Request_Account" FromRole="Account" ToRole="Request" />
           <NavigationProperty Name="UserInfo" Relationship="Models.FK_UserInfo_Account" FromRole="Account" ToRole="UserInfo" />
+>>>>>>> .r150
         </EntityType>
         <EntityType Name="Assigning">
           <Key>
@@ -813,16 +919,34 @@
           </Key>
           <Property Name="RequestID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+<<<<<<< .mine
+          <Property Name="DeliveryStatusID" Type="Int32" Nullable="false" />
+          <Property Name="FeeID" Type="Int32" Nullable="false" />
+          <Property Name="EstimateWeight" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="EstimateVolume" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+=======
           <Property Name="DeliveryStatusID" Type="Int32" Nullable="false" />
           <Property Name="FeeID" Type="Int32" />
           <Property Name="EstimateWeight" Type="Double" />
           <Property Name="EstimateVolume" Type="Double" />
+>>>>>>> .r150
           <Property Name="DateRequest" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+<<<<<<< .mine
+          <Property Name="FromLocation" Type="Int32" />
+          <Property Name="ToLocation" Type="Int32" />
+          <Property Name="SenderAddress" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="ReceiverAddress" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="SenderPhone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ReceiverPhone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ReceiverName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="TypeOfPayment" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+=======
           <Property Name="FromLocation" Type="Int32" Nullable="false" />
           <Property Name="ToLocation" Type="Int32" Nullable="false" />
           <Property Name="SenderAddress" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="ReceiverAddress" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+>>>>>>> .r150
           <Property Name="SenderPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ReceiverPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="Models.FK_Request_Account" FromRole="Request" ToRole="Account" />
@@ -844,21 +968,38 @@
           <Property Name="AvgRateLevel" Type="Double" />
           <Property Name="Duration" Type="Double" />
           <Property Name="Distance" Type="Double" />
+<<<<<<< .mine
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_EndStation" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_StartStation" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
+          <NavigationProperty Name="Volumes" Relationship="iDeliverModel.FK_Volume_Route" FromRole="Route" ToRole="Volume" />
+=======
           <NavigationProperty Name="Station" Relationship="Models.FK_EndStation" FromRole="Route" ToRole="Station" />
           <NavigationProperty Name="Station1" Relationship="Models.FK_StartStation" FromRole="Route" ToRole="Station" />
           <NavigationProperty Name="Trips" Relationship="Models.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
           <NavigationProperty Name="Volumes" Relationship="Models.FK_Volume_Route" FromRole="Route" ToRole="Volume" />
+>>>>>>> .r150
         </EntityType>
         <EntityType Name="Station">
           <Key>
             <PropertyRef Name="StationID" />
           </Key>
-          <Property Name="StationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StationID" Type="Int32" Nullable="false" />
           <Property Name="StationName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="StationLocation" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="BreakTime" Type="Double" />
           <Property Name="StationPhone" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+<<<<<<< .mine
+          <Property Name="Coordinate" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Province" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Comments" Relationship="iDeliverModel.FK_Comment_Station" FromRole="Station" ToRole="Comment" />
+          <NavigationProperty Name="Ratings" Relationship="iDeliverModel.FK_Rating_Station" FromRole="Station" ToRole="Rating" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_Station" FromRole="Station" ToRole="Request" />
+          <NavigationProperty Name="Requests1" Relationship="iDeliverModel.FK_Request_Station1" FromRole="Station" ToRole="Request" />
+          <NavigationProperty Name="Routes" Relationship="iDeliverModel.FK_EndStation" FromRole="Station" ToRole="Route" />
+          <NavigationProperty Name="Routes1" Relationship="iDeliverModel.FK_StartStation" FromRole="Station" ToRole="Route" />
+=======
           <Property Name="Coordinate" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="Province" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Comments" Relationship="Models.FK_Comment_Station" FromRole="Station" ToRole="Comment" />
@@ -867,6 +1008,7 @@
           <NavigationProperty Name="Requests1" Relationship="Models.FK_Request_Station1" FromRole="Station" ToRole="Request" />
           <NavigationProperty Name="Routes" Relationship="Models.FK_EndStation" FromRole="Station" ToRole="Route" />
           <NavigationProperty Name="Routes1" Relationship="Models.FK_StartStation" FromRole="Station" ToRole="Route" />
+>>>>>>> .r150
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -914,8 +1056,13 @@
           <Property Name="MinVolume" Type="Double" />
           <Property Name="RouteID" Type="Int32" Nullable="false" />
           <Property Name="CoachTypeID" Type="Int32" Nullable="false" />
+<<<<<<< .mine
+          <NavigationProperty Name="CoachType" Relationship="iDeliverModel.FK_Volume_CoachType" FromRole="Volume" ToRole="CoachType" />
+          <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_Volume_Route" FromRole="Volume" ToRole="Route" />
+=======
           <NavigationProperty Name="CoachType" Relationship="Models.FK_Volume_CoachType" FromRole="Volume" ToRole="CoachType" />
           <NavigationProperty Name="Route" Relationship="Models.FK_Volume_Route" FromRole="Volume" ToRole="Route" />
+>>>>>>> .r150
         </EntityType>
         <Association Name="FK_Comment_Account">
           <End Role="Account" Type="Models.Account" Multiplicity="1" />
@@ -1038,8 +1185,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_DeliveryStatus">
+<<<<<<< .mine
+          <End Role="DeliveryStatus" Type="iDeliverModel.DeliveryStatu" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
+=======
           <End Role="DeliveryStatus" Type="Models.DeliveryStatu" Multiplicity="1" />
           <End Role="Request" Type="Models.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="DeliveryStatus">
               <PropertyRef Name="DeliveryStatusID" />
@@ -1074,8 +1226,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
+<<<<<<< .mine
+          <End Role="ManageFee" Type="iDeliverModel.ManageFee" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
+=======
           <End Role="ManageFee" Type="Models.ManageFee" Multiplicity="0..1" />
           <End Role="Request" Type="Models.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -1098,8 +1255,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station">
+<<<<<<< .mine
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
+=======
           <End Role="Station" Type="Models.Station" Multiplicity="1" />
           <End Role="Request" Type="Models.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -1110,8 +1272,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station1">
+<<<<<<< .mine
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
+=======
           <End Role="Station" Type="Models.Station" Multiplicity="1" />
           <End Role="Request" Type="Models.Request" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -1121,9 +1288,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_EndStation">
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
+=======
         <Association Name="FK_EndStation">
           <End Role="Station" Type="Models.Station" Multiplicity="1" />
           <End Role="Route" Type="Models.Route" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -1133,9 +1306,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_StartStation">
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
+=======
         <Association Name="FK_StartStation">
           <End Role="Station" Type="Models.Station" Multiplicity="1" />
           <End Role="Route" Type="Models.Route" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -1157,9 +1336,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+<<<<<<< .mine
+        <Association Name="FK_Volume_Route">
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="1" />
+          <End Role="Volume" Type="iDeliverModel.Volume" Multiplicity="*" />
+=======
         <Association Name="FK_Volume_Route">
           <End Role="Route" Type="Models.Route" Multiplicity="1" />
           <End Role="Volume" Type="Models.Volume" Multiplicity="*" />
+>>>>>>> .r150
           <ReferentialConstraint>
             <Principal Role="Route">
               <PropertyRef Name="RouteID" />
@@ -1296,8 +1481,15 @@
                 <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
                 <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
                 <ScalarProperty Name="ReceiverAddress" ColumnName="ReceiverAddress" />
+<<<<<<< .mine
                 <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
                 <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="TypeOfPayment" ColumnName="TypeOfPayment" />
+=======
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+>>>>>>> .r150
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

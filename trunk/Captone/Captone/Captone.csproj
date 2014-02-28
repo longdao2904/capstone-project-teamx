@@ -144,7 +144,10 @@
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\CoachTypeController.cs" />
     <Compile Include="Controllers\StationController.cs" />
+<<<<<<< .mine
+=======
     <Compile Include="Controllers\VolumeController.cs" />
+>>>>>>> .r150
     <Compile Include="Extensions\Constants.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
@@ -191,6 +194,7 @@
     <Compile Include="Models\Request.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -331,6 +335,8 @@
     <Content Include="Content\Images\sidebar-divider.png" />
     <Content Include="Content\Images\sidebar.png" />
     <Content Include="Content\Images\skype_32.png" />
+    <Content Include="Content\Images\station.png" />
+    <Content Include="Content\Images\station2.png" />
     <Content Include="Content\Images\stock_mail_send.png" />
     <Content Include="Content\Images\tab-bg.png" />
     <Content Include="Content\Images\table\actions_slider_bg.gif" />
@@ -373,6 +379,7 @@
     <Content Include="Content\js\jquery.fancybox-1.3.4.js" />
     <Content Include="Content\js\jquery.mousewheel-3.0.4.pack.js" />
     <Content Include="Content\js\makermanager.js" />
+    <Content Include="Content\js\SentRequest.js" />
     <Content Include="Content\js\tooltip.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

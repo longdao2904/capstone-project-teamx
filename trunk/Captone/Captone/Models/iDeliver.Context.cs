@@ -9,7 +9,6 @@
 
 namespace Captone.Models
 {
-    using Captone.Repositories.Interfaces;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -17,7 +16,7 @@ namespace Captone.Models
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class iDeliverEntities : DbContext, IUnitOfWork
+    public partial class iDeliverEntities : DbContext
     {
         public iDeliverEntities()
             : base("name=iDeliverEntities")
@@ -45,6 +44,8 @@ namespace Captone.Models
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserInfo> UserInfoes { get; set; }
         public DbSet<Volume> Volumes { get; set; }
+<<<<<<< .mine
+=======
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -153,5 +154,6 @@ namespace Captone.Models
         {
             base.SaveChanges();
         }
+>>>>>>> .r150
     }
 }
