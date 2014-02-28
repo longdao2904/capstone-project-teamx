@@ -44,6 +44,7 @@ namespace Captone.Controllers
         public ActionResult Create()
         {
             ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats");
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
             return View();
         }
 
@@ -61,6 +62,7 @@ namespace Captone.Controllers
             }
 
             ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats", coach.CoachTypeID);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", coach.RouteID);
             return View(coach);
         }
 
@@ -75,6 +77,7 @@ namespace Captone.Controllers
                 return HttpNotFound();
             }
             ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "Seats", coach.CoachTypeID);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", coach.RouteID);
             return View(coach);
         }
 
@@ -91,6 +94,7 @@ namespace Captone.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "CoachTypeID", coach.CoachTypeID);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", coach.RouteID);
             return View(coach);
         }
 
