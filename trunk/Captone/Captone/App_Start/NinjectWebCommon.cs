@@ -72,7 +72,7 @@ namespace Captone.App_Start
             //}
 
             //Binding IUnit Of Work
-            kernel.Bind<IUnitOfWork>().To<iDeliverEntities>().InRequestScope();
+           kernel.Bind<IUnitOfWork>().To<iDeliverEntities>().InRequestScope();
 
             //Binding Repositories
             kernel.Bind<IAccountRepository>().To<AccountRepository>();

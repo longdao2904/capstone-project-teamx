@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Core CSS - Include with every page -->
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
     <link href="~/Content/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
     <link href="~/Content/css/plugins/timeline/timeline.css" rel="stylesheet">
-
+    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
     <!-- SB Admin CSS - Include with every page -->
     <link href="~/Content/css/sb-admin.css" rel="stylesheet">
-
+    <link href="~/Content/Css/demo.css" rel="stylesheet" />
     <script src="~/Content/js/jquery-1.10.2.js"></script>
     <script src="~/Content/js/jquery.bpopup.min.js"></script>
     <script src="~/Content/js/sb-admin.js"></script>
@@ -43,19 +43,19 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <ul class="nav navbar-top-links navbar-right" style="margin-right:20%; margin-top:2%;">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                @if (Session["USERNAME"] != null)
-                                {
-                                    string username = @Session["USERNAME"].ToString().ToUpper();
-                                    <i class="fa fa-user fa-fw"></i> @username
-                                    <a href="/Home/LogOff"> | Sign out <i class="fa fa-sign-out"></i></a>
-                                }
-                                else
-                                {
-                                    <a href="/Home/Login"><i class="fa fa-sign-in fa-fw"></i> Sign in</a>
-                                }
-                            </div>
+                    <ul class="nav navbar-top-links navbar-right" style="margin-right: 20%; margin-top: 2%;">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            @if (Session["USERNAME"] != null)
+                            {
+                                string username = @Session["USERNAME"].ToString().ToUpper();
+                                <i class="fa fa-user fa-fw"></i> @username
+                                <a href="/Home/LogOff">| Sign out <i class="fa fa-sign-out"></i></a>
+                            }
+                            else
+                            {
+                                <a href="/Home/Login"><i class="fa fa-sign-in fa-fw"></i>Sign in</a>
+                            }
+                        </div>
                         <!-- /.dropdown -->
                     </ul>
                 </div>
@@ -152,14 +152,38 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="jumbotron">
-                            Maps render here
+                            <div id="hide">
+
+                                <div id="description" style="display: none"></div>
+                                <div id="map" style="width: 580px; height: 440px;"></div>
+                                <div id="shortest">
+                                </div>
+                                <div class="bub-container2">
+                                    <input type="checkbox" id="bulb2" class="light" onclick="showGoogleMap()" />
+
+                                    <label for="bulb2"></label>
+
+                                    <div style="margin-left: 135px; margin-top: -30px;">Lịch trình của bạn</div>
+                                    <div style="margin-left: 200px">
+                                        <div id="duration"></div>
+                                        <div id="distance"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.panel-body -->
                         </div>
+                        <!-- /.panel -->
                     </div>
-                    <!-- /.panel-body -->
+                    <!-- /.col-lg-8 -->
+
+                    <!-- /.col-lg-4 -->
+
+                    <!-- /.col-lg-8 -->
+
                 </div>
-                <!-- /.panel -->
+                <!-- /.row -->
             </div>
-            <!-- /.col-lg-8 -->
             <div class="col-lg-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -170,23 +194,23 @@
                         <div class="list-group">
                             <a href="#" class="list-group-item">
                                 <i class="fa fa-comment fa-fw"></i>Station 1
-                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
-                                    </span>
+                                <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                </span>
                             </a>
                             <a href="#" class="list-group-item">
                                 <i class="fa fa-comment fa-fw"></i>Station 2
-                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
-                                    </span>
+                                <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                </span>
                             </a>
                             <a href="#" class="list-group-item">
                                 <i class="fa fa-comment fa-fw"></i>Station 3
-                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
-                                    </span>
+                                <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                </span>
                             </a>
                             <a href="#" class="list-group-item">
                                 <i class="fa fa-comment fa-fw"></i>Station 4
-                                    <span class="pull-right text-muted small"><em>Chi tiết</em>
-                                    </span>
+                                <span class="pull-right text-muted small"><em>Chi tiết</em>
+                                </span>
                             </a>
                         </div>
                         <!-- /.list-group -->
@@ -195,11 +219,10 @@
                     <!-- /.panel-body -->
                 </div>
             </div>
-            <!-- /.col-lg-4 -->
             <div class="col-lg-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <i class="fa fa-th"></i> @ViewBag.Title
+                        <i class="fa fa-th"></i>@ViewBag.Title
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -209,10 +232,7 @@
                 </div>
                 <!-- /.panel -->
             </div>
-            <!-- /.col-lg-8 -->
-
         </div>
-        <!-- /.row -->
     </div>
 
     @Scripts.Render("~/bundles/jquery")
