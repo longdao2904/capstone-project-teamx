@@ -1,0 +1,127 @@
+﻿@model Captone.Models.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Request</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Account.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Account.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeliveryStatu.StatusName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ManageFee.FeeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ManageFee.FeeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateWeight)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateWeight)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateVolume)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateVolume)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateRequest)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateRequest)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Station.StationName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Station.StationName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Station1.StationName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Station1.StationName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SenderAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SenderAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReceiverAddress)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReceiverAddress)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SenderPhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SenderPhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReceiverName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReceiverName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReceiverPhone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReceiverPhone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Type)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TypeOfPayment)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TypeOfPayment)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RequestID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

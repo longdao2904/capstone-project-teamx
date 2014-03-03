@@ -6,48 +6,49 @@
 
 <fieldset>
     <legend>Thông tin chi tiết tuyến @Model.RouteName</legend>
+    <blockquote>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.RouteName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RouteName)
+        </div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.RouteName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RouteName)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Station1.StationName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Station1.StationName)
+        </div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Station1.StationName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Station1.StationName)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Station.StationName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Station.StationName)
+        </div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Station.StationName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Station.StationName)
-    </div>
-
-    @*<div class="display-label">
+        @*<div class="display-label">
          @Html.DisplayNameFor(model => model.AvgRateLevel)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AvgRateLevel)
     </div>*@
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Duration)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Duration)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Duration)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Duration)
+        </div>
 
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Distance)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Distance)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Distance)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Distance)
+        </div>
+    </blockquote>
 </fieldset>
 <br />
 <p>

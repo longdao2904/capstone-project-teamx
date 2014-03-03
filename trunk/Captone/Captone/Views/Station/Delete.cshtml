@@ -1,16 +1,13 @@
 ﻿@model Captone.Models.Station
 
 @{
-    ViewBag.Title = "Delete";
-    Layout = "../Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Xóa trạm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <fieldset>
-    <legend>Station</legend>
-
+    <legend>Bạn muốn xóa trạm @Model.StationName ?</legend>
+    <blockquote>
     <div class="display-label">
          @Html.DisplayNameFor(model => model.StationName)
     </div>
@@ -45,10 +42,12 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
+    </blockquote>
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Station/Index'" />
     </p>
 }

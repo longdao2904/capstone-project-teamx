@@ -12,8 +12,6 @@ namespace Captone.Controllers
 {
     public class CoachController : Controller
     {
-        //
-        // GET: /Coach/
         private readonly iDeliverEntities db = new iDeliverEntities();
         private readonly ICoachService _coachService;
         public CoachController(ICoachService coachService)
@@ -21,16 +19,21 @@ namespace Captone.Controllers
             _coachService = coachService;
         }
 
+        //
+        // GET: /Coach/
+
         public ActionResult Index()
         {
             return View(_coachService.GetAllCoaches());
         }
+
         //
         // GET: /Coach/Details/5
 
         public ActionResult Details(int id = 0)
         {
             Coach coach = db.Coaches.Find(id);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
             if (coach == null)
             {
                 return HttpNotFound();

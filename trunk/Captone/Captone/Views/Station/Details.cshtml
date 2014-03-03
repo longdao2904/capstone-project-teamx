@@ -1,50 +1,50 @@
 ﻿@model Captone.Models.Station
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Thông tin chi tiết trạm";
 }
 
-<h2>Details</h2>
-
 <fieldset>
-    <legend>Station</legend>
+    <legend>Thông tin trạm @Model.StationName </legend>
+    <blockquote>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StationName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.StationName)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationName)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StationLocation)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.StationLocation)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationLocation)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationLocation)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.BreakTime)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.BreakTime)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.BreakTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BreakTime)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StationPhone)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.StationPhone)
+        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationPhone)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationPhone)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Description)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </blockquote>
 </fieldset>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.StationID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Station/Edit/@Model.StationID    '" />
+    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Station/Index'" />
 </p>

@@ -13,20 +13,24 @@
 
         @Html.HiddenFor(model => model.CoachTypeID)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Seats)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Seats)
-            @Html.ValidationMessageFor(model => model.Seats)
+        <div class="form-group has-error">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Seats)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Seats)
+                @Html.ValidationMessageFor(model => model.Seats)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Capacity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Capacity)
-            @Html.ValidationMessageFor(model => model.Capacity)
+        <div class="form-group has-error">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Capacity)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Capacity)
+                @Html.ValidationMessageFor(model => model.Capacity)
+            </div>
         </div>
         <br />
         <p>

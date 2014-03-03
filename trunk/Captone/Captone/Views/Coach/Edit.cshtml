@@ -1,43 +1,50 @@
 ﻿@model Captone.Models.Coach
 
 @{
-    ViewBag.Title = "Edit Coach Info";
+    ViewBag.Title = "Thay đổi thông tin xe";
 }
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Coach</legend>
+        <legend>Thông tin xe</legend>
 
         @Html.HiddenFor(model => model.CoachID)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumberPlate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NumberPlate)
-            @Html.ValidationMessageFor(model => model.NumberPlate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RouteID)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("RouteID")
-            @Html.ValidationMessageFor(model => model.RouteID)
+        <div class="form-group has-error">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NumberPlate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NumberPlate)
+                @Html.ValidationMessageFor(model => model.NumberPlate)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CoachTypeID, "CoachType")
+        <div class="form-group has-error">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CoachTypeID)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("CoachTypeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CoachTypeID)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.DropDownList("CoachTypeID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CoachTypeID)
+
+        <div class="form-group has-error">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RouteID)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("RouteID", String.Empty)
+                @Html.ValidationMessageFor(model => model.RouteID)
+            </div>
         </div>
+
         <br />
         <p>
-            <input type="submit" class="btn btn-primary" value="Save" />
+            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
             <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Coach/Index'" />
         </p>
     </fieldset>
