@@ -222,6 +222,7 @@
     <Compile Include="Repositories\Interfaces\ICoachRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -234,6 +235,7 @@
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,7 +264,6 @@
     <Compile Include="Services\CoachService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\IAssigningService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -14,17 +14,105 @@ namespace Captone.Services
         private readonly ITripRepository _tripRepository;
         private readonly IRouteRepository _routeRepository;
         private readonly IStationRepository _stationRepository;
-        private int max = 20;
+        private readonly IRequestRepository _requestRepository;
+        private int max = 20, maxVolume = 100, maxWeight = 100;
         public AssigningService(ICoachRepository coachRepository, ITripRepository tripRepository,
-                                IRouteRepository routeRepository, IStationRepository stationRepository)
+                                IRouteRepository routeRepository, IStationRepository stationRepository, 
+                                IRequestRepository requestRepository)
         {
             _coachRepository = coachRepository;
             _tripRepository = tripRepository;
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
+            _requestRepository = requestRepository;
         }
 
-        public List<Route> ProcessingRequest(Request request)
+        public int RequestCompare(Request a, Request b)
+        {
+            if (a.DateRequest < b.DateRequest) return 1;
+            if (a.DateRequest == b.DateRequest) return 0;
+            return -1;
+        }
+        public Dictionary<Request, List<Trip>> Assigning()
+        {
+            var result = new Dictionary<Request, List<Trip>>();
+            //list all pending request
+            List<Request> requests = _requestRepository.GetPendingRequest().ToList();
+            List<Station> station = _stationRepository.GetAllStations().ToList();
+            //sort list request base on the day posted
+            requests.Sort(RequestCompare);
+            //iterate through the list of station and find out the list of request corresponding
+            for (int i = 0; i < station.Count; i++)
+            {
+                List<Request> tmp = new List<Request>();
+                for (int j = 0; j < requests.Count; j++)
+                {
+                    if (requests[j].ToLocation == station[i].StationID)
+                    {
+                        tmp.Add(requests[j]);   
+                    }
+                }
+                //processing for one station
+                var list = ProcessingForStation(station[i], tmp);
+                foreach (var pair in list)
+                {
+                    result.Add(pair.Key, pair.Value);
+                }
+            }
+            return result;
+        }
+
+        public Dictionary<Request, List<Trip>> ProcessingForStation(Station station, List<Request> requests)
+        {
+            var result = new Dictionary<Request, List<Trip>>();
+            Queue<Trip> trip = new Queue<Trip>();
+            while (trip.Count > 0)
+            {
+                Trip tmp = trip.First();
+                //dynamic programming here
+                int[,] dp = new int[maxVolume,maxWeight];
+                dp[0, 0] = 0;
+                for (int i = 0; i < requests.Count; i++)
+                {
+                    dp[0, i] = 0;
+                }
+                int volume = (int)(Math.Round(tmp.AvailableVolume*10));
+                for (int i = 0; i < requests.Count; i++)
+                {
+                    for (int j = 0; j < volume; j++)
+                    {
+                        string[] words = requests[j].EstimateVolume.Split('-');
+                        int requestVolume = Int32.Parse(words[1])*10;
+                        if (requestVolume > i) dp[i, j] = dp[i - 1, j];
+                        else dp[i, j] = Math.Max(dp[i - 1, j], dp[i - 1, j - requestVolume]);
+                    }
+                }
+                List<int> removeList = new List<int>();
+                for (int i = 0; i < requests.Count; i++)
+                {
+                    for (int j = 0; j < volume; j++)
+                    {
+                        if (dp[i, j] != dp[i - 1, j]) removeList.Add(i);
+                    }
+                }
+                //remove the processed request
+                for (int i = removeList.Count - 1; i >= 0; i--)
+                {
+                    requests[i].DeliveryStatusID = 2;
+                    requests.RemoveAt(removeList[i]);
+                }
+            }
+
+            return result;
+        }
+
+        //public List<Request> AssigningToTrip(Trip trip, List<Request> requests)
+        //{
+        //    List<Request> result = new List<Request>();
+
+        //    return result;
+        //}
+        public List<Route> FindPath(Request request)
         {
             List<Route> listRoute = new List<Route> {};
             int fromStation = request.FromLocation;
@@ -89,7 +177,7 @@ namespace Captone.Services
         }
 
         //check the diection always forward
-        public bool checkForward(string coordinateA, string coordinateB, string coordinateC)
+        public bool CheckForward(string coordinateA, string coordinateB, string coordinateC)
         {
             string tmp = coordinateA + "," + coordinateB + "," + coordinateC;
             string[] separator = {",", " "};
