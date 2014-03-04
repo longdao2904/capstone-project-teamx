@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Captone.Models.Station>
+
+@foreach(var item in Model){
+    <input type="hidden" value="@item.StationID"/>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="@item.Province">
+            <div class="list-group">
+                <div class="list-group-item" style="height: 100px">
+                    <i class="fa fa-comment fa-fw"></i>@item.StationName
+                    <span class="pull-right text-muted small"><em style="margin-left: -30px">Chi tiết</em>
+                    </span>
+                    <br/>
+                     <div id="detail" >
+                        @item.StationLocation
+                         <span class="pull-right text-muted small">@item.StationPhone</span>
+                      
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+    </div>
+}
