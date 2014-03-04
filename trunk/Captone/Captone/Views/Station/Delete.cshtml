@@ -4,50 +4,61 @@
     ViewBag.Title = "Xóa trạm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Bạn muốn xóa trạm @Model.StationName ?</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.StationName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.StationName)
+                        </div>
 
-<fieldset>
-    <legend>Bạn muốn xóa trạm @Model.StationName ?</legend>
-    <blockquote>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationName)
-    </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.StationLocation)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.StationLocation)
+                        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationLocation)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationLocation)
-    </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.BreakTime)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.BreakTime)
+                        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.BreakTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.BreakTime)
-    </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.StationPhone)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.StationPhone)
+                        </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StationPhone)
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Description)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Station/Index'" />
+                    </p>
+                }
+            </div>
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StationPhone)
-    </div>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-    </blockquote>
-</fieldset>
-@using (Html.BeginForm())
-{
-    <p>
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Station/Index'" />
-    </p>
-}

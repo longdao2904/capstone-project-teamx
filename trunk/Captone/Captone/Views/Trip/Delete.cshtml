@@ -3,71 +3,82 @@
 @{
     ViewBag.Title = "Xóa chuyến";
 }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Bạn muốn xóa chuyến này ?</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.EstimateDepartureTime)
+                        </div>
 
-<fieldset>
-    <legend>Bạn muốn xóa chuyến này ?</legend>
-    <blockquote>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.EstimateDepartureTime)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.EstimateArrivalTime)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.EstimateArrivalTime)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.RealDepartureTime)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.RealDepartureTime)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.RealDepartureTime)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.RealDepartureTime)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.RealArrivalTime)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.RealArrivalTime)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.RealArrivalTime)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.RealArrivalTime)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.AvailableVolume)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.AvailableVolume)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.AvailableVolume)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.AvailableVolume)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Date)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Date)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Date)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Date)
-        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Route.RouteName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Route.RouteName)
+                        </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Route.RouteName)
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Coach.NumberPlate)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
+                    </p>
+                }
+            </div>
         </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Route.RouteName)
-        </div>
+    </div>
+</div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Coach.NumberPlate)
-        </div>
-    </blockquote>
-</fieldset>
-@using (Html.BeginForm())
-{
-    <p>
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
-    </p>
-}

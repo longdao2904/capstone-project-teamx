@@ -3,39 +3,49 @@
 @{
     ViewBag.Title = "Tạo loại xe mới";
 }
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Thông tin loại xe</legend>
-
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Seats)
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
             </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Seats)
-                @Html.ValidationMessageFor(model => model.Seats)
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        <legend>Thông tin loại xe</legend>
+
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Seats)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Seats)
+                            @Html.ValidationMessageFor(model => model.Seats)
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Capacity)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Capacity)
+                            @Html.ValidationMessageFor(model => model.Capacity)
+                        </div>
+
+                        <br />
+                        <p>
+                            <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/CoachType/Index'" />
+                        </p>
+                    </fieldset>
+                }
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Capacity)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Capacity)
-                @Html.ValidationMessageFor(model => model.Capacity)
-            </div>
-        </div>
-        <br />
-        <p>
-            <input type="submit" value="Tạo mới" class="btn btn-primary" />
-            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/CoachType/Index'" />
-        </p>
-    </fieldset>
-}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -3,46 +3,49 @@
 @{
     ViewBag.Title = "Thay đổi thông tin tuyến";
 }
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Thông tin tuyến</legend>
-
-        @Html.HiddenFor(model => model.RouteID)
-
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.RouteName)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
             </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.RouteName)
-                @Html.ValidationMessageFor(model => model.RouteName)
-            </div>
-        </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
 
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StartPoint)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("StartPoint", String.Empty)
-                @Html.ValidationMessageFor(model => model.StartPoint)
-            </div>
-        </div>
+                    <fieldset>
+                        <legend>Thông tin tuyến</legend>
 
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.EndPoint)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("EndPoint", String.Empty)
-                @Html.ValidationMessageFor(model => model.EndPoint)
-            </div>
-        </div>
+                        @Html.HiddenFor(model => model.RouteID)
 
-        @*<div class="editor-label">
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.RouteName)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.RouteName)
+                            @Html.ValidationMessageFor(model => model.RouteName)
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.StartPoint)
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("StartPoint", String.Empty)
+                            @Html.ValidationMessageFor(model => model.StartPoint)
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.EndPoint)
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("EndPoint", String.Empty)
+                            @Html.ValidationMessageFor(model => model.EndPoint)
+                        </div>
+
+
+                        @*<div class="editor-label">
             @Html.LabelFor(model => model.AvgRateLevel)
         </div>
         <div class="editor-field">
@@ -50,32 +53,35 @@
             @Html.ValidationMessageFor(model => model.AvgRateLevel)
         </div>*@
 
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Duration)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Duration)
-                @Html.ValidationMessageFor(model => model.Duration)
-            </div>
-        </div>
 
-        <div class="form-group has-error">
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Distance)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Distance)
-                @Html.ValidationMessageFor(model => model.Distance)
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Duration)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Duration)
+                            @Html.ValidationMessageFor(model => model.Duration)
+                        </div>
+
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Distance)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Distance)
+                            @Html.ValidationMessageFor(model => model.Distance)
+                        </div>
+
+                        <br />
+                        <p>
+                            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+                            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
+                        </p>
+                    </fieldset>
+                }
             </div>
         </div>
-        <br />
-        <p>
-            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
-            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
-        </p>
-    </fieldset>
-}
+    </div>
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
