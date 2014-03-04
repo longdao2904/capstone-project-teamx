@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Captone.Models;
+using Captone.Services;
 
 namespace Captone.Controllers
 {
@@ -125,5 +126,11 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+        public void Demo()
+        {
+            AssigningService assigning = new AssigningService();
+            assigning.Assigning();
+        }
     }
+    
 }

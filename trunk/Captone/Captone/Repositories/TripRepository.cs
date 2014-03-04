@@ -15,7 +15,7 @@ namespace Captone.Repositories
         {
         }
 
-        public IQueryable<Trip> GetAll()
+        public IQueryable<Trip> GetAllTrips()
         {
             return base.GetAll<Trip>();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Captone.Models;
+using Captone.Repositories;
 using Captone.Repositories.Interfaces;
 using Captone.Services.Interfaces;
 
@@ -16,6 +17,10 @@ namespace Captone.Services
         private readonly IStationRepository _stationRepository;
         private readonly IRequestRepository _requestRepository;
         private int max = 20, maxVolume = 100, maxWeight = 100;
+        public AssigningService()
+        {
+            
+        }
         public AssigningService(ICoachRepository coachRepository, ITripRepository tripRepository,
                                 IRouteRepository routeRepository, IStationRepository stationRepository, 
                                 IRequestRepository requestRepository)
@@ -29,16 +34,22 @@ namespace Captone.Services
 
         public int RequestCompare(Request a, Request b)
         {
+            //compare by date post request
             if (a.DateRequest < b.DateRequest) return 1;
             if (a.DateRequest == b.DateRequest) return 0;
             return -1;
         }
+
+        //main function of assign, should call this from outside
         public Dictionary<Request, List<Trip>> Assigning()
         {
             var result = new Dictionary<Request, List<Trip>>();
+            //list all station
+            List<Station> station = new List<Station>();
+            station = _stationRepository.GetAllStations().ToList();
             //list all pending request
-            List<Request> requests = _requestRepository.GetPendingRequest().ToList();
-            List<Station> station = _stationRepository.GetAllStations().ToList();
+            List<Request> requests = new List<Request>();
+            requests = _requestRepository.GetPendingRequest().ToList();
             //sort list request base on the day posted
             requests.Sort(RequestCompare);
             //iterate through the list of station and find out the list of request corresponding
@@ -76,7 +87,8 @@ namespace Captone.Services
                 {
                     dp[0, i] = 0;
                 }
-                int volume = (int)(Math.Round(tmp.AvailableVolume*10));
+                //round to 1 digit after , 
+                int volume = (int)(Math.Round((double)tmp.AvailableVolume*10));
                 for (int i = 0; i < requests.Count; i++)
                 {
                     for (int j = 0; j < volume; j++)
@@ -106,15 +118,9 @@ namespace Captone.Services
             return result;
         }
 
-        //public List<Request> AssigningToTrip(Trip trip, List<Request> requests)
-        //{
-        //    List<Request> result = new List<Request>();
-
-        //    return result;
-        //}
         public List<Route> FindPath(Request request)
         {
-            List<Route> listRoute = new List<Route> {};
+            List<Route> listRoute = new List<Route>();
             int fromStation = request.FromLocation;
             int toStation = request.ToLocation;
             //construct the graph G=(V,E) with V is list of staion, E is list of route connect two station

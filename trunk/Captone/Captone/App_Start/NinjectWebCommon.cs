@@ -78,12 +78,19 @@ namespace Captone.App_Start
             kernel.Bind<IAccountRepository>().To<AccountRepository>();
             kernel.Bind<ICoachRepository>().To<CoachRepository>();
             kernel.Bind<ITripRepository>().To<TripRepository>();
+            kernel.Bind<IRequestRepository>().To<RequestRepository>();
+            kernel.Bind<IRouteRepository>().To<RouteRepository>();
+            kernel.Bind<IStationRepository>().To<StationRepository>();
+
+          //  kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>));
 
             //Binding Services
             kernel.Bind<IAccountService>().To<AccountService>();
             kernel.Bind<ICoachService>().To<CoachService>();
-
-            //Binding Coach
+            kernel.Bind<IRequestService>().To<RequestService>();
+            kernel.Bind<IRouteService>().To<RouteService>();
+            kernel.Bind<IStationService>().To<StationService>();
+            kernel.Bind<ITripService>().To<TripService>();
         }        
     }
 }

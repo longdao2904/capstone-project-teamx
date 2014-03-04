@@ -6,7 +6,7 @@ namespace Captone.Repositories.Interfaces
 {
     public interface ITripRepository
     {
-        IQueryable<Trip> GetAll();
+        IQueryable<Trip> GetAllTrips();
         void Edit(Trip trip);
     }
 }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Captone.Models.Route>
+﻿@using Captone.Controllers
+@model IEnumerable<Captone.Models.Route>
 
 @{
     ViewBag.Title = "Danh sách các tuyến";
@@ -62,8 +63,8 @@
                         </td>
                     </tr>
                 }
-
             </table>
+            <button onclick="@{((RouteController)this.ViewContext.Controller).Demo();}">Test assigning</button>
         </div>
     </div>
 </div>
