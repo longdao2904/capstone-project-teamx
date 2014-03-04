@@ -143,6 +143,7 @@
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\CoachTypeController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\TripController.cs" />
@@ -279,6 +280,14 @@
     <Compile Include="Services\Interfaces\ICoachService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Interfaces\IRequestService.cs" />
+    <Compile Include="Services\Interfaces\IRouteService.cs" />
+    <Compile Include="Services\Interfaces\IStationService.cs" />
+    <Compile Include="Services\Interfaces\ITripService.cs" />
+    <Compile Include="Services\RequestService.cs" />
+    <Compile Include="Services\RouteService.cs" />
+    <Compile Include="Services\StationService.cs" />
+    <Compile Include="Services\TripService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Captone.dll" />
@@ -291,6 +300,7 @@
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\folder_blue_favourites.png" />
     <Content Include="Content\Images\forms\bg_related_act.gif" />
     <Content Include="Content\Images\forms\bubble_inner.gif" />
     <Content Include="Content\Images\forms\bubble_left.gif" />
@@ -320,6 +330,7 @@
     <Content Include="Content\Images\forms\step_light_right.gif" />
     <Content Include="Content\Images\forms\step_light_round.gif" />
     <Content Include="Content\Images\forms\upload_file.gif" />
+    <Content Include="Content\Images\icon512x512.png" />
     <Content Include="Content\Images\lightbulb.png" />
     <Content Include="Content\Images\lightbulb_off.png" />
     <Content Include="Content\Images\login\icon_back_login.gif" />
@@ -327,6 +338,7 @@
     <Content Include="Content\Images\login\loginbox_bg.png" />
     <Content Include="Content\Images\login\login_bg.jpg" />
     <Content Include="Content\Images\login\submit_login.gif" />
+    <Content Include="Content\Images\message-already-read-icon.png" />
     <Content Include="Content\Images\shared\blank.gif" />
     <Content Include="Content\Images\shared\border_bit.jpg" />
     <Content Include="Content\Images\shared\cal_th_repeat.jpg" />
@@ -365,8 +377,14 @@
     <Content Include="Content\Images\shared\top_search_select.gif" />
     <Content Include="Content\Images\shared\year_next.gif" />
     <Content Include="Content\Images\shared\year_prev.gif" />
+    <Content Include="Content\Images\Slider\ACB.jpg" />
+    <Content Include="Content\Images\Slider\tq2.jpg" />
+    <Content Include="Content\Images\Slider\viet-1.jpg" />
     <Content Include="Content\Images\station.png" />
     <Content Include="Content\Images\station2.png" />
+    <Content Include="Content\Images\step-first.png" />
+    <Content Include="Content\Images\step-second.png" />
+    <Content Include="Content\Images\step-third.png" />
     <Content Include="Content\Images\table\actions_slider_bg.gif" />
     <Content Include="Content\Images\table\action_delete.gif" />
     <Content Include="Content\Images\table\action_edit.gif" />
@@ -592,6 +610,10 @@
     <Content Include="Views\Trip\Delete.cshtml" />
     <Content Include="Views\Home\ListProvince.cshtml" />
     <Content Include="Views\Home\ListStation.cshtml" />
+    <Content Include="Views\Request\Delete.cshtml" />
+    <Content Include="Views\Request\Details.cshtml" />
+    <Content Include="Views\Request\Edit.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

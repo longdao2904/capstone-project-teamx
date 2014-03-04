@@ -2,76 +2,31 @@
     ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="main">
-    <div class="page-content">
-        @if (Session["UserRole"] == null)
-        {
-            //Tab nav
-            <ul class="nav nav-pills">
-                <li><a href="#home-pills" data-toggle="tab">Home</a></li>
-                <li><a href="#page-pills" data-toggle="tab">Page</a></li>
-            </ul>
-            //Tab content
-            <div class="tab-content">
-                <div class="tab-pane fade" id="home-pills">
-                    <h4>Home Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="tab-pane fade active in" id="page-pills">
-                    <h4>Page Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-        }
-        else if ((string)Session["UserRole"] == "Customer")
-        {
-            <blockquote>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <small>Someone famous in
-                                    <cite title="Source Title">Source Title</cite>
-                </small>
-            </blockquote>
-        }
-        else if ((string)Session["UserRole"] == "Staff")
-        {
-            //Tab nav
-            <ul class="nav nav-pills">
-                <li>
-                    <a href="/Request" data-toggle="tab">Quản lý các yêu cầu chuyển phát</a>
-                </li>
-                <li><a href="#jouney-pills" data-toggle="tab">Quản lý hành trình</a></li>
-            </ul>
-            //Tab content
-            <div class="tab-content">
-                <div class="tab-pane fade" id="request-pills">
-                    <h4>Home Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="tab-pane fade active in" id="jouney-pills">
-                    <h4>Profile Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-        } else if ((string)Session["UserRole"] == "Admin")
-        {
-            //Tab nav
-            <ul class="nav nav-pills">
-                <li><a href="#staff-pills" data-toggle="tab">Quản lý nhân viên</a></li>
-                <li><a href="#price-pills" data-toggle="tab">Quản lý biểu giá</a></li>
-            </ul>
-            //Tab content
-            <div class="tab-content">
-                <div class="tab-pane fade" id="staff-pills">
-                    <h4>Staff Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="tab-pane fade active in" id="price-pills">
-                    <h4>Price Tab</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-            </div>
-        }
-    </div>
+
+<div class="col-lg-4" style="text-align: center">
+    <img src="~/Content/Images/folder_blue_favourites.png" />
+    <h2 class="headerH2">Góp ý và đánh giá</h2>
+    <img src="~/Content/Images/step-first.png" style="width: 40px;" />
+    <p class="pContent">
+        Cho phép bạn đóng góp ý kiến cá nhân và đánh giá chất lượng dịch vụ
+    </p>
 </div>
+<div class="col-lg-4" style="text-align: center">
+    <img src="~/Content/Images/message-already-read-icon.png" />
+    <h2 class="headerH2">Gửi yêu cầu</h2>
+    <img src="~/Content/Images/step-second.png" style="width: 40px" />
+    <p class="pContent">
+        Cho phép bạn gửi yêu cầu vận chuyển món hàng 
+    </p>
+</div>
+<div class="col-lg-4" style="text-align: center">
+    <img src="~/Content/Images/icon512x512.png" style="max-width: 100%; width: 130px" />
+    <h2 class="headerH2">Theo dõi món hàng</h2>
+    <img src="~/Content/Images/step-third.png" style="width: 40px"/>
+    <p class="pContent">
+        Cho phép bạn theo dõi xem món hàng của mình đã rời trạm được bao lâu
+    </p>
+</div>
+
 
 

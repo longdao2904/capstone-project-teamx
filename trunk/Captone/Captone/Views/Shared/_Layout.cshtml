@@ -205,29 +205,74 @@
                 </div>
             </div>
             <div class="col-lg-12" id="post-request">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <i class="fa fa-th"></i>@ViewBag.Title
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        @RenderBody()
-                    </div>
-                    <!-- /.panel-body -->
+                <div class="row" style="padding-top: 20px">
+                    @RenderBody()
                 </div>
-                <!-- /.panel -->
             </div>
         </div>
     </div>
+    <div style="clear: both;"></div>
+    <div class="contain">
+        <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <div class="carousel-inner">
+                <div class="item">
+                    <div class="row featurette" style="margin-left: 40px;">
+                        <div class="col-md-7">
+                            <h2 class="featurette-heading">Giao hàng <span class="text-muted">Nhanh chóng, đúng thời gian</span></h2>
+                            <p class="lead">Đến nay, công ty đã có trên 200 xe khách 45 chỗ thương hiệu Huyndai dòng cao</p> 
+                            <p class="lead">cấp nhất dành cho các tuyến cố định.</p>
+                            <p class="lead">Số lượng phương tiện vận chuyển khỏang 70 xe Hyundai Aero Space đời mới 
+                            <p class="lead">và sang trọng.</p>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="~/Content/Images/Slider/tq2.jpg" class="imageClass" />
+                        </div>
+                    </div>
+                </div>
 
+      
+                <div class="item">
+                    <div class="row featurette" style="margin-left: 100px;">
+                        <div class="col-md-5">
+                            <img src="~/Content/Images/Slider/viet-1.jpg" class="imageClass"/>
+                        </div>
+                        <div class="col-md-7" style="margin-left: -120px;">
+                            <h2 class="featurette-heading">Lực lượng nhân viên <span class="text-muted">Chuyên nghiệp, cẩn thận</span></h2>
+                            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="item active">
+                    <div class="row featurette" style="margin-left: 40px;">
+                        <div class="col-md-7">
+                            <h2 class="featurette-heading">Tổng đài <span class="text-muted">Nhiệt tình, chu đáo</span></h2>
+                            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="~/Content/Images/Slider/ACB.jpg" class="imageClass" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+		</div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
-        $('#myTab a').click(function(e) {
+        $('#myTab a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         });
-        
+
     </script>
 </body>
 
