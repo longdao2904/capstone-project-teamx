@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Captone.Models.Request>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManageFee.Fee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRequest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToLocation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryStatu.StatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManageFee.Fee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRequest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromLocation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToLocation)
+        </td>
+    </tr>
+}
+
+</table>

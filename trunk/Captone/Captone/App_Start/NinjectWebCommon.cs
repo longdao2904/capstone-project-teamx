@@ -82,7 +82,7 @@ namespace Captone.App_Start
             kernel.Bind<IRouteRepository>().To<RouteRepository>();
             kernel.Bind<IStationRepository>().To<StationRepository>();
 
-          //  kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>));
+            //kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>));
 
             //Binding Services
             kernel.Bind<IAccountService>().To<AccountService>();

@@ -5,137 +5,56 @@
 }
 
 <div class="col-lg-12">
-    <div class="table-responsive">
-        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="dataTables_length" id="dataTables-example_length">
-                        <label>
-                            <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            records per page</label>
+    <div class="tabbable">
+        <ul id="myTab" class="nav nav-tabs">
+            @foreach (var stt in ViewBag.Status)
+            {
+                <li><a href="/Request/ListRequest?sttID=@stt.DeliveryStatusID" id="@stt.DeliveryStatusID" data-toggle="tab" >@stt.StatusName</a></li>
+            }
+        </ul>
+        <div class="table-responsive" style="margin-top: 1%">
+            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <div class="row" style="margin-bottom: 1%">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" id="dataTables-example_length">
+                            <label>
+                                Hiển thị
+                                <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="dataTables-example_filter" class="dataTables_filter" style="float: right">
+                            <label>
+                                <input type="search" placeholder="Tìm kiếm" class="form-control input-sm" aria-controls="dataTables-example"></label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div id="dataTables-example_filter" class="dataTables_filter">
-                        <label>Search:<input type="search" class="form-control input-sm" aria-controls="dataTables-example"></label>
-                    </div>
-                </div>
+                <div id="request"></div>
+                <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
             </div>
-            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Account.Username)
-                    </th>
-                    <th class="sorting">
-                        @Html.DisplayNameFor(model => model.ManageFee.Fee)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DateRequest)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Station.StationName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Station1.StationName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ReceiverAddress)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ReceiverName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ReceiverPhone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        @Html.HiddenFor(modelItem => item.RequestID)
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Account.Username)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ManageFee.Fee)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateRequest)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Station.StationName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Station1.StationName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReceiverName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReceiverPhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DeliveryStatu.StatusName)
-                        </td>
-                        <td>
-                            @*<a href="/Request/Edit/@item.RequestID"><i class="fa fa-edit fa-fw"></i></a>|*@
-                            @*<a href="/Request/Details/@item.RequestID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Request/Delete/@item.RequestID"><i class="fa fa-minus-square fa-fw"></i></a>*@
-                            <input type="button" value="@item.RequestID" class="btn btn-primary" onclick="loadPopupBox()" />
-                        </td>
-                    </tr>
-                }
-            </table>
-            <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
         </div>
     </div>
 </div>
-
-<div id="popup_box" style="display: none">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
-        <legend>Cập nhật trạng thái chuyển phát</legend>
-        <form action="/Request/Edit/" method="post">
-
-            <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
-            <input type="button" value="Hủy" id="popupBoxClose" class="btn btn-primary" onclick="unloadPopupBox()" />
-        </form>   
-    }
-</div>
 <script type="text/javascript">
-    $('#popupBoxClose').click(function () {
-        unloadPopupBox();
-    });
-
-    $('#wrapper').click(function () {
-        unloadPopupBox();
-    });
-
-    function unloadPopupBox() {    // TO Unload the Popupbox
-        $('#popup_box').fadeOut("slow");
-        $("#wrapper").css({ // this is just for style        
-            "opacity": "1"
+    function addActive() {
+        listStatus(3);
+        $('#1').addClass("active");
+    }
+    function listStatus(id) {
+        $.ajax({
+            url: "/Request/ListRequest",
+            type: "Post",
+            data: { sttID: id },
+            success: function (result) {
+                $("#request").html(result);
+            }
         });
     }
-
-    function loadPopupBox() {    // To Load the Popupbox
-        $('#popup_box').fadeIn("slow");
-        $("#wrapper").css({ // this is just for style
-            "opacity": "0.3"
-        });
-        window.location.href('/Request/Edit/'+id);
-    }
+    window.onload = addActive();
 </script>
