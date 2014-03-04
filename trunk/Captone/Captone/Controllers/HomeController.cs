@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Objects;
+using System.Data.Objects.SqlClient;
 using System.Data.SqlClient;
 using System.Data.EntityClient;
 using System.Data;
@@ -20,7 +21,8 @@ namespace Captone.Controllers
         private iDeliverEntities _db = new iDeliverEntities();
 
         public ActionResult Index()
-        {
+       {
+
             return View();
         }
 
@@ -174,6 +176,39 @@ namespace Captone.Controllers
             var list = new List<Route>();
             return list;
         }
+        public ActionResult ListProvince()
+        {
+            IEnumerable<SelectListItem> province = (from p
+                           in _db.Stations 
+                           group p by new
+                                           {
+                                               p.ProvinceID,
+                                               p.Province.ProvinceName
+                                           } into k
+                            select new SelectListItem() {
+                            Text = k.Key.ProvinceName,
+                            Value = SqlFunctions.StringConvert((double) k.Key.ProvinceID).Trim()
+                            }).ToList();
+            ViewBag.Province = province;
+            return PartialView("ListProvince");
+
+        }
+        public ActionResult ListStation(int province)
+        {
+            var station = _db.Stations.Where(p => p.ProvinceID == province).ToList();
+            return PartialView("ListStation", station);
+        }
+
+        public ActionResult ListCoordinate(int ProvinceID)
+        {
+            var coordinate = (from p
+                                  in _db.Stations
+                                  where p.ProvinceID == ProvinceID
+                              select new {p.Coordinate}
+                             ).ToList();
+            return Json(coordinate, JsonRequestBehavior.AllowGet);
+        }
+        }
     
     }
-}
+

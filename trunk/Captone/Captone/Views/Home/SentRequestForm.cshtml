@@ -10,7 +10,7 @@
 }
 
 
-<div class="">
+<div>
     <form method="POST" action="/Home/PostRequest">
         <div class="col-lg-6">
             <input type="text" value="@DateTime.Now" name="DateRequest" style="display: none"/>
@@ -25,7 +25,7 @@
                         <div class="each-field">
                             Tên Người Gửi
                             <br />
-                            <input type="text" name="Username"  value="@username" class="form-control"/>
+                            <input type="text" name="Username"  value="@username" class="form-control" autofocus/>
                         </div>
 
                         <div class="each-field">
@@ -126,8 +126,8 @@
             </div>
         </div>
 
-        <div>
-            <button type="submit" class="button-submit">Hoàn Tất</button>
+        <div class="button-location">
+            <button type="submit" class="btn btn-lg btn-success" style="margin-left: 190px; margin-top: 10px;" >Hoàn Tất</button>
         </div>
 
     </form>
@@ -154,7 +154,7 @@
             checkStation();
 
         } else {
-            document.getElementById("hide").innerHTML = "";
+            document.getElementById("map").innerHTML = "";
         }
 
     }
@@ -175,7 +175,7 @@
             ToLocation();
             $('.bub-container2').show();
         } else {
-            document.getElementById("hide").innerHTML = "";
+            document.getElementById("map").innerHTML = "";
         }
 
     }

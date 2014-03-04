@@ -186,6 +186,9 @@
     <Compile Include="Models\ManageFee.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Rating.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -196,6 +199,9 @@
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Station.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trip.cs">
@@ -584,6 +590,8 @@
     <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\Edit.cshtml" />
     <Content Include="Views\Trip\Delete.cshtml" />
+    <Content Include="Views\Home\ListProvince.cshtml" />
+    <Content Include="Views\Home\ListStation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
