@@ -46,7 +46,7 @@ namespace Captone.Services
             var result = new Dictionary<Request, List<Trip>>();
             //list all station
             List<Station> station = new List<Station>();
-            station = _stationRepository.GetAllStations().ToList();
+            station = _stationRepository.GetAllStations();
             //list all pending request
             List<Request> requests = new List<Request>();
             requests = _requestRepository.GetPendingRequest().ToList();

@@ -120,6 +120,11 @@ namespace Captone.Controllers
             return View(request);
         }
 
+        public ActionResult Assigning()
+        {
+            var requests = db.Requests.Include(r => r.Account).Include(r => r.DeliveryStatu).Include(r => r.ManageFee).Include(r => r.Station).Include(r => r.Station1);
+            return View(requests.ToList());
+        }
         //
         // POST: /Request/Delete/5
 

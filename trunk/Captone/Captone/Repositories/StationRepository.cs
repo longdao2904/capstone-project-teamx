@@ -14,9 +14,9 @@ namespace Captone.Repositories
         {
         }
 
-        public IQueryable<Station> GetAllStations()
+        public List<Station> GetAllStations()
         {
-            return base.GetAll<Station>();
+            return base.GetAll<Station>().ToList();
         }
     }
 }

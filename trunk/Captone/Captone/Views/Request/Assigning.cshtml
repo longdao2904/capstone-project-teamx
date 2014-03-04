@@ -9,9 +9,9 @@
         <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="dataTables_length" id="dataTables-example_length">
+                    <div class="dataTables_length" id="dataTables-example_length" >
                         <label>
-                            <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                            <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm" autofocus>
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -98,7 +98,6 @@
                     </tr>
                 }
             </table>
-            <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
         </div>
     </div>
 </div>
@@ -136,6 +135,6 @@
         $("#wrapper").css({ // this is just for style
             "opacity": "0.3"
         });
-        window.location.href('/Request/Edit/'+id);
+        window.location.href('/Request/Edit/' + id);
     }
 </script>

@@ -8,6 +8,6 @@ namespace Captone.Repositories.Interfaces
 {
     public interface IStationRepository
     {
-        IQueryable<Station> GetAllStations();
+        List<Station> GetAllStations();
     }
 }
