@@ -15,5 +15,9 @@ namespace Captone.Repositories
         {
             return base.GetAll<Route>();
         }
+        public void Edit(Route route)
+        {
+            Update(route);
+        } 
     }
 }

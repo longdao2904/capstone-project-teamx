@@ -18,5 +18,9 @@ namespace Captone.Repositories
         {
             return GetDbSet<Coach>();
         }
+        public void Edit(Coach coach)
+        {
+            Update(coach);
+        }
     }
 }

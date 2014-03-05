@@ -6,10 +6,9 @@ using Captone.Models;
 
 namespace Captone.Repositories.Interfaces
 {
-    public interface ICoachRepository
+    public interface IInvoiceRepository
     {
-        IQueryable<Coach> GetAllCoaches();
-        void Edit(Coach coach);
+        IQueryable<Invoice> GetAllInvoices();
+        void Edit(Invoice invoice);
     }
 }
-

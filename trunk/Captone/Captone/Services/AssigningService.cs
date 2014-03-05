@@ -11,32 +11,57 @@ namespace Captone.Services
 {
     public class AssigningService : IAssigningService
     {
+        //declare interface
         private readonly ICoachRepository _coachRepository;
         private readonly ITripRepository _tripRepository;
         private readonly IRouteRepository _routeRepository;
         private readonly IStationRepository _stationRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
         private readonly IRequestRepository _requestRepository;
+        //declare class
+        private List<Invoice> invoices = new List<Invoice>();
+        private List<Request> requests = new List<Request>();
+        private List<Station> stations = new List<Station>();
+        private List<Route> routes = new List<Route>(); 
+        private List<Coach> coaches = new List<Coach>();
+        private List<Trip> trips = new List<Trip>();
         private int max = 20, maxVolume = 100, maxWeight = 100;
-        public AssigningService()
-        {
-            
-        }
-        public AssigningService(ICoachRepository coachRepository, ITripRepository tripRepository,
-                                IRouteRepository routeRepository, IStationRepository stationRepository, 
-                                IRequestRepository requestRepository)
-        {
-            _coachRepository = coachRepository;
-            _tripRepository = tripRepository;
-            _routeRepository = routeRepository;
-            _stationRepository = stationRepository;
-            _requestRepository = requestRepository;
-        }
 
+        private void InitData()
+        {
+            coaches = _coachRepository.GetAllCoaches().ToList();
+            trips = _tripRepository.GetAllTrips().ToList();
+            routes = _routeRepository.GetAllRoutes().ToList();
+            stations = _stationRepository.GetAllStations().ToList();
+            invoices = _invoiceRepository.GetAllInvoices().ToList();
+            requests = _requestRepository.GetAllRequests().ToList();
+        }
+        //sort by the day of request increasing, if two request posted in the same day,
+        //then, sort by the weight of request increasing
         public int RequestCompare(Request a, Request b)
         {
-            //compare by date post request
-            if (a.DateRequest < b.DateRequest) return 1;
-            if (a.DateRequest == b.DateRequest) return 0;
+            Invoice tmp1 = new Invoice();
+            Invoice tmp2 = new Invoice();
+            //find the invoice suitable with request
+            for (int i = 0; i < invoices.Count; i++)
+            {
+                if (invoices[i].RequestID == a.RequestID)
+                {
+                    tmp1 = invoices[i];
+                }
+                if (invoices[i].RequestID == b.RequestID)
+                {
+                    tmp2 = invoices[i];
+                }
+            }
+                //compare by date post request increasingly
+                if (a.DateRequest > b.DateRequest) return 1; 
+            if (a.DateRequest == b.DateRequest)
+            {
+                if (tmp1.Weight > tmp2.Weight) return 1;
+                if (tmp1.Weight == tmp2.Weight) return 0;
+                return -1;
+            }
             return -1;
         }
 

@@ -9,5 +9,6 @@ namespace Captone.Repositories.Interfaces
     public interface IStationRepository
     {
         List<Station> GetAllStations();
+        void Edit(Station station);
     }
 }

@@ -10,5 +10,6 @@ namespace Captone.Repositories.Interfaces
     {
         IQueryable<Request> GetAllRequests();
         IQueryable<Request> GetPendingRequest();
+        void Edit(Request request);
     }
 }

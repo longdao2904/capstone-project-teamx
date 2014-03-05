@@ -18,5 +18,9 @@ namespace Captone.Repositories
         {
             return base.GetAll<Station>().ToList();
         }
+        public void Edit(Station station)
+        {
+            Update(station);
+        } 
     }
 }

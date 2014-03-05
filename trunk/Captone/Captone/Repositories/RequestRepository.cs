@@ -23,5 +23,10 @@ namespace Captone.Repositories
         {
             return GetDbSet<Request>().Where(i => i.DeliveryStatusID == 1);
         }
+
+        public void Edit(Request request)
+        {
+            Update(request);
+        }
     }
 }

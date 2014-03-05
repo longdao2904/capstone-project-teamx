@@ -9,5 +9,6 @@ namespace Captone.Repositories.Interfaces
     public interface IRouteRepository
     {
         IQueryable<Route> GetAllRoutes();
+        void Edit(Route route);
     }
 }

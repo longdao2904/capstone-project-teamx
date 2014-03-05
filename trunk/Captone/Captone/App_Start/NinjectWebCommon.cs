@@ -81,7 +81,7 @@ namespace Captone.App_Start
             kernel.Bind<IRequestRepository>().To<RequestRepository>();
             kernel.Bind<IRouteRepository>().To<RouteRepository>();
             kernel.Bind<IStationRepository>().To<StationRepository>();
-
+            kernel.Bind<IInvoiceRepository>().To<InvoiceRepository>();
             //kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>));
 
             //Binding Services
@@ -91,6 +91,7 @@ namespace Captone.App_Start
             kernel.Bind<IRouteService>().To<RouteService>();
             kernel.Bind<IStationService>().To<StationService>();
             kernel.Bind<ITripService>().To<TripService>();
+            kernel.Bind<IInvoiceService>().To<InvoiceService>();
         }        
     }
 }
