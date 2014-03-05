@@ -1,49 +1,45 @@
 ﻿@model IEnumerable<Captone.Models.Request>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>Tên đăng nhập
+            </th>
+            <th>Phí
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>Trạm gửi
+            </th>
+            <th>Trạm nhận
+            </th>
+            <th>Trạng thái
+            </th>
+            <th></th>
+        </tr>
 
-<table>
-    <tr>
-        <th>
-            Tên đăng nhập
-        </th>
-        <th>
-            Phí
-        </th>
-        <th>
-            Ngày gửi
-        </th>
-        <th>
-            Trạm gửi
-        </th>
-        <th>
-            Trạm nhận
-        </th>
-        <th>
-            Trạng thái
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.ManageFee.Fee
+                </td>
+                <td>
+                    @item.DateRequest
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td>
+                    @item.DeliveryStatu.StatusName
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Username
-        </td>
-        <td>
-            @item.ManageFee.Fee
-        </td>
-        <td>
-            @item.DateRequest
-        </td>
-        <td>
-            @item.Station.StationName
-        </td>
-        <td>
-            @item.Station.StationName
-        </td>
-        <td>
-            @item.DeliveryStatu.StatusName
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>

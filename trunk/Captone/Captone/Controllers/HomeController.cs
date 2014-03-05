@@ -14,7 +14,7 @@ namespace Captone.Controllers
         private iDeliverEntities _db = new iDeliverEntities();
 
         public ActionResult Index()
-       {
+        {
 
             return View();
         }
@@ -26,7 +26,7 @@ namespace Captone.Controllers
 
         public ActionResult Login()
         {
- 
+
             return View();
         }
 
@@ -68,6 +68,21 @@ namespace Captone.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult LoadRequest()
+        {
+            string sender = Session["USERNAME"].ToString();
+            var all = _db.Requests.ToList();
+            if ((string)Session["UserRole"] == "Customer")
+            {
+                pendingReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 1).ToList();
+                ViewBag.TranssitedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 3).ToList();
+                ViewBag.ArrivedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 4).ToList();
+                ViewBag.DeliveredReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 5).ToList();
+                return PartialView("LoadRequest", pendingReq);
+            }
+            return PartialView("LoadRequest", all);
+        }
+
         public ActionResult SentRequestForm()
         {
 
@@ -99,7 +114,7 @@ namespace Captone.Controllers
 
             return false;
         }
- 
+
         public ActionResult AddUserInfo(FormCollection col)
         {
             UserInfo info = new UserInfo();
@@ -125,22 +140,23 @@ namespace Captone.Controllers
 
         public ActionResult GetAddressStation(string stationLocation)
         {
-    
-           // var address = (from m
-                       //        in _db.Stations
-                     //      where m.StationLocation.Contains(stationLocation)
-                    //       select new {m.StationName, m.StationLocation}
-                   //       ).ToList();
-          //  return Json(address, JsonRequestBehavior.AllowGet);
+
+            // var address = (from m
+            //        in _db.Stations
+            //      where m.StationLocation.Contains(stationLocation)
+            //       select new {m.StationName, m.StationLocation}
+            //       ).ToList();
+            //  return Json(address, JsonRequestBehavior.AllowGet);
 
             string str = "select * from dbo.Station where StationLocation like N'%" + stationLocation + "%'";
-           var address = _db.Database.SqlQuery<Station>(str).ToList();
+            var address = _db.Database.SqlQuery<Station>(str).ToList();
             return Json(address, JsonRequestBehavior.AllowGet);
 
         }
 
         public ActionResult PostRequest(FormCollection col)
-        {   Request request = new Request();
+        {
+            Request request = new Request();
             request.Username = col["Username"];
             request.DeliveryStatusID = 1;
             request.FeeID = int.Parse(col["FeeID"]);
@@ -168,23 +184,26 @@ namespace Captone.Controllers
             var list = new List<Route>();
             return list;
         }
+
         public ActionResult ListProvince()
         {
             IEnumerable<SelectListItem> province = (from p
-                           in _db.Stations 
-                           group p by new
-                                           {
-                                               p.ProvinceID,
-                                               p.Province.ProvinceName
-                                           } into k
-                            select new SelectListItem() {
-                            Text = k.Key.ProvinceName,
-                            Value = SqlFunctions.StringConvert((double) k.Key.ProvinceID).Trim()
-                            }).ToList();
+                           in _db.Stations
+                                                    group p by new
+                                                                    {
+                                                                        p.ProvinceID,
+                                                                        p.Province.ProvinceName
+                                                                    } into k
+                                                    select new SelectListItem()
+                                                    {
+                                                        Text = k.Key.ProvinceName,
+                                                        Value = SqlFunctions.StringConvert((double)k.Key.ProvinceID).Trim()
+                                                    }).ToList();
             ViewBag.Province = province;
             return PartialView("ListProvince");
 
         }
+
         public ActionResult ListStation(int province)
         {
             var station = _db.Stations.Where(p => p.ProvinceID == province).ToList();
@@ -195,12 +214,14 @@ namespace Captone.Controllers
         {
             var coordinate = (from p
                                   in _db.Stations
-                                  where p.ProvinceID == ProvinceID
-                              select new {p.Coordinate}
+                              where p.ProvinceID == ProvinceID
+                              select new { p.Coordinate }
                              ).ToList();
             return Json(coordinate, JsonRequestBehavior.AllowGet);
         }
-        }
-    
+
+        public List<Models.Request> pendingReq { get; set; }
     }
+
+}
 

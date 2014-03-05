@@ -76,9 +76,17 @@
                 </li>
                 <li class="active">
                     <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
+                    @if ((string)Session["USERNAME"] != null && (string)Session["UserRole"]=="Customer")
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Home/LoadRequest"><i class="fa fa-sign-in fa-fw"></i> Request của tôi</a>
+                            </li>
+                        </ul>
+                    }
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-user fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
                     @if ((string)Session["USERNAME"] == null)
                     {
                         <ul class="nav nav-second-level">
@@ -98,6 +106,9 @@
                             </li>
                             <li>
                                 <a href="#">Đổi mật khẩu</a>
+                            </li>
+                            <li>
+                                <a href="/Home/LogOff">Đăng xuất</a>
                             </li>
                         </ul>
                     }
@@ -130,7 +141,7 @@
                 @if ((string)Session["UserRole"] == "Admin")
                 {
                     <li class="active">
-                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-gears fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">Nhân viên</a>
@@ -153,7 +164,7 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i>Google Maps
+                        <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và đường đi
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -194,7 +205,7 @@
             <div class="col-lg-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <i class="fa fa-bell fa-fw"></i>Danh sách trạm
+                        <i class="fa fa-building-o fa-fw"></i>Danh sách trạm
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">

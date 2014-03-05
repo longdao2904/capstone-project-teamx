@@ -89,60 +89,31 @@ namespace Captone.Controllers
             }
             ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
             ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID", request.FeeID);
+            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "Fee", request.FeeID);
             ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
             ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
             return View(request);
         }
 
-        //
-        // POST: /Request/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(Request request)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(request).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
-        //    ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-        //    ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID", request.FeeID);
-        //    ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
-        //    ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
-        //    return View(request);
-        //}
-
-
-        [HttpGet]
-        public ActionResult EditPartialView(int id)
-        {
-            Request request = db.Requests.Find(id);
-            if (request == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
-            ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID", request.FeeID);
-            ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
-            ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
-            return PartialView("EditPartialView", request);
-        }
+        
+         //POST: /Request/Edit/5
 
         [HttpPost]
-        public void Edit(Request request)
+        public ActionResult Edit(Request request)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
+            ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
+            ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
+            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "Fee", request.FeeID);
+            ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
+            ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
+            return View(request);
         }
-
-
 
 
         //

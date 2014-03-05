@@ -1,66 +1,18 @@
 ﻿@model Captone.Models.Request
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Chỉnh sửa thông tin yêu cầu vận chuyển";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
-
+    if ((string)Session["UserRole"] == "Customer")
+    {
     <fieldset>
-        <legend>Request</legend>
+        <legend>Chỉnh sửa thông tin yêu cầu vận chuyển</legend>
 
         @Html.HiddenFor(model => model.RequestID)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Username", String.Empty)
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DeliveryStatusID)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("DeliveryStatusID", String.Empty)
-            @Html.ValidationMessageFor(model => model.DeliveryStatusID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FeeID)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("FeeID", String.Empty)
-            @Html.ValidationMessageFor(model => model.FeeID)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateWeight)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateWeight)
-            @Html.ValidationMessageFor(model => model.EstimateWeight)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateVolume)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateVolume)
-            @Html.ValidationMessageFor(model => model.EstimateVolume)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateRequest)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateRequest)
-            @Html.ValidationMessageFor(model => model.DateRequest)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
@@ -125,33 +77,113 @@
             @Html.EditorFor(model => model.ReceiverPhone)
             @Html.ValidationMessageFor(model => model.ReceiverPhone)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TypeOfPayment)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TypeOfPayment)
-            @Html.ValidationMessageFor(model => model.TypeOfPayment)
-        </div>
-
+        <br />
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Home/LoadRequest'" />
         </p>
     </fieldset>
-}
+    }
+    else
+    {
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                @Html.HiddenFor(model => model.RequestID)
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Username)
+                </div>
+                <div class="editor-field">
+                    <p>@Html.DisplayFor(model => model.Username)</p>
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DeliveryStatusID)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("DeliveryStatusID", String.Empty)
+                    @Html.ValidationMessageFor(model => model.DeliveryStatusID)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FromLocation)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("FromLocation", String.Empty)
+                    @Html.ValidationMessageFor(model => model.FromLocation)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ToLocation)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("ToLocation", String.Empty)
+                    @Html.ValidationMessageFor(model => model.ToLocation)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SenderAddress)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SenderAddress)
+                    @Html.ValidationMessageFor(model => model.SenderAddress)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ReceiverAddress)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverAddress)
+                    @Html.ValidationMessageFor(model => model.ReceiverAddress)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SenderPhone)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SenderPhone)
+                    @Html.ValidationMessageFor(model => model.SenderPhone)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ReceiverName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverName)
+                    @Html.ValidationMessageFor(model => model.ReceiverName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ReceiverPhone)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverPhone)
+                    @Html.ValidationMessageFor(model => model.ReceiverPhone)
+                </div>
+                <br />
+                <p>
+                    <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
+                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Request/Index'" />
+                </p>
+            </div>
+        </div>
+    </fieldset>
+    }
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    function changeClass() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+
+    window.onload = changeClass();
+</script>

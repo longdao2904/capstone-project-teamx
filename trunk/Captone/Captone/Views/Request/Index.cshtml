@@ -14,49 +14,55 @@
         </ul>
         <div class="table-responsive" style="margin-top: 1%">
             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                <div class="row" style="margin-bottom: 1%">
-                    <div class="col-sm-6">
-                        <div class="dataTables_length" id="dataTables-example_length">
-                            <label>
-                                Hiển thị
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row" style="margin-bottom: 1%">
+                                <div class="col-sm-6">
+                                    <div class="dataTables_length" id="dataTables-example_length">
+                                        <label>
+                                            Hiển thị
                                 <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
                                     <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="50">50</option>
                                 </select>
-                            </label>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div id="dataTables-example_filter" class="dataTables_filter" style="float: right">
+                                        <label>
+                                            <input type="search" placeholder="Tìm kiếm" class="form-control input-sm" aria-controls="dataTables-example"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="request">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div id="dataTables-example_filter" class="dataTables_filter" style="float: right">
-                            <label>
-                                <input type="search" placeholder="Tìm kiếm" class="form-control input-sm" aria-controls="dataTables-example"></label>
-                        </div>
-                    </div>
+                    <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
                 </div>
-                <div id="request">
-                    
-                </div>
-                <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript">
-    function addActive() {
-        listStatus(1);
-        $('#1').addClass("active");
-    }
-    function listStatus(id) {
-        $.ajax({
-            url: "/Request/ListRequest",
-            type: "Post",
-            data: { sttID: id },
-            success: function (result) {
-                $("#request").html(result);
-            }
-        });
-    }
-    window.onload = addActive();
-</script>
+    <script type="text/javascript">
+        function addActive() {
+            listStatus(1);
+            $('#1').addClass("active");
+        }
+        function listStatus(id) {
+            $.ajax({
+                url: "/Request/ListRequest",
+                type: "Post",
+                data: { sttID: id },
+                success: function (result) {
+                    $("#request").html(result);
+                }
+            });
+        }
+        window.onload = addActive();
+    </script>
