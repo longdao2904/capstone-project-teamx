@@ -26,8 +26,8 @@ namespace Captone.Controllers
 
         public ActionResult ListRequest(int sttID)
         {
-            var request = db.Requests.Where(r => r.DeliveryStatusID == sttID).ToList();
-            return PartialView("ListRequest", request);
+            var request = db.Requests.Where(r => r.DeliveryStatusID == sttID);
+            return PartialView("ListRequest", request.ToList());
         }
 
         //

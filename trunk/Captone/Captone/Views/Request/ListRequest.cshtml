@@ -2,17 +2,17 @@
 <div class="table-responsive">
     <table class="table">
         <tr>
-            <th>Tên đăng nhập
+            <th>@Html.DisplayNameFor(model => model.Account.Username)
             </th>
-            <th>Phí
+            <th>@Html.DisplayNameFor(model => model.ManageFee.Fee)
             </th>
-            <th>Ngày gửi
+            <th>@Html.DisplayNameFor(model => model.DateRequest)
             </th>
-            <th>Trạm gửi
+            <th>@Html.DisplayNameFor(model => model.FromLocation)
             </th>
-            <th>Trạm nhận
+            <th>@Html.DisplayNameFor(model => model.ToLocation)
             </th>
-            <th>Trạng thái
+            <th>@Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
             </th>
             <th></th>
         </tr>
@@ -33,13 +33,17 @@
                     @item.Station.StationName
                 </td>
                 <td>
-                    @item.Station.StationName
+                    @item.Station1.StationName
                 </td>
                 <td>
                     @item.DeliveryStatu.StatusName
                 </td>
+                <td>
+                    <a href="/Request/Edit/@item.RequestID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/Request/Details/@item.RequestID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/Request/Delete/@item.RequestID"><i class="fa fa-minus-square fa-fw"></i></a>
+                </td>
             </tr>
         }
-
     </table>
 </div>

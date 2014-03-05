@@ -70,15 +70,18 @@ namespace Captone.Controllers
 
         public ActionResult LoadRequest()
         {
-            string sender = Session["USERNAME"].ToString();
             var all = _db.Requests.ToList();
-            if ((string)Session["UserRole"] == "Customer")
+            if (Session["USERNAME"] != null)
             {
-                pendingReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 1).ToList();
-                ViewBag.TranssitedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 3).ToList();
-                ViewBag.ArrivedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 4).ToList();
-                ViewBag.DeliveredReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 5).ToList();
-                return PartialView("LoadRequest", pendingReq);
+                string sender = Session["USERNAME"].ToString();
+                if ((string)Session["UserRole"] == "Customer")
+                {
+                    pendingReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 1).ToList();
+                    ViewBag.TranssitedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 3).ToList();
+                    ViewBag.ArrivedReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 4).ToList();
+                    ViewBag.DeliveredReq = _db.Requests.Where(r => r.Username == sender).Where(r => r.DeliveryStatusID == 5).ToList();
+                    return PartialView("LoadRequest", pendingReq);
+                }
             }
             return PartialView("LoadRequest", all);
         }
