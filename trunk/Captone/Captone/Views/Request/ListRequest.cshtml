@@ -3,22 +3,22 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            Tên đăng nhập
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
+            Phí
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ManageFee.Fee)
+            Ngày gửi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateRequest)
+            Trạm gửi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FromLocation)
+            Trạm nhận
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ToLocation)
+            Trạng thái
         </th>
         <th></th>
     </tr>
@@ -26,22 +26,22 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Username)
+            @item.Username
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DeliveryStatu.StatusName)
+            @item.ManageFee.Fee
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ManageFee.Fee)
+            @item.DateRequest
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateRequest)
+            @item.Station.StationName
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FromLocation)
+            @item.Station.StationName
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ToLocation)
+            @item.DeliveryStatu.StatusName
         </td>
     </tr>
 }

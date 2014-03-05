@@ -9,7 +9,7 @@
         <ul id="myTab" class="nav nav-tabs">
             @foreach (var stt in ViewBag.Status)
             {
-                <li><a href="/Request/ListRequest?sttID=@stt.DeliveryStatusID" id="@stt.DeliveryStatusID" data-toggle="tab" >@stt.StatusName</a></li>
+                <li><a href="#" id="@stt.DeliveryStatusID" data-toggle="tab" onclick="listStatus(this.id)">@stt.StatusName</a></li>
             }
         </ul>
         <div class="table-responsive" style="margin-top: 1%">
@@ -35,7 +35,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="request"></div>
+                <div id="request">
+                    
+                </div>
                 <a href="~/Request/Assigning" style="color: deepskyblue">Sắp xếp yêu cầu chuyển phát</a>
             </div>
         </div>
@@ -43,7 +45,7 @@
 </div>
 <script type="text/javascript">
     function addActive() {
-        listStatus(3);
+        listStatus(1);
         $('#1').addClass("active");
     }
     function listStatus(id) {

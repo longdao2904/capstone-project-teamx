@@ -4,95 +4,101 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="ModelsStoreContainer">
-          <EntitySet Name="Account" EntityType="Models.Store.Account" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Assigning" EntityType="Models.Store.Assigning" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Coach" EntityType="Models.Store.Coach" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CoachType" EntityType="Models.Store.CoachType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Comment" EntityType="Models.Store.Comment" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DeliveryStatus" EntityType="Models.Store.DeliveryStatus" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Invoice" EntityType="Models.Store.Invoice" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ManageFee" EntityType="Models.Store.ManageFee" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Rating" EntityType="Models.Store.Rating" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Request" EntityType="Models.Store.Request" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Route" EntityType="Models.Store.Route" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Station" EntityType="Models.Store.Station" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Trip" EntityType="Models.Store.Trip" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserInfo" EntityType="Models.Store.UserInfo" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Assigning_Request" Association="Models.Store.FK_Assigning_Request">
+      <Schema Namespace="iDeliverModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="iDeliverModelStoreContainer">
+          <EntitySet Name="Account" EntityType="iDeliverModel.Store.Account" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Assigning" EntityType="iDeliverModel.Store.Assigning" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Coach" EntityType="iDeliverModel.Store.Coach" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CoachType" EntityType="iDeliverModel.Store.CoachType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comment" EntityType="iDeliverModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DeliveryStatus" EntityType="iDeliverModel.Store.DeliveryStatus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Invoice" EntityType="iDeliverModel.Store.Invoice" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ManageFee" EntityType="iDeliverModel.Store.ManageFee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Province" EntityType="iDeliverModel.Store.Province" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rating" EntityType="iDeliverModel.Store.Rating" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Request" EntityType="iDeliverModel.Store.Request" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Route" EntityType="iDeliverModel.Store.Route" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Station" EntityType="iDeliverModel.Store.Station" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="iDeliverModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Trip" EntityType="iDeliverModel.Store.Trip" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserInfo" EntityType="iDeliverModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Assigning_Request" Association="iDeliverModel.Store.FK_Assigning_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Assigning" EntitySet="Assigning" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assigning_Trip" Association="Models.Store.FK_Assigning_Trip">
+          <AssociationSet Name="FK_Assigning_Trip" Association="iDeliverModel.Store.FK_Assigning_Trip">
             <End Role="Trip" EntitySet="Trip" />
             <End Role="Assigning" EntitySet="Assigning" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coach_CoachType" Association="Models.Store.FK_Coach_CoachType">
+          <AssociationSet Name="FK_Coach_CoachType" Association="iDeliverModel.Store.FK_Coach_CoachType">
             <End Role="CoachType" EntitySet="CoachType" />
             <End Role="Coach" EntitySet="Coach" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_Account" Association="Models.Store.FK_Comment_Account">
+          <AssociationSet Name="FK_Comment_Account" Association="iDeliverModel.Store.FK_Comment_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_Station" Association="Models.Store.FK_Comment_Station">
+          <AssociationSet Name="FK_Comment_Station" Association="iDeliverModel.Store.FK_Comment_Station">
             <End Role="Station" EntitySet="Station" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_EndStation" Association="Models.Store.FK_EndStation">
+          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.Store.FK_EndStation">
             <End Role="Station" EntitySet="Station" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
-          <AssociationSet Name="FK_Invoice_ManageFee" Association="Models.Store.FK_Invoice_ManageFee">
+          <AssociationSet Name="FK_Invoice_ManageFee" Association="iDeliverModel.Store.FK_Invoice_ManageFee">
             <End Role="ManageFee" EntitySet="ManageFee" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Request" Association="Models.Store.FK_Invoice_Request">
+          <AssociationSet Name="FK_Invoice_Request" Association="iDeliverModel.Store.FK_Invoice_Request">
             <End Role="Request" EntitySet="Request" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
-          <AssociationSet Name="FK_Rating_Account" Association="Models.Store.FK_Rating_Account">
+          <AssociationSet Name="FK_Rating_Account" Association="iDeliverModel.Store.FK_Rating_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_Rating_Station" Association="Models.Store.FK_Rating_Station">
+          <AssociationSet Name="FK_Rating_Station" Association="iDeliverModel.Store.FK_Rating_Station">
             <End Role="Station" EntitySet="Station" />
             <End Role="Rating" EntitySet="Rating" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Account" Association="Models.Store.FK_Request_Account">
+          <AssociationSet Name="FK_Request_Account" Association="iDeliverModel.Store.FK_Request_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_DeliveryStatus" Association="Models.Store.FK_Request_DeliveryStatus">
+          <AssociationSet Name="FK_Request_DeliveryStatus" Association="iDeliverModel.Store.FK_Request_DeliveryStatus">
             <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_ManageFee" Association="Models.Store.FK_Request_ManageFee">
+          <AssociationSet Name="FK_Request_ManageFee" Association="iDeliverModel.Store.FK_Request_ManageFee">
             <End Role="ManageFee" EntitySet="ManageFee" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Station" Association="Models.Store.FK_Request_Station">
+          <AssociationSet Name="FK_Request_Station" Association="iDeliverModel.Store.FK_Request_Station">
             <End Role="Station" EntitySet="Station" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Station1" Association="Models.Store.FK_Request_Station1">
+          <AssociationSet Name="FK_Request_Station1" Association="iDeliverModel.Store.FK_Request_Station1">
             <End Role="Station" EntitySet="Station" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK_StartStation" Association="Models.Store.FK_StartStation">
+          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.Store.FK_StartStation">
             <End Role="Station" EntitySet="Station" />
             <End Role="Route" EntitySet="Route" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trip_Coach" Association="Models.Store.FK_Trip_Coach">
+          <AssociationSet Name="FK_Station_Province" Association="iDeliverModel.Store.FK_Station_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Station" EntitySet="Station" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trip_Coach" Association="iDeliverModel.Store.FK_Trip_Coach">
             <End Role="Coach" EntitySet="Coach" />
             <End Role="Trip" EntitySet="Trip" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trip_Route" Association="Models.Store.FK_Trip_Route">
+          <AssociationSet Name="FK_Trip_Route" Association="iDeliverModel.Store.FK_Trip_Route">
             <End Role="Route" EntitySet="Route" />
             <End Role="Trip" EntitySet="Trip" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserInfo_Account" Association="Models.Store.FK_UserInfo_Account">
+          <AssociationSet Name="FK_UserInfo_Account" Association="iDeliverModel.Store.FK_UserInfo_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
@@ -176,6 +182,13 @@
           <Property Name="MinVolume" Type="float" Nullable="false" />
           <Property Name="MaxVolume" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceName" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Rating">
           <Key>
             <PropertyRef Name="RatingID" />
@@ -231,7 +244,17 @@
           <Property Name="StationPhone" Type="varchar" MaxLength="15" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Coordinate" Type="nvarchar" MaxLength="500" />
-          <Property Name="Province" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProvinceID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -259,8 +282,8 @@
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <Association Name="FK_Assigning_Request">
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="1" />
-          <End Role="Assigning" Type="Models.Store.Assigning" Multiplicity="*" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="1" />
+          <End Role="Assigning" Type="iDeliverModel.Store.Assigning" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -271,8 +294,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Assigning_Trip">
-          <End Role="Trip" Type="Models.Store.Trip" Multiplicity="1" />
-          <End Role="Assigning" Type="Models.Store.Assigning" Multiplicity="*" />
+          <End Role="Trip" Type="iDeliverModel.Store.Trip" Multiplicity="1" />
+          <End Role="Assigning" Type="iDeliverModel.Store.Assigning" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trip">
               <PropertyRef Name="TripID" />
@@ -283,8 +306,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Coach_CoachType">
-          <End Role="CoachType" Type="Models.Store.CoachType" Multiplicity="1" />
-          <End Role="Coach" Type="Models.Store.Coach" Multiplicity="*" />
+          <End Role="CoachType" Type="iDeliverModel.Store.CoachType" Multiplicity="1" />
+          <End Role="Coach" Type="iDeliverModel.Store.Coach" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CoachType">
               <PropertyRef Name="CoachTypeID" />
@@ -295,8 +318,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_Account">
-          <End Role="Account" Type="Models.Store.Account" Multiplicity="1" />
-          <End Role="Comment" Type="Models.Store.Comment" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Store.Account" Multiplicity="1" />
+          <End Role="Comment" Type="iDeliverModel.Store.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -307,8 +330,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_Station">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Comment" Type="Models.Store.Comment" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Comment" Type="iDeliverModel.Store.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -319,8 +342,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EndStation">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Route" Type="Models.Store.Route" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -331,8 +354,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_ManageFee">
-          <End Role="ManageFee" Type="Models.Store.ManageFee" Multiplicity="0..1" />
-          <End Role="Invoice" Type="Models.Store.Invoice" Multiplicity="*" />
+          <End Role="ManageFee" Type="iDeliverModel.Store.ManageFee" Multiplicity="0..1" />
+          <End Role="Invoice" Type="iDeliverModel.Store.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -343,8 +366,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_Request">
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="1" />
-          <End Role="Invoice" Type="Models.Store.Invoice" Multiplicity="*" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="1" />
+          <End Role="Invoice" Type="iDeliverModel.Store.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -355,8 +378,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Account">
-          <End Role="Account" Type="Models.Store.Account" Multiplicity="1" />
-          <End Role="Rating" Type="Models.Store.Rating" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Store.Account" Multiplicity="1" />
+          <End Role="Rating" Type="iDeliverModel.Store.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -367,8 +390,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Station">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Rating" Type="Models.Store.Rating" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Rating" Type="iDeliverModel.Store.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -379,8 +402,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Account">
-          <End Role="Account" Type="Models.Store.Account" Multiplicity="1" />
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Store.Account" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -391,8 +414,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_DeliveryStatus">
-          <End Role="DeliveryStatus" Type="Models.Store.DeliveryStatus" Multiplicity="1" />
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+          <End Role="DeliveryStatus" Type="iDeliverModel.Store.DeliveryStatus" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryStatus">
               <PropertyRef Name="DeliveryStatusID" />
@@ -403,8 +426,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
-          <End Role="ManageFee" Type="Models.Store.ManageFee" Multiplicity="0..1" />
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+          <End Role="ManageFee" Type="iDeliverModel.Store.ManageFee" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -415,8 +438,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -427,8 +450,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station1">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Request" Type="Models.Store.Request" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -439,8 +462,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StartStation">
-          <End Role="Station" Type="Models.Store.Station" Multiplicity="1" />
-          <End Role="Route" Type="Models.Store.Route" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -450,9 +473,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Station_Province">
+          <End Role="Province" Type="iDeliverModel.Store.Province" Multiplicity="0..1" />
+          <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceID" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Trip_Coach">
-          <End Role="Coach" Type="Models.Store.Coach" Multiplicity="1" />
-          <End Role="Trip" Type="Models.Store.Trip" Multiplicity="*" />
+          <End Role="Coach" Type="iDeliverModel.Store.Coach" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Store.Trip" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Coach">
               <PropertyRef Name="CoachID" />
@@ -463,8 +498,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trip_Route">
-          <End Role="Route" Type="Models.Store.Route" Multiplicity="1" />
-          <End Role="Trip" Type="Models.Store.Trip" Multiplicity="*" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Store.Trip" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Route">
               <PropertyRef Name="RouteID" />
@@ -475,8 +510,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInfo_Account">
-          <End Role="Account" Type="Models.Store.Account" Multiplicity="1" />
-          <End Role="UserInfo" Type="Models.Store.UserInfo" Multiplicity="0..1" />
+          <End Role="Account" Type="iDeliverModel.Store.Account" Multiplicity="1" />
+          <End Role="UserInfo" Type="iDeliverModel.Store.UserInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -490,95 +525,101 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="iDeliverModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="iDeliverEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Models.Account" />
-          <EntitySet Name="Assignings" EntityType="Models.Assigning" />
-          <EntitySet Name="Coaches" EntityType="Models.Coach" />
-          <EntitySet Name="CoachTypes" EntityType="Models.CoachType" />
-          <EntitySet Name="Comments" EntityType="Models.Comment" />
-          <EntitySet Name="DeliveryStatus" EntityType="Models.DeliveryStatu" />
-          <EntitySet Name="Invoices" EntityType="Models.Invoice" />
-          <EntitySet Name="ManageFees" EntityType="Models.ManageFee" />
-          <EntitySet Name="Ratings" EntityType="Models.Rating" />
-          <EntitySet Name="Requests" EntityType="Models.Request" />
-          <EntitySet Name="Routes" EntityType="Models.Route" />
-          <EntitySet Name="Stations" EntityType="Models.Station" />
-          <EntitySet Name="Trips" EntityType="Models.Trip" />
-          <EntitySet Name="UserInfoes" EntityType="Models.UserInfo" />
-          <AssociationSet Name="FK_Comment_Account" Association="Models.FK_Comment_Account">
+          <EntitySet Name="Accounts" EntityType="iDeliverModel.Account" />
+          <EntitySet Name="Assignings" EntityType="iDeliverModel.Assigning" />
+          <EntitySet Name="Coaches" EntityType="iDeliverModel.Coach" />
+          <EntitySet Name="CoachTypes" EntityType="iDeliverModel.CoachType" />
+          <EntitySet Name="Comments" EntityType="iDeliverModel.Comment" />
+          <EntitySet Name="DeliveryStatus" EntityType="iDeliverModel.DeliveryStatu" />
+          <EntitySet Name="Invoices" EntityType="iDeliverModel.Invoice" />
+          <EntitySet Name="ManageFees" EntityType="iDeliverModel.ManageFee" />
+          <EntitySet Name="Provinces" EntityType="iDeliverModel.Province" />
+          <EntitySet Name="Ratings" EntityType="iDeliverModel.Rating" />
+          <EntitySet Name="Requests" EntityType="iDeliverModel.Request" />
+          <EntitySet Name="Routes" EntityType="iDeliverModel.Route" />
+          <EntitySet Name="Stations" EntityType="iDeliverModel.Station" />
+          <EntitySet Name="sysdiagrams" EntityType="iDeliverModel.sysdiagram" />
+          <EntitySet Name="Trips" EntityType="iDeliverModel.Trip" />
+          <EntitySet Name="UserInfoes" EntityType="iDeliverModel.UserInfo" />
+          <AssociationSet Name="FK_Comment_Account" Association="iDeliverModel.FK_Comment_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Rating_Account" Association="Models.FK_Rating_Account">
+          <AssociationSet Name="FK_Rating_Account" Association="iDeliverModel.FK_Rating_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Rating" EntitySet="Ratings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Account" Association="Models.FK_Request_Account">
+          <AssociationSet Name="FK_Request_Account" Association="iDeliverModel.FK_Request_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserInfo_Account" Association="Models.FK_UserInfo_Account">
+          <AssociationSet Name="FK_UserInfo_Account" Association="iDeliverModel.FK_UserInfo_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="UserInfo" EntitySet="UserInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assigning_Request" Association="Models.FK_Assigning_Request">
+          <AssociationSet Name="FK_Assigning_Request" Association="iDeliverModel.FK_Assigning_Request">
             <End Role="Request" EntitySet="Requests" />
             <End Role="Assigning" EntitySet="Assignings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assigning_Trip" Association="Models.FK_Assigning_Trip">
+          <AssociationSet Name="FK_Assigning_Trip" Association="iDeliverModel.FK_Assigning_Trip">
             <End Role="Trip" EntitySet="Trips" />
             <End Role="Assigning" EntitySet="Assignings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coach_CoachType" Association="Models.FK_Coach_CoachType">
+          <AssociationSet Name="FK_Coach_CoachType" Association="iDeliverModel.FK_Coach_CoachType">
             <End Role="CoachType" EntitySet="CoachTypes" />
             <End Role="Coach" EntitySet="Coaches" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trip_Coach" Association="Models.FK_Trip_Coach">
+          <AssociationSet Name="FK_Trip_Coach" Association="iDeliverModel.FK_Trip_Coach">
             <End Role="Coach" EntitySet="Coaches" />
             <End Role="Trip" EntitySet="Trips" />
           </AssociationSet>
-          <AssociationSet Name="FK_Comment_Station" Association="Models.FK_Comment_Station">
+          <AssociationSet Name="FK_Comment_Station" Association="iDeliverModel.FK_Comment_Station">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_DeliveryStatus" Association="Models.FK_Request_DeliveryStatus">
+          <AssociationSet Name="FK_Request_DeliveryStatus" Association="iDeliverModel.FK_Request_DeliveryStatus">
             <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Invoice_ManageFee" Association="Models.FK_Invoice_ManageFee">
+          <AssociationSet Name="FK_Invoice_ManageFee" Association="iDeliverModel.FK_Invoice_ManageFee">
             <End Role="ManageFee" EntitySet="ManageFees" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Request" Association="Models.FK_Invoice_Request">
+          <AssociationSet Name="FK_Invoice_Request" Association="iDeliverModel.FK_Invoice_Request">
             <End Role="Request" EntitySet="Requests" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_ManageFee" Association="Models.FK_Request_ManageFee">
+          <AssociationSet Name="FK_Request_ManageFee" Association="iDeliverModel.FK_Request_ManageFee">
             <End Role="ManageFee" EntitySet="ManageFees" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Rating_Station" Association="Models.FK_Rating_Station">
+          <AssociationSet Name="FK_Station_Province" Association="iDeliverModel.FK_Station_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Station" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Station" Association="iDeliverModel.FK_Rating_Station">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Rating" EntitySet="Ratings" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Station" Association="Models.FK_Request_Station">
+          <AssociationSet Name="FK_Request_Station" Association="iDeliverModel.FK_Request_Station">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Request_Station1" Association="Models.FK_Request_Station1">
+          <AssociationSet Name="FK_Request_Station1" Association="iDeliverModel.FK_Request_Station1">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_EndStation" Association="Models.FK_EndStation">
+          <AssociationSet Name="FK_EndStation" Association="iDeliverModel.FK_EndStation">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
-          <AssociationSet Name="FK_StartStation" Association="Models.FK_StartStation">
+          <AssociationSet Name="FK_StartStation" Association="iDeliverModel.FK_StartStation">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trip_Route" Association="Models.FK_Trip_Route">
+          <AssociationSet Name="FK_Trip_Route" Association="iDeliverModel.FK_Trip_Route">
             <End Role="Route" EntitySet="Routes" />
             <End Role="Trip" EntitySet="Trips" />
           </AssociationSet>
@@ -594,10 +635,10 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="BannedStatus" Type="Boolean" />
-          <NavigationProperty Name="Comments" Relationship="Models.FK_Comment_Account" FromRole="Account" ToRole="Comment" />
-          <NavigationProperty Name="Ratings" Relationship="Models.FK_Rating_Account" FromRole="Account" ToRole="Rating" />
-          <NavigationProperty Name="Requests" Relationship="Models.FK_Request_Account" FromRole="Account" ToRole="Request" />
-          <NavigationProperty Name="UserInfo" Relationship="Models.FK_UserInfo_Account" FromRole="Account" ToRole="UserInfo" />
+          <NavigationProperty Name="Comments" Relationship="iDeliverModel.FK_Comment_Account" FromRole="Account" ToRole="Comment" />
+          <NavigationProperty Name="Ratings" Relationship="iDeliverModel.FK_Rating_Account" FromRole="Account" ToRole="Rating" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_Account" FromRole="Account" ToRole="Request" />
+          <NavigationProperty Name="UserInfo" Relationship="iDeliverModel.FK_UserInfo_Account" FromRole="Account" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Assigning">
           <Key>
@@ -607,8 +648,8 @@
           <Property Name="TripID" Type="Int32" Nullable="false" />
           <Property Name="RequestID" Type="Int32" Nullable="false" />
           <Property Name="IndicateOrder" Type="Int32" />
-          <NavigationProperty Name="Request" Relationship="Models.FK_Assigning_Request" FromRole="Assigning" ToRole="Request" />
-          <NavigationProperty Name="Trip" Relationship="Models.FK_Assigning_Trip" FromRole="Assigning" ToRole="Trip" />
+          <NavigationProperty Name="Request" Relationship="iDeliverModel.FK_Assigning_Request" FromRole="Assigning" ToRole="Request" />
+          <NavigationProperty Name="Trip" Relationship="iDeliverModel.FK_Assigning_Trip" FromRole="Assigning" ToRole="Trip" />
         </EntityType>
         <EntityType Name="Coach">
           <Key>
@@ -618,8 +659,8 @@
           <Property Name="NumberPlate" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="RouteID" Type="Int32" />
           <Property Name="CoachTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CoachType" Relationship="Models.FK_Coach_CoachType" FromRole="Coach" ToRole="CoachType" />
-          <NavigationProperty Name="Trips" Relationship="Models.FK_Trip_Coach" FromRole="Coach" ToRole="Trip" />
+          <NavigationProperty Name="CoachType" Relationship="iDeliverModel.FK_Coach_CoachType" FromRole="Coach" ToRole="CoachType" />
+          <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Coach" FromRole="Coach" ToRole="Trip" />
         </EntityType>
         <EntityType Name="CoachType">
           <Key>
@@ -628,7 +669,7 @@
           <Property Name="CoachTypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Seats" Type="Int32" Nullable="false" />
           <Property Name="Capacity" Type="Double" />
-          <NavigationProperty Name="Coaches" Relationship="Models.FK_Coach_CoachType" FromRole="CoachType" ToRole="Coach" />
+          <NavigationProperty Name="Coaches" Relationship="iDeliverModel.FK_Coach_CoachType" FromRole="CoachType" ToRole="Coach" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -640,8 +681,8 @@
           <Property Name="DatePost" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="StationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Models.FK_Comment_Account" FromRole="Comment" ToRole="Account" />
-          <NavigationProperty Name="Station" Relationship="Models.FK_Comment_Station" FromRole="Comment" ToRole="Station" />
+          <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_Comment_Account" FromRole="Comment" ToRole="Account" />
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_Comment_Station" FromRole="Comment" ToRole="Station" />
         </EntityType>
         <EntityType Name="DeliveryStatu">
           <Key>
@@ -650,7 +691,7 @@
           <Property Name="DeliveryStatusID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Note" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Requests" Relationship="Models.FK_Request_DeliveryStatus" FromRole="DeliveryStatus" ToRole="Request" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_DeliveryStatus" FromRole="DeliveryStatus" ToRole="Request" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -662,8 +703,8 @@
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="FeeID" Type="Int32" />
           <Property Name="RequestID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ManageFee" Relationship="Models.FK_Invoice_ManageFee" FromRole="Invoice" ToRole="ManageFee" />
-          <NavigationProperty Name="Request" Relationship="Models.FK_Invoice_Request" FromRole="Invoice" ToRole="Request" />
+          <NavigationProperty Name="ManageFee" Relationship="iDeliverModel.FK_Invoice_ManageFee" FromRole="Invoice" ToRole="ManageFee" />
+          <NavigationProperty Name="Request" Relationship="iDeliverModel.FK_Invoice_Request" FromRole="Invoice" ToRole="Request" />
         </EntityType>
         <EntityType Name="ManageFee">
           <Key>
@@ -675,8 +716,16 @@
           <Property Name="MaxWeight" Type="Double" Nullable="false" />
           <Property Name="MinVolume" Type="Double" Nullable="false" />
           <Property Name="MaxVolume" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Invoices" Relationship="Models.FK_Invoice_ManageFee" FromRole="ManageFee" ToRole="Invoice" />
-          <NavigationProperty Name="Requests" Relationship="Models.FK_Request_ManageFee" FromRole="ManageFee" ToRole="Request" />
+          <NavigationProperty Name="Invoices" Relationship="iDeliverModel.FK_Invoice_ManageFee" FromRole="ManageFee" ToRole="Invoice" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_ManageFee" FromRole="ManageFee" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Stations" Relationship="iDeliverModel.FK_Station_Province" FromRole="Province" ToRole="Station" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -686,8 +735,8 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="RateLevel" Type="Int32" Nullable="false" />
           <Property Name="StationID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Models.FK_Rating_Account" FromRole="Rating" ToRole="Account" />
-          <NavigationProperty Name="Station" Relationship="Models.FK_Rating_Station" FromRole="Rating" ToRole="Station" />
+          <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_Rating_Account" FromRole="Rating" ToRole="Account" />
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_Rating_Station" FromRole="Rating" ToRole="Station" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -710,13 +759,13 @@
           <Property Name="ReceiverPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Type" Type="Boolean" />
           <Property Name="TypeOfPayment" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Account" Relationship="Models.FK_Request_Account" FromRole="Request" ToRole="Account" />
-          <NavigationProperty Name="Assignings" Relationship="Models.FK_Assigning_Request" FromRole="Request" ToRole="Assigning" />
-          <NavigationProperty Name="DeliveryStatu" Relationship="Models.FK_Request_DeliveryStatus" FromRole="Request" ToRole="DeliveryStatus" />
-          <NavigationProperty Name="Invoices" Relationship="Models.FK_Invoice_Request" FromRole="Request" ToRole="Invoice" />
-          <NavigationProperty Name="ManageFee" Relationship="Models.FK_Request_ManageFee" FromRole="Request" ToRole="ManageFee" />
-          <NavigationProperty Name="Station" Relationship="Models.FK_Request_Station" FromRole="Request" ToRole="Station" />
-          <NavigationProperty Name="Station1" Relationship="Models.FK_Request_Station1" FromRole="Request" ToRole="Station" />
+          <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_Request_Account" FromRole="Request" ToRole="Account" />
+          <NavigationProperty Name="Assignings" Relationship="iDeliverModel.FK_Assigning_Request" FromRole="Request" ToRole="Assigning" />
+          <NavigationProperty Name="DeliveryStatu" Relationship="iDeliverModel.FK_Request_DeliveryStatus" FromRole="Request" ToRole="DeliveryStatus" />
+          <NavigationProperty Name="Invoices" Relationship="iDeliverModel.FK_Invoice_Request" FromRole="Request" ToRole="Invoice" />
+          <NavigationProperty Name="ManageFee" Relationship="iDeliverModel.FK_Request_ManageFee" FromRole="Request" ToRole="ManageFee" />
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_Request_Station" FromRole="Request" ToRole="Station" />
+          <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_Request_Station1" FromRole="Request" ToRole="Station" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -730,9 +779,9 @@
           <Property Name="Duration" Type="Double" />
           <Property Name="Distance" Type="Double" />
           <Property Name="Container" Type="Double" />
-          <NavigationProperty Name="Station" Relationship="Models.FK_EndStation" FromRole="Route" ToRole="Station" />
-          <NavigationProperty Name="Station1" Relationship="Models.FK_StartStation" FromRole="Route" ToRole="Station" />
-          <NavigationProperty Name="Trips" Relationship="Models.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
+          <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_EndStation" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_StartStation" FromRole="Route" ToRole="Station" />
+          <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -745,13 +794,24 @@
           <Property Name="StationPhone" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="Coordinate" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="Province" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Comments" Relationship="Models.FK_Comment_Station" FromRole="Station" ToRole="Comment" />
-          <NavigationProperty Name="Ratings" Relationship="Models.FK_Rating_Station" FromRole="Station" ToRole="Rating" />
-          <NavigationProperty Name="Requests" Relationship="Models.FK_Request_Station" FromRole="Station" ToRole="Request" />
-          <NavigationProperty Name="Requests1" Relationship="Models.FK_Request_Station1" FromRole="Station" ToRole="Request" />
-          <NavigationProperty Name="Routes" Relationship="Models.FK_EndStation" FromRole="Station" ToRole="Route" />
-          <NavigationProperty Name="Routes1" Relationship="Models.FK_StartStation" FromRole="Station" ToRole="Route" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="iDeliverModel.FK_Comment_Station" FromRole="Station" ToRole="Comment" />
+          <NavigationProperty Name="Province" Relationship="iDeliverModel.FK_Station_Province" FromRole="Station" ToRole="Province" />
+          <NavigationProperty Name="Ratings" Relationship="iDeliverModel.FK_Rating_Station" FromRole="Station" ToRole="Rating" />
+          <NavigationProperty Name="Requests" Relationship="iDeliverModel.FK_Request_Station" FromRole="Station" ToRole="Request" />
+          <NavigationProperty Name="Requests1" Relationship="iDeliverModel.FK_Request_Station1" FromRole="Station" ToRole="Request" />
+          <NavigationProperty Name="Routes" Relationship="iDeliverModel.FK_EndStation" FromRole="Station" ToRole="Route" />
+          <NavigationProperty Name="Routes1" Relationship="iDeliverModel.FK_StartStation" FromRole="Station" ToRole="Route" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Trip">
           <Key>
@@ -768,9 +828,9 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RouteID" Type="Int32" Nullable="false" />
           <Property Name="CoachID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Assignings" Relationship="Models.FK_Assigning_Trip" FromRole="Trip" ToRole="Assigning" />
-          <NavigationProperty Name="Coach" Relationship="Models.FK_Trip_Coach" FromRole="Trip" ToRole="Coach" />
-          <NavigationProperty Name="Route" Relationship="Models.FK_Trip_Route" FromRole="Trip" ToRole="Route" />
+          <NavigationProperty Name="Assignings" Relationship="iDeliverModel.FK_Assigning_Trip" FromRole="Trip" ToRole="Assigning" />
+          <NavigationProperty Name="Coach" Relationship="iDeliverModel.FK_Trip_Coach" FromRole="Trip" ToRole="Coach" />
+          <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Trip" ToRole="Route" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -780,11 +840,11 @@
           <Property Name="Firstname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Lastname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Account" Relationship="Models.FK_UserInfo_Account" FromRole="UserInfo" ToRole="Account" />
+          <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_UserInfo_Account" FromRole="UserInfo" ToRole="Account" />
         </EntityType>
         <Association Name="FK_Comment_Account">
-          <End Role="Account" Type="Models.Account" Multiplicity="1" />
-          <End Role="Comment" Type="Models.Comment" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Account" Multiplicity="1" />
+          <End Role="Comment" Type="iDeliverModel.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -795,8 +855,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rating_Account">
-          <End Role="Account" Type="Models.Account" Multiplicity="1" />
-          <End Role="Rating" Type="Models.Rating" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Account" Multiplicity="1" />
+          <End Role="Rating" Type="iDeliverModel.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -807,8 +867,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Account">
-          <End Role="Account" Type="Models.Account" Multiplicity="1" />
-          <End Role="Request" Type="Models.Request" Multiplicity="*" />
+          <End Role="Account" Type="iDeliverModel.Account" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -819,8 +879,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInfo_Account">
-          <End Role="Account" Type="Models.Account" Multiplicity="1" />
-          <End Role="UserInfo" Type="Models.UserInfo" Multiplicity="0..1" />
+          <End Role="Account" Type="iDeliverModel.Account" Multiplicity="1" />
+          <End Role="UserInfo" Type="iDeliverModel.UserInfo" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="Username" />
@@ -831,8 +891,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Assigning_Request">
-          <End Role="Request" Type="Models.Request" Multiplicity="1" />
-          <End Role="Assigning" Type="Models.Assigning" Multiplicity="*" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="1" />
+          <End Role="Assigning" Type="iDeliverModel.Assigning" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -843,8 +903,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Assigning_Trip">
-          <End Role="Trip" Type="Models.Trip" Multiplicity="1" />
-          <End Role="Assigning" Type="Models.Assigning" Multiplicity="*" />
+          <End Role="Trip" Type="iDeliverModel.Trip" Multiplicity="1" />
+          <End Role="Assigning" Type="iDeliverModel.Assigning" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trip">
               <PropertyRef Name="TripID" />
@@ -855,8 +915,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Coach_CoachType">
-          <End Role="CoachType" Type="Models.CoachType" Multiplicity="1" />
-          <End Role="Coach" Type="Models.Coach" Multiplicity="*" />
+          <End Role="CoachType" Type="iDeliverModel.CoachType" Multiplicity="1" />
+          <End Role="Coach" Type="iDeliverModel.Coach" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CoachType">
               <PropertyRef Name="CoachTypeID" />
@@ -867,8 +927,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trip_Coach">
-          <End Role="Coach" Type="Models.Coach" Multiplicity="1" />
-          <End Role="Trip" Type="Models.Trip" Multiplicity="*" />
+          <End Role="Coach" Type="iDeliverModel.Coach" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Trip" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Coach">
               <PropertyRef Name="CoachID" />
@@ -879,8 +939,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comment_Station">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Comment" Type="Models.Comment" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Comment" Type="iDeliverModel.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -891,8 +951,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_DeliveryStatus">
-          <End Role="DeliveryStatus" Type="Models.DeliveryStatu" Multiplicity="1" />
-          <End Role="Request" Type="Models.Request" Multiplicity="*" />
+          <End Role="DeliveryStatus" Type="iDeliverModel.DeliveryStatu" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryStatus">
               <PropertyRef Name="DeliveryStatusID" />
@@ -903,8 +963,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_ManageFee">
-          <End Role="ManageFee" Type="Models.ManageFee" Multiplicity="0..1" />
-          <End Role="Invoice" Type="Models.Invoice" Multiplicity="*" />
+          <End Role="ManageFee" Type="iDeliverModel.ManageFee" Multiplicity="0..1" />
+          <End Role="Invoice" Type="iDeliverModel.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -915,8 +975,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_Request">
-          <End Role="Request" Type="Models.Request" Multiplicity="1" />
-          <End Role="Invoice" Type="Models.Invoice" Multiplicity="*" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="1" />
+          <End Role="Invoice" Type="iDeliverModel.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -927,8 +987,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
-          <End Role="ManageFee" Type="Models.ManageFee" Multiplicity="0..1" />
-          <End Role="Request" Type="Models.Request" Multiplicity="*" />
+          <End Role="ManageFee" Type="iDeliverModel.ManageFee" Multiplicity="0..1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
               <PropertyRef Name="FeeID" />
@@ -938,9 +998,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Station_Province">
+          <End Role="Province" Type="iDeliverModel.Province" Multiplicity="0..1" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceID" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rating_Station">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Rating" Type="Models.Rating" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Rating" Type="iDeliverModel.Rating" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -951,8 +1023,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Request" Type="Models.Request" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -963,8 +1035,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_Station1">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Request" Type="Models.Request" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -975,8 +1047,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EndStation">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Route" Type="Models.Route" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -987,8 +1059,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StartStation">
-          <End Role="Station" Type="Models.Station" Multiplicity="1" />
-          <End Role="Route" Type="Models.Route" Multiplicity="*" />
+          <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Station">
               <PropertyRef Name="StationID" />
@@ -999,8 +1071,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trip_Route">
-          <End Role="Route" Type="Models.Route" Multiplicity="1" />
-          <End Role="Trip" Type="Models.Trip" Multiplicity="*" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Trip" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Route">
               <PropertyRef Name="RouteID" />
@@ -1015,9 +1087,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="iDeliverEntities">
+        <EntityContainerMapping StorageEntityContainer="iDeliverModelStoreContainer" CdmEntityContainer="iDeliverEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="Models.Account">
+            <EntityTypeMapping TypeName="iDeliverModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1030,7 +1102,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Assignings">
-            <EntityTypeMapping TypeName="Models.Assigning">
+            <EntityTypeMapping TypeName="iDeliverModel.Assigning">
               <MappingFragment StoreEntitySet="Assigning">
                 <ScalarProperty Name="TripID" ColumnName="TripID" />
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
@@ -1039,7 +1111,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Coaches">
-            <EntityTypeMapping TypeName="Models.Coach">
+            <EntityTypeMapping TypeName="iDeliverModel.Coach">
               <MappingFragment StoreEntitySet="Coach">
                 <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
@@ -1049,7 +1121,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CoachTypes">
-            <EntityTypeMapping TypeName="Models.CoachType">
+            <EntityTypeMapping TypeName="iDeliverModel.CoachType">
               <MappingFragment StoreEntitySet="CoachType">
                 <ScalarProperty Name="CoachTypeID" ColumnName="CoachTypeID" />
                 <ScalarProperty Name="Seats" ColumnName="Seats" />
@@ -1058,7 +1130,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="Models.Comment">
+            <EntityTypeMapping TypeName="iDeliverModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
                 <ScalarProperty Name="CommentID" ColumnName="CommentID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1070,7 +1142,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeliveryStatus">
-            <EntityTypeMapping TypeName="Models.DeliveryStatu">
+            <EntityTypeMapping TypeName="iDeliverModel.DeliveryStatu">
               <MappingFragment StoreEntitySet="DeliveryStatus">
                 <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
@@ -1079,7 +1151,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
-            <EntityTypeMapping TypeName="Models.Invoice">
+            <EntityTypeMapping TypeName="iDeliverModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
                 <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -1091,7 +1163,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ManageFees">
-            <EntityTypeMapping TypeName="Models.ManageFee">
+            <EntityTypeMapping TypeName="iDeliverModel.ManageFee">
               <MappingFragment StoreEntitySet="ManageFee">
                 <ScalarProperty Name="FeeID" ColumnName="FeeID" />
                 <ScalarProperty Name="Fee" ColumnName="Fee" />
@@ -1102,8 +1174,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="iDeliverModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Ratings">
-            <EntityTypeMapping TypeName="Models.Rating">
+            <EntityTypeMapping TypeName="iDeliverModel.Rating">
               <MappingFragment StoreEntitySet="Rating">
                 <ScalarProperty Name="RatingID" ColumnName="RatingID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1113,7 +1193,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
-            <EntityTypeMapping TypeName="Models.Request">
+            <EntityTypeMapping TypeName="iDeliverModel.Request">
               <MappingFragment StoreEntitySet="Request">
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1136,7 +1216,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Routes">
-            <EntityTypeMapping TypeName="Models.Route">
+            <EntityTypeMapping TypeName="iDeliverModel.Route">
               <MappingFragment StoreEntitySet="Route">
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />
                 <ScalarProperty Name="RouteName" ColumnName="RouteName" />
@@ -1150,7 +1230,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stations">
-            <EntityTypeMapping TypeName="Models.Station">
+            <EntityTypeMapping TypeName="iDeliverModel.Station">
               <MappingFragment StoreEntitySet="Station">
                 <ScalarProperty Name="StationID" ColumnName="StationID" />
                 <ScalarProperty Name="StationName" ColumnName="StationName" />
@@ -1159,12 +1239,23 @@
                 <ScalarProperty Name="StationPhone" ColumnName="StationPhone" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="iDeliverModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Trips">
-            <EntityTypeMapping TypeName="Models.Trip">
+            <EntityTypeMapping TypeName="iDeliverModel.Trip">
               <MappingFragment StoreEntitySet="Trip">
                 <ScalarProperty Name="TripID" ColumnName="TripID" />
                 <ScalarProperty Name="EstimateDepartureTime" ColumnName="EstimateDepartureTime" />
@@ -1181,7 +1272,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserInfoes">
-            <EntityTypeMapping TypeName="Models.UserInfo">
+            <EntityTypeMapping TypeName="iDeliverModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />

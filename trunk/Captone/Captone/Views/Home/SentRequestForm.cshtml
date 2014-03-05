@@ -108,7 +108,7 @@
                                 }
                             </select>
                         </div>
-                        <div>
+                        <div style="margin-top: 15px;">
                             <div id="SuggestFee">
                             </div>
                         </div>
@@ -152,7 +152,7 @@
             //when bulb turn on
             GoogleMaker();
             checkStation();
-
+            $("#hide").focus();
         } else {
             document.getElementById("map").innerHTML = "";
         }
@@ -163,6 +163,7 @@
         var bulb = document.getElementById("bulb2").checked;
         if (bulb) {
             showMap();
+            $("#hide").focus();
         } else {
             document.getElementById("hide").innerHTML = "";
         }
@@ -282,7 +283,7 @@
             data: { minWeight: weigh[0], maxWeight: weigh[1] },
             success: function (result) {
                 var fee = result.split(" = ");
-                $("#SuggestFee").html("<i class='icon-tag'></i>" + "" + "Giá ước tính: " + fee[1].substring(0, fee[1].length - 1) + "VND");
+                $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + fee[1].substring(0, fee[1].length - 1) + "VND" + "</strong>" + "</p>" + "</div>");
             }
         });
     }
