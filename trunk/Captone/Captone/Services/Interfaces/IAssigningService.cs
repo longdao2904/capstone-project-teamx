@@ -10,7 +10,7 @@ namespace Captone.Services.Interfaces
     {
         List<Route> FindPath(Request request);
         void Assigning(List<Request> requests, List<Trip> trips, DateTime date);
-        bool CheckForward(string coordinateA, string coordinateB, string coordinateC);
+        bool CheckForward(List<Station> stations);
         void Update(List<Request> requests, List<Trip> trips, DateTime date);
     }
 }
