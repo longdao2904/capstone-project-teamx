@@ -9,7 +9,8 @@ namespace Captone.Services.Interfaces
     public interface IAssigningService
     {
         List<Route> FindPath(Request request);
-        Dictionary<Request, List<Trip>> Assigning();
+        void Assigning(List<Request> requests, List<Trip> trips, DateTime date);
         bool CheckForward(string coordinateA, string coordinateB, string coordinateC);
+        void Update(List<Request> requests, List<Trip> trips, DateTime date);
     }
 }

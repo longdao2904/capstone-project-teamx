@@ -17,7 +17,8 @@ namespace Captone.Repositories
 
         public IQueryable<Trip> GetAllTrips()
         {
-            return base.GetAll<Trip>();
+            DateTime currTime = DateTime.Now;
+            return base.GetAll<Trip>().Where(i => i.Date >= currTime);
         }
 
         public void Edit(Trip trip)

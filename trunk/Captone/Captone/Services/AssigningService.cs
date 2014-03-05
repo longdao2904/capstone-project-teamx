@@ -12,50 +12,54 @@ namespace Captone.Services
     public class AssigningService : IAssigningService
     {
         //declare interface
-        private readonly ICoachRepository _coachRepository;
-        private readonly ITripRepository _tripRepository;
         private readonly IRouteRepository _routeRepository;
         private readonly IStationRepository _stationRepository;
         private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IRequestRepository _requestRepository;
+        private readonly ITripRepository _tripRepository;
         //declare class
         private List<Invoice> invoices = new List<Invoice>();
-        private List<Request> requests = new List<Request>();
         private List<Station> stations = new List<Station>();
         private List<Route> routes = new List<Route>(); 
-        private List<Coach> coaches = new List<Coach>();
         private List<Trip> trips = new List<Trip>();
-        private int max = 20, maxVolume = 100, maxWeight = 100;
+        private TimeSpan maxTime;
+        //result of route
+        List<Dictionary<Request, List<Route>>> _tmpResult = new List<Dictionary<Request, List<Route>>>();
+        //result of trip
+        Dictionary<Request, List<Trip>> _finalResult = new Dictionary<Request, List<Trip>>(); 
+        Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>(); //adjancent list of station
 
         private void InitData()
         {
-            coaches = _coachRepository.GetAllCoaches().ToList();
-            trips = _tripRepository.GetAllTrips().ToList();
             routes = _routeRepository.GetAllRoutes().ToList();
             stations = _stationRepository.GetAllStations().ToList();
             invoices = _invoiceRepository.GetAllInvoices().ToList();
-            requests = _requestRepository.GetAllRequests().ToList();
+            trips = _tripRepository.GetAllTrips().ToList();
+            //build the adjancient list
+            foreach (var station1 in stations)
+            {
+                foreach (var station2 in stations)
+                {
+                    List<Station> tmp = new List<Station>();
+                    for (int i = 0; i < routes.Count; i++)
+                    {
+                        if (routes[i].StartPoint == station1.StationID &&
+                            routes[i].EndPoint == station2.StationID)
+                        {
+                            tmp.Add(station2);
+                        }
+                    }
+                    adj.Add(station1, tmp);
+                }
+            }
         }
         //sort by the day of request increasing, if two request posted in the same day,
         //then, sort by the weight of request increasing
         public int RequestCompare(Request a, Request b)
         {
-            Invoice tmp1 = new Invoice();
-            Invoice tmp2 = new Invoice();
-            //find the invoice suitable with request
-            for (int i = 0; i < invoices.Count; i++)
-            {
-                if (invoices[i].RequestID == a.RequestID)
-                {
-                    tmp1 = invoices[i];
-                }
-                if (invoices[i].RequestID == b.RequestID)
-                {
-                    tmp2 = invoices[i];
-                }
-            }
+            Invoice tmp1 = FindInvoiceFromRequest(a);
+            Invoice tmp2 = FindInvoiceFromRequest(b);
                 //compare by date post request increasingly
-                if (a.DateRequest > b.DateRequest) return 1; 
+            if (a.DateRequest > b.DateRequest) return 1; 
             if (a.DateRequest == b.DateRequest)
             {
                 if (tmp1.Weight > tmp2.Weight) return 1;
@@ -65,175 +69,234 @@ namespace Captone.Services
             return -1;
         }
 
-        //main function of assign, should call this from outside
-        public Dictionary<Request, List<Trip>> Assigning()
+        public Invoice FindInvoiceFromRequest(Request request)
         {
-            var result = new Dictionary<Request, List<Trip>>();
+            foreach (var invoice in invoices)
+            {
+                if (request.RequestID == invoice.RequestID) return invoice;
+            }
+            return invoices[0];
+        }
+
+        //main function of assign, should call this from outside
+        public void Assigning(List<Request> requests, List<Trip> trips, DateTime date)
+        {
             //list all station
             List<Station> station = new List<Station>();
             station = _stationRepository.GetAllStations();
             //list all pending request
-            List<Request> requests = new List<Request>();
-            requests = _requestRepository.GetPendingRequest().ToList();
             //sort list request base on the day posted
             requests.Sort(RequestCompare);
-            //iterate through the list of station and find out the list of request corresponding
-            for (int i = 0; i < station.Count; i++)
+            foreach (var request in requests)
             {
-                List<Request> tmp = new List<Request>();
-                for (int j = 0; j < requests.Count; j++)
+                int tmp = CheckOneTrip(request);
+                if (tmp > 0)
                 {
-                    if (requests[j].ToLocation == station[i].StationID)
-                    {
-                        tmp.Add(requests[j]);   
-                    }
-                }
-                //processing for one station
-                var list = ProcessingForStation(station[i], tmp);
-                foreach (var pair in list)
-                {
-                    result.Add(pair.Key, pair.Value);
-                }
-            }
-            return result;
-        }
-
-        public Dictionary<Request, List<Trip>> ProcessingForStation(Station station, List<Request> requests)
-        {
-            var result = new Dictionary<Request, List<Trip>>();
-            Queue<Trip> trip = new Queue<Trip>();
-            while (trip.Count > 0)
-            {
-                Trip tmp = trip.First();
-                //dynamic programming here
-                int[,] dp = new int[maxVolume,maxWeight];
-                dp[0, 0] = 0;
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    dp[0, i] = 0;
-                }
-                //round to 1 digit after , 
-                int volume = (int)(Math.Round((double)tmp.AvailableVolume*10));
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    for (int j = 0; j < volume; j++)
-                    {
-                        string[] words = requests[j].EstimateVolume.Split('-');
-                        int requestVolume = Int32.Parse(words[1])*10;
-                        if (requestVolume > i) dp[i, j] = dp[i - 1, j];
-                        else dp[i, j] = Math.Max(dp[i - 1, j], dp[i - 1, j - requestVolume]);
-                    }
-                }
-                List<int> removeList = new List<int>();
-                for (int i = 0; i < requests.Count; i++)
-                {
-                    for (int j = 0; j < volume; j++)
-                    {
-                        if (dp[i, j] != dp[i - 1, j]) removeList.Add(i);
-                    }
-                }
-                //remove the processed request
-                for (int i = removeList.Count - 1; i >= 0; i--)
-                {
-                    requests[i].DeliveryStatusID = 2;
-                    requests.RemoveAt(removeList[i]);
-                }
-            }
-
-            return result;
-        }
-
-        public List<Route> FindPath(Request request)
-        {
-            List<Route> listRoute = new List<Route>();
-            int fromStation = request.FromLocation;
-            int toStation = request.ToLocation;
-            //construct the graph G=(V,E) with V is list of staion, E is list of route connect two station
-            var routes = _routeRepository.GetAllRoutes().ToList();
-            var station = _stationRepository.GetAllStations().ToList();
-            int node = station.Count();
-            int[,] adj = new int[max,max];
-            //init the adjancient matrix
-            for (int i = 0; i < node; i++)
-            {
-                for (int j = 0; j < node; j++)
-                {
-                    adj[i, j] = 0;
-                }
-            }
-            //build graph with real information
-            for (int i = 0; i < node; i++)
-            {
-                for (int j = 0; j < node; j++)
-                {
-                    if(i == j) continue;
-                    for (int k = 0; k < routes.Count; k++)
-                    {
-                        if (routes[k].StartPoint == station[i].StationID &&
-                            routes[k].EndPoint == station[j].StationID) adj[i, j] = 1;
-                    }
-                }
-            }
-
-            //using bfs without recursion to find the path
-            Queue<int> queue = new Queue<int>();
-            int[] trace = new int[max];
-
-            queue.Enqueue(fromStation);
-            while (queue.Count > 0)
-            {
-                int u = queue.First(); queue.Dequeue();
-                for (int v = 0; v < queue.Count; v++)
-                {
-                    if (adj[u,v] != 0 && trace[v] == 0)
-                    {
-                        queue.Enqueue(v);
-                        trace[v] = u;
-                    }
-                }
-            }
-            int temp = toStation;
-            while (temp != fromStation)
-            {
-                for (int i = 0; i < routes.Count; i++)
-                {
-                    if (routes[i].RouteID == temp)
-                    {
-                        listRoute.Add(routes[i]);
-                    }
-                }
-                temp = trace[temp];
-            }
-            return listRoute;
-        }
-
-        //check the diection always forward
-        public bool CheckForward(string coordinateA, string coordinateB, string coordinateC)
-        {
-            string tmp = coordinateA + "," + coordinateB + "," + coordinateC;
-            string[] separator = {",", " "};
-            string[] words = tmp.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            double[] longitude = new double[10];
-            double[] latitude = new double[10];
-            int c = 0, numLongitude = -1, numLatitude = -1;
-            foreach (var word in words)
-            {
-                c++;
-                if (c%2 == 1)
-                {
-                    longitude[++numLongitude] = double.Parse(word);
+                    ProcessingOneTrip(tmp, request, date);
                 }
                 else
                 {
-                    latitude[++numLatitude] = double.Parse(word);
+                    ProcessingMultipleTrip(request, date);
                 }
             }
-            //find the cross product of two vector
-            double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
-            double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
-            //if the value is negative, then the angle is obtuse and reject this case
-            if (X_AB*X_BC + Y_AB*Y_BC <= 0) return false;
+
+        }
+        //check if there exist a trip connect two location of request
+        public int CheckOneTrip(Request request)
+        {
+            for (int i = 0; i < routes.Count; i++)
+            {
+                if (routes[i].StartPoint == request.FromLocation &&
+                    routes[i].EndPoint == request.ToLocation) return routes[i].RouteID;
+            }
+            return -1;
+        }
+
+        public List<Trip> FindTripFromRoute(int routeID)
+        {
+            List<Trip> tripList = new List<Trip>();
+            for (int i = 0; i < trips.Count; i++)
+            {
+                if (trips[i].RouteID == routeID)
+                {
+                    tripList.Add(trips[i]);
+                }
+            }
+            return tripList;
+        }
+        //processing for just one trip
+        public void ProcessingOneTrip(int routeID, Request request, DateTime date)
+        {
+            List<Trip> candidates = FindTripFromRoute(routeID);
+            int flag = -1;
+            foreach (var candidate in candidates)
+            {
+                Invoice invoice = FindInvoiceFromRequest(request);
+                if (candidate.AvailableVolume < invoice.Volume)
+                {
+                    flag = 0;
+                    List<Trip> tmpList = new List<Trip>();
+                    tmpList.Add(candidate);
+                    _finalResult.Add(request, tmpList);
+                }
+            }
+            if (flag == -1)
+            {
+                ProcessingMultipleTrip(request, date);
+            }
+        }
+
+        public void ProcessingMultipleTrip(Request request, DateTime date)
+        {
+            var current = new DateTimeOffset(date);
+            var deliveryTime = new TimeSpan();
+            var resTrip = new List<Trip>();
+            foreach (var res in _tmpResult)
+            {
+                var tmpListRoute = new List<Route>();
+                tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
+                foreach (var route in tmpListRoute)
+                {
+                    List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
+                    foreach (var trip in tmpListTrip)
+                    {
+                        var tmp = new DateTimeOffset(trip.Date);
+                        tmp.Add((TimeSpan) trip.EstimateDepartureTime);
+                        if (tmp >= current)
+                        {
+                            deliveryTime += (tmp - current);
+                            resTrip.Add(trip);
+                        }
+                    }
+                    if (deliveryTime > maxTime)
+                    {
+                        //deliveryTime = TimeSpan(0, 0, 0);
+                        resTrip.Clear();
+                        break;
+                    }
+                }
+                if(resTrip.Count > 0) _finalResult.Add(request, resTrip);
+            }
+        }
+       
+        //find all path between two station of the request
+
+        public List<Route> FindPath(Request request)
+        {
+            var fromStation = new Station();
+            var toStation = new Station();
+            var listRoute = new List<Route>();
+
+            for (int i = 0; i < stations.Count; i++)
+            {
+                if (stations[i].StationID == request.FromLocation)
+                {
+                    fromStation = stations[i];
+                }
+                if (stations[i].StationID == request.ToLocation)
+                {
+                    toStation = stations[i];
+                }
+            }
+            //construct the graph G=(V,E) with V is list of staion, E is list of route connect two station
+            int node = stations.Count();
+            
+            //recursion to find all path using BFS + check not go backward
+            var visited = new List<Station>();
+            visited.Add(fromStation);
+            //after call this method, all path of the 
+            BreadthFirstSearch(request, toStation, visited); 
+            return listRoute;
+        }
+
+        //BreadthFirstSearch to find all path
+
+        public void BreadthFirstSearch(Request request, Station toStation, List<Station> visited)
+        {
+            Station currNode = visited.Last();
+            List<Station> nodes = adj.FirstOrDefault(x => x.Key == currNode).Value;
+            foreach (var station in nodes)
+            {
+                if (visited.Contains(station)) continue;
+                if (station.Equals(toStation))
+                {
+                    visited.Add(station);
+                    if (CheckForward(visited))
+                    {
+                        var tmpRoutes = new List<Route>();
+                        for (int i = 0; i < visited.Count - 1; i++)
+                        {
+                            tmpRoutes.Add(FindRouteFromStation(visited[i], visited[i+1]));
+                        }
+                        var tmp = new Dictionary<Request, List<Route>>();
+                        tmp.Add(request, tmpRoutes);
+                        _tmpResult.Add(tmp);
+                    }
+                    visited.Remove(visited.Last());
+                    break;
+                }
+            }
+            foreach (var station in nodes)
+            {
+                if (visited.Contains(station) || station.Equals(toStation)) continue;
+                visited.Add(station);
+                BreadthFirstSearch(request, toStation, visited);
+                visited.Remove(visited.Last());
+            }
+        }
+
+        //find the route that connect two station
+
+        public Route FindRouteFromStation(Station a, Station b)
+        {
+            for (int i = 0; i < routes.Count; i++)
+            {
+                if (routes[i].StartPoint == a.StationID &&
+                    routes[i].EndPoint == b.StationID) return routes[i];
+            }
+            return routes[0];
+        }
+
+        //check the diection always forward
+
+        public bool CheckForward(List<Station> stationsForCheck)
+        {
+            for (int i = 0; i < stationsForCheck.Count() - 2; i++)
+            {
+                string coordinateA = stationsForCheck[i].Coordinate;
+                string coordinateB = stationsForCheck[i+1].Coordinate;
+                string coordinateC = stationsForCheck[i+2].Coordinate;
+                string tmp = coordinateA + "," + coordinateB + "," + coordinateC;
+                string[] separator = { ",", " " };
+                string[] words = tmp.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                var longitude = new double[10];
+                var latitude = new double[10];
+                int c = 0, numLongitude = -1, numLatitude = -1;
+                foreach (var word in words)
+                {
+                    c++;
+                    if (c % 2 == 1)
+                    {
+                        longitude[++numLongitude] = double.Parse(word);
+                    }
+                    else
+                    {
+                        latitude[++numLatitude] = double.Parse(word);
+                    }
+                }
+                //find the cross product of two vector
+                double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
+                double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
+                //if the value is negative, then the angle is obtuse and reject this case
+                if (X_AB * X_BC + Y_AB * Y_BC <= 0) return false;
+            }
             return true;
+        }
+
+        //not implemement yet
+        public void Update(List<Request> requests, List<Trip> trips, DateTime date)
+        {
+            var result = new Dictionary<Request, List<Trip>>();
         }
     }
 }
