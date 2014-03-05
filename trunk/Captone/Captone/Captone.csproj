@@ -292,9 +292,13 @@
   <ItemGroup>
     <Content Include="bin\Captone.dll" />
     <Content Include="bin\Captone.pdb" />
-    <Content Include="Content\Css\admin.css" />
     <Content Include="Content\Css\bootstrap.css" />
-    <Content Include="Content\Css\demo.css" />
+    <Content Include="Content\Css\bootstrap.min.css" />
+    <Content Include="Content\Css\plugins\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Content\Css\plugins\morris\morris-0.4.3.min.css" />
+    <Content Include="Content\Css\plugins\social-buttons\social-buttons.css" />
+    <Content Include="Content\Css\plugins\timeline\timeline.css" />
+    <Content Include="Content\Css\sb-admin.css" />
     <Content Include="Content\Css\SentRequest.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -577,7 +581,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
@@ -616,6 +619,10 @@
     <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Request\Assigning.cshtml" />
     <Content Include="Views\Request\ListRequest.cshtml" />
+    <Content Include="Views\Home\LoadRequest.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

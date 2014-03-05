@@ -40,7 +40,7 @@
                             @Html.LabelFor(model => model.Province)
                         </div>
                         <div class="editor-field">
-                            @Html.EditorFor(model => model.Province)
+                            @Html.DropDownList("ProvinceID")
                             @Html.ValidationMessageFor(model => model.Province)
                         </div>
 
@@ -99,7 +99,6 @@
                 url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
                 type: "POST",
                 success: function (res) {
-                    alert("Coordinate: " + res.results[0].geometry.location.lat + ", " + res.results[0].geometry.location.lng);
                     document.getElementById('Coordinate').value = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
                 }
             });

@@ -39,6 +39,7 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.ProvinceID = new SelectList(db.Provinces, "ProvinceID", "ProvinceName");
             return View();
         }
 
@@ -48,6 +49,7 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult Create(Station station)
         {
+            ViewBag.ProvinceID = new SelectList(db.Provinces, "ProvinceID", "ProvinceName", station.ProvinceID);
             if (ModelState.IsValid)
             {
                 db.Stations.Add(station);
@@ -68,6 +70,7 @@ namespace Captone.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ProvinceID = new SelectList(db.Provinces, "ProvinceID", "ProvinceName", station.ProvinceID);
             return View(station);
         }
 
