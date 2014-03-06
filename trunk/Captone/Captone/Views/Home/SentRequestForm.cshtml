@@ -358,12 +358,14 @@
         var dis = [];
         var str = document.getElementById('AddressOfReceiver').value;
         var sender = str.split(",");
+    
         $.ajax({
             url: "/Home/GetAddressStation",
             contentType: "application/json",
             dataType: "json",
             data: { stationLocation: sender[sender.length - 1] },
             success: function (result) {
+          
                 var directionsService = new google.maps.DirectionsService();
                 var directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -381,6 +383,7 @@
                                 if (index < result.length) {
                                     for (var m = 0; m < response.routes[0].legs.length; m++) {
                                         var d = result[index].StationID + " . " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
+                            
                                         index++;
                                         dis.push(d);
                                     }

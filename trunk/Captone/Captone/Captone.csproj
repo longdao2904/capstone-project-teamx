@@ -427,6 +427,7 @@
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\demo\dashboard-demo.js" />
+    <Content Include="Content\js\demo\demo.js" />
     <Content Include="Content\js\demo\flot-demo.js" />
     <Content Include="Content\js\demo\morris-demo.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
@@ -626,6 +627,7 @@
     </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Trip\ListTrip.cshtml" />
+    <Content Include="Views\Trip\ListTripForRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

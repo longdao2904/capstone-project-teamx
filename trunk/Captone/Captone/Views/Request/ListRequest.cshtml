@@ -2,7 +2,8 @@
 <script src="~/Content/js/jquery-1.9.1.min.js"></script>
 <script src="~/Content/js/demo/demo.js"></script>
 <link href="~/Content/Css/demo.css" rel="stylesheet" />
-<table>
+<div class="table-responsive">
+<table class="table">
     <tr>
         <th>Tên đăng nhập
         </th>
@@ -49,13 +50,14 @@
             {
                 <td>
                     <ul id="inline-popups">
-                        <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Zoom-out</a>
+                        <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Xếp hàng</a>
                     </ul>
                 </td>
             }
         </tr>
     }
 </table>
+    </div>
   <div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
 <script type="text/javascript">
     $('#inline-popups').magnificPopup({
@@ -71,7 +73,7 @@
     
     function ListTrip() {
         $.ajax({
-            url: "/Trip/ListTrip",
+            url: "/Trip/ListTripForRequest",
             type: "POST",
             success: function (result) {
                 $("#test-popup").html(result);
