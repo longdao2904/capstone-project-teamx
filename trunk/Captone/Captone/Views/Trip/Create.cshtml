@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Thêm chuyến mới";
 }
+<script src="~/Content/ui/jquery-ui.js"></script>
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css">
 <div class="row">
     <div class="col-md-12">
         <div class="row show-grid"></div>
@@ -62,10 +64,10 @@
                         <div class="editor-label">
                             @Html.LabelFor(model => model.Date)
                         </div>
-                        <div class="editor-field">
-                            <input type="text" id="Date" name="Date" class="form-control" onchange="listTrip(this.value)" />
-                            @Html.ValidationMessageFor(model => model.Date)
-                        </div>
+                        @*<div class="editor-field">*@
+                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" />
+                            @*@Html.ValidationMessageFor(model => model.Date)
+                        </div>*@
 
                         <div class="editor-label">
                             @Html.LabelFor(model => model.RouteID)
@@ -108,6 +110,7 @@
     function changeClass() {
         $("input").addClass("form-control");
         $("select").addClass("form-control");
+        DatePicker();
     }
     function listTrip(value) {
         $.ajax({
@@ -119,8 +122,8 @@
             }
         });
     }
-    $(function () {
-        $("#Date").datepicker();
-    });
+    function DatePicker () {
+        $("#datepicker").datepicker();
+    };
     window.onload = changeClass();
 </script>
