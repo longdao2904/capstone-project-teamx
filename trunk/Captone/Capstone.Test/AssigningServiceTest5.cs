@@ -12,14 +12,15 @@ namespace Capstone.Test
     public partial class AssigningServiceTest1
     {
         [TestMethod]
-        public void MainFlow_Test4()
+        public void MainFlow_Test5()
         {
             // Description of this test case:
             // There are routes and trips available between:
             // SG - Đà Lạt, SG - Vũng Tàu, Vũng Tàu - Đà Nẵng, SG - Đà Nẵng
             // Request1 SG - Đà Nẵng
-            // There is not route between SG, Đà Nẵng directly
-            // There is a route SG - Vũng Tàu and a route Vũng Tàu - Đà Nẵng
+            // There is a route from SG - Đà Nẵng but
+            // One trip too late and one trip don't have enough volume
+            // There is a route SG - Vũng Tàu and a route Vũng Tàu - Đà Nẵng and all fine
             // Expected result is 1 requests dedicated to two such trips corresponding to
             // such route in right order
             //setup input / testcase
@@ -37,22 +38,29 @@ namespace Capstone.Test
                              EstimateDepartureTime = new TimeSpan(16, 00, 00),
                              EstimateArrivalTime = new TimeSpan(23, 00, 00),
                              AvailableVolume = 2,
-                             Date = now,
-                             RouteID = 3,
+                             Date = new DateTime(2013,03,10),
+                             RouteID = 2,
                     },
                     new Trip{TripID = 2, 
-                             EstimateDepartureTime = new TimeSpan(05, 00, 00),
+                             EstimateDepartureTime = new TimeSpan(11, 00, 00),
                              EstimateArrivalTime = new TimeSpan(17, 00, 00),
                              AvailableVolume = 2,
                              Date = now,
-                             RouteID = 3,
+                             RouteID = 2,
                     },
                     new Trip{TripID = 3, 
                              EstimateDepartureTime = new TimeSpan(11, 00, 00),
                              EstimateArrivalTime = new TimeSpan(15, 00, 00),
-                             AvailableVolume = 2.0,
+                             AvailableVolume = 3.0,
                              Date = now,
                              RouteID = 1,
+                    },
+                    new Trip{TripID = 4, 
+                             EstimateDepartureTime = new TimeSpan(16, 00, 00),
+                             EstimateArrivalTime = new TimeSpan(23, 00, 00),
+                             AvailableVolume = 3.0,
+                             Date = now,
+                             RouteID = 3,
                     },
                    
                 };
@@ -68,9 +76,9 @@ namespace Capstone.Test
                               Duration = 1.3,
                               Distance = 5},
                     new Route{RouteID = 2,
-                              RouteName = "Sài Gòn - Đà Lạt",
+                              RouteName = "Sài Gòn - Đà Nẵng",
                               StartPoint = 1, 
-                              EndPoint = 3,
+                              EndPoint = 4,
                               Duration = 8.1,
                               Distance = 6},
                     new Route{RouteID = 3,
@@ -86,8 +94,8 @@ namespace Capstone.Test
                               Duration = 1.3,
                               Distance = 5},
                     new Route{RouteID = 5,
-                              RouteName = "Đà Lạt - Sài Gòn",
-                              StartPoint = 3, 
+                              RouteName = "Đà Nẵng - Sài Gòn",
+                              StartPoint = 4, 
                               EndPoint = 1,
                               Duration = 8.1,
                               Distance = 6},
@@ -129,14 +137,13 @@ namespace Capstone.Test
                 {
                     new Invoice{InvoiceID = 1,
                                 RequestID = 1,
-                                Volume = 1,
+                                Volume = 2.5,
                                 Weight = 2,
                                 Price = 5.6},
                 };
 
             //setup system under test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object);
-
 
             _route.Setup(f => f.GetAllRoutes()).Returns(new EnumerableQuery<Route>(routes));
             _station.Setup(f => f.GetAllStations()).Returns(stations);

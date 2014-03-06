@@ -148,10 +148,13 @@ namespace Captone.Services
         //processing for just one trip
         public void ProcessingOneTrip(int routeID, Request request, List<Trip> trips, DateTime date)
         {
+            DateTime curr = DateTime.Now;
             List<Trip> candidates = FindTripFromRoute(routeID, trips);
             int flag = -1;
             foreach (var candidate in candidates)
             {
+                DateTime departure = ChangeTime(candidate.Date, (TimeSpan)candidate.EstimateArrivalTime);
+                if(curr >= departure || (departure - curr) > _maxTime) continue;
                 Invoice invoice = FindInvoiceFromRequest(request);
                 if (candidate.AvailableVolume >= invoice.Volume)
                 {
@@ -170,21 +173,24 @@ namespace Captone.Services
 
         public void ProcessingMultipleTrip(Request request, List<Trip> trips, DateTime date)
         {
-            var current = DateTime.Now;
             var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
+            double tmp = (double)FindInvoiceFromRequest(request).Volume;
             FindPath(request);
             foreach (var res in _tmpResult)
             {
+                var current = DateTime.Now;
                 var tmpListRoute = new List<Route>();
                 tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
                 foreach (var route in tmpListRoute)
                 {
+                    int flag = 0;
                     List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID, trips);
                     foreach (var trip in tmpListTrip)
                     {
+                        if (trip.AvailableVolume < tmp) flag = -1;
                         var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
-                        if (departure >= current)
+                        if (departure >= current) 
                         {
                             var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
                             deliveryTime += (arrival - current);
@@ -192,13 +198,17 @@ namespace Captone.Services
                             current = arrival.AddHours((double)FindStationFromRoute(route).BreakTime);
                         }
                     }
-                    if (deliveryTime > _maxTime)
+                    if (deliveryTime > _maxTime || flag == -1)
                     {
                         resTrip.Clear();
                         break;
                     }
                 }
-                if(resTrip.Count > 0) _finalResult.Add(request, resTrip);
+                if (resTrip.Count > 0)
+                {
+                    _finalResult.Add(request, resTrip);
+                    return;
+                }
             }
         }
        

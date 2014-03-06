@@ -17,7 +17,7 @@ namespace Capstone.Test
         private readonly Mock<IStationRepository> _station = new Mock<IStationRepository>();
         private readonly Mock<IInvoiceRepository> _invoice = new Mock<IInvoiceRepository>();
         private readonly Mock<ITripRepository> _trip = new Mock<ITripRepository>();
-
+        DateTime now = new DateTime(2014,03,07);
 
         [TestMethod]
         public void MainFlow_Test()
@@ -33,12 +33,12 @@ namespace Capstone.Test
                     new Request{RequestID = 1,
                                 FromLocation = 1,
                                 ToLocation = 2,
-                                DateRequest = new DateTime(2010, 10, 01),
+                                DateRequest = now,
                                 DeliveryStatusID = 1},
                     new Request{RequestID = 2,
                                 FromLocation = 1,
                                 ToLocation = 4,
-                                DateRequest = new DateTime(2010, 10, 01),
+                                DateRequest = now,
                                 DeliveryStatusID = 1},
                 };
             var trips = new List<Trip>
@@ -47,21 +47,21 @@ namespace Capstone.Test
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
                              AvailableVolume = 1.0,
-                             Date = new DateTime(2010,10,10),
+                             Date = now,
                              RouteID = 1,
                     },
                     new Trip{TripID = 2, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
                              AvailableVolume = 1.0,
-                             Date = new DateTime(2010,10,10),
+                             Date = now,
                              RouteID = 2,
                     },
                     new Trip{TripID = 3, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
                              AvailableVolume = 2.5,
-                             Date = new DateTime(2010,10,10),
+                             Date = now,
                              RouteID = 3,
                     },
                     new Trip{TripID = 4, 
@@ -69,7 +69,7 @@ namespace Capstone.Test
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
                              EstimateVolume = 1.1,
                              AvailableVolume = 1.5,
-                             Date = new DateTime(2010,10,10),
+                             Date = now,
                              RouteID = 4,
                     },
                 };
