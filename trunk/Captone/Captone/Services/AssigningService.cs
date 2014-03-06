@@ -17,39 +17,53 @@ namespace Captone.Services
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly ITripRepository _tripRepository;
         //declare class
-        private List<Invoice> invoices = new List<Invoice>();
-        private List<Station> stations = new List<Station>();
-        private List<Route> routes = new List<Route>(); 
-        private List<Trip> trips = new List<Trip>();
-        private TimeSpan maxTime;
+        private List<Invoice> _invoices = new List<Invoice>();
+        private List<Station> _stations = new List<Station>();
+        private List<Route> _routes = new List<Route>(); 
+        private List<Trip> _trips = new List<Trip>();
+        private readonly TimeSpan _maxTime = new TimeSpan(2,0,0,0);
         //result of route
         List<Dictionary<Request, List<Route>>> _tmpResult = new List<Dictionary<Request, List<Route>>>();
         //result of trip
-        Dictionary<Request, List<Trip>> _finalResult = new Dictionary<Request, List<Trip>>(); 
-        Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>(); //adjancent list of station
+        Dictionary<Request, List<Trip>> _finalResult = new Dictionary<Request, List<Trip>>();
+        //adjancent list of station
+        Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
+
+        public AssigningService(IRouteRepository routeRepository
+            , IStationRepository stationRepository
+            , IInvoiceRepository invoiceRepository
+            , ITripRepository tripRepository)
+        {
+            _routeRepository = routeRepository;
+            _stationRepository = stationRepository;
+            _invoiceRepository = invoiceRepository;
+            _tripRepository = tripRepository;
+        }
 
         private void InitData()
         {
-            routes = _routeRepository.GetAllRoutes().ToList();
-            stations = _stationRepository.GetAllStations().ToList();
-            invoices = _invoiceRepository.GetAllInvoices().ToList();
-            trips = _tripRepository.GetAllTrips().ToList();
+            _routes = _routeRepository.GetAllRoutes().ToList();
+            _stations = _stationRepository.GetAllStations().ToList();
+            _invoices = _invoiceRepository.GetAllInvoices().ToList();
+            _trips = _tripRepository.GetAllTrips().ToList();
             //build the adjancient list
-            foreach (var station1 in stations)
+            foreach (var station1 in _stations)
             {
-                foreach (var station2 in stations)
+                var tmp = new List<Station>();
+                foreach (var station2 in _stations)
                 {
-                    List<Station> tmp = new List<Station>();
-                    for (int i = 0; i < routes.Count; i++)
+                    for (int i = 0; i < _routes.Count; i++)
                     {
-                        if (routes[i].StartPoint == station1.StationID &&
-                            routes[i].EndPoint == station2.StationID)
+                        //add to the adjance 
+                        if (_routes[i].StartPoint == station1.StationID &&
+                            _routes[i].EndPoint == station2.StationID)
                         {
                             tmp.Add(station2);
                         }
                     }
-                    adj.Add(station1, tmp);
                 }
+                //insert the current adjance list of station to the full list
+                adj.Add(station1, tmp);
             }
         }
         //sort by the day of request increasing, if two request posted in the same day,
@@ -71,19 +85,18 @@ namespace Captone.Services
 
         public Invoice FindInvoiceFromRequest(Request request)
         {
-            foreach (var invoice in invoices)
+            foreach (var invoice in _invoices)
             {
                 if (request.RequestID == invoice.RequestID) return invoice;
             }
-            return invoices[0];
+            return _invoices[0];
         }
 
         //main function of assign, should call this from outside
-        public void Assigning(List<Request> requests, List<Trip> trips, DateTime date)
+        public Dictionary<Request, List<Trip>> Assigning(List<Request> requests, List<Trip> trips, DateTime date)
         {
+            InitData();
             //list all station
-            List<Station> station = new List<Station>();
-            station = _stationRepository.GetAllStations();
             //list all pending request
             //sort list request base on the day posted
             requests.Sort(RequestCompare);
@@ -92,27 +105,27 @@ namespace Captone.Services
                 int tmp = CheckOneTrip(request);
                 if (tmp > 0)
                 {
-                    ProcessingOneTrip(tmp, request, date);
+                    ProcessingOneTrip(tmp, request, trips, date);
                 }
                 else
                 {
-                    ProcessingMultipleTrip(request, date);
+                    ProcessingMultipleTrip(request, trips, date);
                 }
             }
-
+            return _finalResult;
         }
         //check if there exist a trip connect two location of request
         public int CheckOneTrip(Request request)
         {
-            for (int i = 0; i < routes.Count; i++)
+            for (int i = 0; i < _routes.Count; i++)
             {
-                if (routes[i].StartPoint == request.FromLocation &&
-                    routes[i].EndPoint == request.ToLocation) return routes[i].RouteID;
+                if (_routes[i].StartPoint == request.FromLocation &&
+                    _routes[i].EndPoint == request.ToLocation) return _routes[i].RouteID;
             }
             return -1;
         }
 
-        public List<Trip> FindTripFromRoute(int routeID)
+        public List<Trip> FindTripFromRoute(int routeID, List<Trip> trips)
         {
             List<Trip> tripList = new List<Trip>();
             for (int i = 0; i < trips.Count; i++)
@@ -125,39 +138,41 @@ namespace Captone.Services
             return tripList;
         }
         //processing for just one trip
-        public void ProcessingOneTrip(int routeID, Request request, DateTime date)
+        public void ProcessingOneTrip(int routeID, Request request, List<Trip> trips, DateTime date)
         {
-            List<Trip> candidates = FindTripFromRoute(routeID);
+            List<Trip> candidates = FindTripFromRoute(routeID, trips);
             int flag = -1;
             foreach (var candidate in candidates)
             {
                 Invoice invoice = FindInvoiceFromRequest(request);
-                if (candidate.AvailableVolume < invoice.Volume)
+                if (candidate.AvailableVolume >= invoice.Volume)
                 {
                     flag = 0;
                     List<Trip> tmpList = new List<Trip>();
                     tmpList.Add(candidate);
+                    candidate.AvailableVolume -= invoice.Volume;
                     _finalResult.Add(request, tmpList);
                 }
             }
             if (flag == -1)
             {
-                ProcessingMultipleTrip(request, date);
+                ProcessingMultipleTrip(request, trips, date);
             }
         }
 
-        public void ProcessingMultipleTrip(Request request, DateTime date)
+        public void ProcessingMultipleTrip(Request request, List<Trip> trips, DateTime date)
         {
             var current = new DateTimeOffset(date);
             var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
+            FindPath(request);
             foreach (var res in _tmpResult)
             {
                 var tmpListRoute = new List<Route>();
                 tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
                 foreach (var route in tmpListRoute)
                 {
-                    List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
+                    List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID, trips);
                     foreach (var trip in tmpListTrip)
                     {
                         var tmp = new DateTimeOffset(trip.Date);
@@ -168,7 +183,7 @@ namespace Captone.Services
                             resTrip.Add(trip);
                         }
                     }
-                    if (deliveryTime > maxTime)
+                    if (deliveryTime > _maxTime)
                     {
                         //deliveryTime = TimeSpan(0, 0, 0);
                         resTrip.Clear();
@@ -187,24 +202,21 @@ namespace Captone.Services
             var toStation = new Station();
             var listRoute = new List<Route>();
 
-            for (int i = 0; i < stations.Count; i++)
+            for (int i = 0; i < _stations.Count; i++)
             {
-                if (stations[i].StationID == request.FromLocation)
+                if (_stations[i].StationID == request.FromLocation)
                 {
-                    fromStation = stations[i];
+                    fromStation = _stations[i];
                 }
-                if (stations[i].StationID == request.ToLocation)
+                if (_stations[i].StationID == request.ToLocation)
                 {
-                    toStation = stations[i];
+                    toStation = _stations[i];
                 }
             }
-            //construct the graph G=(V,E) with V is list of staion, E is list of route connect two station
-            int node = stations.Count();
-            
             //recursion to find all path using BFS + check not go backward
             var visited = new List<Station>();
             visited.Add(fromStation);
-            //after call this method, all path of the 
+            //after call this method, all path connect two station of the request
             BreadthFirstSearch(request, toStation, visited); 
             return listRoute;
         }
@@ -249,12 +261,12 @@ namespace Captone.Services
 
         public Route FindRouteFromStation(Station a, Station b)
         {
-            for (int i = 0; i < routes.Count; i++)
+            for (int i = 0; i < _routes.Count; i++)
             {
-                if (routes[i].StartPoint == a.StationID &&
-                    routes[i].EndPoint == b.StationID) return routes[i];
+                if (_routes[i].StartPoint == a.StationID &&
+                    _routes[i].EndPoint == b.StationID) return _routes[i];
             }
-            return routes[0];
+            return _routes[0];
         }
 
         //check the diection always forward
