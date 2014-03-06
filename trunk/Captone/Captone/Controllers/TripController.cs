@@ -28,6 +28,7 @@ namespace Captone.Controllers
         public ActionResult ListTrip(DateTime tripDate)
         {
             var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route).Where(t => t.Date == tripDate);
+            //var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route).Where(t => t.CoachID == coachID);
             return View(trips.ToList());
         }
 

@@ -66,7 +66,7 @@
                                 @Html.LabelFor(model => model.Date)
                             </div>
 
-                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" />
+                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" @*onchange="listTrip($(CoachID).val())"*@ />
 
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.RouteID)
@@ -109,11 +109,23 @@
         $("select").addClass("form-control");
         DatePicker();
     }
-    function listTrip(value) {
+    // list Coach run which Route on Date
+    //function listTrip(cID) {
+    //    $.ajax({
+    //        url: "/Trip/ListTrip",
+    //        type: "Post",
+    //        data: { coachID: cID },
+    //        success: function (result) {
+    //            $("#samedateTrip").html(result);
+    //        }
+    //    });
+    //}
+    // list Trip in same date
+    function listTrip(tDate) {
         $.ajax({
             url: "/Trip/ListTrip",
             type: "Post",
-            data: { tripDate: value },
+            data: { tripDate: tDate },
             success: function (result) {
                 $("#samedateTrip").html(result);
             }
