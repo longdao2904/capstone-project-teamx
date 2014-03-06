@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+<blockquote>
+    @foreach (var item in Model)
+    {
+        <p>
+            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+            @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
+        </p>
+        <p>
+            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayFor(modelItem => item.Date)
+        </p>
+        <p>
+            @Html.DisplayNameFor(model => model.Route.RouteName)
+            @Html.DisplayFor(modelItem => item.Route.RouteName)
+        </p>
+    }
+</blockquote>

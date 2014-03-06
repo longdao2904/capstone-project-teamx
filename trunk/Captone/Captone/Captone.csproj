@@ -229,6 +229,7 @@
     <Compile Include="Repositories\Interfaces\ICoachRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\Interfaces\IInvoiceRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
       <SubType>Code</SubType>
@@ -242,6 +243,7 @@
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs">
       <SubType>Code</SubType>
@@ -280,10 +282,12 @@
     <Compile Include="Services\Interfaces\ICoachService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Interfaces\IInvoiceService.cs" />
     <Compile Include="Services\Interfaces\IRequestService.cs" />
     <Compile Include="Services\Interfaces\IRouteService.cs" />
     <Compile Include="Services\Interfaces\IStationService.cs" />
     <Compile Include="Services\Interfaces\ITripService.cs" />
+    <Compile Include="Services\InvoiceService.cs" />
     <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\RouteService.cs" />
     <Compile Include="Services\StationService.cs" />
@@ -420,13 +424,11 @@
     <Content Include="Content\Images\table\table_sort_arrow.gif" />
     <Content Include="Content\Images\user32.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\js\bootstrap-tooltip.js" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\demo\dashboard-demo.js" />
     <Content Include="Content\js\demo\flot-demo.js" />
     <Content Include="Content\js\demo\morris-demo.js" />
-    <Content Include="Content\js\ga.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery.bpopup.min.js" />
     <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
@@ -623,6 +625,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Trip\ListTrip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

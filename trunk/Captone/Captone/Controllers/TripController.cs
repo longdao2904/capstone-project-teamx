@@ -23,6 +23,15 @@ namespace Captone.Controllers
         }
 
         //
+        // POST: /Trip/ListTrip
+
+        public ActionResult ListTrip(DateTime tripDate)
+        {
+            var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route).Where(t => t.Date == tripDate);
+            return View(trips.ToList());
+        }
+
+        //
         // GET: /Trip/Details/5
 
         public ActionResult Details(int id = 0)
