@@ -94,7 +94,7 @@
                 }
                 </div>
                 <div class="col-md-4">
-                    <div id="samedateTrip"></div>
+                        <div id="samedateTrip"></div>
                 </div>
             </div>
         </div>
@@ -122,8 +122,9 @@
             }
         });
     }
-    function DatePicker () {
-        $("#datepicker").datepicker();
+    var pickerOpt = { dateFormat: "dd/mm/yy" }
+    function DatePicker() {
+        $("#datepicker").datepicker(pickerOpt);
     };
     window.onload = changeClass();
 </script>

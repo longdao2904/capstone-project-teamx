@@ -119,8 +119,9 @@
             }
         });
     }
+    var pickerOpt = { dateFormat: "dd/mm/yy" }
     function DatePicker() {
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker(pickerOpt);
     };
     window.onload = changeClass();
 </script>
