@@ -14,6 +14,12 @@ namespace Capstone.Test
         [TestMethod]
         public void MainFlow_Test2()
         {
+            // Description of this test case:
+            // There are routes and trips available between:
+            // SG - Đà Lạt, SG - Vũng Tàu, Vũng Tàu - Đà Nẵng, SG - Đà Nẵng
+            // Request1: SG - Vũng Tàu
+            // In the route: SG - Vũng Tàu, there are 3 trips but just 1 trip has available volume large enough
+            // Expected result is one request dedicated to one right trip
             //setup input / testcase
             var requests = new List<Request>
                 {
@@ -22,55 +28,34 @@ namespace Capstone.Test
                                 ToLocation = 2,
                                 DateRequest = new DateTime(2010, 10, 01),
                                 DeliveryStatusID = 1},
-                    new Request{RequestID = 1,
-                                FromLocation = 1,
-                                ToLocation = 4,
-                                DateRequest = new DateTime(2010, 10, 01),
-                                DeliveryStatusID = 1},
                 };
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             EstimateVolume = 1.1,
                              AvailableVolume = 1.0,
-                             RealArrivalTime = new TimeSpan(10,10,10),
-                             RealDepartureTime = new TimeSpan(10,10,10),
-                             RealVolume = 0.8,
                              Date = new DateTime(2010,10,10),
                              RouteID = 1,
                     },
                     new Trip{TripID = 2, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             EstimateVolume = 1.1,
-                             AvailableVolume = 1.0,
-                             RealArrivalTime = new TimeSpan(10,10,10),
-                             RealDepartureTime = new TimeSpan(10,10,10),
-                             RealVolume = 0.8,
+                             AvailableVolume = 1.5,
                              Date = new DateTime(2010,10,10),
-                             RouteID = 2,
+                             RouteID = 1,
                     },
                     new Trip{TripID = 3, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             EstimateVolume = 1.1,
-                             AvailableVolume = 1.0,
-                             RealArrivalTime = new TimeSpan(10,10,10),
-                             RealDepartureTime = new TimeSpan(10,10,10),
-                             RealVolume = 0.8,
+                             AvailableVolume = 2.5,
                              Date = new DateTime(2010,10,10),
-                             RouteID = 3,
+                             RouteID = 1,
                     },
                     new Trip{TripID = 4, 
                              EstimateArrivalTime = new TimeSpan(10, 10, 10),
                              EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             EstimateVolume = 1.1,
                              AvailableVolume = 1.0,
-                             RealArrivalTime = new TimeSpan(10,10,10),
-                             RealDepartureTime = new TimeSpan(10,10,10),
-                             RealVolume = 0.8,
                              Date = new DateTime(2010,10,10),
                              RouteID = 4,
                     },
@@ -136,12 +121,7 @@ namespace Capstone.Test
                 {
                     new Invoice{InvoiceID = 1,
                                 RequestID = 1,
-                                Volume = 1,
-                                Weight = 2,
-                                Price = 5.6},
-                    new Invoice{InvoiceID = 2,
-                                RequestID = 2,
-                                Volume = 1.5,
+                                Volume = 2,
                                 Weight = 2,
                                 Price = 5.6},
                 };
@@ -156,7 +136,6 @@ namespace Capstone.Test
 
             //test it
             var result = sut.Assigning(requests, trips, date);
-
             Assert.AreEqual(requests.Count, result.Count);
         }
     }

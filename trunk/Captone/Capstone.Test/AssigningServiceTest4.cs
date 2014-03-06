@@ -12,64 +12,49 @@ namespace Capstone.Test
     public partial class AssigningServiceTest1
     {
         [TestMethod]
-        public void MainFlow_Test3()
+        public void MainFlow_Test4()
         {
             // Description of this test case:
             // There are routes and trips available between:
             // SG - Đà Lạt, SG - Vũng Tàu, Vũng Tàu - Đà Nẵng, SG - Đà Nẵng
-            // Request1 (Volume = 1), Request2 (Volume = 2), Request3 (Volume = 2): SG - Đà Nẵng
-            // In the route: SG - Đà Nẵng, there are 2 trip:
-            // 1 trip Volume = 3.1, 1 trip Volume = 2.1
-            // Expected result is 2 requests dedicated to 1st trip and 1 request to 2st trip
+            // Request1 SG - Đà Nẵng
+            // There is not route between SG, Đà Nẵng directly
+            // There is a route SG - Vũng Tàu and a route Vũng Tàu - Đà Nẵng
+            // Expected result is 1 requests dedicated to two such trips corresponding to
+            // such route in right order
             //setup input / testcase
             var requests = new List<Request>
                 {
                     new Request{RequestID = 1,
                                 FromLocation = 1,
                                 ToLocation = 4,
-                                DateRequest = new DateTime(2010, 10, 01),
-                                DeliveryStatusID = 1},
-                    new Request{RequestID = 2,
-                                FromLocation = 1,
-                                ToLocation = 4,
-                                DateRequest = new DateTime(2010, 10, 01),
-                                DeliveryStatusID = 1},
-                    new Request{RequestID = 3,
-                                FromLocation = 1,
-                                ToLocation = 4,
-                                DateRequest = new DateTime(2010, 10, 01),
+                                DateRequest = new DateTime(2014, 03, 07),
                                 DeliveryStatusID = 1},
                 };
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             AvailableVolume = 3.1,
-                             Date = new DateTime(2010,10,10),
+                             EstimateDepartureTime = new TimeSpan(16, 00, 00),
+                             EstimateArrivalTime = new TimeSpan(23, 00, 00),
+                             AvailableVolume = 2,
+                             Date = new DateTime(2014,03,07),
                              RouteID = 3,
                     },
                     new Trip{TripID = 2, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             AvailableVolume = 2.1,
-                             Date = new DateTime(2010,10,10),
+                             EstimateDepartureTime = new TimeSpan(05, 00, 00),
+                             EstimateArrivalTime = new TimeSpan(17, 00, 00),
+                             AvailableVolume = 2,
+                             Date = new DateTime(2014,03,07),
                              RouteID = 3,
                     },
                     new Trip{TripID = 3, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             AvailableVolume = 1.0,
-                             Date = new DateTime(2010,10,10),
+                             EstimateDepartureTime = new TimeSpan(11, 00, 00),
+                             EstimateArrivalTime = new TimeSpan(15, 00, 00),
+                             AvailableVolume = 2.0,
+                             Date = new DateTime(2014,03,07),
                              RouteID = 1,
                     },
-                    new Trip{TripID = 4, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
-                             AvailableVolume = 1.0,
-                             Date = new DateTime(2010,10,10),
-                             RouteID = 4,
-                    },
+                   
                 };
             var date = DateTime.Now;
 
@@ -89,15 +74,27 @@ namespace Capstone.Test
                               Duration = 8.1,
                               Distance = 6},
                     new Route{RouteID = 3,
-                              RouteName = "Sài Gòn - Đà Nẵng",
-                              StartPoint = 1, 
+                              RouteName = "Vũng Tàu - Đà Nẵng",
+                              StartPoint = 2, 
                               EndPoint = 4,
                               Duration = 8.1,
                               Distance = 6},
                     new Route{RouteID = 4,
-                              RouteName = "Vũng Tàu - Đà Nẵng",
+                              RouteName = "Vũng Tàu - Sài Gòn",
+                              StartPoint = 2, 
+                              EndPoint = 1,
+                              Duration = 1.3,
+                              Distance = 5},
+                    new Route{RouteID = 5,
+                              RouteName = "Đà Lạt - Sài Gòn",
                               StartPoint = 3, 
-                              EndPoint = 4,
+                              EndPoint = 1,
+                              Duration = 8.1,
+                              Distance = 6},
+                    new Route{RouteID = 3,
+                              RouteName = "Đà Nẵng - Vũng Tàu",
+                              StartPoint = 4, 
+                              EndPoint = 2,
                               Duration = 8.1,
                               Distance = 6},
                 };
@@ -106,19 +103,19 @@ namespace Capstone.Test
                     new Station{StationID = 1,
                                 StationName = "SG.Lê Hồng Phong",
                                 StationLocation = "233 Lê Hồng Phong, F4, Q.5, TP Hồ Chí Minh",
-                                BreakTime = 2,
+                                BreakTime = 1,
                                 Coordinate = "10.7584848, 106.6777557",
                                 ProvinceID = 1},
                     new Station{StationID = 2,
                                 StationName = "Tạ Uyên - VT",
                                 StationLocation = "03 Tạ Uyên, Vũng Tàu",
-                                BreakTime = 1.5,
+                                BreakTime = 0.5,
                                 Coordinate = "10.3491804, 107.0855695",
                                 ProvinceID = 5},
                     new Station{StationID = 3,
                                 StationName = "Bến xe liên tỉnh Đà Lạt",
                                 StationLocation = "01 Tô Hiến Thành, F3, Đà Lạt",
-                                BreakTime = 2.5,
+                                BreakTime = 0.5,
                                 Coordinate = "11.9264949, 108.4460601",
                                 ProvinceID = 4},
                     new Station{StationID = 4,

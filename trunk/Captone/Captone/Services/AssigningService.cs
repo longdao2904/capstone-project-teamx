@@ -125,6 +125,14 @@ namespace Captone.Services
             return -1;
         }
 
+        public Station FindStationFromRoute(Route route)
+        {
+            foreach (var station in _stations)
+            {
+                if (station.StationID == route.EndPoint) return station;
+            }
+            return _stations[0];
+        }
         public List<Trip> FindTripFromRoute(int routeID, List<Trip> trips)
         {
             List<Trip> tripList = new List<Trip>();
@@ -147,11 +155,11 @@ namespace Captone.Services
                 Invoice invoice = FindInvoiceFromRequest(request);
                 if (candidate.AvailableVolume >= invoice.Volume)
                 {
-                    flag = 0;
                     List<Trip> tmpList = new List<Trip>();
                     tmpList.Add(candidate);
                     candidate.AvailableVolume -= invoice.Volume;
                     _finalResult.Add(request, tmpList);
+                    return;
                 }
             }
             if (flag == -1)
@@ -162,7 +170,7 @@ namespace Captone.Services
 
         public void ProcessingMultipleTrip(Request request, List<Trip> trips, DateTime date)
         {
-            var current = new DateTimeOffset(date);
+            var current = DateTime.Now;
             var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
             FindPath(request);
@@ -175,17 +183,17 @@ namespace Captone.Services
                     List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID, trips);
                     foreach (var trip in tmpListTrip)
                     {
-                        var tmp = new DateTimeOffset(trip.Date);
-                        tmp.Add((TimeSpan) trip.EstimateDepartureTime);
-                        if (tmp >= current)
+                        var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
+                        if (departure >= current)
                         {
-                            deliveryTime += (tmp - current);
+                            var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
+                            deliveryTime += (arrival - current);
                             resTrip.Add(trip);
+                            current = arrival.AddHours((double)FindStationFromRoute(route).BreakTime);
                         }
                     }
                     if (deliveryTime > _maxTime)
                     {
-                        //deliveryTime = TimeSpan(0, 0, 0);
                         resTrip.Clear();
                         break;
                     }
@@ -194,6 +202,14 @@ namespace Captone.Services
             }
         }
        
+        public DateTime ChangeTime(DateTime a, TimeSpan b)
+        {
+            DateTime result = a;
+            result = result.AddHours(b.Days);
+            result = result.AddHours(b.Hours);
+            result = result.AddMinutes(b.Minutes);
+            return result;
+        }
         //find all path between two station of the request
 
         public List<Route> FindPath(Request request)
@@ -283,10 +299,9 @@ namespace Captone.Services
                 string[] words = tmp.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 var longitude = new double[10];
                 var latitude = new double[10];
-                int c = 0, numLongitude = -1, numLatitude = -1;
+                int c = 0, numLongitude = 0, numLatitude = 0;
                 foreach (var word in words)
                 {
-                    c++;
                     if (c % 2 == 1)
                     {
                         longitude[++numLongitude] = double.Parse(word);
@@ -295,12 +310,13 @@ namespace Captone.Services
                     {
                         latitude[++numLatitude] = double.Parse(word);
                     }
+                    c++;
                 }
-                //find the cross product of two vector
-                double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
-                double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
-                //if the value is negative, then the angle is obtuse and reject this case
-                if (X_AB * X_BC + Y_AB * Y_BC <= 0) return false;
+                //double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
+                //double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
+                ////if the value is negative, then the angle is obtuse and reject this case
+                //if (X_AB * X_BC + Y_AB * Y_BC <= 0) return true;
+                if ((longitude[1] - longitude[2])*(longitude[2] - longitude[3]) < 0) return false;
             }
             return true;
         }
