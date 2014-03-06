@@ -163,7 +163,7 @@
         var bulb = document.getElementById("bulb2").checked;
         if (bulb) {
             showMap();
-            $("#hide").focus();
+        
         } else {
             document.getElementById("hide").innerHTML = "";
         }
@@ -174,6 +174,7 @@
         if (bulb) {
             MakerLocation();
             ToLocation();
+            $("#hide").focus();
             $('.bub-container2').show();
         } else {
             document.getElementById("map").innerHTML = "";

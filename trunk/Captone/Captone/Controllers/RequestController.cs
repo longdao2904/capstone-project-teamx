@@ -18,7 +18,7 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            
+
             ViewBag.Status = db.DeliveryStatus.ToList();
             var requests = db.Requests.Include(r => r.Account).Include(r => r.DeliveryStatu).Include(r => r.ManageFee).Include(r => r.Station).Include(r => r.Station1);
             return View(requests.ToList());
@@ -151,5 +151,15 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+        public ActionResult ChangeStatus(int requestID)
+        {
+            Request request = db.Requests.Where(p => p.RequestID == requestID).Single();
+            
+                request.DeliveryStatusID = 2;
+                db.SaveChanges();
+            return RedirectToAction("ListRequest");
+
+        }
+
     }
 }

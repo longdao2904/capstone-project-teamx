@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+<table>
+    <thead>
+        <tr>
+            <th>Estimate Departure Time</th>
+            <th>Estimate Arrival Time</th>
+            <th>Date</th>
+            <th>Route</th>
+            <th>Coach</th>
+            <th>CoachType</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>
+                    @item.EstimateDepartureTime
+                </td>
+                <td>
+                    @item.EstimateArrivalTime
+                </td>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.Route.RouteName
+                </td>
+                <td>
+                    @item.Coach.NumberPlate
+                </td>
+                <td>
+                    @item.Coach.CoachType.Seats
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>

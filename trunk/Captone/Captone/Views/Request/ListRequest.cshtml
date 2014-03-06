@@ -1,49 +1,81 @@
 ﻿@model IEnumerable<Captone.Models.Request>
-<div class="table-responsive">
-    <table class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Account.Username)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.ManageFee.Fee)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.DateRequest)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.FromLocation)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.ToLocation)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
-            </th>
-            <th></th>
-        </tr>
+<script src="~/Content/js/jquery-1.9.1.min.js"></script>
+<script src="~/Content/js/demo/demo.js"></script>
+<link href="~/Content/Css/demo.css" rel="stylesheet" />
+<table>
+    <tr>
+        <th>Tên đăng nhập
+        </th>
+        <th>Phí
+        </th>
+        <th>Ngày gửi
+        </th>
+        <th>Trạm gửi
+        </th>
+        <th>Trạm nhận
+        </th>
+        <th>Trạng thái
+        </th>
+        <th></th>
+    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Username
+            </td>
+            <td>
+                @item.ManageFee.Fee
+            </td>
+            <td>
+                @item.DateRequest
+            </td>
+            <td>
+                @item.Station.StationName
+            </td>
+            <td>
+                @item.Station1.StationName
+
+            </td>
+            <td>
+                @item.DeliveryStatu.StatusName
+            </td>
+            @if (item.DeliveryStatusID == 1)
+            {
+                <td><a href="/Request/ChangeStatus?requestID=@item.RequestID">Xác nhận</a></td>
+            }
+            else
+            {
                 <td>
-                    @item.Username
+                    <ul id="inline-popups">
+                        <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Zoom-out</a>
+                    </ul>
                 </td>
-                <td>
-                    @item.ManageFee.Fee
-                </td>
-                <td>
-                    @item.DateRequest
-                </td>
-                <td>
-                    @item.Station.StationName
-                </td>
-                <td>
-                    @item.Station1.StationName
-                </td>
-                <td>
-                    @item.DeliveryStatu.StatusName
-                </td>
-                <td>
-                    <a href="/Request/Edit/@item.RequestID"><i class="fa fa-edit fa-fw"></i></a>|
-                            <a href="/Request/Details/@item.RequestID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Request/Delete/@item.RequestID"><i class="fa fa-minus-square fa-fw"></i></a>
-                </td>
-            </tr>
-        }
-    </table>
-</div>
+            }
+        </tr>
+    }
+</table>
+  <div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
+<script type="text/javascript">
+    $('#inline-popups').magnificPopup({
+        delegate: 'a',
+        removalDelay: 500, //delay removal by X to allow out-animation
+        callbacks: {
+            beforeOpen: function () {
+                this.st.mainClass = this.st.el.attr('data-effect');
+            }
+        },
+        midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+    });
+    
+    function ListTrip() {
+        $.ajax({
+            url: "/Trip/ListTrip",
+            type: "POST",
+            success: function (result) {
+                $("#test-popup").html(result);
+            }
+        });
+    }
+</script>

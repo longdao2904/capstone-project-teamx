@@ -125,5 +125,10 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+        public ActionResult ListTripForRequest()
+        {
+            var listTrip = db.Trips.ToList();
+            return PartialView("ListTripForRequest",listTrip);
+        }
     }
 }
