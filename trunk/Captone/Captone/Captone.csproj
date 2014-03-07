@@ -202,9 +202,6 @@
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>

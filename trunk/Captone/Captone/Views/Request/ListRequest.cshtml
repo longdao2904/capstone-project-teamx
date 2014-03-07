@@ -1,64 +1,74 @@
 ﻿@model IEnumerable<Captone.Models.Request>
-<script src="~/Content/js/jquery-1.9.1.min.js"></script>
 <script src="~/Content/js/demo/demo.js"></script>
-<link href="~/Content/Css/demo.css" rel="stylesheet" />
+
 <div class="table-responsive">
-<table class="table">
-    <tr>
-        <th>Tên đăng nhập
-        </th>
-        <th>Phí
-        </th>
-        <th>Ngày gửi
-        </th>
-        <th>Trạm gửi
-        </th>
-        <th>Trạm nhận
-        </th>
-        <th>Trạng thái
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @item.Username
-            </td>
-            <td>
-                @item.ManageFee.Fee
-            </td>
-            <td>
-                @item.DateRequest
-            </td>
-            <td>
-                @item.Station.StationName
-            </td>
-            <td>
-                @item.Station1.StationName
-
-            </td>
-            <td>
-                @item.DeliveryStatu.StatusName
-            </td>
-            @if (item.DeliveryStatusID == 1)
-            {
-                <td><a href="/Request/ChangeStatus?requestID=@item.RequestID">Xác nhận</a></td>
-            }
-            else
-            {
-                <td>
-                    <ul id="inline-popups">
-                        <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Xếp hàng</a>
-                    </ul>
-                </td>
-            }
+            <th>Tên đăng nhập
+            </th>
+            <th>Phí
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>Trạm gửi
+            </th>
+            <th>Trạm nhận
+            </th>
+            <th>Trạng thái
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
-    </div>
-  <div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
+
+        @foreach (var item in Model)
+        {
+            
+            <tr>
+                <td style="display: none;">
+                    @item.RequestID
+                </td>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.ManageFee.Fee
+                </td>
+                <td>
+                    @item.DateRequest
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td style="display: none">
+                    @item.FromLocation
+                </td>
+                <td style="display: none">
+                    @item.ToLocation
+                </td>
+                <td>
+                    @item.Station1.StationName
+
+                </td>
+                <td>
+                    @item.DeliveryStatu.StatusName
+                </td>
+                @if (item.DeliveryStatusID == 1)
+                {
+                    <td><a href="/Request/ChangeStatus?requestID=@item.RequestID">Xác nhận</a></td>
+                }
+                else
+                {
+                    <td>
+                        <input type="checkbox" name="Requests" class="case"  />
+                    </td>
+                }
+            </tr>
+        }
+        <ul id="inline-popups">
+            <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Xếp hàng</a>
+        </ul>
+    </table>
+</div>
+<div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
 <script type="text/javascript">
     $('#inline-popups').magnificPopup({
         delegate: 'a',
@@ -70,7 +80,7 @@
         },
         midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
     });
-    
+
     function ListTrip() {
         $.ajax({
             url: "/Trip/ListTripForRequest",
@@ -80,4 +90,27 @@
             }
         });
     }
+
+    function getRequestSingle() {
+        var request = [];
+        $('[name="Requests"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var emp = {
+                // we start at 2 because the first one is the checkbox
+                // also it would be easier if you have an id for each of the column
+                // and do this row.find('#idCol') / row.find('#nameCol')
+                RequestID: row.find('td:nth-child(1)').text(),
+                Username: row.find('td:nth-child(2)').text(),
+                ManageFee: row.find('td:nth-child(3)').text(),
+                DateRequest: row.find('td:nth-child(4)').text(),
+                Station: row.find('td:nth-child(5)').text(),
+                FromLocation: row.find('td:nth-child(6)').text(),
+                ToLocation: row.find('td:nth-child(7)').text()
+            };
+            request.push(emp);
+            // SentObject(request);
+        });
+        return request;
+    }
+
 </script>

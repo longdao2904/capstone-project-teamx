@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using Captone.Models;
-
+using Captone.Services;
+using Newtonsoft.Json;
 namespace Captone.Controllers
 {
     public class TripController : Controller
@@ -139,6 +141,15 @@ namespace Captone.Controllers
         {
             var listTrip = db.Trips.ToList();
             return PartialView("ListTripForRequest",listTrip);
+        }
+  
+        [HttpPost]
+        [WebMethod]
+        public ActionResult Assigning(List<Request> request, List<Trip> trip)
+        {
+            AssigningService assign = new AssigningService();
+           var result = assign.Assigning(request, trip, DateTime.Now);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
