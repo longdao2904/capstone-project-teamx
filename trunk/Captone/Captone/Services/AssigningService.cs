@@ -12,10 +12,10 @@ namespace Captone.Services
     public class AssigningService : IAssigningService
     {
         //declare interface
-        private readonly IRouteRepository _routeRepository;
-        private readonly IStationRepository _stationRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly ITripRepository _tripRepository;
+        private readonly IGenericRepository<Route> _routeRepository;
+        private readonly IGenericRepository<Station> _stationRepository;
+        private readonly IGenericRepository<Invoice> _invoiceRepository;
+        private readonly IGenericRepository<Trip> _tripRepository;
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
@@ -29,10 +29,10 @@ namespace Captone.Services
         //adjancent list of station
         Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
 
-        public AssigningService(IRouteRepository routeRepository
-            , IStationRepository stationRepository
-            , IInvoiceRepository invoiceRepository
-            , ITripRepository tripRepository)
+        public AssigningService(IGenericRepository<Route> routeRepository
+            , IGenericRepository<Station> stationRepository
+            , IGenericRepository<Invoice> invoiceRepository
+            , IGenericRepository<Trip> tripRepository)
         {
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
@@ -42,10 +42,10 @@ namespace Captone.Services
 
         private void InitData()
         {
-            _routes = _routeRepository.GetAllRoutes().ToList();
-            _stations = _stationRepository.GetAllStations().ToList();
-            _invoices = _invoiceRepository.GetAllInvoices().ToList();
-            _trips = _tripRepository.GetAllTrips().ToList();
+            _routes = _routeRepository.GetAll().ToList();
+            _stations = _stationRepository.GetAll().ToList();
+            _invoices = _invoiceRepository.GetAll().ToList();
+            _trips = _tripRepository.GetAll().ToList();
             //build the adjancient list
             foreach (var station1 in _stations)
             {
@@ -177,6 +177,8 @@ namespace Captone.Services
             var resTrip = new List<Trip>();
             double tmp = (double)FindInvoiceFromRequest(request).Volume;
             FindPath(request);
+            if(_tmpResult == null)
+                throw new NullReferenceException("Out of available trips");
             foreach (var res in _tmpResult)
             {
                 var current = DateTime.Now;

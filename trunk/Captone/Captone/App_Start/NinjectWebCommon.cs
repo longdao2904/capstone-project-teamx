@@ -71,6 +71,9 @@ namespace Captone.App_Start
             //    if (impl != null) kernel.Bind(internalInterface).To(impl);
             //}
 
+            //Binding Generic Repository
+            kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+
             //Binding IUnit Of Work
            kernel.Bind<IUnitOfWork>().To<iDeliverEntities>().InRequestScope();
 
@@ -82,7 +85,6 @@ namespace Captone.App_Start
             kernel.Bind<IRouteRepository>().To<RouteRepository>();
             kernel.Bind<IStationRepository>().To<StationRepository>();
             kernel.Bind<IInvoiceRepository>().To<InvoiceRepository>();
-            //kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>));
 
             //Binding Services
             kernel.Bind<IAccountService>().To<AccountService>();

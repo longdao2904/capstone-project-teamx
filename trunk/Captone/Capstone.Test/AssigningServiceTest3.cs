@@ -150,9 +150,9 @@ namespace Capstone.Test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object);
 
 
-            _route.Setup(f => f.GetAllRoutes()).Returns(new EnumerableQuery<Route>(routes));
-            _station.Setup(f => f.GetAllStations()).Returns(stations);
-            _invoice.Setup(f => f.GetAllInvoices()).Returns(new EnumerableQuery<Invoice>(invoices));
+            _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
+            _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
+            _invoice.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Invoice>(invoices));
 
             //test it
             var result = sut.Assigning(requests, trips, date);

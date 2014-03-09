@@ -13,13 +13,14 @@ namespace Capstone.Test
     public partial class AssigningServiceTest1
     {
         //setup mock object
-        private readonly Mock<IRouteRepository> _route = new Mock<IRouteRepository>();
-        private readonly Mock<IStationRepository> _station = new Mock<IStationRepository>();
-        private readonly Mock<IInvoiceRepository> _invoice = new Mock<IInvoiceRepository>();
-        private readonly Mock<ITripRepository> _trip = new Mock<ITripRepository>();
-        DateTime now = new DateTime(2014,03,07);
+        private readonly Mock<IGenericRepository<Route>> _route = new Mock<IGenericRepository<Route>>();
+        private readonly Mock<IGenericRepository<Station>> _station = new Mock<IGenericRepository<Station>>();
+        private readonly Mock<IGenericRepository<Invoice>> _invoice = new Mock<IGenericRepository<Invoice>>();
+        private readonly Mock<IGenericRepository<Trip>> _trip = new Mock<IGenericRepository<Trip>>();
+        DateTime now = new DateTime(2014,03,09,9, 30, 0);
 
         [TestMethod]
+        //[ExpectedException(typeof(NullReferenceException))]
         public void MainFlow_Test()
         {
             // Description of this test case:
@@ -44,29 +45,29 @@ namespace Capstone.Test
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
+                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
+                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
                              AvailableVolume = 1.0,
                              Date = now,
                              RouteID = 1,
                     },
                     new Trip{TripID = 2, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
+                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
+                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
                              AvailableVolume = 1.0,
                              Date = now,
                              RouteID = 2,
                     },
                     new Trip{TripID = 3, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
+                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
+                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
                              AvailableVolume = 2.5,
                              Date = now,
                              RouteID = 3,
                     },
                     new Trip{TripID = 4, 
-                             EstimateArrivalTime = new TimeSpan(10, 10, 10),
-                             EstimateDepartureTime = new TimeSpan(10, 10, 10),
+                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
+                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
                              EstimateVolume = 1.1,
                              AvailableVolume = 1.5,
                              Date = now,
@@ -148,9 +149,9 @@ namespace Capstone.Test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object);
 
 
-            _route.Setup(f => f.GetAllRoutes()).Returns(new EnumerableQuery<Route>(routes));
-            _station.Setup(f => f.GetAllStations()).Returns(stations);
-            _invoice.Setup(f => f.GetAllInvoices()).Returns(new EnumerableQuery<Invoice>(invoices));
+            _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
+            _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
+            _invoice.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Invoice>(invoices));
 
             //test it
             var result = sut.Assigning(requests, trips, date);

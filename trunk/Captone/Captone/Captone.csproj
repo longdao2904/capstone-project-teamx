@@ -220,6 +220,8 @@
     <Compile Include="Repositories\CoachRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAccountRepository.cs">
       <SubType>Code</SubType>
     </Compile>

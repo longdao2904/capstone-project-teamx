@@ -143,13 +143,13 @@ namespace Captone.Controllers
             return PartialView("ListTripForRequest",listTrip);
         }
   
-        [HttpPost]
-        [WebMethod]
-        public ActionResult Assigning(List<Request> request, List<Trip> trip)
-        {
-            AssigningService assign = new AssigningService();
-           var result = assign.Assigning(request, trip, DateTime.Now);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpPost]
+        //[WebMethod]
+        //public ActionResult Assigning(List<Request> request, List<Trip> trip)
+        //{
+           // AssigningService assign = new AssigningService();
+           //var result = assign.Assigning(request, trip, DateTime.Now);
+           // return Json(result, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
