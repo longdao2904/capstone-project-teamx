@@ -1,0 +1,53 @@
+﻿@model Captone.Models.Schedule
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Schedule</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Route.RouteName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Route.RouteName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Coach.NumberPlate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateDepartureTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateArrivalTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateVolume)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateVolume)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

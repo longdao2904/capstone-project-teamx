@@ -20,7 +20,7 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route);
+            var trips = db.Trips;
             return View(trips.ToList());
         }
 
@@ -29,8 +29,7 @@ namespace Captone.Controllers
 
         public ActionResult ListTrip(DateTime tripDate)
         {
-            var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route).Where(t => t.Date == tripDate);
-            //var trips = db.Trips.Include(t => t.Coach).Include(t => t.Route).Where(t => t.CoachID == coachID);
+            var trips = db.Trips.Where(t => t.Date == tripDate);
             return View(trips.ToList());
         }
 
@@ -52,8 +51,6 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
             return View();
         }
 
@@ -65,13 +62,11 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Trips.Add(trip);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate", trip.CoachID);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", trip.RouteID);
             return View(trip);
         }
 
@@ -85,8 +80,6 @@ namespace Captone.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate", trip.CoachID);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", trip.RouteID);
             return View(trip);
         }
 
@@ -102,8 +95,6 @@ namespace Captone.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate", trip.CoachID);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", trip.RouteID);
             return View(trip);
         }
 

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Captone.Models.Schedule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Route.RouteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimateVolume)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Route.RouteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimateVolume)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScheduleID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScheduleID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScheduleID })
+        </td>
+    </tr>
+}
+
+</table>

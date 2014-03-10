@@ -14,87 +14,34 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-6">
-                @using (Html.BeginForm())
-                {
-                    @Html.ValidationSummary(true)
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
 
-                    <fieldset>
-                        <legend>Thông tin chuyến mới</legend>
+                        <fieldset>
+                            <legend>Thông tin chuyến mới</legend>
 
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EstimateDepartureTime)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.EstimateDepartureTime)
-                            @Html.ValidationMessageFor(model => model.EstimateDepartureTime)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.EstimateArrivalTime)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.EstimateArrivalTime)
-                            @Html.ValidationMessageFor(model => model.EstimateArrivalTime)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.RealDepartureTime)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.RealDepartureTime)
-                            @Html.ValidationMessageFor(model => model.RealDepartureTime)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.RealArrivalTime)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.RealArrivalTime)
-                            @Html.ValidationMessageFor(model => model.RealArrivalTime)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.AvailableVolume)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.AvailableVolume)
-                            @Html.ValidationMessageFor(model => model.AvailableVolume)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.Date)
-                        </div>
-                        @*<div class="editor-field">*@
-                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" />
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Date)
+                            </div>
+                            @*<div class="editor-field">*@
+                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="loadList(this.value)" />
                             @*@Html.ValidationMessageFor(model => model.Date)
                         </div>*@
 
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.RouteID)
-                        </div>
-                        <div class="editor-field">
-                            @Html.DropDownList("RouteID", String.Empty)
-                            @Html.ValidationMessageFor(model => model.RouteID)
-                        </div>
-
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.CoachID)
-                        </div>
-                        <div class="editor-field">
-                            @Html.DropDownList("CoachID", String.Empty)
-                            @Html.ValidationMessageFor(model => model.CoachID)
-                        </div>
-
-                        <br />
-                        <p>
-                            <input type="submit" value="Tạo mới" class="btn btn-primary" />
-                            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
-                        </p>
-                    </fieldset>
-                }
+                            <br />
+                            <p>
+                                <input type="button" value="Tạo mới" class="btn btn-primary" onclick="SentObject()" />
+                                <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
+                            </p>
+                        </fieldset>
+                    }
                 </div>
                 <div class="col-md-4">
-                        <div id="samedateTrip"></div>
+                    <div id="samedateTrip"></div>
+                </div>
+                <div class="col-md-8">
+                    <div id="schedule"></div>
                 </div>
             </div>
         </div>
@@ -112,6 +59,10 @@
         $("select").addClass("form-control");
         DatePicker();
     }
+    function loadList(value) {
+        listTrip(value);
+        listTimetable();
+    }
     function listTrip(value) {
         $.ajax({
             url: "/Trip/ListTrip",
@@ -122,9 +73,51 @@
             }
         });
     }
+    function listTimetable() {
+        $.ajax({
+            url: "/Schedule/SchedulePartialView",
+            type: "Get",
+            success: function (result) {
+                $("#schedule").html(result);
+            }
+        });
+    }
     var pickerOpt = { dateFormat: "dd/mm/yy" }
     function DatePicker() {
         $("#datepicker").datepicker(pickerOpt);
     };
     window.onload = changeClass();
+
+    // Get schedule objects
+    function getScheduleObject() {
+        var schedules = [];
+        $('[name="ScheduleID"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var sch = {
+                // cột 1 là ScheduleID, lấy value từ cột 2
+                // sử dụng row.find('#idCol') / row.find('#nameCol')
+                ScheduleID: row.find('td:nth-child(1)').text(),
+                RouteName: row.find('td:nth-child(2)').text(),
+                NumberPlate: row.find('td:nth-child(3)').text(),
+                EstimateDepartureTime: row.find('td:nth-child(4)').text(),
+                EstimateArrivalTime: row.find('td:nth-child(5)').text(),
+                EstimateVolume: row.find('td:nth-child(6)').text(),
+                Date: $('#datepicker').val()
+            };
+            // Push schedule object to collection
+            schedules.push(sch);
+        });
+        console.log(schedules);
+        return schedules;
+    }
+
+    // Sent schedule objects to controller
+    function SentObject() {
+        var schedule = getScheduleObject();
+        $.ajax({
+            url: "/Trip/Create",
+            type: "Post",
+            data: { Trip: schedule }
+        });
+    }
 </script>
