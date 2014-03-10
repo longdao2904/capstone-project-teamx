@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Captone.Models.Request>
 <script src="~/Content/js/demo/demo.js"></script>
 
-<div class="table-responsive">
+<div class="table-responsive" id="requestList">
     <table class="table">
         <tr>
             <th>Tên đăng nhập
@@ -22,7 +22,7 @@
         @foreach (var item in Model)
         {
             
-            <tr>
+            <tr id="request-@item.RequestID">
                 <td style="display: none;">
                     @item.RequestID
                 </td>
@@ -53,7 +53,7 @@
                 </td>
                 @if (item.DeliveryStatusID == 1)
                 {
-                    <td><a href="/Request/ChangeStatus?requestID=@item.RequestID">Xác nhận</a></td>
+                    <td> <button type="button" class="btn" onclick="ChangeStatus(@item.RequestID)">Xác nhận</button></td>
                 }
                 else
                 {
@@ -63,12 +63,15 @@
                 }
             </tr>
         }
-        <ul id="inline-popups">
-            <a href="#test-popup" data-effect="mfp-newspaper" onclick="ListTrip();">Xếp hàng</a>
-        </ul>
+        
+    
+            <a href="#" id="xephang" role="button" onclick="Assign();">Xếp hàng</a>
+   
+        
+        
     </table>
 </div>
-<div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
+@*<div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>*@
 <script type="text/javascript">
     $('#inline-popups').magnificPopup({
         delegate: 'a',
@@ -85,12 +88,29 @@
         $.ajax({
             url: "/Trip/ListTripForRequest",
             type: "POST",
+            beforeSend: function () {
+                $("#test-popup").html('<img src="~/Content/img/loading.gif"/>');
+            },
             success: function (result) {
                 $("#test-popup").html(result);
             }
         });
     }
-
+    function ChangeStatus(requestID) {
+        $.ajax({
+            url: "/Request/ChangeStatus",
+            type: "POST",
+            data: { requestID: requestID },
+            success: function (result) {
+                if (result) {
+                    $("#requestList").fadeOut(200, function () {
+                        $("#request-" + requestID).remove();
+                        $("#requestList").fadeIn(200);
+                    });
+                }
+            }
+        });
+    }
     function getRequestSingle() {
         var request = [];
         $('[name="Requests"]:checked').each(function () {
@@ -112,5 +132,17 @@
         });
         return request;
     }
-
+    function Assign() {
+        var request = getRequestSingle();
+        //   var trip = getTripMul();
+        $.ajax({
+            url: "/Trip/Assigning",
+            type: "POST",
+            data: JSON.stringify({ request: request }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
 </script>

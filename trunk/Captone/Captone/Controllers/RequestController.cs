@@ -95,8 +95,8 @@ namespace Captone.Controllers
             return View(request);
         }
 
-        
-         //POST: /Request/Edit/5
+
+        //POST: /Request/Edit/5
 
         [HttpPost]
         public ActionResult Edit(Request request)
@@ -151,13 +151,19 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-        public ActionResult ChangeStatus(int requestID)
+        public Boolean ChangeStatus(int requestID)
         {
             Request request = db.Requests.Where(p => p.RequestID == requestID).Single();
-            
+            if (request != null)
+            {
                 request.DeliveryStatusID = 2;
                 db.SaveChanges();
-            return RedirectToAction("ListRequest");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 

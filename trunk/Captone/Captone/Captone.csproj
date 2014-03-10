@@ -423,6 +423,7 @@
     <Content Include="Content\Images\table\table_sort_arrow.gif" />
     <Content Include="Content\Images\user32.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\loading.gif" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\demo\dashboard-demo.js" />
@@ -627,6 +628,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Trip\ListTrip.cshtml" />
     <Content Include="Views\Trip\ListTripForRequest.cshtml" />
+    <Content Include="Views\Home\ListStatusCustomer.cshtml" />
+    <Content Include="Views\Home\ListRequestCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

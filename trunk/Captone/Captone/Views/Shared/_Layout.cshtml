@@ -25,6 +25,9 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @{
+        var Username = (string)Session["USERNAME"];
+    }
 </head>
 <body>
     <div id="wrapper">
@@ -79,7 +82,7 @@
                     {
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/Home/LoadRequest"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
+                                <a href="/Home/ListStatusCustomer?Username=@Username"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
                             </li>
                         </ul>
                     }

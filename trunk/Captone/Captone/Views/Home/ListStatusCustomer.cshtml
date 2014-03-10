@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "ListStatusCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var username = (string) Session["USERNAME"];
+}
+<ul id="myTab" class="nav nav-pills">
+    @foreach (var stt in ViewBag.Status)
+    {
+        <li><a href="#pills" id="@stt.Value" data-toggle="tab" onclick="LoadRequestCustomer(this.id, '@username')">@stt.Text</a></li>
+    }
+</ul>
+<br/>
+<div id="requestCustomer">
+    
+</div>
+
+<script type="text/javascript">
+    function LoadRequestCustomer(id,username) {
+        $.ajax({
+            url: "/Home/ListRequestCustomer",
+            type: "POST",
+            data: { DeliveryStatusID: id, Username: username },
+            success: function (result) {
+                $("#requestCustomer").html(result);
+            }
+        });
+      
+    }
+</script>

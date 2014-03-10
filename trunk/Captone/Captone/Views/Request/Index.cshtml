@@ -43,10 +43,11 @@
     </div>
 </div>
 <script type="text/javascript">
-    
-    function addActive() {
-        listStatus(1);
-        $('#1').addClass("active");
+
+    function addActive(id) {
+     
+        listStatus(id);
+        $('#id').addClass("active");
     }
     function listStatus(id) {
         $.ajax({
@@ -58,6 +59,6 @@
             }
         });
     }
-  
-    window.onload = addActive();
+
+    window.onload = addActive(1);
 </script>

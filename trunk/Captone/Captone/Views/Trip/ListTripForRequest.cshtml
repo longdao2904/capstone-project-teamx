@@ -50,7 +50,7 @@
             }
         </tbody>
     </table>
-    <input type="button" class="btn-primary" onclick="Assign()" />
+
 </div>
 <script type="text/javascript">
     
@@ -74,18 +74,5 @@
         });
         return trip;
     }
-    function Assign() {
-        var request = getRequestSingle();
-        var trip = getTripMul();
-        alert(request);
-        $.ajax({
-            url: "/Trip/Assigning",
-            type: "POST",
-            data: JSON.stringify({ request: request, trip: trip}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(result) {
-                }
-        });
-    }
+
 </script>

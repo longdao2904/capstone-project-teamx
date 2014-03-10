@@ -206,6 +206,27 @@ namespace Captone.Controllers
             return PartialView("ListProvince");
 
         }
+        public ActionResult ListStatusCustomer(string Username)
+        {
+            IEnumerable<SelectListItem> request = (from p
+                                                       in _db.Requests
+                                                   where p.Username == Username
+                                                   group p by new
+                                                                  {
+                                                                      p.DeliveryStatusID,
+                                                                      p.DeliveryStatu.StatusName
+                                                                      
+                                                                  }
+                                                   into k
+                                                   select new SelectListItem()
+                                                              {
+                                                                  Text = k.Key.StatusName,
+                                                                  Value = SqlFunctions.StringConvert((double)k.Key.DeliveryStatusID).Trim()
+                                                              }
+                                                  ).ToList();
+            ViewBag.Status = request;
+            return View();
+        }
 
         public ActionResult ListStation(int province)
         {
@@ -224,6 +245,24 @@ namespace Captone.Controllers
         }
 
         public List<Models.Request> pendingReq { get; set; }
+
+        public ActionResult ListRequestCustomer(int DeliveryStatusID, string Username)
+        {
+            var list = _db.Requests.Where(p => p.DeliveryStatusID == DeliveryStatusID && p.Username == Username).ToList();
+            return PartialView(list);
+
+        }
+        public Boolean DeleteRequest(int requestId)
+        {
+            var request = _db.Requests.Where(p => p.RequestID == requestId).Single();
+            if(request != null)
+            {
+                _db.Requests.Remove(request);
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 
 }
