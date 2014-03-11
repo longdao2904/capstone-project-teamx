@@ -143,14 +143,15 @@ namespace Capstone.Test
                 };
 
             //setup system under test
-            var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object);
+            var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object,
+                                           _request.Object, _assigning.Object);
 
             _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
             _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
             _invoice.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Invoice>(invoices));
 
             //test it
-            var result = sut.Assigning(requests, trips, date);
+            var result = sut.Assigning(requests, date);
 
             Assert.AreEqual(requests.Count, result.Count);
         }

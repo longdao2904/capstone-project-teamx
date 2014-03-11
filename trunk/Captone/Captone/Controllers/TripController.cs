@@ -138,9 +138,8 @@ namespace Captone.Controllers
         [WebMethod]
         public ActionResult Assigning(List<Request> request)
         {
-            List<Trip> trip = db.Trips.Where(p => p.Date > DateTime.Now).ToList();
             AssigningService assign = new AssigningService();
-           var result = assign.Assigning(request, trip, DateTime.Now);
+           var result = assign.Assigning(request, DateTime.Now);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

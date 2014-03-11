@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Captone.Models;
+using Captone.Repositories;
 using Captone.Repositories.Interfaces;
 using Captone.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,11 +14,15 @@ namespace Capstone.Test
     public partial class AssigningServiceTest1
     {
         //setup mock object
-        private readonly Mock<IGenericRepository<Route>> _route = new Mock<IGenericRepository<Route>>();
-        private readonly Mock<IGenericRepository<Station>> _station = new Mock<IGenericRepository<Station>>();
-        private readonly Mock<IGenericRepository<Invoice>> _invoice = new Mock<IGenericRepository<Invoice>>();
-        private readonly Mock<IGenericRepository<Trip>> _trip = new Mock<IGenericRepository<Trip>>();
+        private readonly Mock<GenericRepository<Route>> _route = new Mock<GenericRepository<Route>>();
+        private readonly Mock<GenericRepository<Station>> _station = new Mock<GenericRepository<Station>>();
+        private readonly Mock<GenericRepository<Invoice>> _invoice = new Mock<GenericRepository<Invoice>>();
+        private readonly Mock<GenericRepository<Trip>> _trip = new Mock<GenericRepository<Trip>>();
+        private readonly Mock<GenericRepository<Request>> _request = new Mock<GenericRepository<Request>>();
+        private readonly Mock<GenericRepository<Assigning>> _assigning = new Mock<GenericRepository<Assigning>>();
+
         DateTime now = new DateTime(2014,03,09,9, 30, 0);
+        TimeSpan datePost = new TimeSpan(14,0,0);
 
         [TestMethod]
         //[ExpectedException(typeof(NullReferenceException))]
@@ -45,29 +50,29 @@ namespace Capstone.Test
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
-                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
-                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
+                             EstimateArrivalTime = datePost,
+                             EstimateDepartureTime = datePost,
                              AvailableVolume = 1.0,
                              Date = now,
                              RouteID = 1,
                     },
                     new Trip{TripID = 2, 
-                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
-                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
+                             EstimateArrivalTime = datePost,
+                             EstimateDepartureTime = datePost,
                              AvailableVolume = 1.0,
                              Date = now,
                              RouteID = 2,
                     },
                     new Trip{TripID = 3, 
-                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
-                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
+                             EstimateArrivalTime = datePost,
+                             EstimateDepartureTime = datePost,
                              AvailableVolume = 2.5,
                              Date = now,
                              RouteID = 3,
                     },
                     new Trip{TripID = 4, 
-                             EstimateArrivalTime = new TimeSpan(23, 50, 0),
-                             EstimateDepartureTime = new TimeSpan(23, 50, 0),
+                             EstimateArrivalTime = datePost,
+                             EstimateDepartureTime = datePost,
                              EstimateVolume = 1.1,
                              AvailableVolume = 1.5,
                              Date = now,
@@ -146,7 +151,8 @@ namespace Capstone.Test
                 };
 
             //setup system under test
-            var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object);
+            var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object,
+                                           _request.Object, _assigning.Object);
 
 
             _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
@@ -154,7 +160,7 @@ namespace Capstone.Test
             _invoice.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Invoice>(invoices));
 
             //test it
-            var result = sut.Assigning(requests, trips, date);
+            var result = sut.Assigning(requests, date);
 
             Assert.AreEqual(requests.Count, result.Count);
         }

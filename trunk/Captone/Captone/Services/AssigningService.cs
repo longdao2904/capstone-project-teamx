@@ -12,12 +12,18 @@ namespace Captone.Services
     public class AssigningService : IAssigningService
     {
         //declare interface
-        private readonly IGenericRepository<Route> _routeRepository;
-        private readonly IGenericRepository<Station> _stationRepository;
-        private readonly IGenericRepository<Invoice> _invoiceRepository;
-        private readonly IGenericRepository<Trip> _tripRepository;
-        private readonly IGenericRepository<Request> _requestRepository;
-        private readonly IGenericRepository<Assigning> _assigningRepository;
+        private readonly GenericRepository<Route> _routeRepository = 
+            new GenericRepository<Route>(new iDeliverEntities());
+        private readonly GenericRepository<Station> _stationRepository = 
+            new GenericRepository<Station>(new iDeliverEntities());
+        private readonly GenericRepository<Invoice> _invoiceRepository =
+            new GenericRepository<Invoice>(new iDeliverEntities());
+        private readonly GenericRepository<Trip> _tripRepository =
+            new GenericRepository<Trip>(new iDeliverEntities());
+        private readonly GenericRepository<Request> _requestRepository = 
+            new GenericRepository<Request>(new iDeliverEntities());
+        private readonly GenericRepository<Assigning> _assigningRepository = 
+            new GenericRepository<Assigning>(new iDeliverEntities());
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
@@ -34,12 +40,12 @@ namespace Captone.Services
         //adjancent list of station
         Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
 
-        public AssigningService(IGenericRepository<Route> routeRepository
-            , IGenericRepository<Station> stationRepository
-            , IGenericRepository<Invoice> invoiceRepository
-            , IGenericRepository<Trip> tripRepository
-            , IGenericRepository<Request> requestRepository
-            , IGenericRepository<Assigning> assigningRepository)
+        public AssigningService(GenericRepository<Route> routeRepository
+            , GenericRepository<Station> stationRepository
+            , GenericRepository<Invoice> invoiceRepository
+            , GenericRepository<Trip> tripRepository
+            , GenericRepository<Request> requestRepository
+            , GenericRepository<Assigning> assigningRepository)
         {
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
@@ -103,15 +109,17 @@ namespace Captone.Services
             {
                 if (request.RequestID == invoice.RequestID) return invoice;
             }
-            return _invoices[0];
+            return null;
         }
 
         //main function of assign, should call this from outside
         public Dictionary<Request, List<Trip>> Assigning(List<Request> requests, DateTime date)
         {
             InitData();
-            //list all station
-            //list all pending request
+            foreach (var request in requests)
+            {
+                if (FindInvoiceFromRequest(request) == null) return _finalResult;
+            }
             //sort list request base on the day posted
             requests.Sort(RequestCompare);
             foreach (var request in requests)
@@ -359,7 +367,6 @@ namespace Captone.Services
                 }
                 //double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
                 //double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
-                ////if the value is negative, then the angle is obtuse and reject this case
                 //if (X_AB * X_BC + Y_AB * Y_BC <= 0) return true;
                 if ((longitude[1] - longitude[2])*(longitude[2] - longitude[3]) < 0) return false;
             }
