@@ -12,17 +12,21 @@ namespace Captone.Services
     public class AssigningService : IAssigningService
     {
         //declare interface
-        iDeliverEntities _db = new iDeliverEntities();
-        private readonly IRouteRepository _routeRepository;
-        private readonly IStationRepository _stationRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly ITripRepository _tripRepository;
+        private readonly IGenericRepository<Route> _routeRepository;
+        private readonly IGenericRepository<Station> _stationRepository;
+        private readonly IGenericRepository<Invoice> _invoiceRepository;
+        private readonly IGenericRepository<Trip> _tripRepository;
+        private readonly IGenericRepository<Request> _requestRepository;
+        private readonly IGenericRepository<Assigning> _assigningRepository;
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
         private List<Route> _routes = new List<Route>(); 
         private List<Trip> _trips = new List<Trip>();
+        private List<Assigning> _assignings = new List<Assigning>();
+        //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5,0,0,0);
+        private readonly int _maxWay = 5;
         //result of route
         List<Dictionary<Request, List<Route>>> _tmpResult = new List<Dictionary<Request, List<Route>>>();
         //result of trip
@@ -30,28 +34,32 @@ namespace Captone.Services
         //adjancent list of station
         Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
 
-        public AssigningService(IRouteRepository routeRepository
-            , IStationRepository stationRepository
-            , IInvoiceRepository invoiceRepository
-            , ITripRepository tripRepository)
+        public AssigningService(IGenericRepository<Route> routeRepository
+            , IGenericRepository<Station> stationRepository
+            , IGenericRepository<Invoice> invoiceRepository
+            , IGenericRepository<Trip> tripRepository
+            , IGenericRepository<Request> requestRepository
+            , IGenericRepository<Assigning> assigningRepository)
         {
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
             _invoiceRepository = invoiceRepository;
             _tripRepository = tripRepository;
+            _requestRepository = requestRepository;
+            _assigningRepository = assigningRepository;
         }
 
-        public AssigningService(){}
+        public AssigningService()
+        {
+            //Constructor without argument
+        }
         private void InitData()
         {
-            //_routes = _routeRepository.GetAllRoutes().ToList();
-            //_stations = _stationRepository.GetAllStations().ToList();
-            //_invoices = _invoiceRepository.GetAllInvoices().ToList();
-            //_trips = _tripRepository.GetAllTrips().ToList();
-            _routes = _db.Routes.ToList();
-            _stations = _db.Stations.ToList();
-            _invoices = _db.Invoices.ToList();
-            _trips = _db.Trips.ToList();
+            _routes = _routeRepository.GetAll().ToList();
+            _stations = _stationRepository.GetAll().ToList();
+            _invoices = _invoiceRepository.GetAll().ToList();
+            _trips = _tripRepository.GetAll().ToList();
+            _assignings = _assigningRepository.GetAll().ToList();
             //build the adjancient list
             foreach (var station1 in _stations)
             {
@@ -99,7 +107,7 @@ namespace Captone.Services
         }
 
         //main function of assign, should call this from outside
-        public Dictionary<Request, List<Trip>> Assigning(List<Request> requests, List<Trip> trips, DateTime date)
+        public Dictionary<Request, List<Trip>> Assigning(List<Request> requests, DateTime date)
         {
             InitData();
             //list all station
@@ -111,11 +119,11 @@ namespace Captone.Services
                 int tmp = CheckOneTrip(request);
                 if (tmp > 0)
                 {
-                    ProcessingOneTrip(tmp, request, trips, date);
+                    ProcessingOneTrip(tmp, request, date);
                 }
                 else
                 {
-                    ProcessingMultipleTrip(request, trips, date);
+                    ProcessingMultipleTrip(request, date);
                 }
             }
             return _finalResult;
@@ -123,10 +131,10 @@ namespace Captone.Services
         //check if there exist a trip connect two location of request
         public int CheckOneTrip(Request request)
         {
-            for (int i = 0; i < _routes.Count; i++)
+            foreach (Route t in _routes)
             {
-                if (_routes[i].StartPoint == request.FromLocation &&
-                    _routes[i].EndPoint == request.ToLocation) return _routes[i].RouteID;
+                if (t.StartPoint == request.FromLocation &&
+                    t.EndPoint == request.ToLocation) return t.RouteID;
             }
             return -1;
         }
@@ -139,89 +147,101 @@ namespace Captone.Services
             }
             return _stations[0];
         }
-        public List<Trip> FindTripFromRoute(int routeID, List<Trip> trips)
+        public List<Trip> FindTripFromRoute(int routeID)
         {
-            List<Trip> tripList = new List<Trip>();
-            for (int i = 0; i < trips.Count; i++)
+            var tripList = new List<Trip>();
+            for (int i = 0; i < _trips.Count; i++)
             {
-                if (trips[i].RouteID == routeID)
+                if (_trips[i].RouteID == routeID)
                 {
-                    tripList.Add(trips[i]);
+                    tripList.Add(_trips[i]);
                 }
             }
             return tripList;
         }
         //processing for just one trip
-        public void ProcessingOneTrip(int routeID, Request request, List<Trip> trips, DateTime date)
+        public void ProcessingOneTrip(int routeID, Request request, DateTime date)
         {
             DateTime curr = DateTime.Now;
-            List<Trip> candidates = FindTripFromRoute(routeID, trips);
-            int flag = -1;
+            List<Trip> candidates = FindTripFromRoute(routeID);
             foreach (var candidate in candidates)
             {
-                DateTime departure = ChangeTime(candidate.Date, (TimeSpan)candidate.EstimateArrivalTime);
-                if(curr >= departure || (departure - curr) > _maxTime) continue;
+                if (candidate.EstimateArrivalTime != null)
+                {
+                    DateTime departure = ChangeTime(candidate.Date, (TimeSpan)candidate.EstimateArrivalTime);
+                    if(curr >= departure || (departure - curr) > _maxTime) continue;
+                }
                 Invoice invoice = FindInvoiceFromRequest(request);
                 if (candidate.AvailableVolume >= invoice.Volume)
                 {
-                    List<Trip> tmpList = new List<Trip>();
+                    var tmpList = new List<Trip>();
                     tmpList.Add(candidate);
                     candidate.AvailableVolume -= invoice.Volume;
                     _finalResult.Add(request, tmpList);
                     return;
                 }
             }
-                if (flag == -1)
-            {
-                ProcessingMultipleTrip(request, trips, date);
-            }
+            ProcessingMultipleTrip(request, date);
         }
 
-        public void ProcessingMultipleTrip(Request request, List<Trip> trips, DateTime date)
+        public void ProcessingMultipleTrip(Request request, DateTime date)
         {
             var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
-            double tmp = (double)FindInvoiceFromRequest(request).Volume;
-            FindPath(request);
-            foreach (var res in _tmpResult)
+            var volume = FindInvoiceFromRequest(request).Volume;
+            if (volume != null)
             {
-                var current = DateTime.Now;
-                var tmpListRoute = new List<Route>();
-                tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
-                if(tmpListRoute == null)
+                var tmp = (double)volume;
+                FindPath(request);
+                if(_tmpResult == null)
+                    throw new NullReferenceException("Out of available trips");
+                foreach (var res in _tmpResult)
                 {
-                    continue;
-                }
-                foreach (var route in tmpListRoute)
-                {
-                    int flag = 0;
-                    List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID, trips);
-                    if(tmpListTrip == null)
+                    var current = DateTime.Now;
+                    var tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
+                    if(tmpListRoute == null)
                     {
                         continue;
-                   }
-                    foreach (var trip in tmpListTrip)
+                    }
+                    foreach (var route in tmpListRoute)
                     {
-                        if (trip.AvailableVolume < tmp) flag = -1;
-                        var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
-                        if (departure >= current) 
+                        int flag = 0;
+                        List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
+                        if(tmpListTrip == null)
                         {
-                            var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
-                            deliveryTime += (arrival - current);
-                            resTrip.Add(trip);
-                            current = arrival.AddHours((double)FindStationFromRoute(route).BreakTime);
+                            continue;
+                        }
+                        foreach (var trip in tmpListTrip)
+                        {
+                            if (trip.AvailableVolume < tmp) flag = -1;
+                            if (trip.EstimateDepartureTime != null)
+                            {
+                                var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
+                                if (departure >= current) 
+                                {
+                                    if (trip.EstimateArrivalTime != null)
+                                    {
+                                        var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
+                                        deliveryTime += (arrival - current);
+                                        resTrip.Add(trip);
+                                        var breakTime = FindStationFromRoute(route).BreakTime;
+                                        if (breakTime != null)
+                                            current = arrival.AddHours((double)breakTime);
+                                    }
+                                }
+                            }
+                        }
+                        if (deliveryTime > _maxTime || flag == -1)
+                        {
+                            resTrip.Clear();
+                            break;
                         }
                     }
-                    if (deliveryTime > _maxTime || flag == -1)
+                    if (resTrip.Count > 0)
                     {
-                        resTrip.Clear();
-                        break;
+                        _finalResult.Add(request, resTrip);
+                        return;
                     }
-                }
-                if (resTrip.Count > 0)
-                {
-                    _finalResult.Add(request, resTrip);
-                    return;
                 }
             }
         }
@@ -283,6 +303,7 @@ namespace Captone.Services
                         var tmp = new Dictionary<Request, List<Route>>();
                         tmp.Add(request, tmpRoutes);
                         _tmpResult.Add(tmp);
+                        if (_tmpResult.Count > _maxWay) return;
                     }
                     visited.Remove(visited.Last());
                     break;
@@ -301,10 +322,10 @@ namespace Captone.Services
 
         public Route FindRouteFromStation(Station a, Station b)
         {
-            for (int i = 0; i < _routes.Count; i++)
+            foreach (Route t in _routes)
             {
-                if (_routes[i].StartPoint == a.StationID &&
-                    _routes[i].EndPoint == b.StationID) return _routes[i];
+                if (t.StartPoint == a.StationID &&
+                    t.EndPoint == b.StationID) return t;
             }
             return _routes[0];
         }
@@ -345,10 +366,34 @@ namespace Captone.Services
             return true;
         }
 
-        //not implemement yet
+        //when delete a trip or list of trips, call this method to change the status of
+        //processing request to "Đã xác nhận" then re-schedule
         public void Update(List<Request> requests, List<Trip> trips, DateTime date)
         {
-            var result = new Dictionary<Request, List<Trip>>();
+            var tmpRequestID = new List<int>();
+            //find the list of request id that related to delete trips
+            foreach (var trip in trips)
+            {
+                foreach (var assigning in _assignings)
+                {
+                    if (assigning.TripID == trip.TripID)
+                    {
+                        tmpRequestID.Add(assigning.RequestID);
+                    }
+                }
+            }
+            //update the status of all request in the list
+            foreach (var request in requests)
+            {
+                foreach (var i in tmpRequestID)
+                {
+                    if (request.RequestID == i)
+                    {
+                        request.DeliveryStatusID = 1;
+                        _requestRepository.Update(request);
+                    }
+                }
+            }
         }
     }
 }
