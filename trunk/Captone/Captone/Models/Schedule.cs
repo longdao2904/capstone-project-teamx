@@ -12,26 +12,24 @@ namespace Captone.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Route
+    public partial class Schedule
     {
-        public Route()
+        public Schedule()
         {
-            this.Schedules = new HashSet<Schedule>();
             this.Trips = new HashSet<Trip>();
+            this.Coaches = new HashSet<Coach>();
         }
     
+        public int ScheduleID { get; set; }
         public int RouteID { get; set; }
-        public string RouteName { get; set; }
-        public int StartPoint { get; set; }
-        public int EndPoint { get; set; }
-        public Nullable<double> AvgRateLevel { get; set; }
-        public Nullable<double> Duration { get; set; }
-        public Nullable<double> Distance { get; set; }
-        public Nullable<double> Container { get; set; }
+        public int CoachID { get; set; }
+        public System.TimeSpan EstimateDepartureTime { get; set; }
+        public System.TimeSpan EstimateArrivalTime { get; set; }
+        public Nullable<double> EstimateVolume { get; set; }
     
-        public virtual Station Station { get; set; }
-        public virtual ICollection<Schedule> Schedules { get; set; }
-        public virtual Station Station1 { get; set; }
+        public virtual Coach Coach { get; set; }
+        public virtual Route Route { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Coach> Coaches { get; set; }
     }
 }

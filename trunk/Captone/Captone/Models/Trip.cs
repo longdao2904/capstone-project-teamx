@@ -30,9 +30,11 @@ namespace Captone.Models
         public System.DateTime Date { get; set; }
         public int RouteID { get; set; }
         public int CoachID { get; set; }
+        public Nullable<int> ScheduleID { get; set; }
     
         public virtual ICollection<Assigning> Assignings { get; set; }
         public virtual Coach Coach { get; set; }
         public virtual Route Route { get; set; }
+        public virtual Schedule Schedule { get; set; }
     }
 }
