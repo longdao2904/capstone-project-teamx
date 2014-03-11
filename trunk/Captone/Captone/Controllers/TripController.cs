@@ -51,6 +51,7 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
             return View();
         }
 
@@ -58,16 +59,19 @@ namespace Captone.Controllers
         // POST: /Trip/Create
 
         [HttpPost]
-        public ActionResult Create(Trip trip)
+        [WebMethod]
+        public ActionResult Create(List<Trip> trips)
         {
             if (ModelState.IsValid)
             {
-                
-                db.Trips.Add(trip);
-                db.SaveChanges();
+                foreach (var trip in trips)
+                {
+                    db.Trips.Add(trip);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-            return View(trip);
+            return RedirectToAction("Index"); 
         }
 
         //
@@ -76,6 +80,8 @@ namespace Captone.Controllers
         public ActionResult Edit(int id = 0)
         {
             Trip trip = db.Trips.Find(id);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
             if (trip == null)
             {
                 return HttpNotFound();
@@ -89,6 +95,8 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult Edit(Trip trip)
         {
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
             if (ModelState.IsValid)
             {
                 db.Entry(trip).State = EntityState.Modified;

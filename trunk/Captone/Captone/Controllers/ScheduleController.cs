@@ -25,9 +25,9 @@ namespace Captone.Controllers
         //
         // GET: /SchedulePartialView
 
-        public ActionResult SchedulePartialView()
+        public ActionResult SchedulePartialView(int routeID)
         {
-            var schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route);
+            var schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).Where(s => s.RouteID == routeID);
             return View(schedules.ToList());
         }
 

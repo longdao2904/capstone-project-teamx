@@ -38,7 +38,16 @@
             {
                 <tr>
                     <td>
-                        <input type="checkbox" id="ScheduleID" name="ScheduleID" value="@item.ScheduleID" class="sid"/></td>
+                        <input type="checkbox" name="ScheduleID" class="sid"/></td>
+                    <td style="display: none;">
+                        @item.ScheduleID
+                    </td>
+                    <td style="display: none;">
+                        @item.RouteID
+                    </td>
+                    <td style="display: none;">
+                        @item.CoachID
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Route.RouteName)
                     </td>
@@ -48,7 +57,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
                     </td>
-                    <td>
+                    <td>                        
                         @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
                     </td>
                     <td>

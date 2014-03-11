@@ -24,14 +24,21 @@
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.Date)
                             </div>
-                            @*<div class="editor-field">*@
-                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="loadList(this.value)" />
-                            @*@Html.ValidationMessageFor(model => model.Date)
-                        </div>*@
+                            <div class="editor-field">
+                                <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" />
+                                @Html.ValidationMessageFor(model => model.Date)
+                            </div>
 
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Route.RouteName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownList("RouteID", String.Empty)
+                                @Html.ValidationMessageFor(model => model.Route.RouteName)
+                            </div>
                             <br />
                             <p>
-                                <input type="button" value="Tạo mới" class="btn btn-primary" onclick="SentObject()" />
+                                <input type="submit" value="Tạo mới" class="btn btn-primary" onclick="SentObject()" />
                                 <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
                             </p>
                         </fieldset>
@@ -59,10 +66,12 @@
         $("select").addClass("form-control");
         DatePicker();
     }
-    function loadList(value) {
-        listTrip(value);
-        listTimetable();
-    }
+
+    //function loadList(value, route) {
+    //    listTrip(value);
+    //    listOnRoute(route);
+    //}
+
     function listTrip(value) {
         $.ajax({
             url: "/Trip/ListTrip",
@@ -73,6 +82,7 @@
             }
         });
     }
+
     function listTimetable() {
         $.ajax({
             url: "/Schedule/SchedulePartialView",
@@ -82,10 +92,27 @@
             }
         });
     }
+
+    function listOnRoute(route) {
+        $.ajax({
+            url: "/Schedule/SchedulePartialView",
+            type: "Post",
+            data: { routeID: route },
+            success: function (result) {
+                $("#schedule").html(result);
+            }
+        });
+    }
+
+    $('#RouteID').on('change', function () {
+        listOnRoute($('#RouteID').val())
+    });
+
     var pickerOpt = { dateFormat: "dd/mm/yy" }
     function DatePicker() {
         $("#datepicker").datepicker(pickerOpt);
     };
+
     window.onload = changeClass();
 
     // Get schedule objects
@@ -96,28 +123,32 @@
             var sch = {
                 // cột 1 là ScheduleID, lấy value từ cột 2
                 // sử dụng row.find('#idCol') / row.find('#nameCol')
-                ScheduleID: row.find('td:nth-child(1)').text(),
-                RouteName: row.find('td:nth-child(2)').text(),
-                NumberPlate: row.find('td:nth-child(3)').text(),
-                EstimateDepartureTime: row.find('td:nth-child(4)').text(),
-                EstimateArrivalTime: row.find('td:nth-child(5)').text(),
-                EstimateVolume: row.find('td:nth-child(6)').text(),
+                ScheduleID: row.find('td:nth-child(2)').text(),
+                RouteID: $('#RouteID').val(),
+                CoachID: row.find('td:nth-child(4)').text(),
+                EstimateDepartureTime: row.find('td:nth-child(7)').text(),
+                EstimateArrivalTime: row.find('td:nth-child(8)').text(),
+                EstimateVolume: row.find('td:nth-child(9)').text(),
                 Date: $('#datepicker').val()
             };
             // Push schedule object to collection
             schedules.push(sch);
         });
-        console.log(schedules);
         return schedules;
     }
 
     // Sent schedule objects to controller
     function SentObject() {
-        var schedule = getScheduleObject();
+        var obj = getScheduleObject();
+
         $.ajax({
             url: "/Trip/Create",
             type: "Post",
-            data: { Trip: schedule }
+            data: JSON.stringify({ trips : obj }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+            }
         });
     }
 </script>
