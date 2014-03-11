@@ -1,67 +1,82 @@
 ﻿@model Captone.Models.Schedule
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo lịch trình mới";
 }
 
-<h2>Create</h2>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+                    <fieldset>
+                        <legend>Thông tin lịch trình</legend>
 
-    <fieldset>
-        <legend>Schedule</legend>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.RouteID, "Route")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("RouteID", String.Empty)
+                            @Html.ValidationMessageFor(model => model.RouteID)
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RouteID, "Route")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("RouteID", String.Empty)
-            @Html.ValidationMessageFor(model => model.RouteID)
-        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.CoachID, "Coach")
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("CoachID", String.Empty)
+                            @Html.ValidationMessageFor(model => model.CoachID)
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CoachID, "Coach")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("CoachID", String.Empty)
-            @Html.ValidationMessageFor(model => model.CoachID)
-        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.EstimateDepartureTime)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.EstimateDepartureTime)
+                            @Html.ValidationMessageFor(model => model.EstimateDepartureTime)
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateDepartureTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateDepartureTime)
-            @Html.ValidationMessageFor(model => model.EstimateDepartureTime)
-        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.EstimateArrivalTime)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.EstimateArrivalTime)
+                            @Html.ValidationMessageFor(model => model.EstimateArrivalTime)
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateArrivalTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateArrivalTime)
-            @Html.ValidationMessageFor(model => model.EstimateArrivalTime)
-        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.EstimateVolume)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.EstimateVolume)
+                            @Html.ValidationMessageFor(model => model.EstimateVolume)
+                        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateVolume)
+                        <br />
+                        <p>
+                            <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Schedule/Index'" />
+                        </p>
+                    </fieldset>
+                }
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateVolume)
-            @Html.ValidationMessageFor(model => model.EstimateVolume)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    function changeClass() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+
+    window.onload = changeClass();
+</script>

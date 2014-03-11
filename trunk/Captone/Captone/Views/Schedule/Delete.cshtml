@@ -1,53 +1,60 @@
 ﻿@model Captone.Models.Schedule
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xóa lịch trình";
 }
 
-<h2>Delete</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <legend>Bạn muốn xóa lịch trình của xe @Model.Coach.NumberPlate chạy tuyến @Model.Route.RouteName ?</legend>
+            <blockquote>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Route.RouteName)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Route.RouteName)
+                </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Schedule</legend>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Coach.NumberPlate)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Route.RouteName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Route.RouteName)
-    </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateDepartureTime)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Coach.NumberPlate)
-    </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateArrivalTime)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateDepartureTime)
-    </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateVolume)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateVolume)
+                </div>
+            </blockquote>
+        </fieldset>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+        @using (Html.BeginForm())
+        {
+            <p>
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Schedule/Index'" />
+            </p>
+        }
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateArrivalTime)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateVolume)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateVolume)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+</div>

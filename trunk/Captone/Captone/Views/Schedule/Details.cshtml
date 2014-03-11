@@ -1,50 +1,57 @@
 ﻿@model Captone.Models.Schedule
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết lịch trình";
 }
 
-<h2>Details</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <legend>Chi tiết lịch trình xe @Model.Coach.NumberPlate chạy tuyến @Model.Route.RouteName </legend>
+            <blockquote>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Route.RouteName)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Route.RouteName)
+                </div>
 
-<fieldset>
-    <legend>Schedule</legend>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Coach.NumberPlate)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Route.RouteName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Route.RouteName)
-    </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateDepartureTime)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Coach.NumberPlate)
-    </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateArrivalTime)
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EstimateVolume)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EstimateVolume)
+                </div>
+            </blockquote>
+        </fieldset>
+        <br />
+        <p>
+            <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Schedule/Edit/@Model.ScheduleID    '" />
+            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Schedule/Index'" />
+        </p>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateDepartureTime)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateArrivalTime)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateVolume)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EstimateVolume)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ScheduleID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
