@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Captone.Models.ManageFee>
+
+@{
+    ViewBag.Title = "Quản lý phí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quản lý chi phí</h2>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+<p>
+<i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm một mức chi phí", "Create")
+</p>
+<p>
+<a href="~/CoachType/Index"><i class="fa fa-list-alt">Các loại phí</i></a>
+</p>
+<div class="table-responsive">
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr style="color: blue; background-color: blanchedalmond">
+        <th>ID</th>
+        <th>Mức phí</th>
+        <th>Khối lượng: 
+            Từ...</th>
+        <th>Đến</th>
+        <th>Thể tích: Từ...</th>
+        <th>Đến</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinVolume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxVolume)
+            </td>
+            <td>
+                <a href="/Coach/Edit/@item.FeeID"><i class="fa fa-edit fa-fw"></i></a>|
+                <a href="/Coach/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
+                <a href="/Coach/Delete/@item.FeeID"><i class="fa fa-minus-square fa-fw"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
