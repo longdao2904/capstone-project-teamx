@@ -2,7 +2,7 @@
 <script src="~/Content/js/demo/demo.js"></script>
 
 <div class="table-responsive" id="requestList">
-    <table class="table">
+    <table class="table" id="TableRequest">
         <tr>
             <th>Tên đăng nhập
             </th>
@@ -16,7 +16,7 @@
             </th>
             <th>Trạng thái
             </th>
-            <th></th>
+            <th><input type="checkbox" id="selectall" value="Select All"/></th>
         </tr>
 
         @foreach (var item in Model)
@@ -44,6 +44,9 @@
                 <td style="display: none">
                     @item.ToLocation
                 </td>
+                <td style="display: none;">
+                    @item.DeliveryStatusID
+                </td>
                 <td>
                     @item.Station1.StationName
 
@@ -55,20 +58,22 @@
                 {
                     <td> <button type="button" class="btn" onclick="ChangeStatus(@item.RequestID)">Xác nhận</button></td>
                 }
-                else
+                @if (item.DeliveryStatusID == 2)
                 {
                     <td>
                         <input type="checkbox" name="Requests" class="case"  />
                     </td>
                 }
+                @if(item.DeliveryStatusID == 3)
+                {
+                   <td>
+                        <input type="checkbox" name="Deliveried" class="case"  />
+                    </td>
+                }
             </tr>
         }
-        
-    
-            <a href="#" id="xephang" role="button" onclick="Assign();">Xếp hàng</a>
-   
-        
-        
+        @*<button type="submit" class="btn" onclick="Assign();" >Xếp lịch</button>*@
+        <a href="/Request/Index" class="btn" onclick="Assign();">Xếp Lịch</a>
     </table>
 </div>
 @*<div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>*@
@@ -83,7 +88,10 @@
         },
         midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
     });
-
+    function LoadPage() {
+        var url = '@Url.Action("Index", "Request")';
+        window.location.href = url;
+    }
     function ListTrip() {
         $.ajax({
             url: "/Trip/ListTripForRequest",
@@ -125,7 +133,8 @@
                 DateRequest: row.find('td:nth-child(4)').text(),
                 Station: row.find('td:nth-child(5)').text(),
                 FromLocation: row.find('td:nth-child(6)').text(),
-                ToLocation: row.find('td:nth-child(7)').text()
+                ToLocation: row.find('td:nth-child(7)').text(),
+                DeliveryStatusID: row.find('td:nth-child(8)').text()
             };
             request.push(emp);
             // SentObject(request);
@@ -142,7 +151,21 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-            }
+                }
         });
     }
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });
 </script>

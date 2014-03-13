@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Captone.Models.Assigning>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Chuyến
+            </th>
+            <th>
+                Dự kiến chạy
+            </th>
+            <th>
+                Dự kiến đến 
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Trip.Route.RouteName
+                </td>
+                <td>
+                    @item.Trip.EstimateDepartureTime
+                </td>
+                <td>
+                    @item.Trip.EstimateArrivalTime
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

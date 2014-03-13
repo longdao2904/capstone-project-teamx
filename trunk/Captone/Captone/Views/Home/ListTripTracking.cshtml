@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Captone.Models.Assigning>
+
+@foreach (var item in Model)
+{
+    <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Route.RouteName"/>
+}
+<div id="map1" style="height: 440px;"></div>
+<script type="text/javascript">
+</script>

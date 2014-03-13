@@ -284,7 +284,7 @@
             data: { minWeight: weigh[0], maxWeight: weigh[1] },
             success: function (result) {
                 var fee = result.split(" = ");
-                $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + fee[1].substring(0, fee[1].length - 1) + "VND" + "</strong>" + "</p>" + "</div>");
+                $("#SggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + fee[1].substring(0, fee[1].length - 1) + "VND" + "</strong>" + "</p>" + "</div>");
             }
         });
     }

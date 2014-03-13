@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Captone.Models.AssigningModel>
+<script src="~/Content/js/jquery-1.10.2.js"></script>
+<link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
+<script src="~/Content/js/bootstrap.js"></script>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>Tên đăng nhập</th>
+            <th>Ngày khởi hành</th>
+            <th>Chuyến đã xếp</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody>
+
+            @foreach (var item in ViewBag.Assign)
+            {
+                <tr id="">
+
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        <button class="btn btn-default" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="" data-content=""data-trigger="click" id="example" onclick="ListTrip(@item.RequestID)">Chi tiết chuyến đi</button> 
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    $('#example').popover({
+        html: true,
+    placement: 'right',
+    title: '<div id="trip-name"></div>',
+    content: '<div id="trip-for" class="table-responsive"></div>',
+    trigger: 'click'
+    });
+
+    function ListTrip(id) {
+        $.ajax({
+            url: "/Assigning/ListTrip",
+            type: "POST",
+            data: { requestId: id },
+            success: function (result) {
+                getLocation(id);
+                $("#trip-for").html(result);
+            }
+        });
+    }
+
+    function getLocation(id) {
+        $.ajax({
+            url: "/Assigning/GetFromToLocation",
+            type: "POST",
+            data: { requestId: id },
+            success: function (result) {
+                $("#trip-name").html(result);
+            }
+        });
+    }
+</script>

@@ -139,16 +139,32 @@ namespace Captone.Controllers
         public ActionResult ListTripForRequest()
         {
             var listTrip = db.Trips.ToList();
-            return PartialView("ListTripForRequest",listTrip);
+            return PartialView("ListTripForRequest", listTrip);
         }
-  
+
         [HttpPost]
         [WebMethod]
-        public ActionResult Assigning(List<Request> request)
+        public void Assigning(List<Request> request)
         {
             AssigningService assign = new AssigningService();
-           var result = assign.Assigning(request, DateTime.Now);
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            var result = assign.Assigning(request, DateTime.Now);
+            foreach (var item in result)
+            {
+                for (var i = 0; i < item.Value.Count; i++)
+                {
+                    Assigning ass = new Assigning();
+                    var requestId = item.Key.RequestID;
+                    ass.RequestID = requestId;
+                    var tripId = item.Value[i].TripID;
+                    ass.TripID = tripId;
+                    ass.IndicateOrder = i + 1;
+                    var req = db.Requests.Where(p => p.RequestID == requestId).Single();
+                    req.DeliveryStatusID = 3;
+                    db.Assignings.Add(ass);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

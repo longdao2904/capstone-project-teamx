@@ -45,8 +45,8 @@
                 @if (item.DeliveryStatusID == 4)
                 {
                     <td>
-                        <ul id="inline-popups">
-                            <a href="#test-popup" data-effect="mfp-newspaper" id="xephang" role="button" onclick="ListTrip();">Tracking</a>
+                        <ul id="inline-popups" class="abc">
+                            <a href="#test-popup" data-effect="mfp-newspaper" id="@item.RequestID" role="button" onclick="ListTripTracking();">Tracking</a>
                         </ul>
                     </td>    
                 }
@@ -55,12 +55,14 @@
         }
 
     </table>
-    <div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
+    <div id="test-popup" class="white-popup mfp-with-anim mfp-hide">
+        <div id="map"></div>
+    </div>
 </div>
 <script type="text/javascript">
     $('#inline-popups').magnificPopup({
         delegate: 'a',
-        removalDelay: 500, //delay removal by X to allow out-animation
+        removalDelay: 300, //delay removal by X to allow out-animation
         callbacks: {
             beforeOpen: function () {
                 this.st.mainClass = this.st.el.attr('data-effect');
@@ -68,6 +70,56 @@
         },
         midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
     });
+    function ListTripTracking() {
+        var id = $("ul.abc a").attr("id");
+        $.ajax({
+            url: "/Home/ListTripTracking",
+            type:"POST",
+            data: { requestId: id },
+            success: function (result) {
+                $("#test-popup").html(result);
+                Tracking(id);
+            }
+        });
+    }
+    function Tracking(id) {
+        var idT = document.getElementsByName("" + id);
+        var allRoute = [{
+            location: "Đà Nẵng",
+            stopover: true
+        }];
+        
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        for (var i = 0; i < idT.length; i++) {
+            if(idT.length){
+            var route = idT[i].value.split(" - ");
+            allRoute.push(route);
+        }
+    }
+        var myOptions = {
+                zoom: 7,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("map1"), myOptions);
+            directionsDisplay.setMap(map);
+       
+            var request = {
+                origin: 'Sài Gòn',
+                destination: 'Vũng Tàu',
+                waypoints: allRoute,
+                optimizeWaypoints: true,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                }
+            });
+        
+        
+    }
+
     function DeleteRequest(id) {
         $.ajax({
             url: "/Home/DeleteRequest",

@@ -1,4 +1,5 @@
-﻿using Captone.Models;
+﻿using System.Web.Services;
+using Captone.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Objects.SqlClient;
@@ -137,14 +138,14 @@ namespace Captone.Controllers
                                                                   {
                                                                       p.DeliveryStatusID,
                                                                       p.DeliveryStatu.StatusName
-                                                                      
+
                                                                   }
-                                                   into k
-                                                   select new SelectListItem()
-                                                              {
-                                                                  Text = k.Key.StatusName,
-                                                                  Value = SqlFunctions.StringConvert((double)k.Key.DeliveryStatusID).Trim()
-                                                              }
+                                                       into k
+                                                       select new SelectListItem()
+                                                                  {
+                                                                      Text = k.Key.StatusName,
+                                                                      Value = SqlFunctions.StringConvert((double)k.Key.DeliveryStatusID).Trim()
+                                                                  }
                                                   ).ToList();
             ViewBag.Status = request;
             return View();
@@ -178,13 +179,20 @@ namespace Captone.Controllers
         public Boolean DeleteRequest(int requestId)
         {
             var request = _db.Requests.Where(p => p.RequestID == requestId).Single();
-            if(request != null)
+            if (request != null)
             {
                 _db.Requests.Remove(request);
                 _db.SaveChanges();
                 return true;
             }
             return false;
+        
+        }
+  
+        public ActionResult ListTripTracking(int requestId)
+        {
+            var tracking = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
+            return PartialView("ListTripTracking", tracking);
         }
     }
 

@@ -38,6 +38,9 @@
                 </div>
                 <div id="request">
                 </div>
+                <div id="assigning">
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -55,7 +58,23 @@
             type: "Post",
             data: { sttID: id },
             success: function (result) {
+                if(id == 3) {
+                    ListAssign();
+                    $("#request").html("");
+                }
+                else {
                 $("#request").html(result);
+                    $("#assigning").html("");
+                }
+            }
+        });
+    }
+    function ListAssign() {
+        $.ajax({
+            url: "/Assigning/ListAssign",
+            type: "POST",
+            success : function (result) {
+                $("#assigning").html(result);
             }
         });
     }
