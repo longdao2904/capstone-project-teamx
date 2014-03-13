@@ -61,10 +61,13 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script type="text/javascript">
-    function changeClass() {
+    window.onload = initialize();
+
+    function initialize() {
         $("input").addClass("form-control");
         $("select").addClass("form-control");
         DatePicker();
+        listOnRoute(0);
     }
 
     //function loadList(value, route) {
@@ -83,15 +86,15 @@
         });
     }
 
-    function listTimetable() {
-        $.ajax({
-            url: "/Schedule/SchedulePartialView",
-            type: "Get",
-            success: function (result) {
-                $("#schedule").html(result);
-            }
-        });
-    }
+    //function listTimetable() {
+    //    $.ajax({
+    //        url: "/Schedule/SchedulePartialView",
+    //        type: "Get",
+    //        success: function (result) {
+    //            $("#schedule").html(result);
+    //        }
+    //    });
+    //}
 
     function listOnRoute(route) {
         $.ajax({
@@ -112,8 +115,6 @@
     function DatePicker() {
         $("#datepicker").datepicker(pickerOpt);
     };
-
-    window.onload = changeClass();
 
     // Get schedule objects
     function getScheduleObject() {

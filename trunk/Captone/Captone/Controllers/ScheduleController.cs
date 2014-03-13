@@ -18,8 +18,16 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            var schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route);
-            return View(schedules.ToList());
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+            else
+            {
+                var schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route);
+                return View(schedules.ToList());
+            }
+
         }
 
         //
@@ -27,8 +35,16 @@ namespace Captone.Controllers
 
         public ActionResult SchedulePartialView(int routeID)
         {
-            var schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).Where(s => s.RouteID == routeID);
-            return View(schedules.ToList());
+            var schedules = new List<Schedule>();
+            if (routeID != 0)
+            {
+                schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).Where(s => s.RouteID == routeID).ToList();
+            }
+            else
+            {
+                schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).ToList();
+            }
+            return View(schedules);
         }
 
         //
@@ -36,12 +52,20 @@ namespace Captone.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(schedule);
+            else
+            {
+                Schedule schedule = db.Schedules.Find(id);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(schedule);
+            }
+
         }
 
         //
@@ -49,9 +73,17 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            return View();
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+            else
+            {
+                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
+                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+                return View();
+            }
+
         }
 
         //
@@ -77,14 +109,22 @@ namespace Captone.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate", schedule.CoachID);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", schedule.RouteID);
-            return View(schedule);
+            else
+            {
+                Schedule schedule = db.Schedules.Find(id);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate", schedule.CoachID);
+                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName", schedule.RouteID);
+                return View(schedule);
+            }
+
         }
 
         //
@@ -109,12 +149,20 @@ namespace Captone.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(schedule);
+            else
+            {
+                Schedule schedule = db.Schedules.Find(id);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(schedule);
+            }
+
         }
 
         //

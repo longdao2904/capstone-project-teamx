@@ -23,12 +23,12 @@
         var username = document.getElementById('Username').value;
         var password = document.getElementById('Password').value;
         $.ajax({
-            url: "/Home/CheckLogin",
+            url: "/Account/LogOn",
             type: "POST",
             data: { Username: username, Password: password },
             success: function (result) {
                 if (result) {
-                    location.href = "/Home/Index";
+                    location.href = "/Home/SentRequestForm";
                 }
             }
         });
