@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Quản lý phí";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Demo.cshtml";
 }
 
 <h2>Quản lý chi phí</h2>
@@ -17,14 +17,14 @@
 <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm một mức chi phí", "Create")
 </p>
 <p>
-<a href="~/CoachType/Index"><i class="fa fa-list-alt">Các loại phí</i></a>
+<a href="~/Fee/Index"><i class="fa fa-list-alt">Các loại phí</i></a>
 </p>
 <div class="table-responsive">
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr style="color: blue; background-color: blanchedalmond">
+<table>
+    <tr>
         <th>ID</th>
         <th>Mức phí</th>
         <th>Khối lượng: 
@@ -56,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.MaxVolume)
             </td>
             <td>
-                <a href="/Coach/Edit/@item.FeeID"><i class="fa fa-edit fa-fw"></i></a>|
-                <a href="/Coach/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
-                <a href="/Coach/Delete/@item.FeeID"><i class="fa fa-minus-square fa-fw"></i></a>
+                <a href="/Fee/Edit/@item.FeeID"><i class="fa fa-edit fa-fw"></i></a>|
+                <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
+                <a href="/Fee/Delete/@item.FeeID"><i class="fa fa-minus-square fa-fw"></i></a>
             </td>
         </tr>
     }

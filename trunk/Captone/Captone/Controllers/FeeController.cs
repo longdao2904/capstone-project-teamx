@@ -65,29 +65,29 @@ namespace Captone.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Coach coach = db.Coaches.Find(id);
-            if (coach == null)
+            ManageFee fee = db.ManageFees.Find(id);
+            if (fee == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "CoachTypeID", coach.CoachTypeID);
-            return View(coach);
+            ViewBag.CoachTypeID = new SelectList(db.ManageFees, "FeeID", "FeeID", fee.FeeID);
+            return View(fee);
         }
 
         //
         // POST: /Coach/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Coach coach)
+        public ActionResult Edit(ManageFee fee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(coach).State = EntityState.Modified;
+                db.Entry(fee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CoachTypeID = new SelectList(db.CoachTypes, "CoachTypeID", "CoachTypeID", coach.CoachTypeID);
-            return View(coach);
+            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID", fee.FeeID);
+            return View(fee);
         }
 
         //
@@ -95,12 +95,12 @@ namespace Captone.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Coach coach = db.Coaches.Find(id);
-            if (coach == null)
+            ManageFee fee = db.ManageFees.Find(id);
+            if (fee == null)
             {
                 return HttpNotFound();
             }
-            return View(coach);
+            return View(fee);
         }
 
         //

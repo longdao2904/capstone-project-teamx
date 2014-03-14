@@ -116,6 +116,7 @@ namespace Captone.Services
         public Dictionary<Request, List<Trip>> Assigning(List<Request> requests, DateTime date)
         {
             InitData();
+            if (requests == null) return _finalResult;
             foreach (var request in requests)
             {
                 if (FindInvoiceFromRequest(request) == null) return _finalResult;
