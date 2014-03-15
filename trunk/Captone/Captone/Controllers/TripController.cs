@@ -51,8 +51,17 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            return View();
+            string username = (string)Session["USERNAME"];
+            string role = (string)Session["UserRole"];
+            if (username != null && role == "Staff")
+            {
+                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
         }
 
         //
@@ -64,14 +73,17 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var trip in trips)
+                if (trips != null)
                 {
-                    db.Trips.Add(trip);
-                    db.SaveChanges();
+                    foreach (var trip in trips)
+                    {
+                        db.Trips.Add(trip);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
 
         //

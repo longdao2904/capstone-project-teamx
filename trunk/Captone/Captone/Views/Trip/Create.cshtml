@@ -70,11 +70,6 @@
         listOnRoute(0);
     }
 
-    //function loadList(value, route) {
-    //    listTrip(value);
-    //    listOnRoute(route);
-    //}
-
     function listTrip(value) {
         $.ajax({
             url: "/Trip/ListTrip",
@@ -85,16 +80,6 @@
             }
         });
     }
-
-    //function listTimetable() {
-    //    $.ajax({
-    //        url: "/Schedule/SchedulePartialView",
-    //        type: "Get",
-    //        success: function (result) {
-    //            $("#schedule").html(result);
-    //        }
-    //    });
-    //}
 
     function listOnRoute(route) {
         $.ajax({
@@ -111,15 +96,14 @@
         listOnRoute($('#RouteID').val())
     });
 
-    var pickerOpt = { dateFormat: "dd/mm/yy" }
     function DatePicker() {
-        $("#datepicker").datepicker(pickerOpt);
+        $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
     };
 
     // Get schedule objects
     function getScheduleObject() {
         var schedules = [];
-        $('[name="ScheduleID"]:checked').each(function () {
+        $('[name="1"]:checked').each(function () {
             var row = $(this).closest('tr');
             var sch = {
                 // cột 1 là ScheduleID, lấy value từ cột 2
@@ -140,13 +124,12 @@
 
     // Sent schedule objects to controller
     function SentObject() {
-        var obj = getScheduleObject();
-
+        var trips = getScheduleObject();
         $.ajax({
             url: "/Trip/Create",
-            type: "Post",
-            data: JSON.stringify({ trips : obj }),
-            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({trips : trips }),
+            contentType: "application/json",
             dataType: "json",
             success: function (result) {
             }
