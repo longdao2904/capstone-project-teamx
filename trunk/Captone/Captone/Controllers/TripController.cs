@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using Captone.Models;
 using Captone.Services;
-using Newtonsoft.Json;
+
 namespace Captone.Controllers
 {
     public class TripController : Controller
     {
         private iDeliverEntities db = new iDeliverEntities();
 
+        #region CRUD
         //
         // GET: /Trip/
 
@@ -143,11 +142,14 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
         }
 
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
         public ActionResult ListTripForRequest()
         {
             var listTrip = db.Trips.ToList();
@@ -178,5 +180,35 @@ namespace Captone.Controllers
                 }
             }
         }
+
+        //Pass estimated time to real time of trip when depart/arrive
+        [HttpPost]
+        [WebMethod]
+        public void TimePassing(List<Trip> trips)
+        {
+            if (trips != null)
+            {
+                foreach (var trip in trips)
+                {
+                    Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+                    t.RealDepartureTime = trip.EstimateDepartureTime;
+                    t.RealArrivalTime = trip.EstimateArrivalTime;
+                    db.Entry(t).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
+        
+        //public void TimePassing(Trip trip)
+        //{
+        //    if (trip != null)
+        //    {
+        //        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+        //        t.RealDepartureTime = trip.EstimateDepartureTime;
+        //        t.RealArrivalTime = trip.EstimateArrivalTime;
+        //        db.Entry(t).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //    }
+        //}
     }
 }

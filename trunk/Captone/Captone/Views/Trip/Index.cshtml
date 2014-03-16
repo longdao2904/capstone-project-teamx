@@ -64,7 +64,7 @@
                                     @Html.DisplayFor(modelItem => item.AvailableVolume)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Date)
+                                    @item.Date.ToShortDateString()
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Route.RouteName)

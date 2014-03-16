@@ -1,0 +1,78 @@
+﻿body {
+}
+
+.regis-container {
+    margin-left: 320px;
+    margin-top: 10px;
+    width: 600px;
+    height: 600px;
+    background-color: white;
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+
+.regis-content {
+    height: 41px;
+    background: url('../Images/line-divider.png') bottom left repeat-x;
+}
+
+.regis-header {
+    margin-left: 35px;
+    font-style: oblique;
+}
+
+.regis-left {
+    margin-top: 38px;
+    margin-left: 15px;
+    width: 240px;
+    font-style: oblique;
+}
+
+.first {
+    height: 75px;
+    background: url('../Images/line-divider.png') bottom repeat-x;
+}
+
+.second {
+    height: 115px;
+    background: url('../Images/line-divider.png') bottom repeat-x;
+}
+
+.right-content {
+    border-style: dotted;
+    border-color: silver;
+    margin-left: 280px;
+    margin-top: -380px;
+    height: 400px;
+    width: 300px;
+    background-color: whitesmoke;
+}
+
+.right-header {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.right-main {
+    padding-left: 10px;
+}
+
+.inputField {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+}
+
+.inputField {
+    height: 31px;
+    width: 280px;
+}
+
+.regis-size {
+    font-size: small;
+}

@@ -33,7 +33,7 @@
                         @item.Date
                     </td>
                     <td>
-                        <button class="btn btn-default" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="" data-content=""data-trigger="click" id="example" onclick="ListTrip(@item.RequestID)">Chi tiết chuyến đi</button> 
+                        <button class="btn btn-default" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="" data-content=""data-trigger="click" id="example" onclick="ListTrip(@item.RequestID)">Chi tiết chuyến đi</button>
                     </td>
                     <td></td>
                     <td></td>
@@ -56,10 +56,10 @@
 <script type="text/javascript">
     $('#example').popover({
         html: true,
-    placement: 'right',
-    title: '<div id="trip-name"></div>',
-    content: '<div id="trip-for" class="table-responsive"></div>',
-    trigger: 'click'
+        placement: 'right',
+        title: '<div id="trip-name"></div>',
+        content: '<div id="trip-for" class="table-responsive"></div>',
+        trigger: 'click'
     });
 
     function ListTrip(id) {
@@ -84,4 +84,5 @@
             }
         });
     }
+
 </script>

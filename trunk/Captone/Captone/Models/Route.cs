@@ -24,7 +24,6 @@ namespace Captone.Models
         public string RouteName { get; set; }
         public int StartPoint { get; set; }
         public int EndPoint { get; set; }
-        public Nullable<double> AvgRateLevel { get; set; }
         public Nullable<double> Duration { get; set; }
         public Nullable<double> Distance { get; set; }
         public Nullable<double> Container { get; set; }

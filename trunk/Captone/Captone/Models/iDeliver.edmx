@@ -233,7 +233,7 @@
           </Key>
           <Property Name="RatingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="RateLevel" Type="int" Nullable="false" />
+          <Property Name="RateLevel" Type="float" Nullable="false" />
           <Property Name="StationID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Request">
@@ -266,7 +266,6 @@
           <Property Name="RouteName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="StartPoint" Type="int" Nullable="false" />
           <Property Name="EndPoint" Type="int" Nullable="false" />
-          <Property Name="AvgRateLevel" Type="float" />
           <Property Name="Duration" Type="float" />
           <Property Name="Distance" Type="float" />
           <Property Name="Container" Type="float" />
@@ -294,6 +293,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Coordinate" Type="nvarchar" MaxLength="500" />
           <Property Name="ProvinceID" Type="int" />
+          <Property Name="AvgRatingLevel" Type="float" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -863,7 +863,7 @@
           </Key>
           <Property Name="RatingID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="RateLevel" Type="Int32" Nullable="false" />
+          <Property Name="RateLevel" Type="Double" Nullable="false" />
           <Property Name="StationID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Models.FK_Rating_Account" FromRole="Rating" ToRole="Account" />
           <NavigationProperty Name="Station" Relationship="Models.FK_Rating_Station" FromRole="Rating" ToRole="Station" />
@@ -905,7 +905,6 @@
           <Property Name="RouteName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="StartPoint" Type="Int32" Nullable="false" />
           <Property Name="EndPoint" Type="Int32" Nullable="false" />
-          <Property Name="AvgRateLevel" Type="Double" />
           <Property Name="Duration" Type="Double" />
           <Property Name="Distance" Type="Double" />
           <Property Name="Container" Type="Double" />
@@ -941,6 +940,7 @@
           <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="Coordinate" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="AvgRatingLevel" Type="Double" />
           <NavigationProperty Name="Comments" Relationship="Models.FK_Comment_Station" FromRole="Station" ToRole="Comment" />
           <NavigationProperty Name="Province" Relationship="Models.FK_Station_Province" FromRole="Station" ToRole="Province" />
           <NavigationProperty Name="Ratings" Relationship="Models.FK_Rating_Station" FromRole="Station" ToRole="Rating" />
@@ -1411,7 +1411,6 @@
                 <ScalarProperty Name="RouteName" ColumnName="RouteName" />
                 <ScalarProperty Name="StartPoint" ColumnName="StartPoint" />
                 <ScalarProperty Name="EndPoint" ColumnName="EndPoint" />
-                <ScalarProperty Name="AvgRateLevel" ColumnName="AvgRateLevel" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Distance" ColumnName="Distance" />
                 <ScalarProperty Name="Container" ColumnName="Container" />
@@ -1441,6 +1440,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
                 <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="AvgRatingLevel" ColumnName="AvgRatingLevel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

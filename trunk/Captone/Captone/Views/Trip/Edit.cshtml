@@ -63,16 +63,10 @@
                             </div>
 
                             <div class="editor-label">
-                                @Html.LabelFor(model => model.Date)
-                            </div>
-
-                            <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" @*onchange="listTrip($(CoachID).val())"*@ />
-
-                            <div class="editor-label">
                                 @Html.LabelFor(model => model.RouteID)
                             </div>
                             <div class="editor-field">
-                                @Html.DropDownList("RouteID")
+                                @Html.TextBoxFor(model => model.Route.RouteName, new { @readonly = "readonly" })
                                 @Html.ValidationMessageFor(model => model.RouteID)
                             </div>
 
@@ -80,7 +74,7 @@
                                 @Html.LabelFor(model => model.CoachID)
                             </div>
                             <div class="editor-field">
-                                @Html.DropDownList("CoachID")
+                                @Html.TextBoxFor(model => model.Coach.NumberPlate, new { @readonly = "readonly" })
                                 @Html.ValidationMessageFor(model => model.CoachID)
                             </div>
                             <br />

@@ -11,27 +11,28 @@ namespace Captone.Services
 {
     public class AssigningService : IAssigningService
     {
+        #region Declareration
         //declare interface
-        private readonly GenericRepository<Route> _routeRepository = 
+        private readonly GenericRepository<Route> _routeRepository =
             new GenericRepository<Route>(new iDeliverEntities());
-        private readonly GenericRepository<Station> _stationRepository = 
+        private readonly GenericRepository<Station> _stationRepository =
             new GenericRepository<Station>(new iDeliverEntities());
         private readonly GenericRepository<Invoice> _invoiceRepository =
             new GenericRepository<Invoice>(new iDeliverEntities());
         private readonly GenericRepository<Trip> _tripRepository =
             new GenericRepository<Trip>(new iDeliverEntities());
-        private readonly GenericRepository<Request> _requestRepository = 
+        private readonly GenericRepository<Request> _requestRepository =
             new GenericRepository<Request>(new iDeliverEntities());
-        private readonly GenericRepository<Assigning> _assigningRepository = 
+        private readonly GenericRepository<Assigning> _assigningRepository =
             new GenericRepository<Assigning>(new iDeliverEntities());
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
-        private List<Route> _routes = new List<Route>(); 
+        private List<Route> _routes = new List<Route>();
         private List<Trip> _trips = new List<Trip>();
         private List<Assigning> _assignings = new List<Assigning>();
         //declare const
-        private readonly TimeSpan _maxTime = new TimeSpan(5,0,0,0);
+        private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
         private readonly int _maxWay = 5;
         //result of route
         List<Dictionary<Request, List<Route>>> _tmpResult = new List<Dictionary<Request, List<Route>>>();
@@ -54,6 +55,8 @@ namespace Captone.Services
             _requestRepository = requestRepository;
             _assigningRepository = assigningRepository;
         }
+
+        #endregion
 
         public AssigningService()
         {
@@ -92,8 +95,8 @@ namespace Captone.Services
         {
             Invoice tmp1 = FindInvoiceFromRequest(a);
             Invoice tmp2 = FindInvoiceFromRequest(b);
-                //compare by date post request increasingly
-            if (a.DateRequest > b.DateRequest) return 1; 
+            //compare by date post request increasingly
+            if (a.DateRequest > b.DateRequest) return 1;
             if (a.DateRequest == b.DateRequest)
             {
                 if (tmp1.Weight > tmp2.Weight) return 1;
@@ -178,7 +181,7 @@ namespace Captone.Services
                 if (candidate.EstimateArrivalTime != null)
                 {
                     DateTime departure = ChangeTime(candidate.Date, (TimeSpan)candidate.EstimateArrivalTime);
-                    if(curr >= departure || (departure - curr) > _maxTime) continue;
+                    if (curr >= departure || (departure - curr) > _maxTime) continue;
                 }
                 Invoice invoice = FindInvoiceFromRequest(request);
                 if (candidate.AvailableVolume >= invoice.Volume)
@@ -202,13 +205,13 @@ namespace Captone.Services
             {
                 var tmp = (double)volume;
                 FindPath(request);
-                if(_tmpResult == null)
+                if (_tmpResult == null)
                     throw new NullReferenceException("Out of available trips");
                 foreach (var res in _tmpResult)
                 {
                     var current = DateTime.Now;
                     var tmpListRoute = res.FirstOrDefault(x => x.Key == request).Value;
-                    if(tmpListRoute == null)
+                    if (tmpListRoute == null)
                     {
                         continue;
                     }
@@ -216,7 +219,7 @@ namespace Captone.Services
                     {
                         int flag = 0;
                         List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
-                        if(tmpListTrip == null)
+                        if (tmpListTrip == null)
                         {
                             continue;
                         }
@@ -226,11 +229,11 @@ namespace Captone.Services
                             if (trip.EstimateDepartureTime != null)
                             {
                                 var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
-                                if (departure >= current) 
+                                if (departure >= current)
                                 {
                                     if (trip.EstimateArrivalTime != null)
                                     {
-                                        var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
+                                        var arrival = ChangeTime(trip.Date, (TimeSpan)trip.EstimateArrivalTime);
                                         deliveryTime += (arrival - current);
                                         resTrip.Add(trip);
                                         var breakTime = FindStationFromRoute(route).BreakTime;
@@ -254,7 +257,7 @@ namespace Captone.Services
                 }
             }
         }
-       
+
         public DateTime ChangeTime(DateTime a, TimeSpan b)
         {
             DateTime result = a;
@@ -286,7 +289,7 @@ namespace Captone.Services
             var visited = new List<Station>();
             visited.Add(fromStation);
             //after call this method, all path connect two station of the request
-            BreadthFirstSearch(request, toStation, visited); 
+            BreadthFirstSearch(request, toStation, visited);
             return listRoute;
         }
 
@@ -307,7 +310,7 @@ namespace Captone.Services
                         var tmpRoutes = new List<Route>();
                         for (int i = 0; i < visited.Count - 1; i++)
                         {
-                            tmpRoutes.Add(FindRouteFromStation(visited[i], visited[i+1]));
+                            tmpRoutes.Add(FindRouteFromStation(visited[i], visited[i + 1]));
                         }
                         var tmp = new Dictionary<Request, List<Route>>();
                         tmp.Add(request, tmpRoutes);
@@ -346,8 +349,8 @@ namespace Captone.Services
             for (int i = 0; i < stationsForCheck.Count() - 2; i++)
             {
                 string coordinateA = stationsForCheck[i].Coordinate;
-                string coordinateB = stationsForCheck[i+1].Coordinate;
-                string coordinateC = stationsForCheck[i+2].Coordinate;
+                string coordinateB = stationsForCheck[i + 1].Coordinate;
+                string coordinateC = stationsForCheck[i + 2].Coordinate;
                 string tmp = coordinateA + "," + coordinateB + "," + coordinateC;
                 string[] separator = { ",", " " };
                 string[] words = tmp.Split(separator, StringSplitOptions.RemoveEmptyEntries);
@@ -369,7 +372,7 @@ namespace Captone.Services
                 //double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
                 //double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
                 //if (X_AB * X_BC + Y_AB * Y_BC <= 0) return true;
-                if ((longitude[1] - longitude[2])*(longitude[2] - longitude[3]) < 0) return false;
+                if ((longitude[1] - longitude[2]) * (longitude[2] - longitude[3]) < 0) return false;
             }
             return true;
         }

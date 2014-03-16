@@ -247,6 +247,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repositories\Interfaces\IInvoiceRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IManageFeeRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRequestRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
       <SubType>Code</SubType>
@@ -261,6 +262,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repositories\InvoiceRepository.cs" />
+    <Compile Include="Repositories\ManageFeeRepository.cs" />
     <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs">
       <SubType>Code</SubType>
@@ -300,11 +302,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Interfaces\IInvoiceService.cs" />
+    <Compile Include="Services\Interfaces\IManageFeeService.cs" />
     <Compile Include="Services\Interfaces\IRequestService.cs" />
     <Compile Include="Services\Interfaces\IRouteService.cs" />
     <Compile Include="Services\Interfaces\IStationService.cs" />
     <Compile Include="Services\Interfaces\ITripService.cs" />
     <Compile Include="Services\InvoiceService.cs" />
+    <Compile Include="Services\ManageFeeService.cs" />
     <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\RouteService.cs" />
     <Compile Include="Services\StationService.cs" />
@@ -740,23 +744,6 @@
     <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Staff\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Fee\Index.cshtml" />
-    <EntityDeploy Include="Models\iDeliver.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\iDeliver.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\iDeliver.edmx.diagram">
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\iDeliver.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>iDeliver.edmx</DependentUpon>
-      <LastGenOutput>iDeliver.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
@@ -793,6 +780,23 @@
     <Content Include="Content\Images\forms\Thumbs.db" />
     <Content Include="Content\Images\shared\Thumbs.db" />
     <Content Include="Content\ui\.jshintrc" />
+    <EntityDeploy Include="Models\iDeliver.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\iDeliver.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\iDeliver.edmx.diagram">
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\iDeliver.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -888,6 +892,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Request\Assigning.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

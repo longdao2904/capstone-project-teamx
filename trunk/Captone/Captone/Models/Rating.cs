@@ -16,7 +16,7 @@ namespace Captone.Models
     {
         public int RatingID { get; set; }
         public string Username { get; set; }
-        public int RateLevel { get; set; }
+        public double RateLevel { get; set; }
         public int StationID { get; set; }
     
         public virtual Account Account { get; set; }

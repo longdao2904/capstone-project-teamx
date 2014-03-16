@@ -32,6 +32,7 @@ namespace Captone.Models
         public string Description { get; set; }
         public string Coordinate { get; set; }
         public Nullable<int> ProvinceID { get; set; }
+        public Nullable<double> AvgRatingLevel { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Province Province { get; set; }
