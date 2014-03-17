@@ -6,6 +6,7 @@ using Captone.Models;
 using Captone.Repositories;
 using Captone.Repositories.Interfaces;
 using Captone.Services.Interfaces;
+using System.Web.Services;
 
 namespace Captone.Services
 {
@@ -379,23 +380,85 @@ namespace Captone.Services
 
         //when delete a trip or list of trips, call this method to change the status of
         //processing request to "Đã xác nhận" then re-schedule
-        public void Update(List<Request> requests, List<Trip> trips, DateTime date)
+        #region old
+        //public void Update(List<Request> requests, List<Trip> trips, DateTime date)
+        //{
+        //    var tmpRequestID = new List<int>();
+        //    //find the list of request id that related to delete trips
+        //    foreach (var trip in trips)
+        //    {
+        //        foreach (var assigning in _assignings)
+        //        {
+        //            if (assigning.TripID == trip.TripID)
+        //            {
+        //                tmpRequestID.Add(assigning.RequestID);
+        //            }
+        //        }
+        //    }
+        //    //update the status of all request in the list
+        //    foreach (var request in requests)
+        //    {
+        //        foreach (var i in tmpRequestID)
+        //        {
+        //            if (request.RequestID == i)
+        //            {
+        //                request.DeliveryStatusID = 1;
+        //                _requestRepository.Update(request);
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
+        #region update Request
+        //public void Update(List<Request> requests, int tripID)
+        //{
+        //    var tmpRequestID = new List<int>();
+        //    //find the list of request id that related to delete trips
+
+        //    foreach (var assigning in _assignings)
+        //    {
+        //        if (assigning.TripID == tripID)
+        //        {
+        //            tmpRequestID.Add(assigning.RequestID);
+        //        }
+        //    }
+
+        //    //update the status of all request in the list
+        //    foreach (var request in requests)
+        //    {
+        //        foreach (var i in tmpRequestID)
+        //        {
+        //            if (request.RequestID == i)
+        //            {
+        //                request.DeliveryStatusID = 1;
+        //                _requestRepository.Update(request);
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
+        [System.Web.Mvc.HttpPost]
+        [WebMethod]
+        public void Update(List<int> requestIDs, int tripID)
         {
+            iDeliverEntities db = new iDeliverEntities();
+
             var tmpRequestID = new List<int>();
             //find the list of request id that related to delete trips
-            foreach (var trip in trips)
+
+            foreach (var assigning in _assignings)
             {
-                foreach (var assigning in _assignings)
+                if (assigning.TripID == tripID)
                 {
-                    if (assigning.TripID == trip.TripID)
-                    {
-                        tmpRequestID.Add(assigning.RequestID);
-                    }
+                    tmpRequestID.Add(assigning.RequestID);
                 }
             }
+
             //update the status of all request in the list
-            foreach (var request in requests)
+            
+            foreach (var id in requestIDs)
             {
+                Request request = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
                 foreach (var i in tmpRequestID)
                 {
                     if (request.RequestID == i)

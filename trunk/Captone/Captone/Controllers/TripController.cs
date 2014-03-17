@@ -138,6 +138,8 @@ namespace Captone.Controllers
         {
             Trip trip = db.Trips.Find(id);
             db.Trips.Remove(trip);
+            Assigning asg = db.Assignings.Where(a => a.TripID == id).FirstOrDefault();
+            db.Assignings.Remove(asg);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -184,31 +186,82 @@ namespace Captone.Controllers
         //Pass estimated time to real time of trip when depart/arrive
         [HttpPost]
         [WebMethod]
-        public void TimePassing(List<Trip> trips)
+        public ActionResult TimePassing(List<Trip> trips)
         {
             if (trips != null)
             {
                 foreach (var trip in trips)
                 {
-                    Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
-                    t.RealDepartureTime = trip.EstimateDepartureTime;
-                    t.RealArrivalTime = trip.EstimateArrivalTime;
-                    db.Entry(t).State = EntityState.Modified;
+                    DateTime current = DateTime.Now;
+                    if (trip.Date.ToShortDateString() == current.ToShortDateString())
+                    {
+                        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+                        t.RealDepartureTime = trip.EstimateDepartureTime;
+                        t.RealArrivalTime = trip.EstimateArrivalTime;
+                        db.Entry(t).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Request");
+                    }
+                }
+            }
+            return View();
+        }
+
+        // Retrieve requests assigned to selected trip, find by TripID
+        [HttpPost]
+        [WebMethod]
+        public ActionResult RelatedRequests(int tripID)
+        {
+            //List<Request> requests = new List<Request>();
+            //requests = (from r in db.Requests
+            //           where r.RequestID == (from a in db.Assignings
+            //                                where a.TripID == tripID
+            //                                select a.RequestID) select r).ToList();
+            List<Request> listRequests = new List<Request>();
+            List<int> rqID = new List<int>();
+            rqID = (from a in db.Assignings where a.TripID == tripID select a.RequestID).ToList();
+            foreach (var id in rqID)
+            {
+                Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                listRequests.Add(rq);
+            }
+            return View(listRequests);
+        }
+
+        [HttpPost]
+        [WebMethod]
+        public void UpdateRequests(int tripID)
+        {
+            iDeliverEntities db = new iDeliverEntities();
+            List<Trip> _trips = new List<Trip>();
+            List<Assigning> _assignings = db.Assignings.ToList();
+            List<Request> listRequest = new List<Models.Request>();
+
+            // list of requestIDs to be updated/re-assigned
+            var tmpRequestID = new List<int>();
+
+            foreach (var assigning in _assignings)
+            {
+                if (assigning.TripID == tripID)
+                {
+                    // get list of request id that related to delete trip
+                    tmpRequestID.Add(assigning.RequestID);
+                }
+            }
+
+            //update the status of all request in the list
+
+            foreach (var i in tmpRequestID)
+            {
+                Request request = db.Requests.Where(r => r.RequestID == i).FirstOrDefault();
+                listRequest.Add(request);
+                foreach (var rq in listRequest)
+                {
+                    rq.DeliveryStatusID = 1;
+                    db.Entry(rq).State = EntityState.Modified;
                     db.SaveChanges();
                 }
             }
         }
-        
-        //public void TimePassing(Trip trip)
-        //{
-        //    if (trip != null)
-        //    {
-        //        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
-        //        t.RealDepartureTime = trip.EstimateDepartureTime;
-        //        t.RealArrivalTime = trip.EstimateArrivalTime;
-        //        db.Entry(t).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //    }
-        //}
     }
 }

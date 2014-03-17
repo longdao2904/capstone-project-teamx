@@ -2,21 +2,18 @@
 <table class="table" id="tripTbl">
     <thead>
         <tr>
-            <th>
-                Chuyến
+            <th>Chuyến
             </th>
-            <th>
-                Dự kiến chạy
+            <th>Dự kiến chạy
             </th>
-            <th>
-                Dự kiến đến 
+            <th>Dự kiến đến 
             </th>
             <th></th>
         </tr>
 
     </thead>
     <tbody>
-        @foreach(var item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -34,7 +31,8 @@
                 <td style="display: none" id="date">
                     @item.Trip.Date.ToShortDateString()
                 </td>
-                <td><input type="button" value="Cập nhật lịch chạy"/></td>
+                <td style="display: none;">
+                    <input type="button" value="Cập nhật lịch chạy" id="updateSchedule" /></td>
             </tr>
         }
     </tbody>
@@ -83,7 +81,7 @@
         var datetime = currentdate.getDate() + "/"
                         + (currentdate.getMonth() + 1) + "/"
                         + currentdate.getFullYear();
-        alert(datetime);
+
         var trips = [];
         var trip = {
             EstimateDepartureTime: departime,
@@ -91,21 +89,31 @@
             TripID: tripid,
             Date: tripdate
         };
-
+        alert(date[0] + " : " + tripdate);
         // Push schedule object to collection
         trips.push(trip);
-        // If trip date same with present date
-        if (tripdate == datetime) {
-            // Sent trips objects to controller
-            $.ajax({
-                url: "/Trip/TimePassing",
-                type: "POST",
-                data: JSON.stringify({ trips: trips }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function (result) {
-                }
-            });
-        }
+        // Sent trips objects to controller
+        $.ajax({
+            url: "/Trip/TimePassing",
+            type: "POST",
+            data: JSON.stringify({ trips: trips }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
     });
+    
+    window.onload = timer();
+
+    // set timer 3s for auto click
+    function timer() {
+        setTimeout(setTimeout('autoClick();', 900000));
+    }
+
+    // auto click button update
+    function autoClick() {
+        document.getElementById('updateSchedule').click();
+    }
+    
 </script>

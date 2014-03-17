@@ -824,10 +824,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\SentRequestForm.cshtml" />
-    <Content Include="Views\Home\SuccessRegister.cshtml" />
     <Content Include="Views\Station\Create.cshtml" />
     <Content Include="Views\Station\Delete.cshtml" />
     <Content Include="Views\Station\Details.cshtml" />
@@ -893,6 +890,7 @@
     </Content>
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Request\Assigning.cshtml" />
+    <Content Include="Views\Trip\RelatedRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

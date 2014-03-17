@@ -10,9 +10,11 @@
                 @ViewBag.Title
             </div>
             <div class="panel-body">
-                <fieldset>
-                    <legend>Bạn muốn xóa chuyến này ?</legend>
-                    <blockquote>
+                <div class="col-lg-4">
+                    <fieldset>
+                        <legend>Bạn muốn xóa chuyến này ?</legend>
+
+                        <div style="display: none" id="tripID">@Model.TripID</div>
                         <div class="display-label">
                             @Html.DisplayNameFor(model => model.EstimateDepartureTime)
                         </div>
@@ -52,7 +54,7 @@
                             @Html.DisplayNameFor(model => model.Date)
                         </div>
                         <div class="display-field">
-                            @Html.DisplayFor(model => model.Date)
+                            @Model.Date.ToShortDateString()
                         </div>
 
                         <div class="display-label">
@@ -68,17 +70,71 @@
                         <div class="display-field">
                             @Html.DisplayFor(model => model.Coach.NumberPlate)
                         </div>
-                    </blockquote>
-                </fieldset>
-                @using (Html.BeginForm())
-                {
-                    <p>
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
-                    </p>
-                }
+                    </fieldset>
+                    <br />
+                    @using (Html.BeginForm())
+                    {
+                        <p>
+                            <input type="submit" value="Delete" class="btn btn-danger" id="updateRQ" />
+                            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
+                        </p>
+                    }
+                </div>
+                <div class="col-lg-8">
+                    <h4>Các yêu cầu chuyển phát đã xếp cho chuyến này</h4>
+                    <div id="requests"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    window.onload = loadRequest();
+
+    function loadRequest() {
+        var tripID = $('#tripID').text();
+        $.ajax({
+            url: "/Trip/RelatedRequests",
+            type: "Post",
+            data: { tripID: tripID },
+            success: function (result) {
+                $("#requests").html(result);
+            }
+        });
+    }
+
+    // Get requestIDs objects
+    function getRequests() {
+        var requestIDs = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rqID = row.find('td:nth-child(2)').text();
+            // Push requestID object to collection
+            requestIDs.push(rqID);
+        });
+        return requestIDs;
+    }
+
+    // Sent requestIDs objects to controller
+    function SentObject() {
+        var listRequestIDs = getRequests();
+        var tripID = $('#tripID').text();
+        $.ajax({
+            url: "/Trip/UpdateRequests",
+            type: "POST",
+            data: JSON.stringify({ tripID: tripID }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+
+    $('#updateRQ').on('click', function () {
+        SentObject();
+    });
+
+</script>
 
