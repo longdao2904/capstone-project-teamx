@@ -43,7 +43,7 @@ namespace Captone.Controllers
 
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("LogOn", "Account");
             }
             else
             {

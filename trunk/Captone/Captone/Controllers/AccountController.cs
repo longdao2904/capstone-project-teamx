@@ -56,6 +56,7 @@ namespace Captone.Controllers
 
         public ActionResult LogOff()
         {
+            FormsAuthentication.SignOut();
             Session["USERNAME"] = null;
             Session["UserRole"] = null;
             return RedirectToAction("Index", "Home");

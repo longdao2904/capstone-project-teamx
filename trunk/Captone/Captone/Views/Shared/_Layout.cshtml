@@ -55,11 +55,11 @@
                             {
                                 string username = Username.ToUpper();
                                 <i class="fa fa-user fa-fw"></i> @username
-                                <a href="/Home/LogOff">| Sign out <i class="fa fa-sign-out"></i></a>
+                                <a href="/Home/LogOff">| Đăng xuất <i class="fa fa-sign-out"></i></a>
                             }
                             else
                             {
-                                <a href="/Account/Login"><i class="fa fa-sign-in fa-fw"></i>Sign in</a>
+                                <a href="/Account/Login"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
                             }
                         </div>
                         <!-- /.dropdown -->
@@ -78,7 +78,7 @@
                     <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
                 </li>
                 <li class="active">
-                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
+                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i> Chuyển Phát</a>
                     @if (Username != null && UserRole == "Customer")
                     {                        
                         <ul class="nav nav-second-level">
@@ -89,7 +89,7 @@
                     }
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
                     @if (Username == null)
                     {
                         <ul class="nav nav-second-level">
@@ -121,7 +121,7 @@
                 @if (UserRole == "Staff")
                 {
                     <li class="active">
-                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user fa-fw"></i> Quản lý hành trình<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/Coach/Index">Xe</a>
@@ -135,12 +135,9 @@
                             <li>
                                 <a href="/Route/Index">Tuyến</a>
                             </li>
-                            <li>
-                                <a href="/Request/Index">Yêu cầu vận chuyển</a>
-                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
-                        <a href="/Request/Index"><i class="fa fa-tasks"></i>Quản lý yêu cầu vận chuyển</a>
+                        <a href="/Request/Index"><i class="fa fa-tasks"></i> Quản lý yêu cầu vận chuyển</a>
                     </li>
                 }
                 @if (UserRole == "Admin")
@@ -149,10 +146,10 @@
                         <a href="#"><i class="fa fa-gears fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/Staff/Index.cshtml">Nhân viên</a>
+                                <a href="/Staff/Index">Nhân viên</a>
                             </li>
                             <li>
-                                <a href="#">Biểu giá vận chuyển</a>
+                                <a href="/Fee">Biểu giá vận chuyển</a>
                             </li>
                             <li>
                                 <a href="/Schedule/Index">Lịch trình xe và tuyến</a>
