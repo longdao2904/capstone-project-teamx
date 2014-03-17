@@ -56,8 +56,32 @@ namespace Captone.Content
             return PartialView("ListComment", comment);
         }
 
-        public ActionResult Feedback() {
-            return View();
+        [HttpPost]
+        public ActionResult Comment(String Username, String Comment, Int32 StationID)
+        {
+            Comment cmt = new Comment();
+            cmt.Username = Username;
+            cmt.CommentContent = Comment;
+            cmt.DatePost = DateTime.Now;
+            cmt.Status = false;
+            cmt.StationID = StationID;
+            _db.Comments.Add(cmt);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "FeedBack");
+
+        }
+
+        [HttpPost]
+        public ActionResult Rating(String Username, float Rating, Int32 StationID)
+        {
+            Rating rt = new Rating();
+            rt.Username = Username;
+            rt.RateLevel = Rating;
+            rt.StationID = StationID;
+            _db.Ratings.Add(rt);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "FeedBack");
+
         }
         //
         // GET: /FeedBack/Details/5

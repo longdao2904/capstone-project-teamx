@@ -1,49 +1,136 @@
 ﻿@model IEnumerable<Captone.Models.Comment>
-<link href="~/Content/Css/star-rating.css" rel="stylesheet" />
-<script src="~/Scripts/star-rating.js"></script>
-<h2>Ý kiến khách hàng</h2>
-<h3>@ViewBag.StationSelect.StationName.ToString()</h3>
+@*<link href="~/Content/Css/star-rating.css" rel="stylesheet" />
+<script src="~/Scripts/star-rating.js"></script>*@
+<script src="~/Scripts/jstarbox.js"></script>
+@*<link href="~/Content/Css/ie7.css" rel="stylesheet" />*@
+<link href="~/Content/Css/jstarbox.css" rel="stylesheet" />
+@{
+    string username = (string)Session["USERNAME"];
+}
+<script type="text/javascript">
 
-<div id="rating">
-    <input id="input-1" type="number" class="rating" min="1" max="5" step="1">
+    jQuery(function () {
+        jQuery('.starbox').each(function () {
+            var starbox = jQuery(this);
+            starbox.starbox({
+                average: starbox.attr('data-start-value'),
+                changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                ghosting: starbox.hasClass('ghosting'),
+                autoUpdateAverage: starbox.hasClass('autoupdate'),
+                buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                stars: starbox.attr('data-star-count') || 5
+            }).bind('starbox-value-changed', function (event, value) {
+                if (starbox.hasClass('random')) {
+                    var val = Math.random();
+                    starbox.next().text('Random: ' + val);
+                    return val;
+                } else {
+                    starbox.next().text('Clicked: ' + value);
+                }
+            }).bind('starbox-value-moved', function (event, value) {
+                starbox.next().text("Moved to: " + value);
+                document.getElementById("ratingLevel").value = value;
 
-    <input id="input-22" min="1" max="5" step="1">
-   
+            });
+        });
+    });
+</script>
+<div>
+    <h2>Ý kiến khách hàng</h2>
+    <h3 style="color: #3498db">Trạm: @ViewBag.StationSelect.StationName.ToString()</h3>
 
-</div>
 
-@foreach (var item in Model)
-{
-    <input type="hidden" value="@item.CommentID"/>
-    <div id="myTabContent" class="tab-content">
-        <div class="list-group">
-            <div class="list-group-item" style="height: 80px">
-                <i class="fa fa-building-o fa-fw"></i>@item.Username
-                <br />
-                <div id="detail" style="padding-left:30px">
-                    @item.CommentContent
+    <div class="block">
+        <h3>Rating</h3>
+        <div class="starbox gradient ghosting autoupdate" data-button-count="20">
+            <div class="positioner">
+                <div class="stars">
+                    <div class="ghost" style="width: 82.5px; display: none;"></div>
+                    <div class="colorbar" style="width: 82.5px;"></div>
+                    <div class="star_holder">
+                        <div class="star star-0"></div>
+                        <div class="star star-1"></div>
+                        <div class="star star-2"></div>
+                        <div class="star star-3"></div>
+                        <div class="star star-4"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <p>Moved to: 0.1</p>
+        <input type="hidden" id="ratingLevel" />
     </div>
-}
 
-<div class="col-lg-7">
-    <div class="panel-body">
-        <form role="form">
-            <div class="form-group">
-                <textarea class="form-control" row="3" name="Comment" style="height:100px; width:500px"></textarea>
+    <input type="hidden" id="sID" value="@ViewBag.StationSelect.StationID"/>
+    <input type="hidden"  id="username" value="@username" />
+
+    @foreach (var item in Model)
+    {      
+        <input type="hidden" value="@item.CommentID"/>        
+        <div id="myTabContent" class="tab-content">
+            <div class="list-group">
+                <div class="list-group-item" style="height: 100%">
+                    <div class="fa fa-building-o fa-fw" style="color: #27ae60; font-weight: bold">@item.Username</div>
+                    <br />
+                    <div id="detail" style="padding-left: 30px">
+                        @item.CommentContent
+                    </div>
+                </div>
             </div>
-            <br />
-            <input type="submit" value="Bình luận" class="btn" style="padding-right:20px"/>           
-        </form>
+        </div>
+    }
+
+    <div class="col-lg-7">
+        <div class="panel-body">
+            <form role="form">
+                <div class="form-group">
+                    Ý kiến của bạn:
+                <textarea class="form-control" row="3" id="comment" name="Comment" style="height: 100px; width: 500px"></textarea>
+                </div>
+                <br />
+
+                <input id="CommentID" type="button" value="Bình luận" class="btn" onclick="ratingStation()" />
+                <div style="display: none">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 <script type="text/javascript">
 
-    $("#input-22").rating({
-        starCaptions: {1: "Very Poor", 2: "Poor", 3: "Ok", 4: "Good", 5: "Very Good"},
-        starCaptionClasses: { 1: "text-danger", 2: "text-warning", 3: "text-info", 4: "text-primary", 5: "text-success" },
+    $('#CommentID').on('click', function () {
+        commentStation();
     });
+    function ratingStation() {
+        var user = document.getElementById("username").value;
+        var ratingLevel = document.getElementById("ratingLevel").value;
+        var stationID = document.getElementById("sID").value;
+        $.ajax({
+            url: "/FeedBack/Rating",
+            type: "POST",
+            data: { Username: user, Rating: ratingLevel, StationID: stationID },
+            success: function (result) {
+                if (result) {
+                    location.href = "/FeedBack/Index";
+                }
+            }
+        });
+    }
+
+    function commentStation() {
+        var user = document.getElementById("username").value;
+        var comment = document.getElementById("comment").value;
+        var stationID = document.getElementById("sID").value;
+        $.ajax({
+            url: "/FeedBack/Comment",
+            type: "POST",
+            data: { Username: user, Comment: comment, StationID: stationID },
+            success: function (result) {
+                if (result) {
+                    location.href = "/FeedBack/Index";
+                }
+            }
+        });
+    }
 </script>
+    
