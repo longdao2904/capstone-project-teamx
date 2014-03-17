@@ -2,7 +2,7 @@
 
 @foreach (var item in Model)
 {
-    <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Route.RouteName, @item.Trip.EstimateArrivalTime"/>
+    <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Route.RouteName - @item.Trip.EstimateArrivalTime"/>
    
 }
 <div id="map1" style="height: 440px;"></div>
