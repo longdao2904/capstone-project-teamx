@@ -257,7 +257,7 @@ namespace Captone.Controllers
                 listRequest.Add(request);
                 foreach (var rq in listRequest)
                 {
-                    rq.DeliveryStatusID = 1;
+                    rq.DeliveryStatusID = 2;
                     db.Entry(rq).State = EntityState.Modified;
                     db.SaveChanges();
                 }
