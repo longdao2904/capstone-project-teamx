@@ -373,7 +373,7 @@ namespace Captone.Services
                 //double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
                 //double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
                 //if (X_AB * X_BC + Y_AB * Y_BC <= 0) return true;
-                if ((longitude[1] - longitude[2]) * (longitude[2] - longitude[3]) < 0) return false;
+                if ((longitude[1] - longitude[2]) * (longitude[2] - longitude[3]) < 0 && false) return false;
             }
             return true;
         }

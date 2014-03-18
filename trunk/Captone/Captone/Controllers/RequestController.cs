@@ -164,7 +164,10 @@ namespace Captone.Controllers
             {
                 return false;
             }
-
+        }
+        public ActionResult CreatePayment()
+        {
+            return View();
         }
     }
 }
