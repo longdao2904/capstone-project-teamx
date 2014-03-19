@@ -16,14 +16,16 @@
             </th>
             <th>Trạng thái
             </th>
-            <th><input type="checkbox" id="selectall" value="Select All"/></th>
+            <th>
+                <input type="checkbox" id="selectall" value="Select All" /></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             
             <tr id="request-@item.RequestID">
-                <td style="display: none;">
+                <td style="display: none;" id="rqID">
                     @item.RequestID
                 </td>
                 <td>
@@ -47,32 +49,58 @@
                 <td style="display: none;">
                     @item.DeliveryStatusID
                 </td>
+                <td style="display: none;">
+                    @item.FeeID;
+                </td>
                 <td>
                     @item.Station1.StationName
-
                 </td>
                 <td>
                     @item.DeliveryStatu.StatusName
                 </td>
                 @if (item.DeliveryStatusID == 1)
                 {
-                    <td> <button type="button" class="btn" onclick="ChangeStatus(@item.RequestID)">Xác nhận</button></td>
+                    <td>
+                        <button type="button" class="btn" onclick="ChangeStatus(@item.RequestID)">Xác nhận</button></td>
                 }
                 @if (item.DeliveryStatusID == 2)
                 {
                     <td>
-                        <input type="checkbox" name="Requests" class="case"  />
+                        <input type="checkbox" name="Requests" class="case" />
                     </td>
                 }
-                @if(item.DeliveryStatusID == 3)
+                @if (item.DeliveryStatusID == 3)
                 {
-                   <td>
-                        <input type="checkbox" name="Deliveried" class="case"  />
+                    <td>
+                        <input type="checkbox" name="Deliveried" class="case" />
+                    </td>
+                }
+                @if (item.DeliveryStatusID == 4)
+                {
+                    <td>
+                        <input type="checkbox" name="chk" class="case" />
+                    </td>                    
+                    <td>
+                        <input type="button" value="Đã đến trạm" id="sttSet"/>
+                    </td>
+                }
+                @if (item.DeliveryStatusID == 5)
+                {
+                    <td>
+                        <input type="checkbox" name="chk" class="case" />
+                    </td>                    
+                    <td>
+                        <input type="button" value="Đã giao hàng" onclick="SentObject()" />
+                    </td>
+                }
+                @if (item.DeliveryStatusID == 8 && item.Type == false)
+                {
+                    <td>
+                        <input type="button" value="Chuẩn bị hàng trả" />
                     </td>
                 }
             </tr>
         }
-        @*<button type="submit" class="btn" onclick="Assign();" >Xếp lịch</button>*@
         <a href="/Request/Index" class="btn" onclick="Assign();">Xếp Lịch</a>
     </table>
 </div>
@@ -151,7 +179,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
-                }
+            }
         });
     }
     $(document).ready(function () {
@@ -167,5 +195,73 @@
             }
         });
 
+    });
+
+    //change request status when checkbox 'arrived' checked
+    function updateStt() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+
+    // Sent request collection to controller
+    function SentObject() {
+        var requests = updateStt();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = window.location.href;
+                addActive(5);
+            }
+        });
+    }
+
+    // Auto set request status to 'Đã hết hạn - 8' & type to 'false' for return
+    function AutoSet() {
+        var requests = updateStt();
+        $.ajax({
+            url: "/Request/AutoSet",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = window.location.href;
+                addActive(5);
+            }
+        });
+    }
+
+    // Click on button 'Đã đến trạm'
+    $('#sttSet').on('click', function () {
+        SentObject();
+        AutoSet();
+    });
+
+    $('#TableRequest').on('click', 'tr td:nth-child(12)', function (event) {
+        var listRq = [];
+        var requestID = document.getElementById("rqID").innerText.trim();
+        alert(requestID);
+        // Push request object to collection
+        listRq.push(requestID);
+        // Sent request collection to controller
+        $.ajax({
+            url: "/Request/Return",
+            type: "POST",
+            data: JSON.stringify({ listRequest: listRq }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
     });
 </script>

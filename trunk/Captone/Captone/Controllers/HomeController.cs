@@ -195,7 +195,5 @@ namespace Captone.Controllers
             return PartialView("ListTripTracking", tracking);
         }
     }
-
-    
 }
 

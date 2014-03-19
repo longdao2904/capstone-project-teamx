@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Captone.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Captone.Models;
 
 namespace Captone.Controllers
 {
@@ -13,6 +12,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
 
+        #region CRUD
         //
         // GET: /Request/
 
@@ -129,14 +129,6 @@ namespace Captone.Controllers
             return View(request);
         }
 
-        //public ActionResult Assigning()
-        //{
-        //    var requests = db.Requests.Include(r => r.Account).Include(r => r.DeliveryStatu).Include(r => r.ManageFee).Include(r => r.Station).Include(r => r.Station1);
-        //    return View(requests.ToList());
-        //}
-        //
-        // POST: /Request/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -145,12 +137,14 @@ namespace Captone.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
         public Boolean ChangeStatus(int requestID)
         {
             Request request = db.Requests.Where(p => p.RequestID == requestID).Single();
@@ -164,10 +158,76 @@ namespace Captone.Controllers
             {
                 return false;
             }
+
         }
-        public ActionResult CreatePayment()
+
+        // Update request status
+        public Boolean UpdateStatus(List<int> requestIDs)
         {
-            return View();
+            if (requestIDs != null)
+            {
+                foreach (var id in requestIDs)
+                {
+                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                    if (rq.DeliveryStatusID == 4)
+                    {
+                        rq.DeliveryStatusID = 5;
+                        rq.ArrivedDate = DateTime.Now.Date;
+                    }
+                    else if (rq.DeliveryStatusID == 5)
+                    {
+                        rq.DeliveryStatusID = 6;
+                    }
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Auto set request status to 'Đã hết hạn - 8' if delivery date was late 2 days
+        public Boolean AutoSet(List<int> requestIDs)
+        {
+            if (requestIDs != null)
+            {
+                foreach (var id in requestIDs)
+                {
+                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                    DateTime arrivedDate = rq.ArrivedDate;
+                    DateTime currentDate = DateTime.Now.Date;
+                    TimeSpan waitTime = currentDate - arrivedDate;
+                    if (waitTime.TotalDays == 0 && rq.DeliveryStatusID == 5)
+                    {
+                        rq.DeliveryStatusID = 8;
+                        rq.Type = false;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Prepare late delivery request for returning
+        public Boolean Return(List<int> listRequest)
+        {
+            if (listRequest != null)
+            {
+                foreach (var id in listRequest)
+                {
+                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                    Invoice inv = db.Invoices.Where(i => i.RequestID == id).FirstOrDefault();
+                    inv.Price = rq.ManageFee.Fee * 0.8;
+                    int oldStation = rq.FromLocation;
+                    rq.FromLocation = rq.ToLocation;
+                    rq.ToLocation = oldStation;
+                    rq.DeliveryStatusID = 2;
+                    rq.DateRequest = DateTime.Now.Date;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -11,8 +11,6 @@
     <div class="table-responsive">
         <table class="table">
             <tr>
-                <th>
-                    <input type="checkbox" name="chkAll" value="All" id="chkAll" /></th>
                 <th>Người gửi
                 </th>
                 <th>Ngày gửi
@@ -28,9 +26,6 @@
             @foreach (var item in Model)
             {            
                 <tr>
-                    <td>
-                        <input type="checkbox" name="chk" class="sid" />
-                    </td>
                     <td style="display: none;">
                         @item.RequestID
                     </td>
