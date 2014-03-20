@@ -37,9 +37,7 @@ namespace Captone.Models
         public string ReceiverPhone { get; set; }
         public Nullable<bool> Type { get; set; }
         public string TypeOfPayment { get; set; }
-        public System.DateTime ArrivedDate { get; set; }
         public Nullable<bool> Payment { get; set; }
-        public string RequestCode { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<Assigning> Assignings { get; set; }

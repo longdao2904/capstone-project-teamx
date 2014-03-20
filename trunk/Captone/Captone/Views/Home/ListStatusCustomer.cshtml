@@ -30,7 +30,8 @@
       
     }
     var DrivePath = [];
-    var color = ['#00FF00', '#FFFF00', '#FF0000', '#00FF00', '#FFFF00', '#FF0000'];
+    var color = ['#7FFF00', '#000000', 'red', '#7FFF00', '#000000', 'red'];
+    var color2 = ['#7FFF00', 'red', '#000000', '#7FFF00', 'red', '#000000'];
     function Tracking(id) {
         var idT = document.getElementsByName("" + id);
         var waypoints = [];
@@ -39,9 +40,8 @@
         var endPoint;
         var timeWaypoints = [];
         var check = 0;
-        var check2 = 0;
-        
         var timeEndPoint;
+
         for (var i = 0; i < idT.length; i++) {
             var item = idT[i].value.split(" - ");
             route.push({
@@ -61,6 +61,8 @@
                 });
 
             }
+            var firstTime = "00:00:00";
+            timeWaypoints.push(firstTime);
             for (var p = 0; p < route.length - 1; p++) {
                 var time = route[p].Time;
                 timeWaypoints.push(time);
@@ -93,18 +95,16 @@
             optimizeWaypoints: true,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
         };
-
-        for (var index in route) {
+        getLong(startPoint);
+        for (var u = 0; u < waypoints.length; u++) {
+            getLong(waypoints[u].location);
+        }
+        getLong(endPoint);
+        for (var index in DrivePath) {
             (function (record) {
                 directionsService.route(request, function (response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
-                        if (record == route.length - 1) {
-                            getLong(startPoint);
-                            for (var u = 0; u < waypoints.length; u++) {
-                                getLong(waypoints[u].location);
-                            }
-                            getLong(endPoint);
-                        }
+                        if (record == DrivePath.length - 1) {
                         if (DrivePath.length == 1) {
                             if (Date.parse('01/01/2011 ' + timeEndPoint) < Date.parse('01/01/2011 ' + current)) {
                                 var PathStyle0 = new google.maps.Polyline({
@@ -118,10 +118,9 @@
                             }
                         }
                         if (check < timeWaypoints.length) {
-
                             for (var y = 0; y < DrivePath.length; y++) {
-                            
-                                if (Date.parse('01/01/2011 ' + timeWaypoints[check]) < Date.parse('01/01/2011 ' + current)) {
+
+                                if (Date.parse('01/01/2011 ' + timeWaypoints[check + 1]) < Date.parse('01/01/2011 ' + current)) {
 
                                     var PathStyle = new google.maps.Polyline({
                                         path: [DrivePath[y], DrivePath[y + 1]],
@@ -131,14 +130,14 @@
                                         strokeWeight: 2
                                     });
                                     PathStyle.setMap(map);
-                                    
+
                                 }
 
-                                if (Date.parse('01/01/2011 ' + timeWaypoints[check]) > Date.parse('01/01/2011 ' + current)) {
+                                if (Date.parse('01/01/2011 ' + timeWaypoints[check + 1]) > Date.parse('01/01/2011 ' + current)) {
                                     var PathStyle1 = new google.maps.Polyline({
                                         path: [DrivePath[y], DrivePath[y + 1]],
                                         map: map,
-                                        strokeColor: color[y],
+                                        strokeColor: color[y + 1],
                                         strokeOpacity: 1.0,
                                         strokeWeight: 2
                                     });
@@ -149,8 +148,9 @@
                         }
                         directionsDisplay.setDirections(response);
                     }
+                }
                 });
-            })(index++);
+            })(index);
         }
     }
 

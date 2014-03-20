@@ -194,6 +194,8 @@ namespace Captone.Controllers
             var tracking = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTripTracking", tracking);
         }
+
+        
     }
 }
 

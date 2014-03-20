@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Captone.Models.Assigning>
+
 <table class="table" id="tripTbl">
     <thead>
         <tr>
@@ -67,7 +68,7 @@
 
     $('#tripTbl').on('click', 'tr td:nth-child(6)', function (event) {
         var texts = $(this).closest('td').siblings().addBack().map(function () {
-            return $.trim($(this).html())
+            return $.trim($(this).html());
         }).get();
         var depart = texts[1].split(",");
         var departime = depart[depart.length - 1];
@@ -89,6 +90,7 @@
             TripID: tripid,
             Date: tripdate
         };
+     
         // Push schedule object to collection
         trips.push(trip);
         // Sent trips objects to controller
@@ -107,7 +109,7 @@
 
     // set timer 3s for auto click
     function timer() {
-        setTimeout(setTimeout('autoClick();', 1000));
+        setTimeout(setTimeout('autoClick();', 900000));
     }
 
     // auto click button update

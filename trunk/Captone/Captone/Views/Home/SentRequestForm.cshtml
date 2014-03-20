@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model IEnumerable<Captone.Models.ManageFee>
+
 @using Captone.Models
 @{
     string username = Session["USERNAME"].ToString();
@@ -31,7 +32,7 @@
                         <div class="each-field">
                             Địa Chỉ Người Gửi
                             <br />
-                            <input type="text" name="SenderAddress" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
+                            <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
                             <input type="text" id="locaAddress" style="display: none" />
                         </div>
                         <div class="bub-container">
@@ -53,7 +54,7 @@
                         <div class="each-field">
                             Địa Chỉ Người Nhận
                             <br />
-                            <input type="text" name="ReceiverAddress" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
+                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
                         </div>
                         <div class="bub-container3">
@@ -133,8 +134,11 @@
     </form>
 </div>
 
+
+
 <script type="text/javascript">
 
+    
     function feeChange() {
         var e = document.getElementById("Weigh");
         var v = document.getElementById("Volume");
@@ -189,10 +193,10 @@
             $('.bub-container').show();
 
         } if (address == "") {
-            $('.bub-container').hide();
-            document.getElementById("bulb").checked = false;
+              $('.bub-container').hide();
+              document.getElementById("bulb").checked = false;
 
-        }
+          }
     }
 
     function SuggestToLocation() {
@@ -201,10 +205,10 @@
             ToLocationMaker();
             $('.bub-container3').show();
         } if (address == "") {
-            $('.bub-container3').hide();
-            document.getElementById("bulb3").checked = false;
+              $('.bub-container3').hide();
+              document.getElementById("bulb3").checked = false;
 
-        }
+          }
 
     }
     $(function () {
@@ -296,6 +300,7 @@
         var dis = [];
         var str = document.getElementById('AddressOfSender').value;
         var sender = str.split(",");
+        alert(sender[sender.length - 1]);
         $.ajax({
             url: "/Home/GetAddressStation",
             contentType: "application/json",

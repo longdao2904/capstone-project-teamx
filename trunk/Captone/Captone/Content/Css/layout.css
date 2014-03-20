@@ -423,6 +423,7 @@ color: #666;}
 
 .width_full {
 width: 95%;
+    height: 450px;
 }
 
 .width_half {
@@ -452,7 +453,7 @@ float: left;
 
 .stats_overview {
 background: #F6F6F6;
-border: 1px solid #ccc;
+
 float: right;
 width: 26%;
 -webkit-border-radius: 5px;

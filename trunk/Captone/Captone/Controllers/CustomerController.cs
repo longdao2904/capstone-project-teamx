@@ -1,27 +1,31 @@
-﻿using Captone.Models;
+﻿using System.Web.Services;
+using Captone.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
+using System.Linq;
 using System.Web.Mvc;
-using Captone.Services.Interfaces;
-
-namespace Captone.Areas.Admin.Controllers
+using System.Web.Security;
+namespace Captone.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly IAccountService _accountService;
-        public CustomerController(IAccountService accountService)
-        {
-            _accountService = accountService;
-        }
-
+        iDeliverEntities _db = new iDeliverEntities();
         public ActionResult Index()
         {
-            return View(_accountService.GetAllCustomers());
+            var username = Session["USERNAME"];
+            var list = _db.Requests.Where(p => p.TypeOfPayment == "Thanh toán trực tuyến" & p.Payment == false & p.Username == username).ToList();
+            return View(list);
         }
-
-        public ActionResult Create(string username)
+        public ActionResult InputPayment(int RequestID)
         {
-            return View();
+            var single = _db.Invoices.Where(p => p.RequestID == RequestID).Single();
+            return View(single);
         }
-
+        public ActionResult ReviewInfor(int RequestID)
+        {
+            var single = _db.Invoices.Where(p => p.RequestID == RequestID).Single();
+            return PartialView(single);
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Captone.Models
         public int RequestID { get; set; }
         public DateTime Date { get; set; }
         public string Username { get; set; }
+        public int ToLocation { get; set; }
+        public string SenderPhone { get; set; }
     }
 }

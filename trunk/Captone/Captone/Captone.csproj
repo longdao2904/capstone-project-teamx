@@ -140,6 +140,7 @@
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AssigningController.cs" />
     <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\CoachTypeController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SMSController.cs" />
     <Compile Include="Controllers\StaffController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -211,9 +213,9 @@
     <Compile Include="Models\Route.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Schedule.cs" />
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs" />
-    <Compile Include="Models\sp_helpdiagrams_Result.cs" />
+    <Compile Include="Models\Schedule.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -313,6 +315,7 @@
     <Content Include="bin\Captone.pdb" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
+    <Content Include="Content\Css\layout.css" />
     <Content Include="Content\Css\plugins\dataTables\dataTables.bootstrap.css" />
     <Content Include="Content\Css\plugins\morris\morris-0.4.3.min.css" />
     <Content Include="Content\Css\plugins\social-buttons\social-buttons.css" />
@@ -439,6 +442,7 @@
     <Content Include="Content\Images\table\table_sort_arrow.gif" />
     <Content Include="Content\Images\user32.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\images.jpg" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
@@ -448,6 +452,8 @@
     <Content Include="Content\js\demo\morris-demo.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery.bpopup.min.js" />
+    <Content Include="Content\js\PieChart\exporting.js" />
+    <Content Include="Content\js\PieChart\highcharts.js" />
     <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
     <Content Include="Content\js\plugins\dataTables\jquery.dataTables.js" />
     <Content Include="Content\js\plugins\flot\excanvas.min.js" />
@@ -586,6 +592,9 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\_Demo.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -661,6 +670,9 @@
     <Content Include="Views\Schedule\SchedulePartialView.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\InputPayment.cshtml" />
+    <Content Include="Views\Customer\ReviewInfor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
