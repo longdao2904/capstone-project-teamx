@@ -18,10 +18,8 @@ namespace Captone.Models
         public Nullable<double> Weight { get; set; }
         public Nullable<double> Volume { get; set; }
         public double Price { get; set; }
-        public Nullable<int> FeeID { get; set; }
         public int RequestID { get; set; }
     
-        public virtual ManageFee ManageFee { get; set; }
         public virtual Request Request { get; set; }
     }
 }
