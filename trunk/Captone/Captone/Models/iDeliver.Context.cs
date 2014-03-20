@@ -40,6 +40,7 @@ namespace Captone.Models
         public DbSet<Route> Routes { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Station> Stations { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserInfo> UserInfoes { get; set; }
 
