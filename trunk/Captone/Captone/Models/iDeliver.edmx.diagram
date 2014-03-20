@@ -4,47 +4,46 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d215d08569fe45f0826e32b1987cca7c" Name="Diagram1" ZoomLevel="66">
-        <EntityTypeShape EntityType="iDeliverModel.Account" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Assigning" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Coach" Width="1.5" PointX="7.5" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.CoachType" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Comment" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.DeliveryStatu" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Invoice" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.ManageFee" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Province" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Rating" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Request" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Route" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Schedule" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Station" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.Trip" Width="1.5" PointX="9.75" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="iDeliverModel.UserInfo" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
-        <AssociationConnector Association="iDeliverModel.FK_Comment_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Rating_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Request_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_UserInfo_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Assigning_Request" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Assigning_Trip" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Coach_CoachType" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Schedule_Coach" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Trip_Coach" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Comment_Station" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Request_DeliveryStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Invoice_ManageFee" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Invoice_Request" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Request_ManageFee" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Station_Province" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Rating_Station" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Request_Station" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Request_Station1" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_EndStation" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Schedule_Route" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_StartStation" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Trip_Route" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.FK_Trip_Schedule" ManuallyRouted="false" />
-        <AssociationConnector Association="iDeliverModel.CoachSchedule" ManuallyRouted="false" />
+      <Diagram DiagramId="20cf8235f65e4251b90188da981be161" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.Account" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Assigning" Width="1.5" PointX="10.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Coach" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.CoachType" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Comment" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.DeliveryStatu" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Invoice" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.ManageFee" Width="1.5" PointX="6" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Province" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Rating" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Request" Width="1.5" PointX="8.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Route" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Schedule" Width="1.5" PointX="7.5" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Station" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Trip" Width="1.5" PointX="9.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.UserInfo" Width="1.5" PointX="8.25" PointY="19.625" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK_Comment_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Rating_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Request_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_UserInfo_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Assigning_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Assigning_Trip" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Coach_CoachType" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Schedule_Coach" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Trip_Coach" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Comment_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Request_DeliveryStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Invoice_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Request_ManageFee" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Station_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Rating_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Request_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Request_Station1" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_EndStation" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Schedule_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_StartStation" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Trip_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Trip_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.CoachSchedule" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -193,7 +193,7 @@ namespace Captone.Controllers
                 foreach (var id in requestIDs)
                 {
                     Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
-                    DateTime arrivedDate = rq.ArrivedDate;
+                    DateTime arrivedDate = (DateTime) rq.ArrivedDate;
                     DateTime currentDate = DateTime.Now.Date;
                     TimeSpan waitTime = currentDate - arrivedDate;
                     if (waitTime.TotalDays == 0 && rq.DeliveryStatusID == 5)

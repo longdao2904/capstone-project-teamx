@@ -96,7 +96,7 @@
                 @if (item.DeliveryStatusID == 8 && item.Type == false)
                 {
                     <td>
-                        <input type="button" value="Chuẩn bị hàng trả" />
+                        <input type="button" value="Chuẩn bị hàng trả" onclick="returnBtn()" />
                     </td>
                 }
             </tr>
@@ -247,7 +247,7 @@
         AutoSet();
     });
 
-    $('#TableRequest').on('click', 'tr td:nth-child(12)', function (event) {
+    function returnBtn() {
         var listRq = [];
         var requestID = document.getElementById("rqID").innerText.trim();
         alert(requestID);
@@ -263,5 +263,5 @@
             success: function (result) {
             }
         });
-    });
+    }
 </script>
