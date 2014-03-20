@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Captone.Models.CoachType>
+
+@{
+    ViewBag.Title = "Các loại xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <p>
+                    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm một loại xe", "Create")
+                </p>
+                <p>
+                    <a href="~/Coach/Index"><i class="fa fa-list-alt"> Danh sách xe </i></a>
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Seats)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Capacity)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Seats)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Capacity)
+                                </td>
+                                <td>
+                                    <a href="/CoachType/Edit/@item.CoachTypeID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/CoachType/Details/@item.CoachTypeID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/CoachType/Delete/@item.CoachTypeID"><i class="fa fa-minus-square fa-fw"></i></a>
+                                </td>
+                            </tr>
+                }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

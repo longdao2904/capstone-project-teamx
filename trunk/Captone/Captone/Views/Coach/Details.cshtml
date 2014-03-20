@@ -1,0 +1,49 @@
+﻿@model Captone.Models.Coach
+
+@{
+    ViewBag.Title = "Thông tin xe";
+}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Chi tiết xe @Model.NumberPlate </legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.NumberPlate)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.NumberPlate)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.RouteID)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.RouteID)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.CoachType.Seats)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.CoachType.Seats)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                <br />
+                <p>
+                    <a href="/Coach/Edit/@Model.CoachID">
+                        <input type="button" class="btn btn-primary" value="Edit" /></a>
+                    <a href="/Coach/Index">
+                        <input type="button" class="btn btn-info" value="Back to list" /></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

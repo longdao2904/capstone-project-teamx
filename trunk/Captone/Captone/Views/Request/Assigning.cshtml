@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Captone.Models.Request>
+
+@{
+    ViewBag.Title = "Xếp lịch vận chuyển";
+}
+
+<div class="col-lg-12">
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Các yêu cầu chưa được xếp lịch</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Account.Username)
+                            </th>
+                            <th class="sorting">
+                                @Html.DisplayNameFor(model => model.ManageFee.Fee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateRequest)
+                            </th>
+                            <th>Route
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+            {
+                            <tr>
+                                @Html.HiddenFor(modelItem => item.RequestID)
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Account.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ManageFee.Fee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateRequest)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Station.StationName)
+                                    - @Html.DisplayFor(modelItem => item.Station1.StationName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DeliveryStatu.StatusName)
+                                </td>
+                            </tr>
+            }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Các chuyến xe chờ để vận chuyển hàng</div>
+            <div class="panel-body"></div>
+        </div>
+    </div>    
+    
+</div>

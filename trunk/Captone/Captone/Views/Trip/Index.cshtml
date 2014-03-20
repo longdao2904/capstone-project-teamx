@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+
+@{
+    ViewBag.Title = "Danh sách chuyến xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <p>
+                    <i class="fa fa-plus-square"></i>@Html.ActionLink(" Tạo một chuyến mới", "Create")
+                </p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                            </th>
+                            @*<th>
+                        @Html.DisplayNameFor(model => model.RealDepartureTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RealArrivalTime)
+                    </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.AvailableVolume)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Route.RouteName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
+                                </td>
+                                @*<td>
+                            @Html.DisplayFor(modelItem => item.RealDepartureTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RealArrivalTime)
+                        </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AvailableVolume)
+                                </td>
+                                <td>
+                                    @item.Date.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Route.RouteName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
+                                </td>
+                                <td>
+                                    <a href="/Trip/Edit/@item.TripID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/Trip/Details/@item.TripID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/Trip/Delete/@item.TripID"><i class="fa fa-minus-square fa-fw"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

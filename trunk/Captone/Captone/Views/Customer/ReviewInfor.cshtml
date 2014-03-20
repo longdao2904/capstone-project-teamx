@@ -1,0 +1,27 @@
+﻿@model Captone.Models.Invoice
+<div class="headerH2">
+        <b><p class="pContent">Payment summary</p></b>
+        <p></p>
+    </div>
+<div class="table-responsive">
+    <table class="table">
+        <th>Khối lượng (kg)
+        </th>
+        <th>Thể tích
+        </th>
+        <th>Giá (VNĐ)
+        </th>
+        <tbody>
+            <td>
+                @Model.Weight
+            </td>
+            <td>
+                @Model.Volume
+            </td>
+            <td>
+                @Model.Price
+            </td>
+        </tbody>
+    </table>
+</div>
+<button class="btn btn-success" style="margin-left: 300px">Xác nhận</button>

@@ -1,0 +1,68 @@
+﻿@model Captone.Models.Route
+
+@{
+    ViewBag.Title = "Chi tiết tuyến";
+}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Thông tin chi tiết tuyến @Model.RouteName</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.RouteName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.RouteName)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Station1.StationName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Station1.StationName)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Station.StationName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Station.StationName)
+                        </div>
+
+                        @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.AvgRateLevel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AvgRateLevel)
+    </div>*@
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Duration)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Distance)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Distance)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                <br />
+                <p>
+                    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Route/Edit/@Model.RouteID    '" />
+                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

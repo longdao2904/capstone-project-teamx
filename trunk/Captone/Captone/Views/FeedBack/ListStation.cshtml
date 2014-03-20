@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Captone.Models.Station>
+<script src="~/Content/js/demo/demo.js"></script>
+<div>
+    <table class="table">
+        <tr>
+            <th>Tên trạm
+            </th>
+            <th>Địa chỉ trạm
+            </th>
+            <th>Liên hệ
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <input type="hidden" value="@item.StationID"/>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="@item.Province">
+
+                    <tr>
+                        <td>@item.StationName</td>
+                        <td>@item.StationLocation</td>
+                        <td>@item.StationPhone</td>
+                        <td>
+                            <div id="inline-popups">
+                                <a href="#test-popup" data-effect="mfp-newspaper" class="js_popup_toggle" onclick="ListComment(@item.StationID);">Góp ý</a>
+                            </div>
+                        </td>
+                    </tr>
+                </div>
+            </div>        
+        }
+    </table>
+</div>
+
+<div id="test-popup" class="white-popup mfp-with-anim mfp-hide"></div>
+<script type="text/javascript">
+
+    $(document).magnificPopup({
+        delegate: '.js_popup_toggle'
+    });
+
+
+    $(document).on('click', '.replace_content', function () {
+        $.magnificPopup.instance.index = 0
+        $.magnificPopup.open({
+            items: {
+                src: '<div class="content">New content</div>'
+            }
+        });
+    });
+
+    function ListComment(id) {
+        $.ajax({
+            url: "/FeedBack/ListComment",
+            type: "POST",
+            data: { station: id },
+            success: function (result) {
+                $("#test-popup").html(result);
+            }
+        });
+    }
+</script>
+
