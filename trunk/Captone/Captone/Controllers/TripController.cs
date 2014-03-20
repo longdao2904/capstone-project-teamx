@@ -192,15 +192,21 @@ namespace Captone.Controllers
             {
                 foreach (var trip in trips)
                 {
-                    DateTime current = DateTime.Now;
-                    if (trip.Date.ToShortDateString() == current.ToShortDateString())
+                    DateTime currentDate = DateTime.Now;
+                    DateTime currentTime = DateTime.Now;
+                    string date = currentDate.ToShortDateString();
+                    string time = currentTime.ToShortTimeString();
+                    Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+                    if (t.Date.ToShortDateString() == date)
                     {
-                        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
-                        t.RealDepartureTime = trip.EstimateDepartureTime;
-                        t.RealArrivalTime = trip.EstimateArrivalTime;
-                        db.Entry(t).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index", "Request");
+                        if (t.EstimateDepartureTime.ToString() == time)
+                        {
+                            t.RealDepartureTime = trip.EstimateDepartureTime;
+                            t.RealArrivalTime = trip.EstimateArrivalTime;
+                            db.Entry(t).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("Index", "Request");
+                        }
                     }
                 }
             }

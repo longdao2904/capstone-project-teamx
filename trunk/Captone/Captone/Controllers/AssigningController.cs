@@ -46,16 +46,19 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return PartialView("ListAssign");
         }
+
         public ActionResult ListTrip(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTrip", list);
         }
+
         public ActionResult GetFromToLocation(int requestId)
         {
             var list = _db.Requests.Where(p => p.RequestID == requestId).ToList();
             return PartialView("GetFromToLocation", list);
         }
+
         [HttpPost]
         [WebMethod]
         public void Accept(List<Request> requestId )

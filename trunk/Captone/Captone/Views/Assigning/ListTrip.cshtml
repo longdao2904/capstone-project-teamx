@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Captone.Models.Assigning>
-
 <table class="table" id="tripTbl">
     <thead>
         <tr>
@@ -33,88 +32,89 @@
                     @item.Trip.Date.ToShortDateString()
                 </td>
                 <td style="display: none;">
-                    <input type="button" value="Cập nhật lịch chạy" id="updateSchedule" /></td>
+                    <input type="button" value="Cập nhật lịch chạy" id="updateSchedule" />
+
+                </td>
             </tr>
         }
     </tbody>
 </table>
 <script>
-    function timePass() {
-        var trips = [];
-        var trip = {
-            EstimateDepartureTime: depart,
-            EstimateArrivalTime: arrive,
-            TripID: tid,
-            Date: date
-        };
-        // Push trip object to collection
-        trips.push(trip);
-        return trips;
-    }
+    //function timePass() {
+    //    var trips = [];
+    //    var trip = {
+    //        EstimateDepartureTime: depart,
+    //        EstimateArrivalTime: arrive,
+    //        TripID: tid,
+    //        Date: date
+    //    };
+    //    // Push trip object to collection
+    //    trips.push(trip);
+    //    return trips;
+    //}
 
-    // Sent trips objects to controller
-    function SentTrip() {
-        var trips = timePass();
-        $.ajax({
-            url: "/Trip/TimePassing",
-            type: "POST",
-            data: JSON.stringify({ trips: trips }),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result) {
-            }
-        });
-    }
+    //// Sent trips objects to controller
+    //function SentTrip() {
+    //    var trips = timePass();
+    //    $.ajax({
+    //        url: "/Trip/TimePassing",
+    //        type: "POST",
+    //        data: JSON.stringify({ trips: trips }),
+    //        contentType: "application/json",
+    //        dataType: "json",
+    //        success: function (result) {
+    //        }
+    //    });
+    //}
 
-    $('#tripTbl').on('click', 'tr td:nth-child(6)', function (event) {
-        var texts = $(this).closest('td').siblings().addBack().map(function () {
-            return $.trim($(this).html());
-        }).get();
-        var depart = texts[1].split(",");
-        var departime = depart[depart.length - 1];
-        var arrive = texts[2].split(",");
-        var arrivetime = arrive[arrive.length - 1];
-        var tid = texts[3].split(",");
-        var tripid = tid[tid.length - 1];
-        var date = texts[4].split(",");
-        var tripdate = date[date.length - 1];
-        var currentdate = new Date();
-        var datetime = currentdate.getDate() + "/"
-                        + (currentdate.getMonth() + 1) + "/"
-                        + currentdate.getFullYear();
+    //$('#tripTbl').on('click', 'tr td:nth-child(6)', function (event) {
+    //    var texts = $(this).closest('td').siblings().addBack().map(function () {
+    //        return $.trim($(this).html())
+    //    }).get();
+    //    var depart = texts[1].split(",");
+    //    var departime = depart[depart.length - 1];
+    //    var arrive = texts[2].split(",");
+    //    var arrivetime = arrive[arrive.length - 1];
+    //    var tid = texts[3].split(",");
+    //    var tripid = tid[tid.length - 1];
+    //    var date = texts[4].split(",");
+    //    var tripdate = date[date.length - 1];
+    //    var currentdate = new Date();
+    //    var datetime = currentdate.getDate() + "/"
+    //                    + (currentdate.getMonth() + 1) + "/"
+    //                    + currentdate.getFullYear();
 
-        var trips = [];
-        var trip = {
-            EstimateDepartureTime: departime,
-            EstimateArrivalTime: arrivetime,
-            TripID: tripid,
-            Date: tripdate
-        };
-     
-        // Push schedule object to collection
-        trips.push(trip);
-        // Sent trips objects to controller
-        $.ajax({
-            url: "/Trip/TimePassing",
-            type: "POST",
-            data: JSON.stringify({ trips: trips }),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result) {
-            }
-        });
-    });
+    //    var trips = [];
+    //    var trip = {
+    //        EstimateDepartureTime: departime,
+    //        EstimateArrivalTime: arrivetime,
+    //        TripID: tripid,
+    //        Date: tripdate
+    //    };
+    //    // Push schedule object to collection
+    //    trips.push(trip);
+    //    // Sent trips objects to controller
+    //    $.ajax({
+    //        url: "/Trip/TimePassing",
+    //        type: "POST",
+    //        data: JSON.stringify({ trips: trips }),
+    //        contentType: "application/json",
+    //        dataType: "json",
+    //        success: function (result) {
+    //        }
+    //    });
+    //});
     
-    window.onload = timer();
+    //window.onload = timer();
 
-    // set timer 3s for auto click
-    function timer() {
-        setTimeout(setTimeout('autoClick();', 900000));
-    }
+    //// set timer 3s for auto click
+    //function timer() {
+    //    setTimeout(setTimeout('autoClick();', 1000));
+    //}
 
-    // auto click button update
-    function autoClick() {
-        document.getElementById('updateSchedule').click();
-    }
+    //// auto click button update
+    //function autoClick() {
+    //    document.getElementById('updateSchedule').click();
+    //}
     
 </script>

@@ -196,7 +196,7 @@ namespace Captone.Controllers
                     DateTime arrivedDate = (DateTime) rq.ArrivedDate;
                     DateTime currentDate = DateTime.Now.Date;
                     TimeSpan waitTime = currentDate - arrivedDate;
-                    if (waitTime.TotalDays == 0 && rq.DeliveryStatusID == 5)
+                    if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
                     {
                         rq.DeliveryStatusID = 8;
                         rq.Type = false;

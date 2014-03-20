@@ -9,8 +9,8 @@
     <script src="~/Content/js/jquery-1.10.2.js"></script>
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
     <script src="~/Content/js/bootstrap.js"></script>
-    
- 
+
+
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
@@ -78,7 +78,7 @@
                     <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
                 </li>
                 <li class="active">
-                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i> Chuyển Phát</a>
+                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
                     @if (Username != null && UserRole == "Customer")
                     {                        
                         <ul class="nav nav-second-level">
@@ -92,7 +92,7 @@
                     }
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-users fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
                     @if (Username == null)
                     {
                         <ul class="nav nav-second-level">
@@ -124,7 +124,7 @@
                 @if (UserRole == "Staff")
                 {
                     <li class="active">
-                        <a href="#"><i class="fa fa-user fa-fw"></i> Quản lý hành trình<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/Coach/Index">Xe</a>
@@ -140,7 +140,7 @@
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
-                        <a href="/Request/Index"><i class="fa fa-tasks"></i> Quản lý yêu cầu vận chuyển</a>
+                        <a href="/Request/Index"><i class="fa fa-tasks"></i>Quản lý yêu cầu vận chuyển</a>
                     </li>
                 }
                 @if (UserRole == "Admin")
@@ -172,7 +172,7 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-map-marker fa-fw"></i> Bản đồ trạm và hành trình
+                        <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -276,19 +276,69 @@
             </div>
         </div>
     </div>
+
     <footer class="footer">
         <div class="container">
             <p class="pull-right"><a href="#">Back to top</a></p>
             <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
         </div>
     </footer>
+
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
+
         $('#myTab a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         });
+
+        // set timer for auto click
+        function timer() {
+            setTimeout(setTimeout('autoClick();', 1000));
+        }
+
+        // auto click button update
+        function autoClick() {
+            if ($('#updateSchedule').click()) {
+                var texts = $('#tripTbl').on('tr td:nth-child(6)').closest('td').siblings().addBack().map(function () {
+                    return $.trim($(this).html())
+                }).get();
+                alert(texts);
+                var depart = texts[1].split(",");
+                var departime = depart[depart.length - 1];
+                var arrive = texts[2].split(",");
+                var arrivetime = arrive[arrive.length - 1];
+                var tid = texts[3].split(",");
+                var tripid = tid[tid.length - 1];
+                var date = texts[4].split(",");
+                var tripdate = date[date.length - 1];
+                var currentdate = new Date();
+                var datetime = currentdate.getDate() + "/"
+                                + (currentdate.getMonth() + 1) + "/"
+                                + currentdate.getFullYear();
+
+                var trips = [];
+                var trip = {
+                    EstimateDepartureTime: departime,
+                    EstimateArrivalTime: arrivetime,
+                    TripID: tripid,
+                    Date: tripdate
+                };
+                // Push trip object to collection
+                trips.push(trip);
+                // Sent trips objects to controller
+                $.ajax({
+                    url: "/Trip/TimePassing",
+                    type: "POST",
+                    data: JSON.stringify({ trips: trips }),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (result) {
+                    }
+                });
+            }
+        }
 
     </script>
 </body>
