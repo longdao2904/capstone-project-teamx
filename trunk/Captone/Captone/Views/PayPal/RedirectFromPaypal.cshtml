@@ -1,19 +1,6 @@
 ﻿@{
     ViewBag.Title = "Thông tin từ Paypal";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <h2 style="color: blue;">Thanh toán thành công</h2>
+    <a href="../Home/Index">Trở về trang chủ</a>
 }
-<h4 style="color: green;">Thanh toán chi phí thành công! Chúng tôi sẽ thông báo cho quý khách qua tin nhắn ngay khi món hàng được chuyển đi.</h4>
-<p align="center"><img src="/Content/img/icon_tick_on.gif"/></p>
-<a href="../Home/Index" style="display: table">Trở về trang chủ</a>
-
-<script type="text/javascript">
-    $.ajax({
-        url: '/Request/UpdateStatusAfterCheckOut',
-        type: "POST",
-        data: $.cookie('requestId'),
-        contentType: 'application/json',
-        success: function(result) {
-        }
-    });
-    
-</script>

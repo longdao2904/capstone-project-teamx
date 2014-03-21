@@ -94,13 +94,35 @@ namespace Captone.Controllers
             request.SenderAddress = col["SenderAddress"];
             request.ReceiverAddress = col["ReceiverAddress"];
             request.SenderPhone = col["SenderPhone"];
-            request.ReceiverPhone = col["ReceiverPhone"];
             request.ReceiverName = col["ReceiverName"];
+            request.ReceiverPhone = col["ReceiverPhone"];
+            request.Type = true;
             request.TypeOfPayment = col["TypeOfPayment"];
+            request.ArrivedDate = null;
+            request.Payment = false;
+            request.RequestCode = RandomString();
             _db.Requests.Add(request);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
+        }
+        protected string RandomString()
+        {
+            string allowedChars = "";
+            allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
+            allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+            allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
+            char[] sep = { ',' };
+            string[] arr = allowedChars.Split(sep);
+            string passwordString = "";
+            string temp = "";
+            Random rand = new Random();
+            for (int i = 0; i < 7; i++)
+            {
+                temp = arr[rand.Next(0, arr.Length)];
+                passwordString += temp;
+            }
+            return passwordString;
         }
 
         public List<Route> SearchRoute(string routes)
@@ -186,16 +208,16 @@ namespace Captone.Controllers
                 return true;
             }
             return false;
-        
+
         }
-  
+
         public ActionResult ListTripTracking(int requestId)
         {
             var tracking = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTripTracking", tracking);
         }
 
-        
+
     }
 }
 

@@ -46,6 +46,7 @@ namespace Captone.Controllers
                 else
                 {
                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    return RedirectToAction("LogOn", "Account");
                 }
             }
 
@@ -55,6 +56,7 @@ namespace Captone.Controllers
 
         public ActionResult LogOff()
         {
+            FormsAuthentication.SignOut();
             Session["USERNAME"] = null;
             Session["UserRole"] = null;
             return RedirectToAction("Index", "Home");

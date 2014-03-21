@@ -14,14 +14,13 @@ html {
 .infor-request {
     margin-left: 170px;
     margin-top: -120px;
-    height: 120px;
 }
 
 .border {
-    margin-left: 200px;
+    margin-left: 100px;
     display: block;
-    width: 320px;
-    height: 300px;
+    width: 500px;
+    height: 370px;
     border: solid;
     border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
     border-width: 1px 2px 2px 1px;
@@ -2105,7 +2104,7 @@ output {
 }
 
 .form-control {
-    width: 150px;
+    width: 350px;
     display: block;
     height: 34px;
     padding: 6px 12px;

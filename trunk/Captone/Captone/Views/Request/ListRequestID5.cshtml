@@ -1,0 +1,107 @@
+﻿    @model IEnumerable<Captone.Models.Request>
+
+<div class="table-responsive" id="requestList">
+    <table class="table" id="TableRequest">
+        <tr>
+            <th>Tên đăng nhập
+            </th>
+            <th>Phí
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>Trạm gửi
+            </th>
+            <th>Trạm nhận
+            </th>
+            <th>
+                <input type="checkbox" id="selectall" value="Select All" /></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.Arrived)
+        {
+            
+            <tr id="request-@item.RequestID">
+                <td style="display: none;" id="rqID">
+                    @item.RequestID
+                </td>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.ManageFee.Fee
+                </td>
+                <td>
+                    @item.DateRequest.ToShortDateString()
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td style="display: none">
+                    @item.FromLocation
+                </td>
+                <td style="display: none">
+                    @item.ToLocation
+                </td>
+                <td style="display: none;">
+                    @item.DeliveryStatusID
+                </td>
+                <td style="display: none;">
+                    @item.FeeID;
+                </td>
+                <td>
+                    @item.Station1.StationName
+                </td>
+                <td>
+                    <input type="checkbox" name="chk" class="case" />
+                </td>
+            </tr>
+        }
+        @if (ViewBag.Arrived != null)
+        {
+            <a href="/Request/Index" class="btn btn-success" onclick="SentObject()">Đã giao hàng</a>
+        }
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+    });
+    //change request status when checkbox 'arrived' checked
+    function updateStt() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+
+    // Sent request collection to controller
+    function SentObject() {
+        var requests = updateStt();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = window.location.href;
+                window.addActive(6);
+            }
+        });
+    }
+</script>

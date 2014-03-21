@@ -105,19 +105,19 @@
                 directionsService.route(request, function (response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         if (record == DrivePath.length - 1) {
-                        if (DrivePath.length == 1) {
-                            if (Date.parse('01/01/2011 ' + timeEndPoint) < Date.parse('01/01/2011 ' + current)) {
+                        if (DrivePath.length == 2) {
+                            if (Date.parse('01/01/2011 ' + timeEndPoint) > Date.parse('01/01/2011 ' + current)) {
                                 var PathStyle0 = new google.maps.Polyline({
                                     path: [DrivePath[0], DrivePath[1]],
                                     map: map,
-                                    strokeColor: '#FFFF00',
+                                    strokeColor: '#000000',
                                     strokeOpacity: 1.0,
                                     strokeWeight: 2
                                 });
                                 PathStyle0.setMap(map);
                             }
                         }
-                        if (check < timeWaypoints.length) {
+                       else if (check < timeWaypoints.length) {
                             for (var y = 0; y < DrivePath.length; y++) {
 
                                 if (Date.parse('01/01/2011 ' + timeWaypoints[check + 1]) < Date.parse('01/01/2011 ' + current)) {
@@ -137,7 +137,7 @@
                                     var PathStyle1 = new google.maps.Polyline({
                                         path: [DrivePath[y], DrivePath[y + 1]],
                                         map: map,
-                                        strokeColor: color[y + 1],
+                                        strokeColor: color2[y + 1],
                                         strokeOpacity: 1.0,
                                         strokeWeight: 2
                                     });

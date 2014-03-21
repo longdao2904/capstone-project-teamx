@@ -118,8 +118,8 @@
                             <br />
                             <select name="TypeOfPayment" id="" class="form-control">
                                 <option></option>
-                                <option value="">Thanh toán trực tiếp</option>
-                                <option value="">Thanh toán online</option>
+                                <option value="Thanh toán trực tiếp">Thanh toán trực tiếp</option>
+                                <option value="Thanh toán online">Thanh toán online</option>
                             </select>
                         </div>
                     </div>
@@ -300,7 +300,7 @@
         var dis = [];
         var str = document.getElementById('AddressOfSender').value;
         var sender = str.split(",");
-        alert(sender[sender.length - 1]);
+    
         $.ajax({
             url: "/Home/GetAddressStation",
             contentType: "application/json",

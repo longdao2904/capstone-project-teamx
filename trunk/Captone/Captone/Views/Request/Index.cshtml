@@ -30,9 +30,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div id="dataTables-example_filter" class="dataTables_filter">
-                                <input type="search" placeholder="Tìm kiếm" class="form-control input-sm" aria-controls="dataTables-example" style="float: right">
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -67,6 +65,12 @@
                 $("#request").html(result);
                 $("#assigning").html("");
                 }
+                var oTable = $('#TableRequest').dataTable();
+
+                var keys = new KeyTable({
+                    "table": document.getElementById('TableRequest'),
+                    "datatable": oTable
+                });
             }
         });
     }

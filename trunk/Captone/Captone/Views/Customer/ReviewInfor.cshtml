@@ -1,45 +1,33 @@
-﻿@model Captone.Models.InvoiceModel
-
+﻿@model Captone.Models.Invoice
 <div class="headerH2">
         <b><p class="pContent">Payment summary</p></b>
         <p></p>
     </div>
-<div class="table-responsive" >
+<div class="table-responsive">
     <table class="table">
-        <tr style="background-color: aquamarine">
-        <th>Mã giao dịch
-        </th>
-        <th>Khách hàng
+        <th>
+            Mã code
         </th>
         <th>Khối lượng (kg)
         </th>
-        <th>Thể tích (m3)
+        <th>Thể tích
         </th>
-        <th>Đơn giá (VNĐ)
+        <th>Giá (VNĐ)
         </th>
-        <th>Ngày giao dịch
-        </th>
-        </tr>
         <tbody>
             <td>
                 @Model.Request.RequestCode
             </td>
             <td>
-                @Model.Request.ReceiverName
+                @Model.Weight
             </td>
             <td>
-                @Model.Invoice.Weight
+                @Model.Volume
             </td>
             <td>
-                @Model.Invoice.Volume
-            </td>
-            <td>
-                @Model.Invoice.Price
-            </td>
-            <td>
-                @DateTime.Now
+                @Model.Price
             </td>
         </tbody>
     </table>
 </div>
-<img src="~/Content/img/paypal.png" style="height: 30px; width: 150px" onclick="window.location.href='../Paypal/ValidateCommand'" title="Bấm vào để đến trang thanh toán"/>
+<button class="btn btn-success" style="margin-left: 300px">Xác nhận</button>

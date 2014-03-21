@@ -25,7 +25,7 @@ namespace Captone.Controllers
 
         //
         // POST: /Trip/ListTrip
-
+        [HttpPost]
         public ActionResult ListTrip(DateTime tripDate)
         {
             var trips = db.Trips.Where(t => t.Date == tripDate);
@@ -175,6 +175,7 @@ namespace Captone.Controllers
                     var tripId = item.Value[i].TripID;
                     ass.TripID = tripId;
                     ass.IndicateOrder = i + 1;
+                    ass.AssignedDate = DateTime.Now;
                     var req = db.Requests.Where(p => p.RequestID == requestId).Single();
                     req.DeliveryStatusID = 3;
                     db.Assignings.Add(ass);
@@ -192,21 +193,15 @@ namespace Captone.Controllers
             {
                 foreach (var trip in trips)
                 {
-                    DateTime currentDate = DateTime.Now;
-                    DateTime currentTime = DateTime.Now;
-                    string date = currentDate.ToShortDateString();
-                    string time = currentTime.ToShortTimeString();
-                    Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
-                    if (t.Date.ToShortDateString() == date)
+                    DateTime current = DateTime.Now;
+                    if (trip.Date.ToShortDateString() == current.ToShortDateString())
                     {
-                        if (t.EstimateDepartureTime.ToString() == time)
-                        {
-                            t.RealDepartureTime = trip.EstimateDepartureTime;
-                            t.RealArrivalTime = trip.EstimateArrivalTime;
-                            db.Entry(t).State = EntityState.Modified;
-                            db.SaveChanges();
-                            return RedirectToAction("Index", "Request");
-                        }
+                        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+                        t.RealDepartureTime = trip.EstimateDepartureTime;
+                        t.RealArrivalTime = trip.EstimateArrivalTime;
+                        db.Entry(t).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Request");
                     }
                 }
             }

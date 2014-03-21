@@ -1,4 +1,5 @@
-﻿using Captone.Models;
+﻿using System.Web.Services;
+using Captone.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +11,7 @@ namespace Captone.Controllers
 {
     public class RequestController : Controller
     {
-        private iDeliverEntities db = new iDeliverEntities();
+        private readonly iDeliverEntities _db = new iDeliverEntities();
 
         #region CRUD
         //
@@ -19,15 +20,50 @@ namespace Captone.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.Status = db.DeliveryStatus.ToList();
-            var requests = db.Requests.Include(r => r.Account).Include(r => r.DeliveryStatu).Include(r => r.ManageFee).Include(r => r.Station).Include(r => r.Station1);
+            ViewBag.Status = _db.DeliveryStatus.ToList();
+            var requests = _db.Requests.Include(r => r.Account).Include(r => r.DeliveryStatu).Include(r => r.ManageFee).Include(r => r.Station).Include(r => r.Station1);
             return View(requests.ToList());
         }
 
         public ActionResult ListRequest(int sttID)
         {
-            var request = db.Requests.Where(r => r.DeliveryStatusID == sttID);
-            return PartialView("ListRequest", request.ToList());
+            if (sttID == 1)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                return PartialView("ListRequest", request.ToList());
+            }
+            else if (sttID == 2)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                return PartialView("ListRequestID2", request.ToList());
+            }
+            else if (sttID == 4)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                ViewBag.Transitted = request.ToList();
+                return PartialView("ListRequestID4");
+            }
+            else if (sttID == 5)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                ViewBag.Arrived = request.ToList();
+                return PartialView("ListRequestID5");
+            }
+            else if (sttID == 6)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                ViewBag.Delivered = request.ToList();
+                return PartialView("ListRequestID6");
+            }
+            else if (sttID == 7)
+            {
+                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+                ViewBag.Cancelled = request.ToList();
+                return PartialView("ListRequestID7");
+            }
+            var finalRequest = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
+            ViewBag.Expired = finalRequest.ToList();
+            return PartialView("ListRequestID8");
         }
 
         //
@@ -35,7 +71,7 @@ namespace Captone.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Request request = db.Requests.Find(id);
+            Request request = _db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
@@ -82,16 +118,16 @@ namespace Captone.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Request request = db.Requests.Find(id);
+            Request request = _db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
-            ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "Fee", request.FeeID);
-            ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
-            ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
+            ViewBag.Username = new SelectList(_db.Accounts, "Username", "Password", request.Username);
+            ViewBag.DeliveryStatusID = new SelectList(_db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
+            ViewBag.FeeID = new SelectList(_db.ManageFees, "FeeID", "Fee", request.FeeID);
+            ViewBag.FromLocation = new SelectList(_db.Stations, "StationID", "StationName", request.FromLocation);
+            ViewBag.ToLocation = new SelectList(_db.Stations, "StationID", "StationName", request.ToLocation);
             return View(request);
         }
 
@@ -103,15 +139,15 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(request).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(request).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
-            ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-            ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "Fee", request.FeeID);
-            ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
-            ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
+            ViewBag.Username = new SelectList(_db.Accounts, "Username", "Password", request.Username);
+            ViewBag.DeliveryStatusID = new SelectList(_db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
+            ViewBag.FeeID = new SelectList(_db.ManageFees, "FeeID", "Fee", request.FeeID);
+            ViewBag.FromLocation = new SelectList(_db.Stations, "StationID", "StationName", request.FromLocation);
+            ViewBag.ToLocation = new SelectList(_db.Stations, "StationID", "StationName", request.ToLocation);
             return View(request);
         }
 
@@ -121,7 +157,7 @@ namespace Captone.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Request request = db.Requests.Find(id);
+            Request request = _db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
@@ -132,33 +168,30 @@ namespace Captone.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Request request = db.Requests.Find(id);
-            db.Requests.Remove(request);
-            db.SaveChanges();
+            Request request = _db.Requests.Find(id);
+            _db.Requests.Remove(request);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
         #endregion
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
 
+        #region Update request status and prepare for return
         public Boolean ChangeStatus(int requestID)
         {
-            Request request = db.Requests.Where(p => p.RequestID == requestID).Single();
-            if (request != null)
-            {
-                request.DeliveryStatusID = 2;
-                db.SaveChanges();
-                return true;
-            }
-            else
+            Request request = _db.Requests.Single(p => p.RequestID == requestID);
+            if (request == null)
             {
                 return false;
             }
-
+            request.DeliveryStatusID = 2;
+            _db.SaveChanges();
+            return true;
         }
 
         // Update request status
@@ -168,29 +201,21 @@ namespace Captone.Controllers
             {
                 foreach (var id in requestIDs)
                 {
-                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
-                    if (rq.DeliveryStatusID == 4)
+                    Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
+                    if (rq != null && rq.DeliveryStatusID == 4)
                     {
                         rq.DeliveryStatusID = 5;
                         rq.ArrivedDate = DateTime.Now.Date;
                     }
-                    else if (rq.DeliveryStatusID == 5)
+                    else if (rq != null && rq.DeliveryStatusID == 5)
                     {
                         rq.DeliveryStatusID = 6;
                     }
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return true;
                 }
             }
             return false;
-        }
-
-        public Boolean UpdateStatusAfterCheckOut(int requestId)
-        {
-            Request request = db.Requests.Where(r => r.RequestID == requestId).FirstOrDefault();
-            request.DeliveryStatusID = 3;
-            db.SaveChanges();
-            return true;
         }
 
         // Auto set request status to 'Đã hết hạn - 8' if delivery date was late 2 days
@@ -200,16 +225,22 @@ namespace Captone.Controllers
             {
                 foreach (var id in requestIDs)
                 {
-                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
-                    DateTime arrivedDate = (DateTime) rq.ArrivedDate;
-                    DateTime currentDate = DateTime.Now.Date;
-                    TimeSpan waitTime = currentDate - arrivedDate;
-                    if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
+                    Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
+                    if (rq != null)
                     {
-                        rq.DeliveryStatusID = 8;
-                        rq.Type = false;
-                        db.SaveChanges();
-                        return true;
+                        if (rq.ArrivedDate != null)
+                        {
+                            var arrivedDate = (DateTime)rq.ArrivedDate;
+                            DateTime currentDate = DateTime.Now.Date;
+                            TimeSpan waitTime = currentDate - arrivedDate;
+                            if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
+                            {
+                                rq.DeliveryStatusID = 8;
+                                rq.Type = false;
+                                _db.SaveChanges();
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -223,19 +254,23 @@ namespace Captone.Controllers
             {
                 foreach (var id in listRequest)
                 {
-                    Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
-                    Invoice inv = db.Invoices.Where(i => i.RequestID == id).FirstOrDefault();
-                    inv.Price = rq.ManageFee.Fee * 0.8;
-                    int oldStation = rq.FromLocation;
-                    rq.FromLocation = rq.ToLocation;
-                    rq.ToLocation = oldStation;
-                    rq.DeliveryStatusID = 2;
-                    rq.DateRequest = DateTime.Now.Date;
-                    db.SaveChanges();
+                    Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
+                    Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == id);
+                    if (rq != null)
+                    {
+                        if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
+                        var oldStation = rq.FromLocation;
+                        rq.FromLocation = rq.ToLocation;
+                        rq.ToLocation = oldStation;
+                        rq.DeliveryStatusID = 2;
+                        rq.DateRequest = DateTime.Now.Date;
+                    }
+                    _db.SaveChanges();
                     return true;
                 }
             }
             return false;
         }
+        #endregion
     }
 }

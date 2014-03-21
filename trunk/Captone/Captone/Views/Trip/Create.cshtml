@@ -25,7 +25,7 @@
                                 @Html.LabelFor(model => model.Date)
                             </div>
                             <div class="editor-field">
-                                <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value)" />
+                                <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value);" />
                                 @Html.ValidationMessageFor(model => model.Date)
                             </div>
 
@@ -57,9 +57,6 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
 <script type="text/javascript">
     window.onload = initialize();
 
@@ -73,7 +70,7 @@
     function listTrip(value) {
         $.ajax({
             url: "/Trip/ListTrip",
-            type: "Post",
+            type: "POST",
             data: { tripDate: value },
             success: function (result) {
                 $("#samedateTrip").html(result);
@@ -97,7 +94,7 @@
     });
 
     function DatePicker() {
-        $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" });
+        $("#datepicker").datepicker({ dateFormat: "yy/mm/dd" });
     };
 
     // Get schedule objects

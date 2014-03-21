@@ -1,0 +1,118 @@
+﻿<div class="table-responsive" id="requestList">
+    <table class="table" id="TableRequest">
+        <tr>
+            <th>Tên đăng nhập
+            </th>
+            <th>Phí
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>Trạm gửi
+            </th>
+            <th>Trạm nhận
+            </th>
+            <th>Trạng thái
+            </th>
+            <th>
+                <input type="checkbox" id="selectall" value="Select All" /></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            
+            <tr id="request-@item.RequestID">
+                <td style="display: none;" id="rqID">
+                    @item.RequestID
+                </td>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.ManageFee.Fee
+                </td>
+                <td>
+                    @item.DateRequest
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td style="display: none">
+                    @item.FromLocation
+                </td>
+                <td style="display: none">
+                    @item.ToLocation
+                </td>
+                <td style="display: none;">
+                    @item.DeliveryStatusID
+                </td>
+                <td style="display: none;">
+                    @item.FeeID;
+                </td>
+                <td>
+                    @item.Station1.StationName
+                </td>
+                <td>
+                    @item.DeliveryStatu.StatusName
+                </td>
+                <td>
+                    <input type="checkbox" name="Requests" class="case" />
+                </td>
+            </tr>
+        }
+        <a href="/Request/Index" class="btn" onclick="Assign();">Xếp Lịch</a>
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });
+    function getRequestSingle() {
+        var request = [];
+        $('[name="Requests"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            alert("aaa");
+            var emp = {
+                // we start at 2 because the first one is the checkbox
+                // also it would be easier if you have an id for each of the column
+                // and do this row.find('#idCol') / row.find('#nameCol')
+                RequestID: row.find('td:nth-child(1)').text(),
+                Username: row.find('td:nth-child(2)').text(),
+                ManageFee: row.find('td:nth-child(3)').text(),
+                DateRequest: row.find('td:nth-child(4)').text(),
+                Station: row.find('td:nth-child(5)').text(),
+                FromLocation: row.find('td:nth-child(6)').text(),
+                ToLocation: row.find('td:nth-child(7)').text(),
+                DeliveryStatusID: row.find('td:nth-child(8)').text()
+            };
+            request.push(emp);
+            // SentObject(request);
+        });
+        return request;
+    }
+    function Assign() {
+        var request = getRequestSingle();
+        //   var trip = getTripMul();
+        alert("aaa");
+        $.ajax({
+            url: "/Trip/Assigning",
+            type: "POST",
+            data: JSON.stringify({ request: request }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+</script>
