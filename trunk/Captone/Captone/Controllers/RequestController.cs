@@ -30,8 +30,8 @@ namespace Captone.Controllers
             if (sttID == 1)
             {
                 var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                return PartialView("ListRequest", request.ToList());
-            }
+            return PartialView("ListRequest", request.ToList());
+        }
             else if (sttID == 2)
             {
                 var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
@@ -189,11 +189,10 @@ namespace Captone.Controllers
             {
                 return false;
             }
-            request.DeliveryStatusID = 2;
+                request.DeliveryStatusID = 2;
             _db.SaveChanges();
-            return true;
-        }
-
+                return true;
+            }
         // Update request status
         public Boolean UpdateStatus(List<int> requestIDs)
         {
@@ -217,6 +216,14 @@ namespace Captone.Controllers
             }
             return false;
         }
+        [HttpPost]
+        public Boolean UpdateStatusAfterCheckOut(int requestId)
+        {
+            Request request = _db.Requests.Where(r => r.RequestID == requestId).FirstOrDefault();
+            request.Payment = true;
+            _db.SaveChanges();
+            return true;
+        }
 
         // Auto set request status to 'Đã hết hạn - 8' if delivery date was late 2 days
         public Boolean AutoSet(List<int> requestIDs)
@@ -231,17 +238,17 @@ namespace Captone.Controllers
                         if (rq.ArrivedDate != null)
                         {
                             var arrivedDate = (DateTime)rq.ArrivedDate;
-                            DateTime currentDate = DateTime.Now.Date;
-                            TimeSpan waitTime = currentDate - arrivedDate;
-                            if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
-                            {
-                                rq.DeliveryStatusID = 8;
-                                rq.Type = false;
+                    DateTime currentDate = DateTime.Now.Date;
+                    TimeSpan waitTime = currentDate - arrivedDate;
+                    if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
+                    {
+                        rq.DeliveryStatusID = 8;
+                        rq.Type = false;
                                 _db.SaveChanges();
-                                return true;
-                            }
-                        }
+                        return true;
                     }
+                }
+            }
                 }
             }
             return false;
@@ -260,10 +267,10 @@ namespace Captone.Controllers
                     {
                         if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
                         var oldStation = rq.FromLocation;
-                        rq.FromLocation = rq.ToLocation;
-                        rq.ToLocation = oldStation;
-                        rq.DeliveryStatusID = 2;
-                        rq.DateRequest = DateTime.Now.Date;
+                    rq.FromLocation = rq.ToLocation;
+                    rq.ToLocation = oldStation;
+                    rq.DeliveryStatusID = 2;
+                    rq.DateRequest = DateTime.Now.Date;
                     }
                     _db.SaveChanges();
                     return true;

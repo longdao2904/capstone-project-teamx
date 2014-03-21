@@ -7,16 +7,20 @@
 
 <div class="col-lg-8">
     <div id="review">
-        
     </div>
     <b><p class="pContent">Thông tin hóa đơn</p></b>
     <p></p>
-    <div class="border">
+    <div class="border" style="height: 500px">
         <div style="margin-left: 70px;margin-top: 25px;" >
-                <div class="each-field">
-                Mã code
+            <div class="each-field">
+                Mã giao dịch
                 <br />
-                <input type="text" name="RequestCode" id="RequestCode" class="form-control" value="@Model.Request.RequestCode"/>
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Request.RequestCode" readonly="readonly"/>
+            </div>
+            <div class="each-field">
+                Khách hàng
+                <br />
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Request.Username" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Khối lượng món hàng (kg)
@@ -30,10 +34,14 @@
             </div>
             <div class="each-field">
                 Giá món hàng (VNĐ)
-                <br />
                 <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price"/>
             </div>
-            <button class="btn btn-success" id="@Model.RequestID" style="margin-left: 130px"onclick="Review(this.id)">Hoàn tất</button>
+            <div class="each-field">
+                Ngày thanh toán
+                <input type="text" name="Price" id="Price" class="form-control" value="@DateTime.Now.Date" readonly="readonly"/>
+            </div>
+            <button class="btn btn-success" id="@Model.Request.RequestID" onclick="window.location.href='/Customer/ReviewInfor?RequestID=@Model.Request.RequestID'">Hoàn tất</button>
+            <button class="btn btn-success" onclick="window.location.href='/Customer/Index'">Hủy bỏ</button>
         </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
-﻿using System.Web.Services;
+﻿using System.Web;
+using System.Web.Services;
 using Captone.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Captone.Controllers
     public class CustomerController : Controller
     {
         iDeliverEntities _db = new iDeliverEntities();
+
+
         public ActionResult Index()
         {
             var username = Session["USERNAME"];
@@ -22,10 +25,21 @@ namespace Captone.Controllers
             var single = _db.Invoices.Where(p => p.RequestID == RequestID).Single();
             return View(single);
         }
-        public ActionResult ReviewInfor(int RequestID)
+        [HttpGet]
+        public ActionResult ReviewInfor(int requestID)
         {
-            var single = _db.Invoices.Where(p => p.RequestID == RequestID).Single();
-            return PartialView(single);
+            var cookie = new HttpCookie("requestId");
+            cookie.Value = requestID.ToString();
+            Response.Cookies.Add(cookie);
+            var single = _db.Invoices.SingleOrDefault(p => p.RequestID == requestID);
+            var req = _db.Requests.SingleOrDefault(p => p.RequestID == requestID);
+
+            var ret = new InvoiceModel
+                {
+                    Invoice = single,
+                    Request = req
+                };
+            return View(ret);
         }
     }
 }

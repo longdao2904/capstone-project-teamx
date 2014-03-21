@@ -490,6 +490,7 @@
     <Content Include="Content\js\hideshow.js" />
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery.bpopup.min.js" />
+    <Content Include="Content\js\jquery.cookie.js" />
     <Content Include="Content\js\PieChart\exporting.js" />
     <Content Include="Content\js\PieChart\highcharts.js" />
     <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
