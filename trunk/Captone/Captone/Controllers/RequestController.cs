@@ -182,6 +182,7 @@ namespace Captone.Controllers
         }
 
         #region Update request status and prepare for return
+        // Change status from 1 to 2 - Wating to Approved
         public Boolean ChangeStatus(int requestID)
         {
             Request request = _db.Requests.Single(p => p.RequestID == requestID);
@@ -209,6 +210,7 @@ namespace Captone.Controllers
                     else if (rq != null && rq.DeliveryStatusID == 5)
                     {
                         rq.DeliveryStatusID = 6;
+                        rq.Type = true;
                     }
                     _db.SaveChanges();
                     return true;
@@ -226,6 +228,8 @@ namespace Captone.Controllers
         }
 
         // Auto set request status to 'Đã hết hạn - 8' if delivery date was late 2 days
+        [HttpPost]
+        [WebMethod]
         public Boolean AutoSet(List<int> requestIDs)
         {
             if (requestIDs != null)

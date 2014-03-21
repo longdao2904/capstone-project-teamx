@@ -10,7 +10,7 @@
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
     <script src="~/Content/js/bootstrap.js"></script>
 
- 
+
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
@@ -49,24 +49,19 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <ul class="nav navbar-top-links navbar-right" style="margin-right: 20%; margin-top: 2%;">
-                        <div class="dropdown-toggle" data-toggle="dropdown">
-                            @if (Username != null)
-                            {
-                                string username = Username.ToUpper();
-                                <i class="fa fa-user fa-fw"></i> @username
-                                <a href="/Home/LogOff">| Đăng xuất <i class="fa fa-sign-out"></i></a>
-                            }
-                            else
-                            {
-                                <a href="/Account/Login"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
-                            }
-                        </div>
-                        <!-- /.dropdown -->
-                    </ul>
+                    <div class="nav navbar-top-links navbar-right" style="margin-right: 20%; margin-top: 2%;">
+                        @if (Username != null)
+                        {
+                            string username = Username.ToUpper();
+                            <i class="fa fa-user fa-fw"></i> @username
+                            <a href="/Account/LogOff">| Đăng xuất <i class="fa fa-sign-out"></i></a>
+                        }
+                        else
+                        {
+                            <a href="/Account/LogOn"><i class="fa fa-sign-in fa-fw"></i> Đăng nhập</a>
+                        }
+                    </div>
                 </div>
-                <!-- /.navbar-top-links -->
-
             </nav>
         </div>
     </div>
@@ -78,7 +73,7 @@
                     <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
                 </li>
                 <li class="active">
-                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i> Chuyển Phát</a>
+                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
                     @if (Username != null && UserRole == "Customer")
                     {                        
                         <ul class="nav nav-second-level">
@@ -92,7 +87,7 @@
                     }
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-users fa-fw"></i> Người dùng<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
                     @if (Username == null)
                     {
                         <ul class="nav nav-second-level">
@@ -124,7 +119,7 @@
                 @if (UserRole == "Staff")
                 {
                     <li class="active">
-                        <a href="#"><i class="fa fa-user fa-fw"></i> Quản lý hành trình<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/Coach/Index">Xe</a>
@@ -143,7 +138,7 @@
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
-                        <a href="/Request/Index"><i class="fa fa-tasks"></i> Quản lý yêu cầu vận chuyển</a>
+                        <a href="/Request/Index"><i class="fa fa-tasks"></i>Quản lý yêu cầu vận chuyển</a>
                     </li>
                 }
                 @if (UserRole == "Admin")
@@ -175,7 +170,7 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-map-marker fa-fw"></i> Bản đồ trạm và hành trình
+                        <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">

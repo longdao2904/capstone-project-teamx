@@ -104,4 +104,44 @@
             }
         });
     }
+
+    // get request ids from checkbox checked
+    function getRequests() {
+        //var listRq = [];
+        //$('[name="chk"]:checked').each(function () {
+        //    var row = $(this).closest('tr');
+        //    var rq = document.getElementById("rqID").innerText;
+        //    alert(rq);
+        //    // Push request object to collection
+        //    listRq.push(rq);
+        //});
+        var list = [];
+        var requestIDs = [];
+        $("#TableRequest tr").each(function () {
+            var id = $(this).find("td:first").text();
+            list.push(id);                              //put elements into array
+        });
+        for (var i = 1, l = list.length; i < l; i++) {
+            requestIDs.push(list[i]);
+        }
+        return requestIDs;
+    }
+
+    // Auto set request status from 6 to 8 to 'Đã hết trạm - Đã hết hạn' & type to 'false' for return
+    function AutoSet() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/AutoSet",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+
+    window.onload = AutoSet();
+
+    // Activate auto set request status when 'Arrived' tab load
 </script>

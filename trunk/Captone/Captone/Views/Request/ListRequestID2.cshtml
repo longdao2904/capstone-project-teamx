@@ -82,7 +82,6 @@
         var request = [];
         $('[name="Requests"]:checked').each(function () {
             var row = $(this).closest('tr');
-            alert("aaa");
             var emp = {
                 // we start at 2 because the first one is the checkbox
                 // also it would be easier if you have an id for each of the column
@@ -104,7 +103,6 @@
     function Assign() {
         var request = getRequestSingle();
         //   var trip = getTripMul();
-        alert("aaa");
         $.ajax({
             url: "/Trip/Assigning",
             type: "POST",

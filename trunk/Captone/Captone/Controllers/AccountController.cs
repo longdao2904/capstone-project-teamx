@@ -111,7 +111,7 @@ namespace Captone.Controllers
             info.Address = col["Address"];
             _db.UserInfoes.Add(info);
             _db.SaveChanges();
-            return RedirectToAction("SuccessRegister", "Account");
+            return RedirectToAction("SentRequestForm", "Home");
         }
 
         protected override void Dispose(bool disposing)
