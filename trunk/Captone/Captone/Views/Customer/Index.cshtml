@@ -9,12 +9,17 @@
         @foreach (var item in Model)
         {
             <img src="~/Content/img/images.jpg" style="height: 150px;" />
-
             <div class="infor-request">
-                <a class="btn btn-default" href="/Customer/InputPayment?RequestID=@item.RequestID"><i class="fa fa-user fa-3x"></i>  @item.Username <br />
-                     @item.Station.StationName -----> @item.Station1.StationName
-                    </a>
+                <a class="btn btn-default" href="/Customer/InputPayment?RequestID=@item.RequestID" title="Bấm vào để thanh toán"><i class="fa fa-user fa-3x"></i>   @item.Username<br />
+                - Tuyến hàng gửi: @item.Station.StationName -----> @item.Station1.StationName<br/>
+                - Ngày gửi yêu cầu: @item.DateRequest
+                </a>
             </div>
         }
     </div>
+    <table border="0" cellpadding="10" cellspacing="0" align="center" padding-top="150"><tr><td align="center"></td></tr>
+    <tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" 
+                              onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no,location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
+         <img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/Security_Banner_234x60_4a.gif" border="0" alt="PayPal Logo">
+          </a></td></tr></table>
 </div>

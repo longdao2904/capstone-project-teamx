@@ -16,19 +16,20 @@
             <div class="each-field">
                 Khối lượng món hàng (kg)
                 <br />
-                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Weight"/>
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Weight" readonly="readonly"/>
             </div>
             <div class="each-field">
-                Thể tích món hàng
+                Thể tích món hàng (m3)
                 <br />
-                <input type="text" name="Volume" id="Volume"  class="form-control" value="@Model.Volume"/>
+                <input type="text" name="Volume" id="Volume"  class="form-control" value="@Model.Volume" readonly="readonly"/>
             </div>
             <div class="each-field">
-                Giá món hàng (VNĐ)
+                Giá vận chuyển (VNĐ)
                 <br />
-                <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price"/>
+                <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price" readonly="readonly"/>
             </div>
-            <button class="btn btn-success" id="@Model.RequestID" style="margin-left: 50px"onclick="Review(this.id)">Hoàn tất</button>
+            <button class="btn btn-success" id="@Model.RequestID" onclick="window.location.href='/Customer/ReviewInfor?RequestID=@Model.RequestID'">Hoàn tất</button>
+            <button class="btn btn-success" id="@Model.RequestID" onclick="window.location.href='/Customer/Index'">Hủy bỏ</button>
         </div>
         </div>
     </div>

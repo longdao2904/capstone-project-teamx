@@ -14,6 +14,8 @@ namespace Captone.Models
         public string item_name { get; set; }
         public string amount { get; set; }
         public string actionURL { get; set; }
+        public Invoice Invoice { get; set; }
+        public Request Request { get; set; }
 
         public PayPalModel(bool useSandbox)
         {

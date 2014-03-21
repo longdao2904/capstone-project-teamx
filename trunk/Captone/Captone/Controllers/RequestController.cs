@@ -185,6 +185,14 @@ namespace Captone.Controllers
             return false;
         }
 
+        public Boolean UpdateStatusAfterCheckOut(int requestId)
+        {
+            Request request = db.Requests.Where(r => r.RequestID == requestId).FirstOrDefault();
+            request.DeliveryStatusID = 3;
+            db.SaveChanges();
+            return true;
+        }
+
         // Auto set request status to 'Đã hết hạn - 8' if delivery date was late 2 days
         public Boolean AutoSet(List<int> requestIDs)
         {
