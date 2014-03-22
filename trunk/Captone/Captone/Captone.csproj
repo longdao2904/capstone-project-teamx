@@ -475,7 +475,7 @@
     <Content Include="Content\Images\step-first.png" />
     <Content Include="Content\Images\step-second.png" />
     <Content Include="Content\Images\step-third.png" />
-    <Content Include="Content\img\cancelled.jpg" />
+    <Content Include="Content\img\cancelled.png" />
     <Content Include="Content\img\icon_tick_on.gif" />
     <Content Include="Content\img\images.jpg" />
     <Content Include="Content\img\loader.gif" />

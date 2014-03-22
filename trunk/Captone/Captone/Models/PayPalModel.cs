@@ -10,13 +10,9 @@ namespace Captone.Models
         public string @return { get; set; }
         public string cancel_return { get; set; }
         public string notify_url { get; set; }
-        public string currency_code { get; set; }
+        public string actionURL { get; set; }
         public string item_name { get; set; }
         public string amount { get; set; }
-        public string actionURL { get; set; }
-        public Invoice Invoice { get; set; }
-        public Request Request { get; set; }
-
         public PayPalModel(bool useSandbox)
         {
             this.cmd = "_xclick";
@@ -33,8 +29,7 @@ namespace Captone.Models
             }
             // We can add parameters here, for example OrderId, CustomerId, etc....
             this.notify_url = ConfigurationManager.AppSettings["notify_url"];
-            // We can add parameters here, for example OrderId, CustomerId, etc....
-            this.currency_code = ConfigurationManager.AppSettings["currency_code"];
+
         }
     }
 }

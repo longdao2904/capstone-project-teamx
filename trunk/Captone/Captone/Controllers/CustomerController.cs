@@ -22,7 +22,7 @@ namespace Captone.Controllers
         }
         public ActionResult InputPayment(int RequestID)
         {
-            var single = _db.Invoices.Where(p => p.RequestID == RequestID).Single();
+            var single = _db.Invoices.SingleOrDefault(p => p.RequestID == RequestID);
             return View(single);
         }
         [HttpGet]

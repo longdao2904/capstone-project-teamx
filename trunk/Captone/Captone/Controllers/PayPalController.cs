@@ -12,13 +12,12 @@ namespace Captone.Controllers
     public class PayPalController : Controller
     {
         //[Authorize(Roles="Customers")]
-        public ActionResult ValidateCommand(string product, string totalPrice)
+        public ActionResult ValidateCommand(string item_name, string amount)
         {
             bool useSandbox = Convert.ToBoolean(ConfigurationManager.AppSettings["IsSandbox"]);
             var paypal = new PayPalModel(useSandbox);
-
-            paypal.item_name = product;
-            paypal.amount = totalPrice;
+            paypal.amount = amount;
+            paypal.item_name = item_name;
             return View(paypal);
         }
 
