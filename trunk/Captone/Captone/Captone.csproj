@@ -324,6 +324,9 @@
     <Content Include="bin\Captone.dll" />
     <Content Include="bin\Captone.pdb" />
     <Content Include="Content\Css\admin.css" />
+    <Content Include="Content\Css\admin\animate.css" />
+    <Content Include="Content\Css\admin\reset.css" />
+    <Content Include="Content\Css\admin\styles.css" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\ie.css" />
@@ -475,7 +478,9 @@
     <Content Include="Content\Images\step-first.png" />
     <Content Include="Content\Images\step-second.png" />
     <Content Include="Content\Images\step-third.png" />
+    <Content Include="Content\img\Administrator-icon.png" />
     <Content Include="Content\img\cancelled.png" />
+    <Content Include="Content\img\curved-road-on-white.jpg" />
     <Content Include="Content\img\icon_tick_on.gif" />
     <Content Include="Content\img\images.jpg" />
     <Content Include="Content\img\loader.gif" />
@@ -918,6 +923,7 @@
     <Content Include="Views\Fee\Details.cshtml" />
     <Content Include="Views\Fee\Edit.cshtml" />
     <Content Include="Views\Fee\Index.cshtml" />
+    <Content Include="Views\Admin\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
