@@ -16,12 +16,8 @@
     @Html.HiddenFor(model => model.item_name)
     @Html.HiddenFor(model => model.amount)
     </form>
-
-    <p>
-        <h3>
-            Đang chuyển đến Paypal, vui lòng chờ...
-        </h3>
-    </p>
+    <h4 style="color: green">Đang chuyển đến trang thanh toán Paypal, vui lòng chờ...</h4>
+    <p align="center"><img src="~/Content/img/LoadingProgressBar.gif"/></p>
 </body>
  @Scripts.Render("~/bundles/jquery")
 

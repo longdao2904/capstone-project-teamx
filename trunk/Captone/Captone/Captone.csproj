@@ -475,6 +475,7 @@
     <Content Include="Content\Images\step-first.png" />
     <Content Include="Content\Images\step-second.png" />
     <Content Include="Content\Images\step-third.png" />
+    <Content Include="Content\img\cancelled.jpg" />
     <Content Include="Content\img\icon_tick_on.gif" />
     <Content Include="Content\img\images.jpg" />
     <Content Include="Content\img\loader.gif" />
@@ -505,6 +506,8 @@
     <Content Include="Content\js\plugins\morris\raphael-2.1.0.min.js" />
     <Content Include="Content\js\sb-admin.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\TableJS\jquery.dataTables.js" />
+    <Content Include="Content\TableJS\KeyTable.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -905,6 +908,17 @@
     <Content Include="Views\Request\CreatePayment.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
+    <Content Include="Views\Request\ListRequestID2.cshtml" />
+    <Content Include="Views\Request\ListRequestID4.cshtml" />
+    <Content Include="Views\Request\ListRequestID5.cshtml" />
+    <Content Include="Views\Request\ListRequestID6.cshtml" />
+    <Content Include="Views\Request\ListRequestID7.cshtml" />
+    <Content Include="Views\Request\ListRequestID8.cshtml" />
+    <Content Include="Views\Fee\Create.cshtml" />
+    <Content Include="Views\Fee\Delete.cshtml" />
+    <Content Include="Views\Fee\Details.cshtml" />
+    <Content Include="Views\Fee\Edit.cshtml" />
+    <Content Include="Views\Fee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

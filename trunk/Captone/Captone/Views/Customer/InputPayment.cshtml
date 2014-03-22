@@ -25,23 +25,25 @@
             <div class="each-field">
                 Khối lượng món hàng (kg)
                 <br />
-                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Weight"/>
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Weight" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Thể tích món hàng
                 <br />
-                <input type="text" name="Volume" id="Volume"  class="form-control" value="@Model.Volume"/>
+                <input type="text" name="Volume" id="Volume"  class="form-control" value="@Model.Volume" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Giá món hàng (VNĐ)
-                <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price"/>
+                <input type="text" name="Price" id="Price" class="form-control" value="@Model.Price" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Ngày thanh toán
                 <input type="text" name="Price" id="Price" class="form-control" value="@DateTime.Now.Date" readonly="readonly"/>
             </div>
-            <button class="btn btn-success" id="@Model.Request.RequestID" onclick="window.location.href='/Customer/ReviewInfor?RequestID=@Model.Request.RequestID'">Hoàn tất</button>
-            <button class="btn btn-success" onclick="window.location.href='/Customer/Index'">Hủy bỏ</button>
+            <div style="margin-left: 70px" >
+                <button class="btn btn-success" id="@Model.Request.RequestID" onclick="window.location.href='/Customer/ReviewInfor?RequestID=@Model.Request.RequestID'" title="Bấm vào để tiến hành thanh toán">Hoàn tất</button>
+                <button class="btn btn-success" style="margin-left: 10px" onclick="window.location.href='/Customer/Index'" title="Bấm vào để quay lại danh sách yêu cầu">Hủy bỏ</button>
+            </div>
         </div>
         </div>
     </div>

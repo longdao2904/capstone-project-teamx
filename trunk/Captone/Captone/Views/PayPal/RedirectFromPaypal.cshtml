@@ -1,8 +1,6 @@
 ﻿@{
     ViewBag.Title = "Thông tin từ Paypal";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@{
     var requestId = ViewBag.RequestID;
 }
 <input type="hidden" value="@requestId" id="requestid"/>
@@ -11,6 +9,7 @@
 <a href="../Home/Index" style="display: table">Trở về trang chủ</a>
 
 <script type="text/javascript">
+    //get value from cookie by its name
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -20,6 +19,7 @@
         }
         return "";
     }
+    //call function update status of request from controller after redirect success from Paypal
     $(document).ready(function () {
         var id = getCookie("requestId");
       
