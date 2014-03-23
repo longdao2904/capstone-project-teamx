@@ -12,56 +12,37 @@
             </div>
             <div class="panel-body">
                 <p>
-                    <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm trạm mới", "Create")
+                    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm trạm mới", "Create")
                 </p>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.StationName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.StationLocation)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.BreakTime)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.StationPhone)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Description)
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StationName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StationLocation)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.BreakTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StationPhone)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </td>
-                                <td>
-                                    <a href="/Station/Edit/@item.StationID"><i class="fa fa-edit fa-fw"></i></a>|
-                            <a href="/Station/Details/@item.StationID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Station/Delete/@item.StationID"><i class="fa fa-minus-square fa-fw"></i></a>
-                                </td>
-                            </tr>
-                }
-
-                    </table>
+                <div>
+                    @{
+                        Captone.Models.Station station = new Captone.Models.Station();
+                    }
+                    @{
+                        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+                        grid.Pager(WebGridPagerModes.NextPrevious);}
+                    <div id="gridContent" class="table-responsive">
+                        @grid.GetHtml(tableStyle: "webGrid",
+                    headerStyle: "header",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                    grid.Column("Trạm", format: (item) => item.GetSelectLink(item.StationName.ToString())),
+                    grid.Column("StationLocation", "Địa chỉ"),
+                    grid.Column("BreakTime", "Thời gian dừng nghỉ"),
+                    grid.Column("StationPhone", "Số điện thoại"),
+                    grid.Column("Description", "Thông tin thêm")
+                    
+                    ))
+                        @if (grid.HasSelection)
+                        {
+                            station = (Captone.Models.Station)grid.Rows[grid.SelectedIndex].Value;
+                            <p><b>Trạm:</b> @station.StationName</p>
+                            <p><b>Địa chỉ:</b> @station.StationLocation</p>
+                            <p><b>Thời gian dừng nghỉ:</b> @station.BreakTime</p>
+                            <p><b>Số điện thoại:</b> @station.StationPhone</p>
+                            <p><b>Thông tin thêm:</b> @station.Description</p>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

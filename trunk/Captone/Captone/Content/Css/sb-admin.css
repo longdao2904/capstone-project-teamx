@@ -2,7 +2,7 @@
 
 /* ------------------------------- */
 
- body {
+body {
     background-color: #f8f8f8;
 }
 
@@ -10,7 +10,7 @@
 
 /* ------------------------------- */
 
- #wrapper {
+#wrapper {
     width: 100%;
 }
 
@@ -21,13 +21,16 @@
 }
 
 @media(min-width:768px) {
-    #page-wrapper {
-        position: inherit;
-        margin: 0 0 0 250px;
-        padding: 0 30px;
-        min-height: 1300px;
-        border-left: 1px solid #e7e7e7;
-    }
+    #page-wrapper;
+
+{
+    position: inherit;
+    margin: 0 0 0 250px;
+    padding: 0 30px;
+    min-height: 1300px;
+    border-left: 1px solid #e7e7e7;
+}
+
 }
 
 .navbar-static-side ul li {
@@ -40,35 +43,35 @@
 
 /* Top Right Navigation Dropdown Styles */
 
- .navbar-top-links li {
+.navbar-top-links li {
     display: inline-block;
 }
 
-.navbar-top-links li:last-child {
-    margin-right: 15px;
-}
+    .navbar-top-links li:last-child {
+        margin-right: 15px;
+    }
 
-.navbar-top-links li a {
-    padding: 15px;
-    min-height: 50px;
-}
+    .navbar-top-links li a {
+        padding: 15px;
+        min-height: 50px;
+    }
 
 .navbar-top-links .dropdown-menu li {
     display: block;
 }
 
-.navbar-top-links .dropdown-menu li:last-child {
-    margin-right: 0;
-}
+    .navbar-top-links .dropdown-menu li:last-child {
+        margin-right: 0;
+    }
 
-.navbar-top-links .dropdown-menu li a {
-    padding: 3px 20px;
-    min-height: 0;
-}
+    .navbar-top-links .dropdown-menu li a {
+        padding: 3px 20px;
+        min-height: 0;
+    }
 
-.navbar-top-links .dropdown-menu li a div {
-    white-space: normal;
-}
+        .navbar-top-links .dropdown-menu li a div {
+            white-space: normal;
+        }
 
 .navbar-top-links .dropdown-messages,
 .navbar-top-links .dropdown-tasks,
@@ -96,7 +99,7 @@
 
 /* Sidebar Menu Styles */
 
- .sidebar-search {
+.sidebar-search {
     padding: 15px;
 }
 
@@ -117,33 +120,36 @@
     border-bottom: none !important;
 }
 
-.nav-second-level li a {
-    padding-left: 37px;
-}
+    .nav-second-level li a {
+        padding-left: 37px;
+    }
 
-.nav-third-level li a {
-    padding-left: 52px;
-}
+    .nav-third-level li a {
+        padding-left: 52px;
+    }
 
 @media(min-width:768px) {
-    .navbar-static-side {
-        z-index: 1;
-        position: absolute;
-        width: 250px;
-    }
+    .navbar-static-side;
 
-    .navbar-top-links .dropdown-messages,
-    .navbar-top-links .dropdown-tasks,
-    .navbar-top-links .dropdown-alerts {
-        margin-left: auto;
-    }
+{
+    z-index: 1;
+    position: absolute;
+    width: 250px;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    margin-left: auto;
+}
+
 }
 
 /* Buttons */
 
 /* ------------------------------- */
 
- .btn-outline {
+.btn-outline {
     color: inherit;
     background-color: transparent;
     transition: all .5s;
@@ -169,13 +175,13 @@
     color: #d9534f;
 }
 
-.btn-primary.btn-outline:hover,
-.btn-success.btn-outline:hover,
-.btn-info.btn-outline:hover,
-.btn-warning.btn-outline:hover,
-.btn-danger.btn-outline:hover {
-    color: #fff;
-}
+    .btn-primary.btn-outline:hover,
+    .btn-success.btn-outline:hover,
+    .btn-info.btn-outline:hover,
+    .btn-warning.btn-outline:hover,
+    .btn-danger.btn-outline:hover {
+        color: #fff;
+    }
 
 /* Pages */
 
@@ -183,35 +189,35 @@
 
 /* Dashboard Chat */
 
- .chat {
+.chat {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.chat li {
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-}
+    .chat li {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px dotted #B3A9A9;
+    }
 
-.chat li.left .chat-body {
-    margin-left: 60px;
-}
+        .chat li.left .chat-body {
+            margin-left: 60px;
+        }
 
-.chat li.right .chat-body {
-    margin-right: 60px;
-}
+        .chat li.right .chat-body {
+            margin-right: 60px;
+        }
 
-.chat li .chat-body p {
-    margin: 0;
-    color: #777777;
-}
+        .chat li .chat-body p {
+            margin: 0;
+            color: #777777;
+        }
 
-.panel .slidedown .glyphicon,
-.chat .glyphicon {
-    margin-right: 5px;
-}
+    .panel .slidedown .glyphicon,
+    .chat .glyphicon {
+        margin-right: 5px;
+    }
 
 .chat-panel .panel-body {
     height: 350px;
@@ -220,13 +226,13 @@
 
 /* Login Page */
 
- .login-panel {
+.login-panel {
     /* margin-top: 25%; */
 }
 
 /* Flot Chart Containers */
 
- .flot-chart {
+.flot-chart {
     display: block;
     height: 400px;
 }
@@ -238,7 +244,7 @@
 
 /* DataTables Overrides */
 
- table.dataTable thead .sorting,
+table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_asc_disabled,
@@ -267,7 +273,7 @@ table.dataTable thead .sorting:after {
 
 /* Circle Buttons */
 
- .btn-circle {
+.btn-circle {
     width: 30px;
     height: 30px;
     padding: 6px 0;
@@ -277,23 +283,23 @@ table.dataTable thead .sorting:after {
     line-height: 1.428571429;
 }
 
-.btn-circle.btn-lg {
-    width: 50px;
-    height: 50px;
-    padding: 10px 16px;
-    border-radius: 25px;
-    font-size: 18px;
-    line-height: 1.33;
-}
+    .btn-circle.btn-lg {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        border-radius: 25px;
+        font-size: 18px;
+        line-height: 1.33;
+    }
 
-.btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
-}
+    .btn-circle.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
 
 .show-grid [class^="col-"] {
     padding-top: 10px;
@@ -308,46 +314,69 @@ table.dataTable thead .sorting:after {
 
 
 /* popup_box DIV-Styles*/
-#popup_box { 
-    display:none; /* Hide the DIV */
-    position:fixed;  
-    _position:absolute; /* hack for internet explorer 6 */  
-    height:300px;  
-    width:600px;  
-    background:#FFFFFF;  
+#popup_box {
+    display: none; /* Hide the DIV */
+    position: fixed;
+    _position: absolute; /* hack for internet explorer 6 */
+    height: 300px;
+    width: 600px;
+    background: #FFFFFF;
     left: 300px;
     top: 150px;
-    z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
-    margin-left: 15px;  
-    
+    z-index: 100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 15px;
     /* additional features, can be omitted */
-    border:2px solid #428bca;      
-    padding:15px;  
-    font-size:15px;  
+    border: 2px solid #428bca;
+    padding: 15px;
+    font-size: 15px;
     -moz-box-shadow: 0 0 5px #428bca;
     -webkit-box-shadow: 0 0 5px #428bca;
     box-shadow: 0 0 5px #428bca;
-    
 }
 
 #container {
     background: #d2d2d2; /*Sample*/
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
-a{  
-cursor: pointer;  
-text-decoration:none;  
-} 
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
 
 /* This is for the positioning of the Close Link */
 #popupBoxClose {
-    font-size:20px;  
-    line-height:15px;  
-    right:5px;  
-    top:5px;  
-    position:absolute;  
-    /* color:#428bca; */  
-    font-weight:500;      
+    font-size: 20px;
+    line-height: 15px;
+    right: 5px;
+    top: 5px;
+    position: absolute;
+    /* color:#428bca; */
+    font-weight: 500;
+}
+
+.webGrid {
+    margin: 4px;
+    border-collapse: collapse;
+    background-color: #FCFCFC;
+}
+
+.header {
+    background-color: #C1D4E6;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.webGrid th, .webGrid td {
+    border: 1px solid #C0C0C0;
+    padding: 5px;
+}
+
+.gridHead a:hover {
+    text-decoration: underline;
+}
+
+.select {
+    background-color: #C1D4E6;
 }

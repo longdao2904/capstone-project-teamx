@@ -15,12 +15,12 @@
             <div class="each-field">
                 Mã giao dịch
                 <br />
-                <input type="text" name="Weight" id="RequestCode" class="form-control" value="@Model.Request.RequestCode" readonly="readonly"/>
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Request.RequestCode" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Khách hàng
                 <br />
-                <input type="text" name="Weight" id="Username" class="form-control" value="@Model.Request.Username" readonly="readonly"/>
+                <input type="text" name="Weight" id="Weight" class="form-control" value="@Model.Request.Username" readonly="readonly"/>
             </div>
             <div class="each-field">
                 Khối lượng món hàng (kg)
@@ -38,7 +38,7 @@
             </div>
             <div class="each-field">
                 Ngày thanh toán
-                <input type="text" name="Price" id="Day" class="form-control" value="@DateTime.Now.Date" readonly="readonly"/>
+                <input type="text" name="Price" id="Price" class="form-control" value="@DateTime.Now.Date" readonly="readonly"/>
             </div>
             <div style="margin-left: 70px" >
                 <button class="btn btn-success" id="@Model.Request.RequestID" onclick="window.location.href='/Customer/ReviewInfor?RequestID=@Model.Request.RequestID'" title="Bấm vào để tiến hành thanh toán">Hoàn tất</button>
@@ -55,12 +55,9 @@
             data: {RequestID : id},
             success: function (result) {
                 $('#review').html(result);
-                document.getElementById("RequestCode").value = "";
-                document.getElementById("Username").value = "";
                 document.getElementById("Weight").value = "";
                 document.getElementById("Volume").value = "";
                 document.getElementById("Price").value = "";
-                document.getElementById("Day").value = "";
             }
         });
     }

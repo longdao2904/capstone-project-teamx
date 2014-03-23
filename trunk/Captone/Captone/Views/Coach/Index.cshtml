@@ -19,41 +19,30 @@
                 <p>
                     <a href="~/CoachType/Index"><i class="fa fa-list-alt">Các loại xe </i></a>
                 </p>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NumberPlate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.RouteID)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CoachType.Seats)
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model)
+                <div>
+                    @{
+                        Captone.Models.Coach coach = new Captone.Models.Coach();
+                    }
+                    @{
+                        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+                        grid.Pager(WebGridPagerModes.NextPrevious);}
+                    <div id="gridContent" class="table-responsive">
+                        @grid.GetHtml(tableStyle: "webGrid",
+                    headerStyle: "header",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                    grid.Column("Biển số xe", format: (item) => item.GetSelectLink(item.NumberPlate.ToString())),
+                    grid.Column("CoachType.Seats", "Số ghế"),
+                    grid.Column("RouteID", "Chạy tuyến")
+                    ))
+                        @if (grid.HasSelection)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NumberPlate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RouteID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CoachType.Seats)
-                                </td>
-                                <td>
-                                    <a href="/Coach/Edit/@item.CoachID"><i class="fa fa-edit fa-fw"></i></a>|
-                            <a href="/Coach/Details/@item.CoachID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Coach/Delete/@item.CoachID"><i class="fa fa-minus-square fa-fw"></i></a>
-                                </td>
-                            </tr>
+                            coach = (Captone.Models.Coach)grid.Rows[grid.SelectedIndex].Value;
+                            <p><b>Biển số xe:</b> @coach.NumberPlate</p>
+                            <p><b>Số ghế:</b> @coach.CoachType.Seats</p>
+                            <p><b>Chạy tuyến:</b> @coach.Route.RouteName</p>                            
                         }
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>

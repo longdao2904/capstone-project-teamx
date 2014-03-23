@@ -10,56 +10,36 @@
     </div>
     <div class="panel-body">
         <p>
-            <i class="fa fa-plus-square"></i> @Html.ActionLink("Tạo mới lịch trình", "Create")
+            <i class="fa fa-plus-square"></i>@Html.ActionLink("Tạo mới lịch trình", "Create")
         </p>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Route.RouteName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Coach.NumberPlate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EstimateVolume)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
+        <div>
+            @{
+                Captone.Models.Schedule schedule = new Captone.Models.Schedule();
+            }
+            @{
+                var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+                grid.Pager(WebGridPagerModes.NextPrevious);}
+            <div id="gridContent" class="table-responsive">
+                @grid.GetHtml(tableStyle: "webGrid",
+                    headerStyle: "header",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                    grid.Column("Tuyến", format: (item) => item.GetSelectLink(item.Route.RouteName.ToString())),
+                    grid.Column("Coach.NumberPlate", "Xe chạy"),
+                    grid.Column("EstimateDepartureTime", "Giờ đi dự tính"),
+                    grid.Column("EstimateArrivalTime", "Giờ đến dự tính"),
+                    grid.Column("EstimateVolume", "Sức chứa dự tính")
+                    ))
+                @if (grid.HasSelection)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Route.RouteName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EstimateVolume)
-                        </td>
-                        <td>
-                            <a href="/Route/Edit/@item.ScheduleID"><i class="fa fa-edit fa-fw"></i></a>|
-                            <a href="/Route/Details/@item.ScheduleID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Route/Delete/@item.ScheduleID"><i class="fa fa-minus-square fa-fw"></i></a>
-                        </td>
-                    </tr>
+                    schedule = (Captone.Models.Schedule)grid.Rows[grid.SelectedIndex].Value;
+                    <p><b>Tuyến:</b> @schedule.Route.RouteName</p>
+                    <p><b>Xe chạy:</b> @schedule.Coach.NumberPlate</p>
+                    <p><b>Giờ đi dự tính:</b> @schedule.EstimateDepartureTime</p>
+                    <p><b>Giờ đến dự tính:</b> @schedule.EstimateArrivalTime</p>
+                    <p><b>Sức chứa dự tính:</b> @schedule.EstimateVolume</p>
                 }
-
-            </table>
+            </div>
         </div>
     </div>
 </div>
