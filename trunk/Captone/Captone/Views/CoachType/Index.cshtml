@@ -39,6 +39,12 @@
                             coachType = (Captone.Models.CoachType)grid.Rows[grid.SelectedIndex].Value;
                             <p><b>Số ghế</b> @coachType.Seats</p>
                             <p><b>Sức chứa</b> @coachType.Capacity (m3)</p>
+                            <p>
+                                <a href="~/CoachType/Edit/@coachType.CoachTypeID">
+                                    <button class="btn btn-info">Cập nhật</button></a>
+                                <a href="~/CoachType/Delete/@coachType.CoachTypeID">
+                                    <button class="btn btn-danger">Xóa</button></a>
+                            </p>   
                         }
                     </div>
                 </div>

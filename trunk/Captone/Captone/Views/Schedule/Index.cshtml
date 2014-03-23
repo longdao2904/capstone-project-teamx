@@ -38,6 +38,12 @@
                     <p><b>Giờ đi dự tính:</b> @schedule.EstimateDepartureTime</p>
                     <p><b>Giờ đến dự tính:</b> @schedule.EstimateArrivalTime</p>
                     <p><b>Sức chứa dự tính:</b> @schedule.EstimateVolume</p>
+                    <p>
+                        <a href="~/Schedule/Edit/@schedule.ScheduleID">
+                            <button class="btn btn-info">Cập nhật</button></a>
+                        <a href="~/Schedule/Delete/@schedule.ScheduleID">
+                            <button class="btn btn-danger">Xóa</button></a>
+                    </p>  
                 }
             </div>
         </div>

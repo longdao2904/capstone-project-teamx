@@ -32,15 +32,20 @@
                     selectedRowStyle: "select",
                     columns: grid.Columns(
                     grid.Column("Biển số xe", format: (item) => item.GetSelectLink(item.NumberPlate.ToString())),
-                    grid.Column("CoachType.Seats", "Số ghế"),
-                    grid.Column("RouteID", "Chạy tuyến")
+                    grid.Column("CoachType.Seats", "Số ghế")
                     ))
                         @if (grid.HasSelection)
                         {
                             coach = (Captone.Models.Coach)grid.Rows[grid.SelectedIndex].Value;
                             <p><b>Biển số xe:</b> @coach.NumberPlate</p>
                             <p><b>Số ghế:</b> @coach.CoachType.Seats</p>
-                            <p><b>Chạy tuyến:</b> @coach.Route.RouteName</p>                            
+                            <p><b>Chạy tuyến:</b> @coach.Route.RouteName</p>
+                            <p>
+                                <a href="~/Coach/Edit/@coach.CoachID">
+                                    <button class="btn btn-info">Cập nhật</button></a>
+                                <a href="~/Coach/Delete/@coach.CoachID">
+                                    <button class="btn btn-danger">Xóa</button></a>
+                            </p>                          
                         }
                     </div>
                 </div>

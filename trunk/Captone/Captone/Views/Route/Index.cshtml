@@ -43,6 +43,12 @@
                             <p><b>Trạm cuối:</b> @route.Station1.StationName</p>
                             <p><b>Thời gian chạy:</b> @route.Duration h</p>
                             <p><b>Quãng đường:</b> @route.Distance km</p>
+                            <p>
+                                <a href="~/Route/Edit/@route.RouteID">
+                                    <button class="btn btn-info">Cập nhật</button></a>
+                                <a href="~/Route/Delete/@route.RouteID">
+                                    <button class="btn btn-danger">Xóa</button></a>
+                            </p>
                         }
                     </div>
                 </div>

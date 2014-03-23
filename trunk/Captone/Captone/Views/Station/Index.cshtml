@@ -12,7 +12,7 @@
             </div>
             <div class="panel-body">
                 <p>
-                    <i class="fa fa-plus-square"></i> @Html.ActionLink("Thêm trạm mới", "Create")
+                    <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm trạm mới", "Create")
                 </p>
                 <div>
                     @{
@@ -24,6 +24,7 @@
                     <div id="gridContent" class="table-responsive">
                         @grid.GetHtml(tableStyle: "webGrid",
                     headerStyle: "header",
+                    footerStyle: "webgrid-footer",
                     selectedRowStyle: "select",
                     columns: grid.Columns(
                     grid.Column("Trạm", format: (item) => item.GetSelectLink(item.StationName.ToString())),
@@ -31,7 +32,7 @@
                     grid.Column("BreakTime", "Thời gian dừng nghỉ"),
                     grid.Column("StationPhone", "Số điện thoại"),
                     grid.Column("Description", "Thông tin thêm")
-                    
+
                     ))
                         @if (grid.HasSelection)
                         {
@@ -41,6 +42,12 @@
                             <p><b>Thời gian dừng nghỉ:</b> @station.BreakTime</p>
                             <p><b>Số điện thoại:</b> @station.StationPhone</p>
                             <p><b>Thông tin thêm:</b> @station.Description</p>
+                            <p>
+                                <a href="~/Station/Edit/@station.StationID">
+                                    <button class="btn btn-info">Cập nhật</button></a>
+                                <a href="~/Station/Delete/@station.StationID">
+                                    <button class="btn btn-danger">Xóa</button></a>
+                            </p>  
                         }
                     </div>
                 </div>

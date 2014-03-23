@@ -44,6 +44,12 @@
                             <p><b>Thể tích thùng hàng còn trống: </b>@trip.AvailableVolume</p>
                             <p><b>Xe chạy:</b> @trip.Coach.NumberPlate</p>
                             <p><b>Tuyến:</b> @trip.Route.RouteName</p>
+                            <p>
+                                <a href="~/Trip/Edit/@trip.TripID">
+                                    <button class="btn btn-info">Cập nhật</button></a>
+                                <a href="~/Trip/Delete/@trip.TripID">
+                                    <button class="btn btn-danger">Xóa</button></a>
+                            </p>   
                         }
                     </div>
                 </div>
