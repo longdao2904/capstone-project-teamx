@@ -154,6 +154,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\FeedBackController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
@@ -334,6 +335,7 @@
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\ie.css" />
     <Content Include="Content\Css\Index.css" />
+    <Content Include="Content\Css\jstarbox.css" />
     <Content Include="Content\Css\layout.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\plugins\dataTables\dataTables.bootstrap.css" />
@@ -803,6 +805,14 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="ImageRating\5-large.png" />
+    <Content Include="ImageRating\5-small.png" />
+    <Content Include="ImageRating\6-large.png" />
+    <Content Include="ImageRating\6-small.png" />
+    <Content Include="ImageRating\curved-small.png" />
+    <Content Include="ImageRating\golden.png" />
+    <Content Include="ImageRating\ribbon-small.png" />
+    <Content Include="ImageRating\ribbon.png" />
     <Content Include="Models\iDeliver.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>iDeliver.edmx</DependentUpon>
@@ -818,6 +828,7 @@
     </Content>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jqBootstrapValidation.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -827,11 +838,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jstarbox.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Scripts\star-rating.js" />
-    <Content Include="Scripts\Validate.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -922,6 +932,7 @@
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
