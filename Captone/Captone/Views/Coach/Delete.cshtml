@@ -1,0 +1,50 @@
+﻿@model Captone.Models.Coach
+
+@{
+    ViewBag.Title = "Xóa xe";
+}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Bạn có muốn xóa xe @Model.NumberPlate khỏi hệ thống ?</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.NumberPlate)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.NumberPlate)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.RouteID)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.RouteID)
+                        </div>
+
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.CoachType.CoachTypeID)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.CoachType.CoachTypeID)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                <br />
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Coach/Index'" />
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
