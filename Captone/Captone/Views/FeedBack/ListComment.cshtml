@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<Captone.Models.Comment>
-@*<link href="~/Content/Css/star-rating.css" rel="stylesheet" />
-<script src="~/Scripts/star-rating.js"></script>*@
 <script src="~/Scripts/jstarbox.js"></script>
-@*<link href="~/Content/Css/ie7.css" rel="stylesheet" />*@
 <link href="~/Content/Css/jstarbox.css" rel="stylesheet" />
 @{
     string username = (string)Session["USERNAME"];
@@ -12,28 +9,24 @@
     jQuery(function () {
         jQuery('.starbox').each(function () {
             var starbox = jQuery(this);
+            var avg = document.getElementById("AvgRatingLevel").value;
             starbox.starbox({
-                average: starbox.attr('data-start-value'),
+                average: avg,
                 changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
-                ghosting: starbox.hasClass('ghosting'),
+                ghosting: true,
                 autoUpdateAverage: starbox.hasClass('autoupdate'),
                 buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
                 stars: starbox.attr('data-star-count') || 5
-            }).bind('starbox-value-changed', function (event, value) {
-                if (starbox.hasClass('random')) {
-                    var val = Math.random();
-                    starbox.next().text('Random: ' + val);
-                    return val;
-                } else {
-                    starbox.next().text('Clicked: ' + value);
-                }
-            }).bind('starbox-value-moved', function (event, value) {
-                starbox.next().text("Moved to: " + value);
-                document.getElementById("ratingLevel").value = value;
+           
+            })
+                .bind('starbox-value-moved', function (event, value) {
+                //starbox.next().text("Rated to: " + Math.round(value*100) + "%");
+                document.getElementById("ratingLevel").value = Math.round(value*100)/100;
 
-            });
+            })
         });
     });
+
 </script>
 <div>
     <h2>Ý kiến khách hàng</h2>
@@ -42,10 +35,9 @@
 
     <div class="block">
         <h3>Rating</h3>
-        <div class="starbox gradient ghosting autoupdate" data-button-count="20">
+        <div class="starbox smooth autoupdate ghosting">
             <div class="positioner">
-                <div class="stars">
-                    <div class="ghost" style="width: 82.5px; display: none;"></div>
+                <div class="stars">                 
                     <div class="colorbar" style="width: 82.5px;"></div>
                     <div class="star_holder">
                         <div class="star star-0"></div>
@@ -57,12 +49,13 @@
                 </div>
             </div>
         </div>
-        <p>Moved to: 0.1</p>
+        <p></p>
         <input type="hidden" id="ratingLevel" />
     </div>
 
     <input type="hidden" id="sID" value="@ViewBag.StationSelect.StationID"/>
-    <input type="hidden"  id="username" value="@username" />
+    <input type="hidden" id="AvgRatingLevel" value="@ViewBag.StationSelect.AvgRatingLevel"/>
+    <input type="hidden" id="username" value="@username" />
 
     @foreach (var item in Model)
     {      
@@ -89,7 +82,7 @@
                 </div>
                 <br />
 
-                <input id="CommentID" type="button" value="Bình luận" class="btn" onclick="ratingStation()" />
+                <input id="CommentID" type="button" value="Bình luận" class="btn"/>
                 <div style="display: none">
                 </div>
             </form>
@@ -98,9 +91,11 @@
 </div>
 <script type="text/javascript">
 
-    $('#CommentID').on('click', function () {
-        commentStation();
+    $('#CommentID').on('click', function () {      
+        ratingStation();
+       commentStation();
     });
+
     function ratingStation() {
         var user = document.getElementById("username").value;
         var ratingLevel = document.getElementById("ratingLevel").value;
