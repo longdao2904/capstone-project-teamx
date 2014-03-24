@@ -123,7 +123,7 @@ namespace Captone.Services
             if (requests == null) return _finalResult;
             foreach (var request in requests)
             {
-                if (FindInvoiceFromRequest(request) == null) return _finalResult;
+                if (FindInvoiceFromRequest(request) == null) break;
             }
             //sort list request base on the day posted
             requests.Sort(RequestCompare);
@@ -240,6 +240,7 @@ namespace Captone.Services
                                         var breakTime = FindStationFromRoute(route).BreakTime;
                                         if (breakTime != null)
                                             current = arrival.AddHours((double)breakTime);
+                                        break;
                                     }
                                 }
                             }
