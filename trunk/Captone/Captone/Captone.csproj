@@ -226,9 +226,6 @@
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -932,7 +929,13 @@
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+<<<<<<< .mine
+    <Content Include="Views\Shared\_LayoutStaff.cshtml" />
+    <Content Include="Views\Request\AcceptRequest.cshtml" />
+    <Content Include="Views\Request\InputInvoice.cshtml" />
+=======
     <Content Include="Views\Invoice\Index.cshtml" />
+>>>>>>> .r270
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

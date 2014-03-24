@@ -28,6 +28,7 @@ namespace Captone.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public Nullable<bool> BannedStatus { get; set; }
+        public Nullable<int> StationID { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

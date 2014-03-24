@@ -283,5 +283,18 @@ namespace Captone.Controllers
             return false;
         }
         #endregion
+
+
+        public ActionResult AcceptRequest(int stationID)
+        {
+            var list = _db.Requests.Where(p => p.FromLocation == stationID | p.ToLocation == stationID).ToList();
+            return View(list);
+        }
+        public ActionResult InputInvoice(int RequestID)
+        {
+            var reqest = _db.Requests.Where(p => p.RequestID == RequestID).Single();
+            return PartialView(reqest);
+        }
+
     }
 }
