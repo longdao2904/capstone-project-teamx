@@ -1,0 +1,32 @@
+﻿<script src="~/Content/js/demo/demo.js"></script>
+
+
+
+<div class="tabbable">
+    <ul id="myTab" class="nav nav-tabs">
+
+        @foreach (var item in ViewBag.ListProvince)
+        {
+             
+            <li><a href="#@item.Value" data-toggle="tab" id="@item.Value" onclick="listS(this.id)">@item.Text</a></li>
+
+        }
+    </ul>
+    <br />
+    <div id="ListStation">
+    </div>
+</div>
+<script type="text/javascript">
+
+    function listS(id) {
+        $.ajax({
+            url: "/FeedBack/ListStation",
+            type: "Post",
+            data: { province: id },
+            success: function (result) {
+                $("#ListStation").html(result);
+            }
+        });
+    }
+    window.onload=listS(1);
+</script>

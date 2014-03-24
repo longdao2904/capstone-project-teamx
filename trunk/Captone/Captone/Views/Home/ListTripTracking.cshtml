@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Captone.Models.Assigning>
+
+@foreach (var item in Model)
+{
+    <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Route.RouteName - @item.Trip.EstimateArrivalTime"/>
+   
+}
+<div id="map1" style="height: 440px;"></div>
+
+<input type="text" disabled="disabled" style="background-color: yellow; width: 40px"/> Đang trên chuyến
+<input type="text" disabled="disabled" style="background-color: red;width: 40px"/> Chưa đến chuyến
+<input type="text" disabled="disabled" style="background-color: greenyellow;width: 40px"/> Đã qua chuyến
+<script type="text/javascript">
+</script>

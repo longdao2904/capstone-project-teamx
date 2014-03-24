@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Captone.Models.Schedule>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    @*<input type="checkbox" name="chkAll" value="All" id="chkAll" />*@</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Route.RouteName)
+                </th>
+                <th>
+                    @*@Html.HiddenFor(model => model)*@
+                    @Html.DisplayNameFor(model => model.Coach.NumberPlate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstimateVolume)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="1" class="sid"/></td>
+                    <td style="display: none;">
+                        @item.ScheduleID
+                    </td>
+                    <td style="display: none;">
+                        @item.RouteID
+                    </td>
+                    <td style="display: none;">
+                        @item.CoachID
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Route.RouteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
+                    </td>
+                    <td>                        
+                        @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimateVolume)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    $("document").ready(function () {
+        $("#chkAll").click(function () {
+            var checked = $(this).is(':checked');
+            $(".sid").attr("checked", checked);
+        });
+        $(".sid").click(function () {
+            var valid = true;
+            $(".sid").each(function () {
+                var checked = $(this).is(':checked');
+                if (!checked) {
+                    valid = false;
+                }
+            });
+            $("#chkAll").attr("checked", valid);
+        });
+    });
+</script>
+

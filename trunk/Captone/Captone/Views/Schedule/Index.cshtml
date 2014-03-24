@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Captone.Models.Schedule>
+
+@{
+    ViewBag.Title = "Quản lý lịch trình xe và tuyến";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        <p>
+            <i class="fa fa-plus-square"></i>@Html.ActionLink("Tạo mới lịch trình", "Create")
+        </p>
+        <div>
+            @{
+                Captone.Models.Schedule schedule = new Captone.Models.Schedule();
+            }
+            @{
+                var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+                grid.Pager(WebGridPagerModes.NextPrevious);}
+            <div id="gridContent" class="table-responsive">
+                @grid.GetHtml(tableStyle: "webGrid",
+                    headerStyle: "header",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                    grid.Column("Tuyến", format: (item) => item.GetSelectLink(item.Route.RouteName.ToString())),
+                    grid.Column("Coach.NumberPlate", "Xe chạy"),
+                    grid.Column("EstimateDepartureTime", "Giờ đi dự tính"),
+                    grid.Column("EstimateArrivalTime", "Giờ đến dự tính"),
+                    grid.Column("EstimateVolume", "Sức chứa dự tính")
+                    ))
+                @if (grid.HasSelection)
+                {
+                    schedule = (Captone.Models.Schedule)grid.Rows[grid.SelectedIndex].Value;
+                    <p><b>Tuyến:</b> @schedule.Route.RouteName</p>
+                    <p><b>Xe chạy:</b> @schedule.Coach.NumberPlate</p>
+                    <p><b>Giờ đi dự tính:</b> @schedule.EstimateDepartureTime</p>
+                    <p><b>Giờ đến dự tính:</b> @schedule.EstimateArrivalTime</p>
+                    <p><b>Sức chứa dự tính:</b> @schedule.EstimateVolume</p>
+                    <p>
+                        <a href="~/Schedule/Edit/@schedule.ScheduleID">
+                            <button class="btn btn-info">Cập nhật</button></a>
+                        <a href="~/Schedule/Delete/@schedule.ScheduleID">
+                            <button class="btn btn-danger">Xóa</button></a>
+                    </p>  
+                }
+            </div>
+        </div>
+    </div>
+</div>
