@@ -26,7 +26,8 @@ namespace Captone.Content
         /// list province
         /// </summary>
         /// <returns></returns>
-        public ActionResult ListProvince() {
+        public ActionResult ListProvince()
+        {
             IEnumerable<SelectListItem> province = (from p
                            in _db.Stations
                                                     group p by new
@@ -56,6 +57,18 @@ namespace Captone.Content
             return PartialView("ListComment", comment);
         }
 
+
+        //public float LoadRateAvg(Int32 StationID)
+        //{
+        //    Station station = _db.Stations.Where(p => p.StationID == StationID).FirstOrDefault();
+        //    return (float)station.AvgRatingLevel;
+        //}
+
+        public ActionResult LoagRatingAvg(int StationID)
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Comment(String Username, String Comment, Int32 StationID)
         {
@@ -74,99 +87,55 @@ namespace Captone.Content
         [HttpPost]
         public ActionResult Rating(String Username, float Rating, Int32 StationID)
         {
-            Rating rt = new Rating();
-            rt.Username = Username;
-            rt.RateLevel = Rating;
-            rt.StationID = StationID;
-            _db.Ratings.Add(rt);
-            _db.SaveChanges();
-            return RedirectToAction("Index", "FeedBack");
+            Rating rating = new Rating();
+            Station station = new Station();
+            
+            rating = _db.Ratings.Where(r => r.StationID == StationID && r.Username == Username).FirstOrDefault();
+            if (rating!= null)
+            {
+                rating.RateLevel = Rating;
+                _db.Entry(rating).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            else
+            {
+                Rating rt = new Rating();
+                rt.Username = Username;
+                rt.RateLevel = Rating;
+                rt.StationID = StationID;
+                _db.Ratings.Add(rt);
+                _db.SaveChanges();
+            }
 
-        }
-        //
-        // GET: /FeedBack/Details/5
 
-        public ActionResult Details(int id)
-        {
+            float ratingAvg = RatingAvg(StationID);
+            station = _db.Stations.Where(r => r.StationID == StationID).FirstOrDefault();
+            if (station.AvgRatingLevel != null)
+            {
+                station.AvgRatingLevel = ratingAvg;
+                _db.Entry(station).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            else {
+                station.AvgRatingLevel = ratingAvg;
+                _db.SaveChanges();
+            }
             return View();
+            //return RedirectToAction("Index", "FeedBack");
         }
 
-        //
-        // GET: /FeedBack/Create
-
-        public ActionResult Create()
+        public float RatingAvg(Int32 StationID)
         {
-            return View();
+            var ListRate = _db.Ratings.Where(p => p.StationID == StationID).ToList();
+            float res = 0;
+            foreach (var rate in ListRate)
+            {
+                res = res + (float)rate.RateLevel;
+            }
+            res = res / ListRate.Count;
+            return res;
         }
 
-        //
-        // POST: /FeedBack/Create
 
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /FeedBack/Edit/5
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /FeedBack/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /FeedBack/Delete/5
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /FeedBack/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
