@@ -20,9 +20,16 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_db.Accounts.Any(r => r.Username == model.Username && r.Password == model.Password))
+                var check = _db.Accounts.Where(r => r.Username == model.Username && r.Password == model.Password).Single();
+                if (check!= null)
                 {
                     Session["USERNAME"] = model.Username;
+                    
+                    Session["StationID"] = check.StationID;
+                    if(check.StationID != 0){
+                    var getStation = _db.Stations.Where(p => p.StationID == check.StationID).Single();
+                    Session["StationName"] = getStation.StationName;
+                        }
                     Session["UserRole"] = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault().Role;
                     FormsAuthentication.SetAuthCookie(model.Username, false);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -120,6 +127,6 @@ namespace Captone.Controllers
             base.Dispose(disposing);
         }
 
-        
+
     }
 }

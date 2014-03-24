@@ -27,6 +27,7 @@ namespace Captone.Models
         public Nullable<double> Duration { get; set; }
         public Nullable<double> Distance { get; set; }
         public Nullable<double> Container { get; set; }
+        public Nullable<double> Price { get; set; }
     
         public virtual Station Station { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
