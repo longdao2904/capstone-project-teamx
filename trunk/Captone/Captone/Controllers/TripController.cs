@@ -76,8 +76,30 @@ namespace Captone.Controllers
                 {
                     foreach (var trip in trips)
                     {
-                        db.Trips.Add(trip);
-                        db.SaveChanges();
+                        Trip t = new Trip();
+                        t.EstimateDepartureTime = trip.EstimateDepartureTime;
+                        t.EstimateArrivalTime = trip.EstimateArrivalTime;
+                        t.RouteID = trip.RouteID;
+                        t.CoachID = trip.CoachID;
+                        t.ScheduleID = trip.ScheduleID;
+                        t.EstimateVolume = trip.EstimateVolume;
+                        for (int i = 0; i < 7; i++)
+                        {
+                            TimeSpan day = new TimeSpan();
+                            if (i == 0)
+                            {
+                                day = new TimeSpan(0, 0, 0, 0);
+                            }
+                            else
+                            {
+                                day = new TimeSpan(i / i, 0, 0, 0);
+                            }
+                            DateTime nextday = trip.Date.Add(day);
+                            trip.Date = nextday.Date;
+                            t.Date = trip.Date.Date;
+                            db.Trips.Add(t);
+                            db.SaveChanges();
+                        }
                     }
                     return RedirectToAction("Index");
                 }

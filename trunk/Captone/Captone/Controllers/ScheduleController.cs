@@ -47,6 +47,13 @@ namespace Captone.Controllers
             return View(schedules);
         }
 
+        public ActionResult CoachPartialView(int routeID)
+        {
+            List<Coach> coachList = new List<Coach>();
+            coachList = db.Coaches.Where(c => c.RouteID == routeID).ToList();
+            return View(coachList);
+        }
+
         //
         // GET: /Schedule/Details/5
 
