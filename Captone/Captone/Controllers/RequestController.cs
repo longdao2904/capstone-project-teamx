@@ -287,7 +287,7 @@ namespace Captone.Controllers
 
         public ActionResult AcceptRequest(int stationID)
         {
-            var list = _db.Requests.Where(p => p.FromLocation == stationID | p.ToLocation == stationID).ToList();
+            var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 1).ToList();
             return View(list);
         }
         public ActionResult InputInvoice(int RequestID)
@@ -295,6 +295,17 @@ namespace Captone.Controllers
             var reqest = _db.Requests.Where(p => p.RequestID == RequestID).Single();
             return PartialView(reqest);
         }
-
+        public void InsertInvoice(int RequestID, float Weight, float Volume, float Price)
+        {
+            Invoice invoice = new Invoice();
+            invoice.RequestID = RequestID;
+            invoice.Weight = Weight;
+            invoice.Volume = Volume;
+            invoice.Price = Price;
+            var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
+            request.DeliveryStatusID = 2;
+            _db.Invoices.Add(invoice);
+            _db.SaveChanges();
+        }
     }
 }

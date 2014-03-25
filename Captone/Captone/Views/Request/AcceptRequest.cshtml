@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<div class="table-responsive">
+<div class="table-responsive" id="RequestList">
     <table class="table">
         <thead>
             <th>Tên 
@@ -22,7 +22,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id="Request-@item.RequestID">
                     <td>@item.Username</td>
                     <td>@item.DateRequest</td>
                     <td>@item.Station.StationName</td>
@@ -45,8 +45,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Đóng</button>
+                        <a class="btn btn-success" onclick="InputInvoice()">Xác nhận</a>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -66,5 +66,22 @@
             }
         });
     }
-
+    function InputInvoice() {
+        var id = document.getElementById("RequestID").value;
+        var weight = document.getElementById("Weight").value;
+        var volume = document.getElementById("Volume").value;
+        var price = document.getElementById("Price").value;
+        $.ajax({
+            url: "/Request/InsertInvoice",
+            type: "POST",
+            data: {RequestID : parseInt(id), Weight: parseFloat(weight), Volume: parseFloat(volume), Price: parseFloat(price)},
+            success: function () {
+                $('.closeModal').click();
+                $("#RequestList").fadeOut(200, function () {
+                    $("#Request-" + id).remove();
+                    $("#RequestList").fadeIn(200);
+                });
+            }
+        });
+    }
 </script>

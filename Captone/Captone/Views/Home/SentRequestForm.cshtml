@@ -274,7 +274,39 @@
         var volume = document.getElementById("Volume");
         volume.value = weigh.value;
     }
+    function getPriceRoute() {
+        var priceRoute;
+        var Sender = document.getElementById("AddressOfSender").value;
+        var getCountry = Sender.split(",");
+        var countrySender = getCountry[getCountry.length - 1];
 
+        if (countrySender.trim() == "TP Hồ Chí Minh" || countrySender.trim() == "Hồ Chí Minh" || countrySender.trim() == "hồ chí minh") {
+            countrySender = "Sài Gòn";
+        }
+
+        var Receiver = document.getElementById("AddressOfReceiver").value;
+        var getCountry2 = Receiver.split(",");
+        var countryReceiver = getCountry2[getCountry2.length - 1];
+
+        if (countryReceiver.trim() == "TP Hồ Chí Minh" || countryReceiver.trim() == "Hồ Chí Minh" || countryReceiver.trim() == "hồ chí minh") {
+            countryReceiver = "Sài Gòn";
+        }
+
+        var routename = countrySender + " -" + countryReceiver;
+
+        $.ajax({
+            url: "/Home/GetRoutePrice",
+            type: "Post",
+            async: false,
+            data: { RouteName: routename },
+            success: function (result) {
+
+                priceRoute = result[0].Price;
+
+            }
+        });
+        return priceRoute;
+    }
     function CalculateFee() {
         var select = document.getElementById("Weigh");
         var options = select.options[select.selectedIndex].text;
@@ -282,13 +314,15 @@
         var options1 = select1.options[select1.selectedIndex].text;
         var weigh = options.split(" - ");
         var volume = options1.split(" - ");
+        var getprice = getPriceRoute();
         $.ajax({
             url: "/Home/CalculateFee",
             type: "Post",
             data: { minWeight: weigh[0], maxWeight: weigh[1] },
             success: function (result) {
                 var fee = result.split(" = ");
-                $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + fee[1].substring(0, fee[1].length - 1) + "VND" + "</strong>" + "</p>" + "</div>");
+                var suggestprice = +getprice + +fee[1].substring(0, fee[1].length - 1);
+                $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + suggestprice + "VND" + "</strong>" + "</p>" + "</div>");
             }
         });
     }

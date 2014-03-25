@@ -380,6 +380,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Images\820NewellH.jpg" />
     <Content Include="Content\Images\Admin\breadcrumb_divider.png" />
     <Content Include="Content\Images\Admin\btn_submit.png" />
     <Content Include="Content\Images\Admin\btn_submit_2.png" />
@@ -499,6 +500,7 @@
     <Content Include="Content\js\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery.bpopup.min.js" />
     <Content Include="Content\js\jquery.cookie.js" />
+    <Content Include="Content\js\jquery.fullscreenBackground.js" />
     <Content Include="Content\js\PieChart\exporting.js" />
     <Content Include="Content\js\PieChart\highcharts.js" />
     <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
@@ -929,13 +931,23 @@
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+<<<<<<< .mine
+=======
 
+>>>>>>> .r273
     <Content Include="Views\Shared\_LayoutStaff.cshtml" />
     <Content Include="Views\Request\AcceptRequest.cshtml" />
     <Content Include="Views\Request\InputInvoice.cshtml" />
+<<<<<<< .mine
+=======
 
+>>>>>>> .r273
     <Content Include="Views\Invoice\Index.cshtml" />
+<<<<<<< .mine
+    <Content Include="Views\Assigning\getRequestAssign.cshtml" />
+=======
 
+>>>>>>> .r273
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

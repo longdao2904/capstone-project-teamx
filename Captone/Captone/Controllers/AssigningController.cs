@@ -68,5 +68,13 @@ namespace Captone.Controllers
                 _db.SaveChanges();
             }
         }
+        public ActionResult getRequestAssign(int StationID)
+        {
+            var list =
+                _db.Requests.Where(
+                    p => (p.Station.StationID == StationID | p.Station1.StationID == StationID) & p.DeliveryStatusID == 2).ToList();
+            ;
+            return View(list);
+        }
     }
 }

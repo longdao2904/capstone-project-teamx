@@ -217,7 +217,12 @@ namespace Captone.Controllers
             return PartialView("ListTripTracking", tracking);
         }
 
-
+        public ActionResult GetRoutePrice(string RouteName)
+        {
+            string str = "select * from dbo.Route where RouteName like N'%" + RouteName + "%'";
+            var address = _db.Database.SqlQuery<Route>(str).ToList();
+            return Json(address, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
