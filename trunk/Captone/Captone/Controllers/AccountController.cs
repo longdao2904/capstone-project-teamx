@@ -20,41 +20,50 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
-                var check = _db.Accounts.Where(r => r.Username == model.Username && r.Password == model.Password).Single();
-                if (check!= null)
+                if (model.Username == null | model.Password == null)
                 {
-                    Session["USERNAME"] = model.Username;
-                    Session.Timeout = 60;
-                    
-                    Session["StationID"] = check.StationID;
-                    if(check.StationID != 0){
-                    var getStation = _db.Stations.Where(p => p.StationID == check.StationID).Single();
-                    Session["StationName"] = getStation.StationName;
-                        }
-                    Session["UserRole"] = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault().Role;
-                    FormsAuthentication.SetAuthCookie(model.Username, false);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return RedirectToAction("LogOn", "Home");
-                    }
-                    else
-                    {
-                        if ((string)Session["UserRole"] == "Customer")
-                        {
-                            return RedirectToAction("SentRequestForm", "Home");
-                        }
-                        else if ((string)Session["UserRole"] == "Staff")
-                        {
-                            return RedirectToAction("Index", "Request");
-                        }
-                        return RedirectToAction("Index", "Home");
-                    }
+                    ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                    return RedirectToAction("LogOn", "Account");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    return RedirectToAction("LogOn", "Account");
+                    var check = _db.Accounts.Where(r => r.Username == model.Username && r.Password == model.Password).Single();
+                    if (check != null)
+                    {
+                        Session.Timeout = 60;
+                        Session["USERNAME"] = model.Username;
+                        Session["StationID"] = check.StationID;
+                        if (check.StationID != 0)
+                        {
+                            var getStation = _db.Stations.Where(p => p.StationID == check.StationID).Single();
+                            Session["StationName"] = getStation.StationName;
+                        }
+                        Session["UserRole"] = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault().Role;
+                        FormsAuthentication.SetAuthCookie(model.Username, false);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return RedirectToAction("LogOn", "Home");
+                        }
+                        else
+                        {
+                            if ((string)Session["UserRole"] == "Customer")
+                            {
+                                return RedirectToAction("SentRequestForm", "Home");
+                            }
+                            else if ((string)Session["UserRole"] == "Staff")
+                            {
+                                return RedirectToAction("Index", "Request");
+                            }
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        TempData["ERROR"] = "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại";
+                        ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                        return RedirectToAction("LogOn", "Account");
+                    }
                 }
             }
 

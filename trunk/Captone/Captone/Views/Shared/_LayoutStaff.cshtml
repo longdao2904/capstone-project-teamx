@@ -10,15 +10,15 @@
     <script src="~/Content/js/jquery-1.10.2.js"></script>
         <script src="~/Content/js/bootstrap.js"></script>
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
-
-
-
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
     <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
     <!-- SB Admin CSS - Include with every page -->
     <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+
+    <script src="~/Content/TableJS/jquery.dataTables.js"></script>
+    <script src="~/Content/TableJS/KeyTable.js"></script>
 
     <script src="~/Content/js/jquery.bpopup.min.js"></script>
     <script src="~/Content/js/sb-admin.js"></script>
@@ -82,20 +82,6 @@
                     <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
                 </li>
                 <li class="active">
-                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
-                    @if (Username != null && UserRole == "Customer")
-                    {                        
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/Home/ListStatusCustomer?Username=@Username"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
-                            </li>
-                            <li>
-                                <a href="/Customer/Index"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
-                            </li>
-                        </ul>
-                    }
-                </li>
-                <li class="active">
                     <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
                     @if (Username == null)
                     {
@@ -116,9 +102,6 @@
                             </li>
                             <li>
                                 <a href="#">Đổi mật khẩu</a>
-                            </li>
-                            <li>
-                                <a href="/FeedBack/Index">Đóng góp ý kiến</a>
                             </li>
                             <li><a href="/Account/LogOff"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a></li>
                         </ul>
@@ -141,6 +124,9 @@
                             </li>
                             <li>
                                 <a href="/Route/Index">Tuyến</a>
+                            </li>
+                            <li>
+                                <a href="/Schedule/Index">Lịch chạy</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Captone.Models.Station>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
     ViewBag.Title = "Danh sách các trạm";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
@@ -14,44 +15,76 @@
                 <p>
                     <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm trạm mới", "Create")
                 </p>
-                <div>
-                    @{
-                        Captone.Models.Station station = new Captone.Models.Station();
-                    }
-                    @{
-                        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
-                        grid.Pager(WebGridPagerModes.NextPrevious);}
-                    <div id="gridContent" class="table-responsive">
-                        @grid.GetHtml(tableStyle: "webGrid",
-                    headerStyle: "header",
-                    footerStyle: "webgrid-footer",
-                    selectedRowStyle: "select",
-                    columns: grid.Columns(
-                    grid.Column("Trạm", format: (item) => item.GetSelectLink(item.StationName.ToString())),
-                    grid.Column("StationLocation", "Địa chỉ"),
-                    grid.Column("BreakTime", "Thời gian dừng nghỉ"),
-                    grid.Column("StationPhone", "Số điện thoại"),
-                    grid.Column("Description", "Thông tin thêm")
-
-                    ))
-                        @if (grid.HasSelection)
-                        {
-                            station = (Captone.Models.Station)grid.Rows[grid.SelectedIndex].Value;
-                            <p><b>Trạm:</b> @station.StationName</p>
-                            <p><b>Địa chỉ:</b> @station.StationLocation</p>
-                            <p><b>Thời gian dừng nghỉ:</b> @station.BreakTime</p>
-                            <p><b>Số điện thoại:</b> @station.StationPhone</p>
-                            <p><b>Thông tin thêm:</b> @station.Description</p>
-                            <p>
-                                <a href="~/Station/Edit/@station.StationID">
-                                    <button class="btn btn-info">Cập nhật</button></a>
-                                <a href="~/Station/Delete/@station.StationID">
-                                    <button class="btn btn-danger">Xóa</button></a>
-                            </p>  
-                        }
-                    </div>
+                <div class="table-responsive">
+                    <table class="table display KeyTable dataTable" id="TableStations" aria-describedby="example_info">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StationName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StationLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BreakTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StationPhone)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StationLocation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BreakTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StationPhone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        <a href="/Station/Edit/@item.StationID"><i class="fa fa-edit fa-fw"></i></a>|
+                            <a href="/Station/Details/@item.StationID"><i class="fa fa-info fa-fw"></i></a>|
+                            <a href="/Station/Delete/@item.StationID"><i class="fa fa-minus-square fa-fw"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    window.onload = loadTable();
+
+    function loadTable() {
+        var oTable = $('#TableStations').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bSort": false,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('TableStations'),
+            "datatable": oTable,
+            "sPaginationType": "full_numbers"
+        });
+    }
+</script>
