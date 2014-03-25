@@ -2,11 +2,20 @@
     ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    var error = "";
+    if (TempData["ERROR"] != null)
+    {
+        error = TempData["ERROR"].ToString();
+    }
+}
 <div class="login-panel panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Vui lòng nhập thông tin tài khoản</h3>
+        
     </div>
     <div class="panel-body">
+        <h4 style="color: red">@Html.ValidationMessage("LoginFailed")</h4>
         <div class="form-group">
             <input class="form-control" placeholder="tên đăng nhập" id="Username" type="email" autofocus="">
         </div>

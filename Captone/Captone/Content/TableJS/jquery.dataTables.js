@@ -10937,12 +10937,12 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "zeroRecords": "No records to display"
+			 *          "zeroRecords": "Không có dữ liệu"
 			 *        }
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Không có dữ liệu"
 		},
 	
 	

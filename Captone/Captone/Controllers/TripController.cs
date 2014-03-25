@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Captone.Models;
+using Captone.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Services;
-using Captone.Models;
-using Captone.Services;
 
 namespace Captone.Controllers
 {
@@ -243,10 +243,27 @@ namespace Captone.Controllers
             return View();
         }
 
+        // For delete trip
         // Retrieve requests assigned to selected trip, find by TripID
         [HttpPost]
         [WebMethod]
         public ActionResult RelatedRequests(int tripID)
+        {
+            List<Request> listRequests = new List<Request>();
+            List<int> rqID = new List<int>();
+            rqID = (from a in db.Assignings where a.TripID == tripID select a.RequestID).ToList();
+            foreach (var id in rqID)
+            {
+                Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                listRequests.Add(rq);
+            }
+            return View(listRequests);
+        }
+
+        //For view assigned request of selected trip
+        [HttpPost]
+        [WebMethod]
+        public ActionResult AssignedRequest(int tripID)
         {
             List<Request> listRequests = new List<Request>();
             List<int> rqID = new List<int>();
