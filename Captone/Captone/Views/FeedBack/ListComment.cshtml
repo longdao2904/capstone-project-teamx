@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Captone.Models.Comment>
-<script src="~/Scripts/jstarbox.js"></script>
 <link href="~/Content/Css/jstarbox.css" rel="stylesheet" />
+<script src="~/Scripts/jstarbox.js"></script>
 @{
     string username = (string)Session["USERNAME"];
 }
 <script type="text/javascript">
-
     jQuery(function () {
         jQuery('.starbox').each(function () {
             var starbox = jQuery(this);
             var avg = document.getElementById("AvgRatingLevel").value;
+
             starbox.starbox({
                 average: avg,
                 changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
@@ -17,24 +17,21 @@
                 autoUpdateAverage: starbox.hasClass('autoupdate'),
                 buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
                 stars: starbox.attr('data-star-count') || 5
-           
+
             })
                 .bind('starbox-value-moved', function (event, value) {
-                //starbox.next().text("Rated to: " + Math.round(value*100) + "%");
-                document.getElementById("ratingLevel").value = Math.round(value*100)/100;
-
-            })
+                    //starbox.next().text("Rated to: " + Math.round(value*100) + "%");
+                    document.getElementById("ratingLevel").value = Math.round(value * 100) / 100;
+                })
         });
     });
-
 </script>
 <div>
-    <h2>Ý kiến khách hàng</h2>
     <h3 style="color: #3498db">Trạm: @ViewBag.StationSelect.StationName.ToString()</h3>
     <div class="block">
         <div class="starbox smooth autoupdate ghosting">
             <div class="positioner">
-                <div class="stars">                 
+                <div class="stars">
                     <div class="colorbar" style="width: 82.5px;"></div>
                     <div class="star_holder">
                         <div class="star star-0"></div>
@@ -70,27 +67,20 @@
         </div>
     }
 
-    <div class="col-lg-7">
-        <div class="panel-body">
-            <form role="form">
-                <div class="form-group">
-                    Ý kiến của bạn:
-                <textarea class="form-control" row="3" id="comment" name="Comment" style="height: 100px; width: 500px"></textarea>
-                </div>
-                <br />
-
-                <input id="CommentID" type="button" value="Bình luận" class="btn"/>
-                <div style="display: none">
-                </div>
-            </form>
-        </div>
+    <div class="form-group">
+        Ý kiến của bạn:
+        <textarea class="form-control" row="3" id="comment" name="Comment" style="height: 100px; width: 500px"></textarea>
+        <br />
+        <input id="CommentID" type="button" value="Bình luận" class="btn" />
     </div>
 </div>
+
+
 <script type="text/javascript">
 
-    $('#CommentID').on('click', function () {      
+    $('#CommentID').bind('click', function () {
         ratingStation();
-       commentStation();
+        commentStation();
     });
 
     function ratingStation() {
@@ -125,4 +115,4 @@
         });
     }
 </script>
-    
+
