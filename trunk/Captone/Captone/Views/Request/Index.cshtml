@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Captone.Models.Request>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
     ViewBag.Title = "Danh sách yêu cầu chuyển phát";
 }
@@ -13,26 +14,8 @@
             }
         </ul>
         <div class="table-responsive" style="margin-top: 1%">
-            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <div id="TableRequest_wrapper" class="dataTables_wrapper form-inline" role="grid">
                 <div class="col-lg-8">
-                    <div class="row" style="margin-bottom: 1%">
-                        <div class="col-sm-6">
-                            <div class="dataTables_length" id="dataTables-example_length">
-                                <label>
-                                    Hiển thị
-                                <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                </select>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                           
-                        </div>
-                    </div>
                 </div>
                 <div id="request">
               
@@ -67,9 +50,15 @@
                 }
                 var oTable = $('#TableRequest').dataTable();
 
+                $.extend($.fn.dataTable.defaults, {
+                    "bSort": false,
+                    "sPaginationType": "full_numbers"
+                });
+
                 var keys = new KeyTable({
                     "table": document.getElementById('TableRequest'),
-                    "datatable": oTable
+                    "datatable": oTable,
+                    "sPaginationType": "full_numbers"
                 });
             }
         });

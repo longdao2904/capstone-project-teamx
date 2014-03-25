@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Captone.Models;
+using System.Web.Services;
 
 namespace Captone.Controllers
 {
@@ -13,6 +14,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
 
+        #region CRUD
         //
         // GET: /CoachType/
 
@@ -110,12 +112,19 @@ namespace Captone.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-    
+        
+        [HttpGet]
+        [WebMethod]
+        public ActionResult CoachTypePartial()
+        {
+            return View(db.CoachTypes.ToList());
+        }
     }
 }

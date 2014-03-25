@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Captone.Models.Trip>
 
 @{
-    ViewBag.Title = "Danh sách chuyến xe";
+    ViewBag.Title = "Quản lý chuyến";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
@@ -12,18 +12,29 @@
                 @ViewBag.Title
             </div>
             <div class="panel-body">
-                <p>
-                    <i class="fa fa-plus-square"></i>@Html.ActionLink(" Tạo một chuyến mới", "Create")
-                </p>
-                <div>
-                    @{
-                        Captone.Models.Trip trip = new Captone.Models.Trip();
-                    }
-                    @{
-                        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
-                        grid.Pager(WebGridPagerModes.NextPrevious);}
-                    <div id="gridContent" class="table-responsive">
-                        @grid.GetHtml(tableStyle: "webGrid",
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#list-pills" data-toggle="tab">Danh sách chuyến</a>
+                    </li>
+                    <li class=""><a href="#depart-pills" data-toggle="tab">Khởi hành</a>
+                    </li>
+                    <li class=""><a href="#arrive-pills" data-toggle="tab" onclick="arriveTrip()">Các chuyến đã đến trạm</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="list-pills">
+                        <br />
+                        <p>
+                            <i class="fa fa-plus-square"></i>@Html.ActionLink(" Tạo một chuyến mới", "Create")
+                        </p>
+                        <div class="col-lg-12">
+                            @{
+                                Captone.Models.Trip trip = new Captone.Models.Trip();
+                            }
+                            @{
+                                var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+                                grid.Pager(WebGridPagerModes.NextPrevious);}
+                            <div id="gridContent" class="table-responsive">
+                                @grid.GetHtml(tableStyle: "webGrid",
                     headerStyle: "header",
                     selectedRowStyle: "select",
                     columns: grid.Columns(
@@ -35,25 +46,91 @@
                     grid.Column("Coach.NumberPlate", "Xe")
 
                     ))
-                        @if (grid.HasSelection)
-                        {
-                            trip = (Captone.Models.Trip)grid.Rows[grid.SelectedIndex].Value;
-                            <p><b>Ngày đi:</b> @trip.Date</p>
-                            <p><b>Giờ đi dự kiến:</b> @trip.EstimateDepartureTime</p>
-                            <p><b>Giờ đến dự kiến:</b> @trip.EstimateArrivalTime</p>
-                            <p><b>Thể tích thùng hàng còn trống: </b>@trip.AvailableVolume</p>
-                            <p><b>Xe chạy:</b> @trip.Coach.NumberPlate</p>
-                            <p><b>Tuyến:</b> @trip.Route.RouteName</p>
-                            <p>
-                                <a href="~/Trip/Edit/@trip.TripID">
-                                    <button class="btn btn-info">Cập nhật</button></a>
-                                <a href="~/Trip/Delete/@trip.TripID">
-                                    <button class="btn btn-danger">Xóa</button></a>
-                            </p>   
-                        }
+                                @if (grid.HasSelection)
+                                {
+                                    trip = (Captone.Models.Trip)grid.Rows[grid.SelectedIndex].Value;
+                                    <p><b>Ngày đi:</b> @trip.Date</p>
+                                    <p><b>Giờ đi dự kiến:</b> @trip.EstimateDepartureTime</p>
+                                    <p><b>Giờ đến dự kiến:</b> @trip.EstimateArrivalTime</p>
+                                    <p><b>Thể tích thùng hàng còn trống: </b>@trip.AvailableVolume</p>
+                                    <p><b>Xe chạy:</b> @trip.Coach.NumberPlate</p>
+                                    <p><b>Tuyến:</b> @trip.Route.RouteName</p>
+                                    <p>
+                                        <a href="~/Trip/Edit/@trip.TripID">
+                                            <button class="btn btn-info">Cập nhật</button></a>
+                                        <a href="~/Trip/Delete/@trip.TripID">
+                                            <button class="btn btn-danger">Xóa</button></a>
+                                    </p>   
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="depart-pills">
+                        depart
+                    </div>
+                    <div class="tab-pane fade" id="arrive-pills">
+                        <div id="arrivalTrip"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function arriveTrip() {
+        $.ajax({
+            url: "/Trip/ArrivedTrip",
+            type: "Get",
+            success: function (result) {
+                $("#arrivalTrip").html(result);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                 
+                });
+            }
+        });
+
+    });
+    //change request status when checkbox 'arrived' checked
+    function getRequests() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+    // Sent request collection to controller
+    function SentObject() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = "/Request/Index";
+                window.addActive(5);
+            }
+        });
+    }
+    // Click on button 'Đã đến trạm'
+    $('#sttSet').click(function () {
+        SentObject();
+    });
+
+
+</script>
