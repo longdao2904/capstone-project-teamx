@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+
+@{
+    Layout = null;
+}
+
+
+<div class="col-lg-12">
+    @{
+        Captone.Models.Trip trip = new Captone.Models.Trip();
+    }
+    @{
+        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
+        grid.Pager(WebGridPagerModes.NextPrevious);}
+    <div id="gridContent" class="table-responsive">
+        @grid.GetHtml(tableStyle: "webGrid",
+                    headerStyle: "header",
+                    selectedRowStyle: "select",
+                    columns: grid.Columns(
+                    grid.Column("Ngày đi", format: (item) => item.GetSelectLink(item.Date.ToString())),
+                    grid.Column("Route.RouteName", "Tuyến"),
+                    grid.Column("Coach.NumberPlate", "Xe"),
+                    grid.Column("RealDepartureTime", "Giờ đi dự kiến"),
+                    grid.Column("RealArrivalTime", "Giờ đến dự kiến"),
+                    grid.Column("AvailableVolume", "Thể tích còn trống")
+                    ))
+        @if (grid.HasSelection)
+        {
+            trip = (Captone.Models.Trip)grid.Rows[grid.SelectedIndex].Value;
+            <p><b>Ngày đi:</b> @trip.Date</p>
+            <p><b>Giờ đi dự kiến:</b> @trip.EstimateDepartureTime</p>
+            <p><b>Giờ đến dự kiến:</b> @trip.EstimateArrivalTime</p>
+            <p><b>Thể tích thùng hàng còn trống: </b>@trip.AvailableVolume</p>
+            <p><b>Xe chạy:</b> @trip.Coach.NumberPlate</p>
+            <p><b>Tuyến:</b> @trip.Route.RouteName</p>
+            <p>
+                <a href="~/Trip/Edit/@trip.TripID">
+                    <button class="btn btn-info">Cập nhật</button></a>
+                <a href="~/Trip/Delete/@trip.TripID">
+                    <button class="btn btn-danger">Xóa</button></a>
+            </p>   
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                 
+                });
+            }
+        });
+
+    });
+    //change request status when checkbox 'arrived' checked
+    function getRequests() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+    // Sent request collection to controller
+    function SentObject() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = "/Request/Index";
+                window.addActive(5);
+            }
+        });
+    }
+    // Click on button 'Đã đến trạm'
+    $('#sttSet').click(function () {
+        SentObject();
+    });
+
+
+</script>

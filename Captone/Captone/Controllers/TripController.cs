@@ -19,8 +19,15 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            var trips = db.Trips;
-            return View(trips.ToList());
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+            else
+            {
+                var trips = db.Trips;
+                return View(trips.ToList());
+            }
         }
 
         //
@@ -37,12 +44,19 @@ namespace Captone.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Trip trip = db.Trips.Find(id);
-            if (trip == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(trip);
+            else
+            {
+                Trip trip = db.Trips.Find(id);
+                if (trip == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(trip);
+            }
         }
 
         //
@@ -90,14 +104,21 @@ namespace Captone.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Trip trip = db.Trips.Find(id);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            if (trip == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(trip);
+            else
+            {
+                Trip trip = db.Trips.Find(id);
+                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
+                if (trip == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(trip);
+            }
         }
 
         //
@@ -106,15 +127,22 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult Edit(Trip trip)
         {
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            if (ModelState.IsValid)
+            if (Session["USERNAME"] == null)
             {
-                db.Entry(trip).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(trip);
+            else
+            {
+                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(trip).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(trip);
+            }
         }
 
         //
@@ -122,12 +150,19 @@ namespace Captone.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Trip trip = db.Trips.Find(id);
-            if (trip == null)
+            if (Session["USERNAME"] == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("LogOn", "Account");
             }
-            return View(trip);
+            else
+            {
+                Trip trip = db.Trips.Find(id);
+                if (trip == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(trip);
+            }
         }
 
         //
@@ -213,11 +248,6 @@ namespace Captone.Controllers
         [WebMethod]
         public ActionResult RelatedRequests(int tripID)
         {
-            //List<Request> requests = new List<Request>();
-            //requests = (from r in db.Requests
-            //           where r.RequestID == (from a in db.Assignings
-            //                                where a.TripID == tripID
-            //                                select a.RequestID) select r).ToList();
             List<Request> listRequests = new List<Request>();
             List<int> rqID = new List<int>();
             rqID = (from a in db.Assignings where a.TripID == tripID select a.RequestID).ToList();
@@ -263,6 +293,25 @@ namespace Captone.Controllers
                     db.SaveChanges();
                 }
             }
+        }
+
+        // Load trips arrived destination
+        [WebMethod]
+        [HttpGet]
+        public ActionResult ArrivedTrip()
+        {
+            List<Trip> trips = new List<Trip>();
+            int stationID = int.Parse(Session["StationID"].ToString());
+            trips = (from t in db.Trips
+                     where t.TripID ==
+                         ((from a in db.Assignings
+                           where a.RequestID ==
+                               ((from r in db.Requests
+                                 where r.DeliveryStatusID == 5 && r.ToLocation == stationID
+                                 select new { r.RequestID }).FirstOrDefault().RequestID)
+                           select new { a.TripID }).FirstOrDefault().TripID)
+                     select t).ToList();
+            return View(trips);
         }
     }
 }

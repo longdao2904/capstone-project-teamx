@@ -24,6 +24,7 @@ namespace Captone.Controllers
                 if (check!= null)
                 {
                     Session["USERNAME"] = model.Username;
+                    Session.Timeout = 60;
                     
                     Session["StationID"] = check.StationID;
                     if(check.StationID != 0){

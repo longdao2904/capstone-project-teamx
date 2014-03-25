@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Captone.Models;
+﻿using Captone.Models;
 using Captone.Services.Interfaces;
+using System.Data;
+using System.Web.Mvc;
 
 namespace Captone.Controllers
 {
@@ -19,6 +14,7 @@ namespace Captone.Controllers
             _coachService = coachService;
         }
 
+        #region CRUD
         //
         // GET: /Coach/
 
@@ -125,6 +121,7 @@ namespace Captone.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

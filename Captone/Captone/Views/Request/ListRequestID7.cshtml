@@ -1,55 +1,48 @@
 ﻿@model IEnumerable<Captone.Models.Request>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 <div class="table-responsive" id="requestList">
-    <table class="table" id="TableRequest">
-        <tr>
-            <th>Người gửi
-            </th>
-            <th>Phí
-            </th>
-            <th>Ngày gửi
-            </th>
-            <th>Trạm gửi
-            </th>
-            <th>Trạm nhận
-            </th>
-        </tr>
-
-        @foreach (var item in ViewBag.Cancelled)
-        {
-            
-            <tr id="request-@item.RequestID">
-                <td style="display: none;" id="rqID">
-                    @item.RequestID
-                </td>
-                <td>
-                    @item.Username
-                </td>
-                <td>
-                    @item.ManageFee.Fee
-                </td>
-                <td>
-                    @item.DateRequest.ToShortDateString()
-                </td>
-                <td>
-                    @item.Station.StationName
-                </td>
-                <td style="display: none">
-                    @item.FromLocation
-                </td>
-                <td style="display: none">
-                    @item.ToLocation
-                </td>
-                <td style="display: none;">
-                    @item.DeliveryStatusID
-                </td>
-                <td style="display: none;">
-                    @item.FeeID;
-                </td>
-                <td>
-                    @item.Station1.StationName
-                </td>
+    <table class="table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Tên 
+                </th>
+                <th>Phí
+                </th>
+                <th>Ngày gửi
+                </th>
+                <th>Trạm gửi
+                </th>
+                <th>Trạm nhận
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Cancelled)
+            {
+            
+                <tr id="request-@item.RequestID">
+                    <td style="display: none;" id="rqID">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.ManageFee.Fee
+                    </td>
+                    <td>
+                        @item.DateRequest
+                    </td>
+                    <td>
+                        @item.Station.StationName
+                    </td>
+                    <td>
+                        @item.Station1.StationName
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
