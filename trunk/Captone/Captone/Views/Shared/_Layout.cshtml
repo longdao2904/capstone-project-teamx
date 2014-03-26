@@ -11,12 +11,6 @@
     <script src="~/Content/js/bootstrap.js"></script>
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
 
-     <script src="~/Content/js/jquery.fullscreenBackground.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#background-image").fullscreenBackground();
-        });
-    </script>
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
@@ -157,6 +151,12 @@
                                 <li>
                                     <a href="/Assigning/getRequestAssign?StationID=@stationId">Xếp lịch</a>
                                 </li>
+                                <li>
+                                    <a href="/Assigning/ListAssign?stationID=@stationId">Xác nhận chuyển hàng</a>
+                                </li>
+                                <li>
+                                    <a href="/Assigning/RequestPeding">Hàng đang vận chuyển</a>
+                                </li>
                             </ul>
                         </li>
                     }
@@ -245,9 +245,7 @@
             </div>
         </div>
     <div style="clear: both;"></div>
-            <div id="background-image">
-        <img src="~/Content/Images/820NewellH.jpg" width="800" height="600"/>
-</div>
+
       @*  <div class="contain">
             <div id="myCarousel4" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
