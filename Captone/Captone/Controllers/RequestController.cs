@@ -155,7 +155,7 @@ namespace Captone.Controllers
         //
         // GET: /Request/Delete/5
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id)
         {
             Request request = _db.Requests.Find(id);
             if (request == null)
@@ -218,6 +218,7 @@ namespace Captone.Controllers
             }
             return false;
         }
+       
         [HttpPost]
         public Boolean UpdateStatusAfterCheckOut(int requestId)
         {
@@ -306,6 +307,11 @@ namespace Captone.Controllers
             request.DeliveryStatusID = 2;
             _db.Invoices.Add(invoice);
             _db.SaveChanges();
+        }
+        public ActionResult LatePayment(int stationID)
+        {
+            var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 8).ToList();
+            return View(list);           
         }
     }
 }
