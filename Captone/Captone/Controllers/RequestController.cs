@@ -6,6 +6,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.html.simpleparser;
 
 namespace Captone.Controllers
 {
@@ -312,6 +316,46 @@ namespace Captone.Controllers
         {
             var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 8).ToList();
             return View(list);           
+        }
+        //Create PDF
+        [HttpPost]
+        public String CreatePdf(String Weight, String Volume, String Price, int RequestID)
+        {
+            var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
+
+            string htmlText = "<div>" + "Hoa don khach hang<br>=====================================<br><br>"+
+                "Ten khach hang: " + request.Username + "<br>" +
+                "Gui tu: " + request.SenderAddress + " den: "+request.ReceiverAddress + "<br>" +
+                "Khoi luong hang hoa:" + Weight + "<br>" +
+                "The tich hang hoa: " + Volume + "<br>" +
+
+                "-------------------------------<br>Thanh tien: " +Price+
+                "<br><br>=====================================<br>" +
+          "</div>";
+            
+            HTMLToPdf(htmlText, "PDFfile.pdf");
+            return "true";
+        }
+        public void HTMLToPdf(string HTML, string FilePath)
+        {
+
+            Document document = new Document();
+            string path = Server.MapPath("~/");
+            PdfWriter.GetInstance(document, new FileStream(path + "/Invoice.pdf", FileMode.Create));
+
+            document.Open();
+
+            StyleSheet styles = new StyleSheet();
+            HTMLWorker hw = new HTMLWorker(document);
+            hw.Parse(new StringReader(HTML));
+            document.Close();
+
+        }
+
+        public FileResult DisplayPDF()
+        {
+            string path = Server.MapPath("~/");
+            return File(path+"\\Invoice.pdf", "application/pdf");
         }
     }
 }
