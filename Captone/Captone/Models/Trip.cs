@@ -32,6 +32,7 @@ namespace Captone.Models
         public int CoachID { get; set; }
         public Nullable<int> ScheduleID { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Status { get; set; }
     
         public virtual ICollection<Assigning> Assignings { get; set; }
         public virtual Coach Coach { get; set; }

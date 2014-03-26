@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Xóa trạm";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 <div class="row">
     <div class="col-lg-12">
@@ -53,8 +53,8 @@
                 @using (Html.BeginForm())
                 {
                     <p>
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                        <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Station/Index'" />
+                        <button type="submit" class="btn btn-danger">Xóa trạm này</button>
+                        <button type="button" class="btn btn-info" onclick="window.location.href='/Station/Index'">Quay lại danh sách</button>
                     </p>
                 }
             </div>

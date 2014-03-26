@@ -13,7 +13,7 @@
             </div>
             <div class="panel-body">
                 <p>
-                    <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm trạm mới", "Create")
+                    <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-outline btn-primary" onclick="CreateStation()">Tạo trạm mới</a>
                 </p>
                 <div class="table-responsive">
                     <table class="table display KeyTable dataTable" id="TableStations" aria-describedby="example_info">
@@ -70,6 +70,22 @@
         </div>
     </div>
 </div>
+<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin trạm mới</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="modal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <script>
     window.onload = loadTable();
 
@@ -77,14 +93,40 @@
         var oTable = $('#TableStations').dataTable();
 
         $.extend($.fn.dataTable.defaults, {
-            "bSort": false,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
             "sPaginationType": "full_numbers"
         });
 
         var keys = new KeyTable({
             "table": document.getElementById('TableStations'),
             "datatable": oTable,
-            "sPaginationType": "full_numbers"
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+
+    function CreateStation() {
+        $.ajax({
+            url: "/Station/Create",
+            type: "Get",
+            success: function (result) {
+                $("#modal").html(result);
+            }
         });
     }
 </script>
+<style type="text/css">
+    .bodyFix {
+        height: 100%;
+        overflow: scroll;
+    }
+    .modal-title {
+        font-weight:bolder;
+    }
+</style>

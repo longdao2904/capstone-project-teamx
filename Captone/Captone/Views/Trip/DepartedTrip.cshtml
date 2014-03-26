@@ -5,11 +5,11 @@
 <script src="~/Content/TableJS/jquery.dataTables.js"></script>
 <script src="~/Content/TableJS/KeyTable.js"></script>
 @{
-    Layout = null;
+     Layout = null;
 }
 
 <div class="table-responsive">
-    <table class="table display KeyTable dataTable" id="TableArrivedTrip" aria-describedby="example_info">
+    <table class="table display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
             <tr>
                 <th>
@@ -60,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.AvailableVolume)
                     </td>
                     <td>
-                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="AssignedRequest(@item.TripID)">Hàng trên chuyến</a>
+                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="LateTripRequest(@item.TripID)">Hàng trên chuyến</a>
                     </td>
                 </tr>
             }
@@ -75,7 +75,7 @@
                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
             </div>
             <div class="modal-body bodyFix">
-                <div id="arrival">
+                <div id="latetrip">
                 </div>
             </div>
         </div>
@@ -87,16 +87,17 @@
 <script>
     window.onload = loadTable();
     function loadTable() {
-        var oTable = $('#TableArrivedTrip').dataTable();
+        var oTable = $('#TableDepartedTrip').dataTable();
 
         $.extend($.fn.dataTable.defaults, {
-            "bSort": false,
+            "bSort": true,
             "sPaginationType": "full_numbers"
         });
 
         var keys = new KeyTable({
-            "table": document.getElementById('TableArrivedTrip'),
+            "table": document.getElementById('TableDepartedTrip'),
             "datatable": oTable,
+            "bSort": true,
             "sPaginationType": "full_numbers"
         });
     }
@@ -145,13 +146,13 @@
         SentObject();
     });
     // Get requests assigned to selected trip
-    function AssignedRequest(tripID) {
+    function LateTripRequest(tripID) {
         $.ajax({
-            url: "/Trip/AssignedRequest",
+            url: "/Trip/LateTripRequest",
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {
-                $("#arrival").html(result);
+                $("#latetrip").html(result);
             }
         });
     }

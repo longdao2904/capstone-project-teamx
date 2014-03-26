@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Thay đổi chi tiết lịch trình";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
 <div class="panel panel-primary">
@@ -60,8 +61,8 @@
 
                 <br />
                 <p>
-                    <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
-                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Schedule/Index'" />
+                    <button type="submit" class="btn btn-primary">Lưu thông tin </button>
+                    <button type="button" class="btn btn-info" onclick="window.location.href = '/Schedule/Index'">Quay lại danh sách</button>
                 </p>
             </fieldset>
         }
