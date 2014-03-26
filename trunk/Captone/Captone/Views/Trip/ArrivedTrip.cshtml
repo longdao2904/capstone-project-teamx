@@ -75,7 +75,7 @@
                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
             </div>
             <div class="modal-body bodyFix">
-                <div id="arrival">
+                <div id="requests">
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {
-                $("#arrival").html(result);
+                $("#requests").html(result);
             }
         });
     }
@@ -161,7 +161,8 @@
         height: 380px;
         overflow: scroll;
     }
+
     .modal-title {
-        font-weight:bolder;
+        font-weight: bolder;
     }
 </style>

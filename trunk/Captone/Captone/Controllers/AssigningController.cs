@@ -1,18 +1,15 @@
-﻿using System;
+﻿using Captone.Models;
+using System;
 using System.Collections.Generic;
-using System.Data.Objects.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
-using Captone.Models;
 namespace Captone.Controllers
 {
     public class AssigningController : Controller
     {
-        //
-        // GET: /Assigning/
         iDeliverEntities _db = new iDeliverEntities();
+        //
         public ActionResult ListAssign(int stationID)
         {
             List<AssigningModel> item = (from p
@@ -47,16 +44,19 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return View("ListAssign");
         }
+        //
         public ActionResult ListTrip(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTrip", list);
         }
+        ///
         public ActionResult GetFromToLocation(int requestId)
         {
             var list = _db.Requests.Where(p => p.RequestID == requestId).ToList();
             return PartialView("GetFromToLocation", list);
         }
+        //
         [HttpPost]
         [WebMethod]
         public void Accept(List<Request> requestId)
@@ -70,6 +70,7 @@ namespace Captone.Controllers
                 _db.SaveChanges();
             }
         }
+        //
         public ActionResult getRequestAssign(int StationID)
         {
             var list =
@@ -78,7 +79,7 @@ namespace Captone.Controllers
             ;
             return View(list);
         }
-
+        //
         public JsonResult CheckRequestLate(List<Trip> requestId)
         {
 
@@ -94,7 +95,7 @@ namespace Captone.Controllers
             }
             return Json(new { check = true }, JsonRequestBehavior.AllowGet);
         }
-
+        //
         public ActionResult RequestPeding()
         {
             List<AssigningModel> item = (from p
@@ -128,12 +129,13 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return View();
         }
+        //
         public ActionResult ListTripPeding(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTripPeding", list);
         }
-
+        //
         public ActionResult ListRequestForTrip(int tripid)
         {
             List<Request> requests = new List<Request>();
@@ -152,6 +154,7 @@ namespace Captone.Controllers
             }
             return View(requests);
         }
+        //
         [WebMethod]
         public void UpdateRequestLate(List<Request> requestId)
         {

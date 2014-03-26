@@ -5,7 +5,7 @@
 <script src="~/Content/TableJS/jquery.dataTables.js"></script>
 <script src="~/Content/TableJS/KeyTable.js"></script>
 @{
-     Layout = null;
+    Layout = null;
 }
 
 <div class="table-responsive">
@@ -60,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.AvailableVolume)
                     </td>
                     <td>
-                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="LateTripRequest(@item.TripID)">Hàng trên chuyến</a>
+                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="AssignedRequest(@item.TripID)">Hàng trên chuyến</a>
                     </td>
                 </tr>
             }
@@ -75,7 +75,7 @@
                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
             </div>
             <div class="modal-body bodyFix">
-                <div id="latetrip">
+                <div id="requests">
                 </div>
             </div>
         </div>
@@ -146,13 +146,13 @@
         SentObject();
     });
     // Get requests assigned to selected trip
-    function LateTripRequest(tripID) {
+    function AssignedRequest(tripID) {
         $.ajax({
-            url: "/Trip/LateTripRequest",
+            url: "/Trip/AssignedRequest",
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {
-                $("#latetrip").html(result);
+                $("#requests").html(result);
             }
         });
     }
@@ -162,7 +162,8 @@
         height: 380px;
         overflow: scroll;
     }
+
     .modal-title {
-        font-weight:bolder;
+        font-weight: bolder;
     }
 </style>
