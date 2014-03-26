@@ -482,6 +482,7 @@
     <Content Include="Content\Images\step-first.png" />
     <Content Include="Content\Images\step-second.png" />
     <Content Include="Content\Images\step-third.png" />
+    <Content Include="Content\Images\warning-icon.png" />
     <Content Include="Content\img\Administrator-icon.png" />
     <Content Include="Content\img\cancelled.png" />
     <Content Include="Content\img\curved-road-on-white.jpg" />
@@ -801,10 +802,6 @@
     <Content Include="Content\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Images\forms\Thumbs.db" />
-    <EntityDeploy Include="Models\iDeliver.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="ImageRating\5-large.png" />
     <Content Include="ImageRating\5-small.png" />
     <Content Include="ImageRating\6-large.png" />
@@ -813,6 +810,10 @@
     <Content Include="ImageRating\golden.png" />
     <Content Include="ImageRating\ribbon-small.png" />
     <Content Include="ImageRating\ribbon.png" />
+    <EntityDeploy Include="Models\iDeliver.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <Content Include="Models\iDeliver.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>iDeliver.edmx</DependentUpon>
@@ -936,10 +937,16 @@
     <Content Include="Views\Request\InputInvoice.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\Assigning\getRequestAssign.cshtml" />
+<<<<<<< .mine
+    <Content Include="Views\Assigning\RequestPeding.cshtml" />
+    <Content Include="Views\Assigning\ListTripPeding.cshtml" />
+    <Content Include="Views\Assigning\ListRequestForTrip.cshtml" />
+=======
     <Content Include="Views\CoachType\CoachTypePartial.cshtml" />
     <Content Include="Views\Trip\ArrivedTrip.cshtml" />
     <Content Include="Views\Trip\AssignedRequest.cshtml" />
     <Content Include="Views\Request\LatePayment.cshtml" />
+>>>>>>> .r279
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

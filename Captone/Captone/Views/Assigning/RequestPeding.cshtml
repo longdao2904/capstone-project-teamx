@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Captone.Models.AssigningModel>
 @{
+    ViewBag.Title = "RequestPeding";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 <div class="table-responsive">
@@ -56,7 +57,7 @@
 
         </tbody>
     </table>
-    <a class="btn btn-success" href="/Request/Index" onclick="AllGet()">Xác nhận chuyển đi</a>
+    <a class="btn btn-success" href="#">Xác nhận chuyển đi</a>
 </div>
 <script type="text/javascript">
     $('.example').popover({
@@ -79,78 +80,18 @@
             }
         });
 
-    });
-    
-    function getRequestID() {
-        var request = [];
-        $('[name="Requests"]:checked').each(function () {
-            var row = $(this).closest('tr');
-            var emp = {
-                // we start at 2 because the first one is the checkbox
-                // also it would be easier if you have an id for each of the column
-                // and do this row.find('#idCol') / row.find('#nameCol')
-                RequestID: row.find('td:nth-child(1)').text(),
-                ToLocation: row.find('td:nth-child(5)').text(),
-                SenderPhone: row.find('td:nth-child(6)').text()
-            };
-            request.push(emp);
-            // SentObject(request);
-        });
-       
-        return request;
-    }
-    function getPhone() {
-        var request = [];
-        $('[name="Requests"]:checked').each(function () {
-            var row = $(this).closest('tr');
-            var emp = {
-                // we start at 2 because the first one is the checkbox
-                // also it would be easier if you have an id for each of the column
-                // and do this row.find('#idCol') / row.find('#nameCol')
-                ToLocation: row.find('td:nth-child(5)').text(),
-                SenderPhone: row.find('td:nth-child(6)').text()
-            };
-            request.push(emp);
-            // SentObject(request);
-        });
-     
-        return request;
-    }
-    function AllGet() {
-        Accept();
-        SendSms();
-    }
-    function SendSms() {
-        var sms = getPhone();
-        $.ajax({
-            url: "/Sms/Send",
-            type: "Post",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify({phone : sms})
-        });
-    }
-    function Accept() {
-        var deliver = getRequestID();
-        $.ajax({
-            url: "/Assigning/Accept",
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify({ requestId: deliver }),
-            success: function (result) {
-         
-            }
-        });
-    }
+    });    
+
     function ListTrip(id) {
         $.ajax({
-            url: "/Assigning/ListTrip",
+            url: "/Assigning/ListTripPeding",
             type: "POST",
             data: { requestId: id },
             success: function (result) {
                 getLocation(id);
                 $("#trip-for").html(result);
+                $('#ListTripPeding input:checkbox').attr('checked', 'checked');
+                CheckRequestLate();
             }
         });
     }
@@ -167,3 +108,5 @@
     }
 
 </script>
+
+

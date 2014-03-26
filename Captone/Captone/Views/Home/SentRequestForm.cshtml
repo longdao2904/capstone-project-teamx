@@ -506,6 +506,7 @@
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;
                 for (i in result) {
+                    
                     var images = '@Url.Content("~/Content/Images/station.png")';
                     var re = result[i].Coordinate.indexOf(',');
                     var Lat = parseFloat(result[i].Coordinate.substring(0, re));
