@@ -7,14 +7,17 @@
             <tr>
                 <th>Người gửi
                 </th>
+                <th>Số điện thoại người gửi
+                </th>
+                <th>Người nhận
+                </th>                
+                <th>Điện thoại người nhận
+                </th>
                 <th>Ngày gửi
                 </th>
                 <th>Trạm gửi
                 </th>
-                <th>Trạm nhận
-                </th>
-                <th>Trạng thái
-                </th>
+                <th>Trạm nhận</th>
             </tr>
 
             @foreach (var item in Model)
@@ -27,6 +30,15 @@
                         @item.Username
                     </td>
                     <td>
+                        @item.SenderPhone
+                    </td>
+                    <td>
+                        @item.ReceiverName
+                    </td>
+                    <td>
+                        @item.ReceiverPhone
+                    </td>
+                    <td>
                         @item.DateRequest.ToShortDateString()
                     </td>
                     <td>
@@ -34,9 +46,6 @@
                     </td>
                     <td>
                         @item.Station1.StationName
-                    </td>
-                    <td>
-                        @item.DeliveryStatu.StatusName
                     </td>
                 </tr>
             }
