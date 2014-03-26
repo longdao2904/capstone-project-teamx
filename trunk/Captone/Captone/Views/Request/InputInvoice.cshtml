@@ -18,3 +18,33 @@
                             <br />
     <input type="text" name="Price" id="Price" class="form-control" />
 </div>
+
+<div class="each-field">
+                            <br />
+    <input type="button" value="In Hoá Đơn" class="btn" onclick="getData();" />
+</div>
+
+<script type="text/javascript">
+    function getData() {
+        var weight = document.getElementById("Weight").value;
+        var volume = document.getElementById("Volume").value;
+        var price = document.getElementById("Price").value;
+        var requestID = document.getElementById("RequestID").value;
+  $.ajax({
+            url: "/Request/CreatePdf",
+            type: "POST",
+            data: { Weight: weight, Volume: volume, Price: price, RequestID: requestID },
+            success: function (result) {
+                console.log(result);
+                if (result == "true") {
+
+                    //applay param to href
+                    //var param = "?weight=" + weight + "&volume=" + volume + "&price=" + price;
+                    var href = "/Request/DisplayPDF";// + param;
+
+                    window.open(href, "_blank", "width=500; height=600");
+                }
+            }
+        });
+    }
+</script>
