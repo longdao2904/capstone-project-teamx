@@ -72,8 +72,12 @@
                     </blockquote>
                 </fieldset>
                 <p>
-                    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Trip/Edit/@Model.TripID    '" />
-                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Trip/Index'" />
+                    <a href="/Trip/Edit/@Model.TripID">
+                        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
+                    </a>
+                    <a href="/Trip/Index">
+                        <button type="button" class="btn btn-info">Quay lại danh sách</button>
+                    </a>
                 </p>
             </div>
         </div>

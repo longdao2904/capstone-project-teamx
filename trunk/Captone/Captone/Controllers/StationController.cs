@@ -62,7 +62,7 @@ namespace Captone.Controllers
 
         //
         // GET: /Station/Edit/5
-
+        [HttpGet]
         public ActionResult Edit(int id = 0)
         {
             Station station = db.Stations.Find(id);

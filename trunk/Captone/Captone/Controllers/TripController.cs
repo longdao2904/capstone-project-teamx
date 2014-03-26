@@ -19,15 +19,17 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            if (Session["USERNAME"] == null)
-            {
-                return RedirectToAction("LogOn", "Account");
-            }
-            else
-            {
-                var trips = db.Trips;
-                return View(trips.ToList());
-            }
+            //if (Session["USERNAME"] == null)
+            //{
+            //    return RedirectToAction("LogOn", "Account");
+            //}
+            //else
+            //{
+            //    var trips = db.Trips;
+            //    return View(trips.ToList());
+            //}
+            var trips = db.Trips;
+            return View(trips.ToList());
         }
 
         //
@@ -62,6 +64,8 @@ namespace Captone.Controllers
         //
         // GET: /Trip/Create
 
+        [WebMethod]
+        [HttpGet]
         public ActionResult Create()
         {
             string username = (string)Session["USERNAME"];
@@ -90,8 +94,30 @@ namespace Captone.Controllers
                 {
                     foreach (var trip in trips)
                     {
-                        db.Trips.Add(trip);
-                        db.SaveChanges();
+                        Trip t = new Trip();
+                        t.EstimateDepartureTime = trip.EstimateDepartureTime;
+                        t.EstimateArrivalTime = trip.EstimateArrivalTime;
+                        t.RouteID = trip.RouteID;
+                        t.CoachID = trip.CoachID;
+                        t.ScheduleID = trip.ScheduleID;
+                        t.EstimateVolume = trip.EstimateVolume;
+                        for (int i = 0; i < 7; i++)
+                        {
+                            TimeSpan day = new TimeSpan();
+                            if (i == 0)
+                            {
+                                day = new TimeSpan(0, 0, 0, 0);
+                            }
+                            else
+                            {
+                                day = new TimeSpan(i / i, 0, 0, 0);
+                            }
+                            DateTime nextday = trip.Date.Add(day);
+                            trip.Date = nextday.Date;
+                            t.Date = trip.Date.Date;
+                            db.Trips.Add(t);
+                            db.SaveChanges();
+                        }
                     }
                     return RedirectToAction("Index");
                 }
@@ -325,6 +351,25 @@ namespace Captone.Controllers
                            where a.RequestID ==
                                ((from r in db.Requests
                                  where r.DeliveryStatusID == 5 && r.ToLocation == stationID
+                                 select new { r.RequestID }).FirstOrDefault().RequestID)
+                           select new { a.TripID }).FirstOrDefault().TripID)
+                     select t).ToList();
+            return View(trips);
+        }
+
+        // Load trip depart from start station
+        [WebMethod]
+        [HttpGet]
+        public ActionResult DepartedTrip()
+        {
+            List<Trip> trips = new List<Trip>();
+            int stationID = int.Parse(Session["StationID"].ToString());
+            trips = (from t in db.Trips
+                     where t.TripID ==
+                         ((from a in db.Assignings
+                           where a.RequestID ==
+                               ((from r in db.Requests
+                                 where r.DeliveryStatusID == 4 && r.FromLocation == stationID
                                  select new { r.RequestID }).FirstOrDefault().RequestID)
                            select new { a.TripID }).FirstOrDefault().TripID)
                      select t).ToList();

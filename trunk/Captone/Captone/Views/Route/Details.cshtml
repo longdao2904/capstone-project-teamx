@@ -59,8 +59,12 @@
                 </fieldset>
                 <br />
                 <p>
-                    <input type="submit" value="Chỉnh sửa thông tin" class="btn btn-primary" onclick="window.location.href = '/Route/Edit/@Model.RouteID    '" />
-                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Route/Index'" />
+                    <a href="/Route/Edit/@Model.RouteID">
+                        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
+                    </a>
+                    <a href="/Route/Index">
+                        <button type="button" class="btn btn-info">Quay lại danh sách</button>
+                    </a>
                 </p>
             </div>
         </div>
