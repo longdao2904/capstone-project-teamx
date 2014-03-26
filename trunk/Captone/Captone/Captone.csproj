@@ -226,6 +226,7 @@
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -911,7 +912,6 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Schedule\SchedulePartialView.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Demo.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
@@ -931,23 +931,15 @@
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-<<<<<<< .mine
-=======
-
->>>>>>> .r273
     <Content Include="Views\Shared\_LayoutStaff.cshtml" />
     <Content Include="Views\Request\AcceptRequest.cshtml" />
     <Content Include="Views\Request\InputInvoice.cshtml" />
-<<<<<<< .mine
-=======
-
->>>>>>> .r273
     <Content Include="Views\Invoice\Index.cshtml" />
-<<<<<<< .mine
     <Content Include="Views\Assigning\getRequestAssign.cshtml" />
-=======
-
->>>>>>> .r273
+    <Content Include="Views\CoachType\CoachTypePartial.cshtml" />
+    <Content Include="Views\Trip\ArrivedTrip.cshtml" />
+    <Content Include="Views\Trip\AssignedRequest.cshtml" />
+    <Content Include="Views\Request\LatePayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
