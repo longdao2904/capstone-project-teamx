@@ -329,18 +329,19 @@ namespace Captone.Controllers
         {
             var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
 
-            string htmlText = "<div>" + "Hoa don khach hang<br>=====================================<br><br>"+
-                "Ten khach hang: " + request.Username + "<br>" +
-                "Gui tu: " + request.SenderAddress + " den: "+request.ReceiverAddress + "<br>" +
-                "Khoi luong hang hoa:" + Weight + "<br>" +
-                "The tich hang hoa: " + Volume + "<br>" +
+            string htmlText = "<div>" + "Hoa don khach hang<br>=====================================<br><br>" +
+                              "Ten khach hang: " + request.Username + "<br>" +
+                              "Gui tu: " + request.SenderAddress + " den: " + request.ReceiverAddress + "<br>" +
+                              "Khoi luong hang hoa:" + Weight + "<br>" +
+                              "The tich hang hoa: " + Volume + "<br>" +
 
-                "-------------------------------<br>Thanh tien: " +Price+
-                "<br><br>=====================================<br>" +
-          "</div>";
-            
+                              "-------------------------------<br>Thanh tien: " + Price +
+                              "<br><br>=====================================<br>" +
+                              "</div>";
+
             HTMLToPdf(htmlText, "PDFfile.pdf");
             return "true";
+        }
         //extend the time for payment of request, means updating the date request to current day
         public void UpdateDatePostForRequest(int requestID)
         {
