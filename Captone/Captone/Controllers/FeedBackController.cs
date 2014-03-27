@@ -22,10 +22,7 @@ namespace Captone.Content
         {
             return View(_db.Stations.ToList());
         }
-        /// <summary>
-        /// list province
-        /// </summary>
-        /// <returns></returns>
+        //List Province
         public ActionResult ListProvince()
         {
             IEnumerable<SelectListItem> province = (from p
@@ -43,13 +40,13 @@ namespace Captone.Content
             ViewBag.ListProvince = province;
             return PartialView("ListProvince");
         }
-
+        //List Station of Province
         public ActionResult ListStation(int province)
         {
             var station = _db.Stations.Where(p => p.ProvinceID == province).ToList();
             return PartialView("ListStation", station);
         }
-
+        //List Comment of Station
         public ActionResult ListComment(int station)
         {
             var comment = _db.Comments.Where(p => p.StationID == station).ToList();
@@ -57,18 +54,64 @@ namespace Captone.Content
             return PartialView("ListComment", comment);
         }
 
-
-        //public float LoadRateAvg(Int32 StationID)
-        //{
-        //    Station station = _db.Stations.Where(p => p.StationID == StationID).FirstOrDefault();
-        //    return (float)station.AvgRatingLevel;
-        //}
-
-        public ActionResult LoagRatingAvg(int StationID)
+        //List All Comment to Manage
+        public ActionResult ManageCommentList()
         {
-            return View();
+            return View(_db.Comments.ToList());
+        }
+        //List All Rating to Manage
+        public ActionResult ManageRatingList() 
+        {
+            return View(_db.Stations.ToList());
+        }
+        //ClearRating
+        public ActionResult ClearRating(int id)
+        {
+            Station station = _db.Stations.Find(id);
+            if (station == null)
+            {
+                return HttpNotFound();
+            }
+            return View(station);
+        }
+        //Clear Rating Confirm
+        [HttpPost, ActionName("ClearRating")]
+        public ActionResult ClearRatingConfirmed(int id)
+        {
+            Station station = _db.Stations.Where(s => s.StationID == id).FirstOrDefault();
+            List<Rating> rating = _db.Ratings.Where(s => s.StationID == id).ToList();
+            foreach (var item in rating)
+            {
+                _db.Ratings.Remove(item);
+                _db.SaveChanges();
+            }
+            station.AvgRatingLevel = 0;
+            _db.Entry(station).State = EntityState.Modified;
+         
+            _db.SaveChanges();
+            return RedirectToAction("ManageRatingList");
         }
 
+        //Delete Comment
+        public ActionResult DeleteComment(int id)
+        {
+            Comment comment = _db.Comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+        [HttpPost, ActionName("DeleteComment")]
+        public ActionResult DeleteCommentConfirmed(int id)
+        {
+            Comment cmt = _db.Comments.Where(c => c.CommentID == id).FirstOrDefault();
+            _db.Comments.Remove(cmt);
+            _db.SaveChanges();
+            return RedirectToAction("ManageCommentList");
+        }
+
+        //Comment
         [HttpPost]
         public ActionResult Comment(String Username, String Comment, Int32 StationID)
         {
@@ -83,7 +126,7 @@ namespace Captone.Content
             return RedirectToAction("Index", "FeedBack");
 
         }
-
+        //Rating
         [HttpPost]
         public ActionResult Rating(String Username, float Rating, Int32 StationID)
         {
@@ -110,6 +153,7 @@ namespace Captone.Content
 
             float ratingAvg = RatingAvg(StationID);
             station = _db.Stations.Where(r => r.StationID == StationID).FirstOrDefault();
+            //Check AvgRating, if Exist then override
             if (station.AvgRatingLevel != null)
             {
                 station.AvgRatingLevel = ratingAvg;
@@ -123,7 +167,7 @@ namespace Captone.Content
             return View();
             //return RedirectToAction("Index", "FeedBack");
         }
-
+        //Calculate RatingAvg
         public float RatingAvg(Int32 StationID)
         {
             var ListRate = _db.Ratings.Where(p => p.StationID == StationID).ToList();
