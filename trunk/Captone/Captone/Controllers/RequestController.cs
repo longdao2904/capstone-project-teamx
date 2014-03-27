@@ -6,6 +6,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Captone.Repositories;
+using Captone.Repositories.Interfaces;
+using Captone.Services;
+using Captone.Services.Interfaces;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -16,7 +20,6 @@ namespace Captone.Controllers
     public class RequestController : Controller
     {
         private readonly iDeliverEntities _db = new iDeliverEntities();
-
         #region CRUD
         //
         // GET: /Request/
@@ -34,8 +37,8 @@ namespace Captone.Controllers
             if (sttID == 1)
             {
                 var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                return PartialView("ListRequest", request.ToList());
-            }
+            return PartialView("ListRequest", request.ToList());
+        }
             else if (sttID == 2)
             {
                 var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
@@ -194,10 +197,10 @@ namespace Captone.Controllers
             {
                 return false;
             }
-            request.DeliveryStatusID = 2;
+                request.DeliveryStatusID = 2;
             _db.SaveChanges();
-            return true;
-        }
+                return true;
+            }
         // Update request status
         public Boolean UpdateStatus(List<int> requestIDs)
         {
@@ -247,17 +250,17 @@ namespace Captone.Controllers
                         if (rq.ArrivedDate != null)
                         {
                             var arrivedDate = (DateTime)rq.ArrivedDate;
-                            DateTime currentDate = DateTime.Now.Date;
-                            TimeSpan waitTime = currentDate - arrivedDate;
-                            if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
-                            {
-                                rq.DeliveryStatusID = 8;
-                                rq.Type = false;
+                    DateTime currentDate = DateTime.Now.Date;
+                    TimeSpan waitTime = currentDate - arrivedDate;
+                    if (waitTime.TotalDays >= 2 && rq.DeliveryStatusID == 5)
+                    {
+                        rq.DeliveryStatusID = 8;
+                        rq.Type = false;
                                 _db.SaveChanges();
-                                return true;
-                            }
-                        }
+                        return true;
                     }
+                }
+            }
                 }
             }
             return false;
@@ -276,10 +279,10 @@ namespace Captone.Controllers
                     {
                         if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
                         var oldStation = rq.FromLocation;
-                        rq.FromLocation = rq.ToLocation;
-                        rq.ToLocation = oldStation;
-                        rq.DeliveryStatusID = 2;
-                        rq.DateRequest = DateTime.Now.Date;
+                    rq.FromLocation = rq.ToLocation;
+                    rq.ToLocation = oldStation;
+                    rq.DeliveryStatusID = 2;
+                    rq.DateRequest = DateTime.Now.Date;
                     }
                     _db.SaveChanges();
                     return true;
@@ -317,8 +320,8 @@ namespace Captone.Controllers
 
         public ActionResult LatePayment(int stationID)
         {
-            var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 8).ToList();
-            return View(list);
+            var request = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 9).ToList();
+            return View(request);
         }
         //Create PDF
         [HttpPost]
@@ -338,6 +341,13 @@ namespace Captone.Controllers
             
             HTMLToPdf(htmlText, "PDFfile.pdf");
             return "true";
+        //extend the time for payment of request, means updating the date request to current day
+        public void UpdateDatePostForRequest(int requestID)
+        {
+            var request = _db.Requests.Single(p => p.RequestID == requestID);
+            request.DateRequest = DateTime.Now;
+            request.DeliveryStatusID = 1;
+            _db.SaveChanges();
         }
         public void HTMLToPdf(string HTML, string FilePath)
         {
