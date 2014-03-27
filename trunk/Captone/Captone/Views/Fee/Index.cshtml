@@ -4,66 +4,68 @@
     ViewBag.Title = "Quản lý phí";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<script>
+    function highlight(x) {
+        x.style.backgroundColor = "yellow";
+    }
+    function reset(x) {
+        x.style.backgroundColor = "white";
+    }
+</script>
 
 <h2>Quản lý chi phí</h2>
 <div class="row">
     <div class="col-lg-8">
         <div class="panel panel-primary">
-            <div class="panel-heading">
-                @ViewBag.Title
-            </div>
             <div class="panel-body">
-                <p style="font-size: 14px">@Html.ActionLink("Thêm một mức chi phí", "Create")</p>
-                <p style="font-size: 14px"><a href="~/Fee/Index"><i>Các loại phí</i></a></p>
                 <div class="table-responsive">
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table style="border: 2px; font-size: 14px">
-    <tr style="text-align: center">
-        <th rowspan="2" style="width: 120px">ID</th>
-        <th rowspan="2" style="width: 120px">Mức phí</th>
-        <th colspan="2" style="width: 120px">Khối lượng</th>
-        <th colspan="2" style="width: 120px">Thể tích</th>
-        <th rowspan="2" style="width: 120px">Action</th>
-    </tr>
-    <tr>
-        <th>Từ</th>
-        <th>Đến</th>
-        <th>Từ</th>
-        <th>Đến</th>
-    </tr>
+                    <table style="border: 2px; font-size: 14px" class="table">
+                        <tr style="text-align: center; background: lightblue; color: cornflowerblue">
+                            <th rowspan="2" style="width: 150px">ID</th>
+                            <th rowspan="2" style="width: 150px">Mức phí</th>
+                            <th colspan="2" style="width: 150px">Khối lượng</th>
+                            <th colspan="2" style="width: 150px">Thể tích</th>
+                            <th rowspan="2" style="width: 150px">Action</th>
+                        </tr>
+                        <tr style="background: lightblue; color: cornflowerblue">
+                            <th>Từ</th>
+                            <th>Đến</th>
+                            <th>Từ</th>
+                            <th>Đến</th>
+                        </tr>   
 
-    @foreach (var item in Model) {
-        <tr style="text-align: center">
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.FeeID)
-            </td>
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.Fee)
-            </td>
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.MinWeight)
-            </td>
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.MaxWeight)
-            </td>
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.MinVolume)
-            </td>
-            <td style="width: 120px">
-                @Html.DisplayFor(modelItem => item.MaxVolume)
-            </td>
-            <td style="width: 120px">
-                <a href="/Fee/Edit/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
-                <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
-                <a href="/Fee/Delete/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Trash"></a>
-            </td>
-        </tr>
-    }
-</table>
-</div>
+                        @foreach (var item in Model) {
+                            <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.FeeID)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Fee)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MinWeight)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MaxWeight)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MinVolume)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MaxVolume)
+                                </td>
+                                <td style="width: 120px">
+                                    <a href="/Fee/Edit/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
+                                    <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
+                                    <a href="/Fee/Delete/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Trash"></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+

@@ -50,7 +50,7 @@ namespace Captone.Controllers
                         return RedirectToAction("LogIn", "Admin");
                     if ((string) Session["UserRole"] == "Admin")
                     {
-                        return RedirectToAction("Index", "Fee");
+                        return RedirectToAction("Index", "Admin");
                     }
                 }
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
@@ -59,6 +59,10 @@ namespace Captone.Controllers
             return RedirectToAction("LogIn", "Admin");
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();

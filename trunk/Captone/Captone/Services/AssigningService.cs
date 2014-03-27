@@ -35,6 +35,7 @@ namespace Captone.Services
         //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
         private readonly int _maxWay = 5;
+        private readonly TimeSpan _deltaTime = new TimeSpan(0,45,0);
         //result of route
         List<Dictionary<Request, List<Route>>> _tmpResult = new List<Dictionary<Request, List<Route>>>();
         //result of trip
@@ -68,7 +69,7 @@ namespace Captone.Services
             _routes = _routeRepository.GetAll().ToList();
             _stations = _stationRepository.GetAll().ToList();
             _invoices = _invoiceRepository.GetAll().ToList();
-            _trips = _tripRepository.GetAll().ToList();
+            _trips = _tripRepository.GetByQuery(i => (i.EstimateDepartureTime - DateTime.Now.TimeOfDay) >= _deltaTime).ToList();
             _assignings = _assigningRepository.GetAll().ToList();
             //build the adjancient list
             foreach (var station1 in _stations)
