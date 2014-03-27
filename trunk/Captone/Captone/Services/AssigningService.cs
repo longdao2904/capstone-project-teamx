@@ -69,7 +69,9 @@ namespace Captone.Services
             _routes = _routeRepository.GetAll().ToList();
             _stations = _stationRepository.GetAll().ToList();
             _invoices = _invoiceRepository.GetAll().ToList();
-            _trips = _tripRepository.GetByQuery(i => (i.EstimateDepartureTime - DateTime.Now.TimeOfDay) >= _deltaTime).ToList();
+            //right after list all trips from database, filter them to receive the availabel trip
+            _trips = _tripRepository.GetAll().ToList();
+            FilterTrip();
             _assignings = _assigningRepository.GetAll().ToList();
             //build the adjancient list
             foreach (var station1 in _stations)
@@ -91,6 +93,23 @@ namespace Captone.Services
                 adj.Add(station1, tmp);
             }
         }
+
+        //accept trips have departure time later from now 45 min
+        public void FilterTrip()
+        {
+            List<Trip> tmpList = new List<Trip>();
+            foreach (var trip in _trips)
+            {
+                if (trip.EstimateDepartureTime == null) continue;
+                if (ChangeTime(trip.Date, (TimeSpan) trip.EstimateDepartureTime) - DateTime.Now >= _deltaTime 
+                    && trip.IsActive == true)
+                {
+                    tmpList.Add(trip);
+                }
+            }
+            _trips = tmpList;
+        }
+
         //sort by the day of request increasing, if two request posted in the same day,
         //then, sort by the weight of request increasing
         public int RequestCompare(Request a, Request b)
