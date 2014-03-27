@@ -304,7 +304,12 @@ namespace Captone.Controllers
             var reqest = _db.Requests.Where(p => p.RequestID == RequestID).Single();
             return PartialView(reqest);
         }
-
+        public void PaymentInProcess(int requestID)
+        {
+            var request = _db.Requests.Single(p => p.RequestID == requestID);
+            request.DeliveryStatusID = 10;
+            _db.SaveChanges();
+        }
         public void InsertInvoice(int RequestID, float Weight, float Volume, float Price)
         {
             Invoice invoice = new Invoice();

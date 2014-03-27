@@ -48,6 +48,24 @@
             </tbody>
         </table>
     </div>
-    <button type="submit" style="border: none; background: transparent" title="Bấm vào để chuyến đến trang Paypal"><img src="~/Content/img/paypal.png"/></button>
-    
+    <button type="submit" style="border: none; background: transparent" title="Bấm vào để chuyến đến trang Paypal" onclick="Process()"><img src="~/Content/img/paypal.png"/></button>
 }
+
+<script type="text/javascript">
+    function Process(id) {
+        $.ajax({
+            url: "/Request/PaymentInProcess",
+            type: "POST",
+            data: {RequestID : id},
+            success: function (result) {
+                $('#review').html(result);
+                document.getElementById("RequestCode").value = "";
+                document.getElementById("Username").value = "";
+                document.getElementById("Weight").value = "";
+                document.getElementById("Volume").value = "";
+                document.getElementById("Price").value = "";
+                document.getElementById("Day").value = "";
+            }
+        });
+    }
+</script>
