@@ -64,7 +64,7 @@
     function coachTypeTable() {
         $.ajax({
             url: "/CoachType/CoachTypePartial",
-            type: "Get",
+            type: "Post",
             success: function (result) {
                 $("#coachTypeTable").html(result);
             }

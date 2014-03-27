@@ -114,7 +114,7 @@
     function CreateStation() {
         $.ajax({
             url: "/Station/Create",
-            type: "Get",
+            type: "Post",
             success: function (result) {
                 $("#modal").html(result);
             }

@@ -147,13 +147,25 @@
                                 <a href="/Request/AcceptRequest?stationID=@stationId">Tiếp nhận yêu cầu</a>
                             </li>
                             <li>
-                                <a href="/Assigning/getRequestAssign?StationID=@stationId">Xếp lịch</a>
+                                <a href="/Request/ListRequest">Xếp lịch vận chuyển</a>
                             </li>
                             <li>
                                 <a href="/Assigning/ListAssign?stationID=@stationId">Xác nhận chuyển hàng</a>
                             </li>
                             <li>
                                 <a href="/Assigning/RequestPeding">Hàng đang vận chuyển</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/ArrivedRequest?stationID=@stationId">Hàng đã đến trạm</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/DeliveredRequest?stationID=@stationId">Hàng đã được giao</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/ExpiredRequest?stationID=@stationId">Hàng đã hết hạn giao & chờ trả</a>
+                            </li>
+                            <li>
+                                <a href="/Request/LatePayment?stationID=@stationId">Trễ hạn thanh toán</a>
                             </li>
                         </ul>
                     </li>

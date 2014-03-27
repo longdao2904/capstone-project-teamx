@@ -106,6 +106,7 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
 
         }
+
         protected string RandomString()
         {
             string allowedChars = "";

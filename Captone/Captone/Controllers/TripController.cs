@@ -65,7 +65,6 @@ namespace Captone.Controllers
         // GET: /Trip/Create
 
         [WebMethod]
-        [HttpGet]
         public ActionResult Create()
         {
             string username = (string)Session["USERNAME"];
@@ -100,7 +99,9 @@ namespace Captone.Controllers
                         t.RouteID = trip.RouteID;
                         t.CoachID = trip.CoachID;
                         t.ScheduleID = trip.ScheduleID;
-                        t.EstimateVolume = trip.EstimateVolume;
+                        // Estimate volume = Capacity of coach run this trip * max volume level of route where trip run
+                        t.EstimateVolume = trip.Coach.CoachType.Capacity * trip.Route.Container;
+                        t.Status = "Chưa chạy";
                         for (int i = 0; i < 7; i++)
                         {
                             TimeSpan day = new TimeSpan();
@@ -340,7 +341,6 @@ namespace Captone.Controllers
 
         // Load trips arrived destination
         [WebMethod]
-        [HttpGet]
         public ActionResult ArrivedTrip()
         {
             List<Trip> trips = new List<Trip>();
@@ -359,7 +359,6 @@ namespace Captone.Controllers
 
         // Load trip depart from start station
         [WebMethod]
-        [HttpGet]
         public ActionResult DepartedTrip()
         {
             List<Trip> trips = new List<Trip>();
@@ -373,7 +372,17 @@ namespace Captone.Controllers
                                  select new { r.RequestID }).FirstOrDefault().RequestID)
                            select new { a.TripID }).FirstOrDefault().TripID)
                      select t).ToList();
-            return View(trips);
+            List<Trip> list = new List<Trip>();
+            foreach (var item in trips)
+            {
+                TimeSpan latetime = new TimeSpan();
+                TimeSpan estimateArrival = new TimeSpan();
+                latetime = (TimeSpan)(item.RealDepartureTime - item.EstimateDepartureTime);
+                estimateArrival = (TimeSpan)(item.EstimateArrivalTime + latetime);
+                item.EstimateArrivalTime = estimateArrival;
+                list.Add(item);
+            }
+            return View(list);
         }
     }
 }
