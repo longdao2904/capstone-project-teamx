@@ -25,7 +25,7 @@
             <td>@request.SenderPhone</td>
             <td>@request.DateRequest</td>
             <td>@request.DateRequest.AddDays(1)</td>
-            <td><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Chỉnh sửa trạng thái" onclick="Update()"> 
+            <td><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Chỉnh sửa trạng thái" onclick="Update()">\t 
                 <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Xóa yêu cầu" onclick="Delete()"></td> 
             <input id="requestID" value="@request.RequestID" hidden=""/>
         </tr>
@@ -51,7 +51,7 @@
     function Update() {
         var id = document.getElementById("requestID").value;
         $.ajax({
-            url: "/Request/ChangeStatus",
+            url: "/Request/UpdateDatePostForRequest",
             type: "POST",
             data: { RequestID: parseInt(id) },
             success: function () {

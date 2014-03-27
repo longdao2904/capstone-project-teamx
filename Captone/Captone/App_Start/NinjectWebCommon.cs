@@ -1,13 +1,14 @@
 using System.Linq;
 using System.Reflection;
+using System.Timers;
 using Captone.Models;
 using Captone.Repositories;
 using Captone.Repositories.Interfaces;
 using Captone.Services;
 using Captone.Services.Interfaces;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Captone.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Captone.App_Start.NinjectWebCommon), "Stop")]
+//[assembly: WebActivator.PreApplicationStartMethod(typeof(Captone.App_Start.NinjectWebCommon), "Start")]
+//[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Captone.App_Start.NinjectWebCommon), "Stop")]
 
 namespace Captone.App_Start
 {
@@ -22,6 +23,7 @@ namespace Captone.App_Start
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static IKernel kernel;
 
         /// <summary>
         /// Starts the application
@@ -45,9 +47,9 @@ namespace Captone.App_Start
         /// Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             
@@ -94,6 +96,13 @@ namespace Captone.App_Start
             kernel.Bind<IStationService>().To<StationService>();
             kernel.Bind<ITripService>().To<TripService>();
             kernel.Bind<IInvoiceService>().To<InvoiceService>();
-        }        
+            kernel.Bind<IExpiredRequestService>().To<ExpiredRequestService>();
+        }
+
+        public static void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var expriredRequestService = kernel.Get<IExpiredRequestService>();
+            expriredRequestService.ExpireRequest();
+        }
     }
 }
