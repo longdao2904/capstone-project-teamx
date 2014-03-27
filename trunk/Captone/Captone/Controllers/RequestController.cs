@@ -14,13 +14,13 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
-using System.Text;
 
 namespace Captone.Controllers
 {
     public class RequestController : Controller
     {
         private readonly iDeliverEntities _db = new iDeliverEntities();
+
         #region CRUD
         //
         // GET: /Request/
@@ -33,49 +33,11 @@ namespace Captone.Controllers
             return View(requests.ToList());
         }
 
-        public ActionResult ListRequest(int sttID)
+        public ActionResult ListRequest()
         {
-            if (sttID == 1)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                return PartialView("ListRequest", request.ToList());
-            }
-            else if (sttID == 2)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                return PartialView("ListRequestID2", request.ToList());
-            }
-            else if (sttID == 4)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                ViewBag.Transitted = request.ToList();
-                return PartialView("ListRequestID4");
-            }
-            else if (sttID == 5)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                ViewBag.Arrived = request.ToList();
-                return PartialView("ListRequestID5");
-            }
-            else if (sttID == 6)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                ViewBag.Delivered = request.ToList();
-                return PartialView("ListRequestID6");
-            }
-            else if (sttID == 7)
-            {
-                var request = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-                ViewBag.Cancelled = request.ToList();
-                return PartialView("ListRequestID7");
-            }
-            var finalRequest = _db.Requests.Where(r => r.DeliveryStatusID == sttID);
-            ViewBag.Expired = finalRequest.ToList();
-            return PartialView("ListRequestID8");
+            var request = _db.Requests.Where(r => r.DeliveryStatusID == 2);
+            return View(request.ToList());
         }
-
-        //
-        // GET: /Request/Details/5
 
         public ActionResult Details(int id = 0)
         {
@@ -86,43 +48,6 @@ namespace Captone.Controllers
             }
             return View(request);
         }
-
-        //
-        // GET: /Request/Create
-
-        //public ActionResult Create()
-        //{
-        //    ViewBag.Username = new SelectList(db.Accounts, "Username", "Password");
-        //    ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName");
-        //    ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID");
-        //    ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName");
-        //    ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName");
-        //    return View();
-        //}
-
-        ////
-        //// POST: /Request/Create
-
-        //[HttpPost]
-        //public ActionResult Create(Request request)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Requests.Add(request);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.Username = new SelectList(db.Accounts, "Username", "Password", request.Username);
-        //    ViewBag.DeliveryStatusID = new SelectList(db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-        //    ViewBag.FeeID = new SelectList(db.ManageFees, "FeeID", "FeeID", request.FeeID);
-        //    ViewBag.FromLocation = new SelectList(db.Stations, "StationID", "StationName", request.FromLocation);
-        //    ViewBag.ToLocation = new SelectList(db.Stations, "StationID", "StationName", request.ToLocation);
-        //    return View(request);
-        //}
-
-        //
-        // GET: /Request/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
@@ -214,13 +139,15 @@ namespace Captone.Controllers
                     {
                         rq.DeliveryStatusID = 5;
                         rq.ArrivedDate = DateTime.Now.Date;
+                        _db.SaveChanges();
                     }
                     else if (rq != null && rq.DeliveryStatusID == 5)
                     {
                         rq.DeliveryStatusID = 6;
                         rq.Type = true;
+
+                        _db.SaveChanges();
                     }
-                    _db.SaveChanges();
                     return true;
                 }
             }
@@ -276,7 +203,7 @@ namespace Captone.Controllers
                 {
                     Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
                     Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == id);
-                    if (rq != null)
+                    if (rq != null && rq.Type == false)
                     {
                         if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
                         var oldStation = rq.FromLocation;
@@ -284,6 +211,7 @@ namespace Captone.Controllers
                         rq.ToLocation = oldStation;
                         rq.DeliveryStatusID = 2;
                         rq.DateRequest = DateTime.Now.Date;
+                        rq.ArrivedDate = null;
                     }
                     _db.SaveChanges();
                     return true;
@@ -292,25 +220,26 @@ namespace Captone.Controllers
             return false;
         }
         #endregion
-
-
+        //
         public ActionResult AcceptRequest(int stationID)
         {
             var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 1).ToList();
             return View(list);
         }
-
+        //
         public ActionResult InputInvoice(int RequestID)
         {
             var reqest = _db.Requests.Where(p => p.RequestID == RequestID).Single();
             return PartialView(reqest);
         }
+        //
         public void PaymentInProcess(int requestID)
         {
             var request = _db.Requests.Single(p => p.RequestID == requestID);
             request.DeliveryStatusID = 10;
             _db.SaveChanges();
         }
+        //
         public void InsertInvoice(int RequestID, float Weight, float Volume, float Price)
         {
             Invoice invoice = new Invoice();
@@ -323,7 +252,7 @@ namespace Captone.Controllers
             _db.Invoices.Add(invoice);
             _db.SaveChanges();
         }
-
+        //
         public ActionResult LatePayment(int stationID)
         {
             var request = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 9).ToList();
@@ -336,15 +265,15 @@ namespace Captone.Controllers
             var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
 
             string htmlText = "<div>" + "Hoa don khach hang<br>=====================================<br><br>" +
-                "Ten khach hang: " + request.Username + "<br>" +
+                              "Ten khach hang: " + request.Username + "<br>" +
                               "Gui tu: " + request.SenderAddress + " den: " + request.ReceiverAddress + "<br>" +
-                "Khoi luong hang hoa:" + Weight + "<br>" +
-                "The tich hang hoa: " + Volume + "<br>" +
+                              "Khoi luong hang hoa:" + Weight + "<br>" +
+                              "The tich hang hoa: " + Volume + "<br>" +
 
                               "-------------------------------<br>Thanh tien: " + Price +
-                "<br><br>=====================================<br>" +
-          "</div>";
-            
+                              "<br><br>=====================================<br>" +
+                              "</div>";
+
             HTMLToPdf(htmlText, "PDFfile.pdf");
             return "true";
         }
@@ -356,9 +285,9 @@ namespace Captone.Controllers
             request.DeliveryStatusID = 1;
             _db.SaveChanges();
         }
+        //
         public void HTMLToPdf(string HTML, string FilePath)
         {
-
             Document document = new Document();
             string path = Server.MapPath("~/");
             PdfWriter.GetInstance(document, new FileStream(path + "/Invoice.pdf", FileMode.Create));
@@ -369,13 +298,12 @@ namespace Captone.Controllers
             HTMLWorker hw = new HTMLWorker(document);
             hw.Parse(new StringReader(HTML));
             document.Close();
-
         }
-
+        //
         public FileResult DisplayPDF()
         {
             string path = Server.MapPath("~/");
-            return File(path+"\\Invoice.pdf", "application/pdf");
+            return File(path + "\\Invoice.pdf", "application/pdf");
         }
     }
 }

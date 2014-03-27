@@ -119,8 +119,7 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-        
-        [HttpGet]
+
         [WebMethod]
         public ActionResult CoachTypePartial()
         {

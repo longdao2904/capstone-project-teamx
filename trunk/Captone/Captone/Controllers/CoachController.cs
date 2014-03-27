@@ -1,26 +1,24 @@
 ﻿using Captone.Models;
-using Captone.Services.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Captone.Controllers
 {
     public class CoachController : Controller
     {
-        private readonly iDeliverEntities db = new iDeliverEntities();
-        private readonly ICoachService _coachService;
-        public CoachController(ICoachService coachService)
-        {
-            _coachService = coachService;
-        }
+        private iDeliverEntities db = new iDeliverEntities();
 
-        #region CRUD
         //
         // GET: /Coach/
 
         public ActionResult Index()
         {
-            return View(_coachService.GetAllCoaches());
+            var list = db.Coaches.ToList();
+            return View(list);
         }
 
         //
@@ -121,7 +119,6 @@ namespace Captone.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        #endregion
 
         protected override void Dispose(bool disposing)
         {

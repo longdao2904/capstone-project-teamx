@@ -48,6 +48,9 @@
                                                 @Html.DisplayNameFor(model => model.EstimateArrivalTime)
                                             </th>
                                             <th>
+                                                @Html.DisplayNameFor(model => model.EstimateVolume)
+                                            </th>
+                                            <th>
                                                 @Html.DisplayNameFor(model => model.AvailableVolume)
                                             </th>
                                             <th></th>
@@ -71,6 +74,9 @@
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.EstimateVolume)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.AvailableVolume)
@@ -141,7 +147,7 @@
     function arriveTrip() {
         $.ajax({
             url: "/Trip/ArrivedTrip",
-            type: "Get",
+            type: "Post",
             success: function (result) {
                 $("#arrivalTrip").html(result);
             }
@@ -151,7 +157,7 @@
     function departureTrip() {
         $.ajax({
             url: "/Trip/DepartedTrip",
-            type: "Get",
+            type: "Post",
             success: function (result) {
                 $("#departureTrip").html(result);
             }
@@ -206,7 +212,7 @@
     function CreateTrip() {
         $.ajax({
             url: "/Trip/Create",
-            type: "Get",
+            type: "Post",
             success: function (result) {
                 $("#tripmodal").html(result);
             }

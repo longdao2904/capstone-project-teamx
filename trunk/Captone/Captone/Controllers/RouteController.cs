@@ -14,6 +14,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
 
+        #region CRUD
         //
         // GET: /Route/
 
@@ -126,6 +127,8 @@ namespace Captone.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
     }
     
 }
+        

@@ -71,15 +71,6 @@ namespace Captone.Controllers
             }
         }
         //
-        public ActionResult getRequestAssign(int StationID)
-        {
-            var list =
-                _db.Requests.Where(
-                    p => (p.Station.StationID == StationID | p.Station1.StationID == StationID) & p.DeliveryStatusID == 2).ToList();
-            ;
-            return View(list);
-        }
-        //
         public JsonResult CheckRequestLate(List<Trip> requestId)
         {
 
@@ -143,7 +134,7 @@ namespace Captone.Controllers
             foreach (var item in list)
             {
                 var request = _db.Requests.Where(p => p.RequestID == item.RequestID & p.DeliveryStatusID == 3).FirstOrDefault();
-                if(request!=null)
+                if (request != null)
                 {
                     requests.Add(request);
                 }
@@ -167,6 +158,45 @@ namespace Captone.Controllers
                 _db.SaveChanges();
             }
 
+        }
+        // List requests/packages delivered
+        public ActionResult DeliveredRequest(int stationID)
+        {
+            if (stationID != 0)
+            {
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        // List requests/packages expired/cannot delivered
+        public ActionResult ExpiredRequest(int stationID)
+        {
+            if (stationID != 0)
+            {
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 8 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        // List requests/packages arrived at endpoint station
+        public ActionResult ArrivedRequest(int stationID)
+        {
+            if (stationID != 0)
+            {
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 5 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
