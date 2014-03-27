@@ -33,8 +33,6 @@ namespace Captone.Controllers
             Response.Cookies.Add(cookie);
             var single = _db.Invoices.SingleOrDefault(p => p.RequestID == requestID);
             var req = _db.Requests.SingleOrDefault(p => p.RequestID == requestID);
-            req.DeliveryStatusID = 10;
-            _db.SaveChanges();
             var ret = new InvoiceModel
                 {
                     Invoice = single,
