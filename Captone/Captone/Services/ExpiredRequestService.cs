@@ -20,7 +20,7 @@ namespace Captone.Services
         public void ExpireRequest()
         {
             var requests = _requestRepository.GetAll().ToList();
-            foreach (var request in requests.Where(request => request.DateRequest <= DateTime.Now.AddDays(-1)))
+            foreach (var request in requests.Where(request => request.DateRequest <= DateTime.Now.AddDays(-1) && request.DeliveryStatusID == 1))
             {
                 request.DeliveryStatusID = 9;
             }
