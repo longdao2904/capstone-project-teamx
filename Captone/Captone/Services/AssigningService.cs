@@ -117,11 +117,11 @@ namespace Captone.Services
             Invoice tmp1 = FindInvoiceFromRequest(a);
             Invoice tmp2 = FindInvoiceFromRequest(b);
             //compare by date post request increasingly
-            if (a.DateRequest > b.DateRequest) return 1;
-            if (a.DateRequest == b.DateRequest)
+            if (tmp1.Price > tmp2.Price) return 1;
+            if (tmp1.Price == tmp2.Price)
             {
-                if (tmp1.Weight > tmp2.Weight) return 1;
-                if (tmp1.Weight == tmp2.Weight) return 0;
+                if (tmp1.Volume > tmp2.Volume) return 1;
+                if (tmp1.Volume == tmp2.Volume) return 0;
                 return -1;
             }
             return -1;
@@ -225,9 +225,11 @@ namespace Captone.Services
             if (volume != null)
             {
                 var tmp = (double)volume;
+                //find the path for delivery
                 FindPath(request);
                 if (_tmpResult == null)
                     throw new NullReferenceException("Out of available trips");
+                //iterate through each of request to find the found list route
                 foreach (var res in _tmpResult)
                 {
                     var current = DateTime.Now;
@@ -236,10 +238,12 @@ namespace Captone.Services
                     {
                         continue;
                     }
+                    //iterate through each route to find the list of corresponding trips
                     foreach (var route in tmpListRoute)
                     {
                         int flag = 0;
                         List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
+                        //if there is not trip in one of route, reject whole list route of current ways
                         if (tmpListTrip == null)
                         {
                             continue;
@@ -249,20 +253,23 @@ namespace Captone.Services
                             if (trip.AvailableVolume < tmp) flag = -1;
                             if (trip.EstimateDepartureTime != null)
                             {
-                                var departure = ChangeTime(trip.Date, (TimeSpan)trip.EstimateDepartureTime);
+                                var departure = ChangeTime(trip.Date, (TimeSpan) trip.EstimateDepartureTime);
                                 if (departure >= current)
                                 {
                                     if (trip.EstimateArrivalTime != null)
                                     {
-                                        var arrival = ChangeTime(trip.Date, (TimeSpan)trip.EstimateArrivalTime);
+                                        var arrival = ChangeTime(trip.Date, (TimeSpan) trip.EstimateArrivalTime);
                                         deliveryTime += (arrival - current);
                                         resTrip.Add(trip);
                                         var breakTime = FindStationFromRoute(route).BreakTime;
                                         if (breakTime != null)
-                                            current = arrival.AddHours((double)breakTime);
+                                            current = arrival.AddHours((double) breakTime);
                                     }
+                                    else flag = -1;
                                 }
+                                else flag = -1;
                             }
+                            else flag = -1;
                         }
                         if (deliveryTime > _maxTime || flag == -1)
                         {
@@ -294,16 +301,18 @@ namespace Captone.Services
             var fromStation = new Station();
             var toStation = new Station();
             var listRoute = new List<Route>();
-
-            for (int i = 0; i < _stations.Count; i++)
+            int count = 0;
+            for (int i = 0; i < _stations.Count && count < 2; i++)
             {
                 if (_stations[i].StationID == request.FromLocation)
                 {
                     fromStation = _stations[i];
+                    count++;
                 }
                 if (_stations[i].StationID == request.ToLocation)
                 {
                     toStation = _stations[i];
+                    count++;
                 }
             }
             //recursion to find all path using BFS + check not go backward
@@ -336,6 +345,7 @@ namespace Captone.Services
                         var tmp = new Dictionary<Request, List<Route>>();
                         tmp.Add(request, tmpRoutes);
                         _tmpResult.Add(tmp);
+                        //allow 5 ways in searching -> the complexity of algorithm is approximate O(_maxWay|E||V|)
                         if (_tmpResult.Count > _maxWay) return;
                     }
                     visited.Remove(visited.Last());
@@ -362,11 +372,12 @@ namespace Captone.Services
             }
             return _routes[0];
         }
-
+        
         //check the diection always forward
 
         public bool CheckForward(List<Station> stationsForCheck)
         {
+            //iterate through list of station, if there are 3 stations not lie forward, return false
             for (int i = 0; i < stationsForCheck.Count() - 2; i++)
             {
                 string coordinateA = stationsForCheck[i].Coordinate;
@@ -378,6 +389,7 @@ namespace Captone.Services
                 var longitude = new double[10];
                 var latitude = new double[10];
                 int c = 0, numLongitude = 0, numLatitude = 0;
+                //convert longitude and latitude from coordinates
                 foreach (var word in words)
                 {
                     if (c % 2 == 1)
@@ -390,79 +402,39 @@ namespace Captone.Services
                     }
                     c++;
                 }
-                //double X_AB = (longitude[1] - longitude[2]), X_BC = longitude[2] - longitude[3];
-                //double Y_AB = (latitude[1] - latitude[2]), Y_BC = latitude[2] - latitude[3];
-                //if (X_AB * X_BC + Y_AB * Y_BC <= 0) return true;
-                if ((longitude[1] - longitude[2]) * (longitude[2] - longitude[3]) < 0 && false) return false;
+                var x = new double[10];
+                var y = new double[10];
+                var z = new double[10];
+                double xAB, yAB, zAB, xBC, yBC, zBC;
+                
+                //convert longitude and lititude into 3D coordinate
+                //base on the link: http://math.stackexchange.com/questions/441182/how-to-check-if-three-coordinates-form-a-line
+
+                for (int j = 1; j <= 3; j++)
+                {
+                    x[j] = Math.Cos(Math.PI*longitude[j]/180)*Math.Cos(Math.PI*latitude[j]/180);
+                    y[j] = Math.Sin(Math.PI*longitude[j]/180)*Math.Cos(Math.PI*latitude[j]/180);
+                    z[j] = Math.Sin(Math.PI*latitude[j]/180);
+                }
+                xAB = x[2] - x[1];
+                yAB = y[2] - y[1];
+                zAB = z[2] - z[1];
+                xBC = x[3] - z[2];
+                yBC = y[3] - y[2];
+                zBC = z[3] - z[2];
+                //if the dot product of vector connect AB and BC is negative, reject immediately
+                if (xAB*xBC + yAB*yBC + zAB*zBC < 0) return false;
             }
             return true;
         }
-
         //when delete a trip or list of trips, call this method to change the status of
         //processing request to "Đã xác nhận" then re-schedule
-        #region old
-        //public void Update(List<Request> requests, List<Trip> trips, DateTime date)
-        //{
-        //    var tmpRequestID = new List<int>();
-        //    //find the list of request id that related to delete trips
-        //    foreach (var trip in trips)
-        //    {
-        //        foreach (var assigning in _assignings)
-        //        {
-        //            if (assigning.TripID == trip.TripID)
-        //            {
-        //                tmpRequestID.Add(assigning.RequestID);
-        //            }
-        //        }
-        //    }
-        //    //update the status of all request in the list
-        //    foreach (var request in requests)
-        //    {
-        //        foreach (var i in tmpRequestID)
-        //        {
-        //            if (request.RequestID == i)
-        //            {
-        //                request.DeliveryStatusID = 1;
-        //                _requestRepository.Update(request);
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
-        #region update Request
-        //public void Update(List<Request> requests, int tripID)
-        //{
-        //    var tmpRequestID = new List<int>();
-        //    //find the list of request id that related to delete trips
 
-        //    foreach (var assigning in _assignings)
-        //    {
-        //        if (assigning.TripID == tripID)
-        //        {
-        //            tmpRequestID.Add(assigning.RequestID);
-        //        }
-        //    }
-
-        //    //update the status of all request in the list
-        //    foreach (var request in requests)
-        //    {
-        //        foreach (var i in tmpRequestID)
-        //        {
-        //            if (request.RequestID == i)
-        //            {
-        //                request.DeliveryStatusID = 1;
-        //                _requestRepository.Update(request);
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
         [System.Web.Mvc.HttpPost]
         [WebMethod]
         public void Update(List<int> requestIDs, int tripID)
         {
-            iDeliverEntities db = new iDeliverEntities();
-
+            var db = new iDeliverEntities();
             var tmpRequestID = new List<int>();
             //find the list of request id that related to delete trips
 
