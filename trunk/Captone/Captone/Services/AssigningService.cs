@@ -26,12 +26,15 @@ namespace Captone.Services
             new GenericRepository<Request>(new iDeliverEntities());
         private readonly GenericRepository<Assigning> _assigningRepository =
             new GenericRepository<Assigning>(new iDeliverEntities());
+        private readonly GenericRepository<Stage> _stageRepository =
+            new GenericRepository<Stage>(new iDeliverEntities());
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
         private List<Route> _routes = new List<Route>();
         private List<Trip> _trips = new List<Trip>();
         private List<Assigning> _assignings = new List<Assigning>();
+        private List<Stage> _stages = new List<Stage>();
         //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
         private readonly int _maxWay = 5;
@@ -48,7 +51,8 @@ namespace Captone.Services
             , GenericRepository<Invoice> invoiceRepository
             , GenericRepository<Trip> tripRepository
             , GenericRepository<Request> requestRepository
-            , GenericRepository<Assigning> assigningRepository)
+            , GenericRepository<Assigning> assigningRepository
+            , GenericRepository<Stage> stageRepository)
         {
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
@@ -56,6 +60,7 @@ namespace Captone.Services
             _tripRepository = tripRepository;
             _requestRepository = requestRepository;
             _assigningRepository = assigningRepository;
+            _stageRepository = stageRepository;
         }
 
         #endregion
@@ -69,10 +74,11 @@ namespace Captone.Services
             _routes = _routeRepository.GetAll().ToList();
             _stations = _stationRepository.GetAll().ToList();
             _invoices = _invoiceRepository.GetAll().ToList();
-            //right after list all trips from database, filter them to receive the availabel trip
-            _trips = _tripRepository.GetAll().ToList();
-            FilterTrip();
+            _stages = _stageRepository.GetAll().ToList();
             _assignings = _assigningRepository.GetAll().ToList();
+            _trips = _tripRepository.GetAll().ToList();
+            //right after list all trips from database, filter them to receive the availabel trip
+            FilterTrip();
             //build the adjancient list
             foreach (var station1 in _stations)
             {
@@ -149,10 +155,15 @@ namespace Captone.Services
             requests.Sort(RequestCompare);
             foreach (var request in requests)
             {
+                int tmpSize = _finalResult.Count();
                 int tmp = CheckOneTrip(request);
                 if (tmp > 0)
                 {
                     ProcessingOneTrip(tmp, request, date);
+                    if (_finalResult.Count == tmpSize)
+                    {
+                        ProcessingMiddleTrip(request);
+                    }
                 }
                 else
                 {
@@ -216,7 +227,7 @@ namespace Captone.Services
             }
             ProcessingMultipleTrip(request, date);
         }
-
+        //processing with multiple trips
         public void ProcessingMultipleTrip(Request request, DateTime date)
         {
             var deliveryTime = new TimeSpan();
@@ -285,7 +296,30 @@ namespace Captone.Services
                 }
             }
         }
-
+        //
+        public void ProcessingMiddleTrip(Request request)
+        {
+            
+        }
+        //check whether the way of request 
+        bool CheckWay(Request request, Route route)
+        {
+            var listStage = _stages.Where(stage => stage.RouteID == route.RouteID).ToList();
+            listStage.Sort(delegate(Stage stage1, Stage stage2)
+                {
+                    if (stage1.Index < stage2.Index) return 1;
+                    return -1;
+                });
+            int check = 0;
+            foreach (var stage in listStage)
+            {
+                if (stage.StationID == request.FromLocation) check++;
+                if (stage.StationID == request.ToLocation) check++;
+            }
+            if(check == 2) return true;
+            return false;
+        }
+        //add a time span to datetime 
         public DateTime ChangeTime(DateTime a, TimeSpan b)
         {
             DateTime result = a;
@@ -295,7 +329,6 @@ namespace Captone.Services
             return result;
         }
         //find all path between two station of the request
-
         public List<Route> FindPath(Request request)
         {
             var fromStation = new Station();
@@ -450,10 +483,10 @@ namespace Captone.Services
             
             foreach (var id in requestIDs)
             {
-                Request request = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                Request request = db.Requests.FirstOrDefault(r => r.RequestID == id);
                 foreach (var i in tmpRequestID)
                 {
-                    if (request.RequestID == i)
+                    if (request != null && request.RequestID == i)
                     {
                         request.DeliveryStatusID = 1;
                         _requestRepository.Update(request);
