@@ -70,5 +70,15 @@ namespace Captone.Controllers
             Session["UserRole"] = null;
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult ListStaff()
+        {
+            List<Account> listStaff = _db.Accounts.Where(u => u.Role == "Staff").ToList();
+            return View(listStaff);
+        }
+        public ActionResult CreateStaff()
+        {
+            return View();
+        }
+
     }
 }

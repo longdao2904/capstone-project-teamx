@@ -1,0 +1,68 @@
+﻿@model Captone.Models.Account
+
+@{
+    ViewBag.Title = "Tạo nhân viên mới";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    @ViewBag.Title
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Username)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Username)
+                                @Html.ValidationMessageFor(model => model.Username)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Password)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Password)
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Email)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Email)
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.StationID)
+                            </div>
+                            <div class="editor-field">
+                               @Html.DropDownList("StationID", String.Empty)
+                               @Html.ValidationMessageFor(model => model.StationID)
+                            </div>
+                            <br />
+                            <p>
+                                <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                <button type="button" class="btn btn-info" onclick=" window.location.href = '/Coach/Index' "> Quay lại danh sách </button>
+                            </p>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function changeClass() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+
+    window.onload = changeClass();
+</script>
