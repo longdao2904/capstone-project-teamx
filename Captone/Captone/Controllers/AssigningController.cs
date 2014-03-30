@@ -1,15 +1,18 @@
-﻿using Captone.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.SqlClient;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
+using Captone.Models;
 namespace Captone.Controllers
 {
     public class AssigningController : Controller
     {
-        iDeliverEntities _db = new iDeliverEntities();
         //
+        // GET: /Assigning/
+        iDeliverEntities _db = new iDeliverEntities();
         public ActionResult ListAssign(int stationID)
         {
             List<AssigningModel> item = (from p
@@ -44,19 +47,16 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return View("ListAssign");
         }
-        //
         public ActionResult ListTrip(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTrip", list);
         }
-        ///
         public ActionResult GetFromToLocation(int requestId)
         {
             var list = _db.Requests.Where(p => p.RequestID == requestId).ToList();
             return PartialView("GetFromToLocation", list);
         }
-        //
         [HttpPost]
         [WebMethod]
         public void Accept(List<Request> requestId)
@@ -70,7 +70,14 @@ namespace Captone.Controllers
                 _db.SaveChanges();
             }
         }
-        //
+        public ActionResult getRequestAssign(int StationID)
+        {
+            var list =
+                _db.Requests.Where(p => p.DeliveryStatusID == 2).ToList();
+            
+            return View(list);
+        }
+
         public JsonResult CheckRequestLate(List<Trip> requestId)
         {
 
@@ -86,7 +93,7 @@ namespace Captone.Controllers
             }
             return Json(new { check = true }, JsonRequestBehavior.AllowGet);
         }
-        //
+
         public ActionResult RequestPeding()
         {
             List<AssigningModel> item = (from p
@@ -120,13 +127,12 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return View();
         }
-        //
         public ActionResult ListTripPeding(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();
             return PartialView("ListTripPeding", list);
         }
-        //
+
         public ActionResult ListRequestForTrip(int tripid)
         {
             List<Request> requests = new List<Request>();
@@ -134,7 +140,7 @@ namespace Captone.Controllers
             foreach (var item in list)
             {
                 var request = _db.Requests.Where(p => p.RequestID == item.RequestID & p.DeliveryStatusID == 3).FirstOrDefault();
-                if (request != null)
+                if(request!=null)
                 {
                     requests.Add(request);
                 }
@@ -145,7 +151,6 @@ namespace Captone.Controllers
             }
             return View(requests);
         }
-        //
         [WebMethod]
         public void UpdateRequestLate(List<Request> requestId)
         {
@@ -158,45 +163,6 @@ namespace Captone.Controllers
                 _db.SaveChanges();
             }
 
-        }
-        // List requests/packages delivered
-        public ActionResult DeliveredRequest(int stationID)
-        {
-            if (stationID != 0)
-            {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
-                return View(list);
-            }
-            else
-            {
-                return View();
-            }
-        }
-        // List requests/packages expired/cannot delivered
-        public ActionResult ExpiredRequest(int stationID)
-        {
-            if (stationID != 0)
-            {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 8 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
-                return View(list);
-            }
-            else
-            {
-                return View();
-            }
-        }
-        // List requests/packages arrived at endpoint station
-        public ActionResult ArrivedRequest(int stationID)
-        {
-            if (stationID != 0)
-            {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 5 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
-                return View(list);
-            }
-            else
-            {
-                return View();
-            }
         }
     }
 }

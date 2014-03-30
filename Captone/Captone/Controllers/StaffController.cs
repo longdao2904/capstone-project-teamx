@@ -7,7 +7,7 @@ namespace Captone.Areas.Admin.Controllers
     public class StaffController : Controller
     {
         private readonly IAccountService _staffService;
-
+     
         public StaffController(IAccountService staffService)
         {
             _staffService = staffService;
@@ -38,5 +38,6 @@ namespace Captone.Areas.Admin.Controllers
             var model = _staffService.GetAllStaff();
             return View(model);
         }
+ 
     }
 }

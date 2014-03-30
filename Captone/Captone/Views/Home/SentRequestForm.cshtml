@@ -9,8 +9,12 @@
     string username = Session["USERNAME"].ToString();
     
 }
+<input type="hidden" value="@username" id="session"/>
+<div class="container">
+   
+    <input type="button" id="sendmessage" value="Send" />
 
-
+</div>
 <div>
     <form method="POST" action="/Home/PostRequest">
         <div class="col-lg-6">
@@ -94,7 +98,7 @@
                             <input type="text" id="FeeID" name="FeeID" value="" style="display: none" />
                             <input type="text" id="EstimateWeight" name="EstimateWeight" value="" style="display: none" />
                             <input type="text" id="EstimateVolume" name="EstimateVolume" value="" style="display: none" />
-                            <input type="text" id="FromLocation" name="FromLocation" value="" style="display: none" />
+                            <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
                             <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
                         </div>
                         <div class="each-field">
@@ -577,5 +581,6 @@
             }
         });
     }
+
 </script>
 

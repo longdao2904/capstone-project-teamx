@@ -17,6 +17,7 @@ namespace Captone.Models
         public Station()
         {
             this.Comments = new HashSet<Comment>();
+            this.Notifications = new HashSet<Notification>();
             this.Ratings = new HashSet<Rating>();
             this.Requests = new HashSet<Request>();
             this.Requests1 = new HashSet<Request>();
@@ -35,6 +36,7 @@ namespace Captone.Models
         public Nullable<double> AvgRatingLevel { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual Province Province { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Request> Requests { get; set; }

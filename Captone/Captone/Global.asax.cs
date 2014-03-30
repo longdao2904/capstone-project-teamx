@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Timers;
 using System.Web;
@@ -24,15 +26,23 @@ namespace Captone
 
         protected void Application_Start()
         {
+          
             AreaRegistration.RegisterAllAreas();
-
+          
+            SqlDependency.Start(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString); 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+         
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Kernel = NinjectWebCommon.CreateKernel();
             Timer.Enabled = true;
             Timer.Elapsed += NinjectWebCommon.Timer_Elapsed;
         }
+        protected void Application_End()
+        {
+            SqlDependency.Stop(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        }
     }
+  
 }
