@@ -16,8 +16,7 @@ namespace Captone.Models
     {
         public int ID { get; set; }
         public string Username { get; set; }
-        public int StationID { get; set; }
-        public bool isView { get; set; }
+        public Nullable<int> StationID { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual Station Station { get; set; }

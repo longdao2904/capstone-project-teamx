@@ -31,6 +31,7 @@ namespace Captone.Models
         public Nullable<bool> BannedStatus { get; set; }
         public Nullable<int> StationID { get; set; }
     
+        public virtual Station Station { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }

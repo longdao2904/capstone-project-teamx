@@ -16,19 +16,14 @@ namespace Captone.Models
     {
         public Coach()
         {
-            this.Schedules = new HashSet<Schedule>();
-            this.Trips = new HashSet<Trip>();
-            this.Schedules1 = new HashSet<Schedule>();
+            this.CoachArrangements = new HashSet<CoachArrangement>();
         }
     
         public int CoachID { get; set; }
         public string NumberPlate { get; set; }
-        public Nullable<int> RouteID { get; set; }
         public int CoachTypeID { get; set; }
     
         public virtual CoachType CoachType { get; set; }
-        public virtual ICollection<Schedule> Schedules { get; set; }
-        public virtual ICollection<Trip> Trips { get; set; }
-        public virtual ICollection<Schedule> Schedules1 { get; set; }
+        public virtual ICollection<CoachArrangement> CoachArrangements { get; set; }
     }
 }

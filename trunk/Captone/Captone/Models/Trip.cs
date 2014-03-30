@@ -20,23 +20,21 @@ namespace Captone.Models
         }
     
         public int TripID { get; set; }
-        public Nullable<System.TimeSpan> EstimateDepartureTime { get; set; }
-        public Nullable<System.TimeSpan> EstimateArrivalTime { get; set; }
+        public System.TimeSpan EstimateDepartureTime { get; set; }
+        public System.TimeSpan EstimateArrivalTime { get; set; }
         public Nullable<System.TimeSpan> RealDepartureTime { get; set; }
         public Nullable<System.TimeSpan> RealArrivalTime { get; set; }
-        public Nullable<double> EstimateVolume { get; set; }
+        public double EstimateVolume { get; set; }
         public Nullable<double> AvailableVolume { get; set; }
         public Nullable<double> RealVolume { get; set; }
         public System.DateTime Date { get; set; }
         public int RouteID { get; set; }
         public int CoachID { get; set; }
-        public Nullable<int> ScheduleID { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public int ScheduleID { get; set; }
+        public bool IsActive { get; set; }
         public string Status { get; set; }
     
         public virtual ICollection<Assigning> Assignings { get; set; }
-        public virtual Coach Coach { get; set; }
-        public virtual Route Route { get; set; }
         public virtual Schedule Schedule { get; set; }
     }
 }
