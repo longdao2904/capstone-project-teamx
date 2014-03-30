@@ -12,18 +12,13 @@ namespace Captone.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Route
+    public partial class RouteStage
     {
-        public Route()
-        {
-            this.CoachArrangements = new HashSet<CoachArrangement>();
-            this.RouteStages = new HashSet<RouteStage>();
-        }
-    
         public int RouteID { get; set; }
-        public string RouteName { get; set; }
+        public int StageID { get; set; }
+        public Nullable<int> StageIndex { get; set; }
     
-        public virtual ICollection<CoachArrangement> CoachArrangements { get; set; }
-        public virtual ICollection<RouteStage> RouteStages { get; set; }
+        public virtual Route Route { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

@@ -16,32 +16,30 @@ namespace Captone.Models
     {
         public Station()
         {
+            this.Accounts = new HashSet<Account>();
             this.Comments = new HashSet<Comment>();
             this.Notifications = new HashSet<Notification>();
             this.Ratings = new HashSet<Rating>();
             this.Requests = new HashSet<Request>();
             this.Requests1 = new HashSet<Request>();
-            this.Routes = new HashSet<Route>();
-            this.Routes1 = new HashSet<Route>();
         }
     
         public int StationID { get; set; }
         public string StationName { get; set; }
         public string StationLocation { get; set; }
-        public Nullable<double> BreakTime { get; set; }
         public string StationPhone { get; set; }
-        public string Description { get; set; }
         public string Coordinate { get; set; }
-        public Nullable<int> ProvinceID { get; set; }
+        public int ProvinceID { get; set; }
         public Nullable<double> AvgRatingLevel { get; set; }
+        public Nullable<int> BreakTime { get; set; }
+        public string Description { get; set; }
     
+        public virtual ICollection<Account> Accounts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual Province Province { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
         public virtual ICollection<Request> Requests1 { get; set; }
-        public virtual ICollection<Route> Routes { get; set; }
-        public virtual ICollection<Route> Routes1 { get; set; }
     }
 }

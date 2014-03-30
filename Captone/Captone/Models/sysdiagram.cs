@@ -12,18 +12,12 @@ namespace Captone.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Route
+    public partial class sysdiagram
     {
-        public Route()
-        {
-            this.CoachArrangements = new HashSet<CoachArrangement>();
-            this.RouteStages = new HashSet<RouteStage>();
-        }
-    
-        public int RouteID { get; set; }
-        public string RouteName { get; set; }
-    
-        public virtual ICollection<CoachArrangement> CoachArrangements { get; set; }
-        public virtual ICollection<RouteStage> RouteStages { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
