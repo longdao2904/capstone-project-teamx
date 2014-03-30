@@ -1,4 +1,8 @@
-﻿using System.Web.Services;
+﻿using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Services;
+using Captone.Hubs;
 using Captone.Models;
 using System;
 using System.Collections.Generic;
@@ -81,6 +85,13 @@ namespace Captone.Controllers
 
         public ActionResult PostRequest(FormCollection col)
         {
+            var fromlocation = int.Parse(col["FromLocation"]);
+            var getStationID = _db.Stations.Where(p => p.StationID == fromlocation).Single();
+            Notification notification = new Notification();
+            notification.Username = col["Username"];
+            notification.StationID = getStationID.StationID;
+            notification.isView = false;
+            _db.Notifications.Add(notification);
             Request request = new Request();
             request.Username = col["Username"];
             request.DeliveryStatusID = 1;
@@ -223,6 +234,28 @@ namespace Captone.Controllers
             string str = "select * from dbo.Route where RouteName like N'%" + RouteName + "%'";
             var address = _db.Database.SqlQuery<Route>(str).ToList();
             return Json(address, JsonRequestBehavior.AllowGet);
+        }
+     public int getNotification(string username)
+        {
+         NotificationRepository obj = new NotificationRepository();
+         //var getStaff = _db.Accounts.Where(p => p.Username == username).Single();
+         //var getStation = _db.Notifications.Where(p => p.StationID == getStaff.StationID & p.isView == false).ToList();
+         //var count = getStation.Count();
+         //return count;
+         var getdata = obj.GetData(username);
+         return getdata;
+         
+
+        }
+
+        public void DeleteNotification()
+        {
+            var list = _db.Notifications.Where(p => p.isView == false).ToList();
+            foreach (var notification in list)
+            {       
+                _db.Notifications.Remove(notification);
+                _db.SaveChanges();
+            }
         }
     }
 }

@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Core CSS - Include with every page -->
+
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+
+    <script src="~/Content/js/bootstrap.js"></script>
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
     <!-- Page-Level Plugin CSS - Dashboard -->
-    <link href="~/Content/Css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-
+    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
     <!-- SB Admin CSS - Include with every page -->
     <link href="~/Content/css/sb-admin.css" rel="stylesheet">
 
-    <!-- Sent Request Form CSS -->
-    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
-
-    <script src="~/Content/js/jquery-1.10.2.js"></script>
-    <script src="~/Content/js/bootstrap.js"></script>
     <script src="~/Content/js/jquery.bpopup.min.js"></script>
     <script src="~/Content/js/sb-admin.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
@@ -33,226 +32,224 @@
         var stationName = (string)Session["StationName"];
     }
 </head>
+
 <body style="width: 100%; height: 100%">
     <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <!-- /.navbar-header -->
-            <div class="col-lg-4">
-                <a class="navbar-brand" href="/Home/Index"><i class="fa fa-truck fa-fw"></i>i-Deliver</a>
-            </div>
-            <div class="col-lg-4" style="margin-top: 0.5%;">
-                <div class="input-group custom-search-form">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+        <div class="row">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <!-- /.navbar-header -->
+                <div class="col-lg-4">
+                    <a class="navbar-brand" href="/Home/Index"><i class="fa fa-truck fa-fw"></i>i-Deliver</a>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="nav navbar-top-links navbar-right" style="margin-right: 20%; margin-top: 2%;">
-                    @if (Username != null)
-                    {
-                        string username = Username.ToUpper();
-                        <i class="fa fa-user fa-fw"></i> @username
-                        <a href="/Account/LogOff">| <i class="fa fa-sign-out"></i>Đăng xuất</a>
-                    }
-                    else
-                    {
-                        <a href="/Account/LogOn"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
-                    }
+                <div class="col-lg-4" style="margin-top: 0.5%;">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
-                    </li>
-                    <li>
-                        <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
-                        @if (Username != null && UserRole == "Customer")
-                        {                        
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/Home/ListStatusCustomer?Username=@Username"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
-                                </li>
-                                <li>
-                                    <a href="/Customer/Index"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
-                        @if (Username == null)
+                <div class="col-lg-4">
+                    <div class="nav navbar-top-links navbar-right" style="margin-right: 20%; margin-top: 2%;">
+                        @if (Username != null)
                         {
-                            <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="/Account/LogOn"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
-                                </li>
-                                <li>
-                                    <a href="/Account/Register"><i class="fa fa-user fa-fw"></i>Đăng ký</a>
-                                </li>
-                            </ul>
+                            string username = Username.ToUpper();
+                            <i class="fa fa-user fa-fw"></i> @username
+                            <a href="/Account/LogOff">| <i class="fa fa-sign-out"></i>Đăng xuất</a>
                         }
                         else
                         {
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Thông tin cá nhân</a>
-                                </li>
-                                <li>
-                                    <a href="#">Đổi mật khẩu</a>
-                                </li>
-                                <li>
-                                    <a href="/FeedBack/Index">Đóng góp ý kiến</a>
-                                </li>
-                                <li><a href="/Account/LogOff"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a></li>
-                            </ul>
+                            <a href="/Account/LogOn"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
                         }
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
+                </li>
+                <li class="active">
+                    <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
+                    @if (Username != null && UserRole == "Customer")
+                    {                        
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Home/ListStatusCustomer?Username=@Username"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
+                            </li>
+                            <li>
+                                <a href="/Customer/Index"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
+                            </li>
+                        </ul>
+                    }
+                </li>
+                <li class="active">
+                    <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng<span class="fa arrow"></span></a>
+                    @if (Username == null)
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Account/LogOn"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
+                            </li>
+                            <li>
+                                <a href="/Account/Register"><i class="fa fa-user fa-fw"></i>Đăng ký</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="#">Đổi mật khẩu</a>
+                            </li>
+                            <li>
+                                <a href="/FeedBack/Index">Đóng góp ý kiến</a>
+                            </li>
+                            <li><a href="/Account/LogOff"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a></li>
+                        </ul>
+                    }
+                    <!-- /.nav-second-level -->
+                </li>
+                @if (UserRole == "Staff")
+                {
+                    <input type="hidden" value="@Username" id="session"/>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Coach/Index">Xe</a>
+                            </li>
+                            <li>
+                                <a href="/Station/Index">Trạm</a>
+                            </li>
+                            <li>
+                                <a href="/Trip/Index">Chuyến</a>
+                            </li>
+                            <li>
+                                <a href="/Route/Index">Tuyến</a>
+                            </li>
+                            <li>
+                                <a href="/Schedule/Index">Lịch chạy</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                        <a href="/Request/Index"><i class="fa fa-tasks"></i>Quản lý yêu cầu vận chuyển</a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Request/AcceptRequest?stationID=@stationId" onclick="DeleteNotification()">Tiếp nhận yêu cầu
+                                    <div style="color: white; text-decoration-color: white; text-align: center; margin-left: 130px; margin-top: -20px; background-color: red; border-radius: 30px; width: 30px;" id="count">0</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Request/LatePayment?stationID=@stationId">Trễ hạn thanh toán</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/getRequestAssign?StationID=@stationId">Xếp lịch</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/ListAssign?stationID=@stationId">Xác nhận chuyển hàng</a>
+                            </li>
+                            <li>
+                                <a href="/Assigning/RequestPeding">Hàng đang vận chuyển</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                @if (UserRole == "Admin")
+                {
+                    <li class="active">
+                        <a href="#"><i class="fa fa-gears fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Staff/Index">Nhân viên</a>
+                            </li>
+                            <li>
+                                <a href="/Fee">Biểu giá vận chuyển</a>
+                            </li>
+                            <li>
+                                <a href="/Schedule/Index">Lịch trình xe và tuyến</a>
+                            </li>
+                        </ul>
                         <!-- /.nav-second-level -->
                     </li>
-                    @if (UserRole == "Staff")
-                    {
-                    
-                        <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i>Quản lý hành trình<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/Coach/Index">Xe</a>
-                                </li>
-                                <li>
-                                    <a href="/Station/Index">Trạm</a>
-                                </li>
-                                <li>
-                                    <a href="/Trip/Index">Chuyến</a>
-                                </li>
-                                <li>
-                                    <a href="/Route/Index">Tuyến</a>
-                                </li>
-                                <li>
-                                    <a href="/Schedule/Index">Lịch chạy</a>
-                                </li>                             
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="/Request/Index"><i class="fa fa-tasks"></i>Quản lý yêu cầu vận chuyển</a>
-                            @*<ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/Request/AcceptRequest?stationID=@stationId">Tiếp nhận yêu cầu</a>
-                                </li>
-                                <li>
-                                    <a href="/Request/LatePayment?stationID=@stationId">Trễ hạn thanh toán</a>
-                                </li>
-                                <li>
-                                    <a href="/Assigning/getRequestAssign?StationID=@stationId">Xếp lịch</a>
-                                </li>
-                                <li>
-                                    <a href="/Assigning/ListAssign?stationID=@stationId">Xác nhận chuyển hàng</a>
-                                </li>
-                                <li>
-                                    <a href="/Assigning/RequestPeding">Hàng đang vận chuyển</a>
-                                </li>
-                            </ul>*@
-                        </li>
-                    }
-                    @if (UserRole == "Admin")
-                    {
-                        <li>
-                            <a href="#"><i class="fa fa-gears fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/Staff/Index">Nhân viên</a>
-                                </li>
-                                <li>
-                                    <a href="/Fee">Biểu giá vận chuyển</a>
-                                </li>
-                                <li>
-                                    <a href="/Schedule/Index">Lịch trình xe và tuyến</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    }
-                </ul>
-                <!-- /#side-menu -->
-            </div>
-            <!-- /.sidebar-collapse -->
-        </nav>
+                }
+            </ul>
+            <!-- /#side-menu -->
+        </div>
+        <!-- /.sidebar-collapse -->
+    </nav>
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="hide" tabindex="-1">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="hide" tabindex="-1">
 
-                                <div id="description" style="display: none"></div>
-                                <div id="map" style="height: 440px;">
-                                </div>
-                                <div id="shortest">
-                                </div>
-                                <div class="bub-container2">
-                                    <input type="checkbox" id="bulb2" class="light" onclick="showGoogleMap()" />
-
-                                    <label for="bulb2" class="bulbs"></label>
-
-                                    <div style="margin-left: 135px; margin-top: -30px;">Lịch trình của bạn</div>
-                                    <div style="margin-left: 200px">
-                                        <div id="duration"></div>
-                                        <div id="distance"></div>
-                                    </div>
-                                </div>
-                                <!-- /.panel-body -->
+                            <div id="description" style="display: none"></div>
+                            <div id="map" style="height: 440px;">
                             </div>
-                            <!-- /.panel -->
+                            <div id="shortest">
+                            </div>
+                            <div class="bub-container2">
+                                <input type="checkbox" id="bulb2" class="light" onclick="showGoogleMap()" />
+
+                                <label for="bulb2" class="bulbs"></label>
+
+                                <div style="margin-left: 135px; margin-top: -30px;">Lịch trình của bạn</div>
+                                <div style="margin-left: 200px">
+                                    <div id="duration"></div>
+                                    <div id="distance"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.col-lg-8 -->
-
-                        <!-- /.col-lg-4 -->
-
-                        <!-- /.col-lg-8 -->
-
+                        <!-- /.panel -->
                     </div>
-                    <!-- /.row -->
+                    <!-- /.col-lg-8 -->
+
+                    <!-- /.col-lg-4 -->
+
+                    <!-- /.col-lg-8 -->
+
                 </div>
-                <!-- Danh sách trạm -->
-                <div class="col-lg-4">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <i class="fa fa-building-o fa-fw"></i>Danh sách trạm
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            @Html.Action("ListProvince", "Home")
-                            <!-- /.list-group -->
-                        </div>
-                        <!-- /.panel-body -->
+                <!-- /.row -->
+            </div>
+            <div class="col-lg-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-building-o fa-fw"></i>Danh sách trạm
                     </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        @Html.Action("ListProvince", "Home")
+                        <!-- /.list-group -->
+                    </div>
+                    <!-- /.panel-body -->
                 </div>
-                <div class="col-lg-12">
-                    <div class="row" style="padding-top: 20px">
-                        @RenderBody()
-                    </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="row" style="padding-top: 20px">
+                    @RenderBody()
                 </div>
             </div>
         </div>
     </div>
+    <div style="clear: both;"></div>
 
-    <!-- Clearance & Footer -->
-    <div>
-        <div style="clear: both;"></div>
-
-        <div class="contain">
+    @*  <div class="contain">
             <div id="myCarousel4" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <div class="carousel-inner">
@@ -299,34 +296,80 @@
                     </div>
                 </div>
             </div>
+        </div>*@
+    @*  <footer class="footer">
+        <div class="container">
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
         </div>
-
-        <footer class="footer">
-            <div class="container">
-                <p class="pull-right"><a href="#">Back to top</a></p>
-                <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Core Scripts - Include with every page -->
-    <script src="~/Content/js/jquery-1.10.2.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/bootstrap.js"></script>
-    <script src="~/Content/js/hideshow.js"></script>
-    <script src="~/Content/js/jquery.bpopup.min.js"></script>
-    <script src="~/Content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="~/Content/js/sb-admin.js"></script>
-
+    </footer>*@
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <table id="tblJobInfo" style="text-align:center;margin-left:10px">
+        </table>
     @RenderSection("scripts", required: false)
-
+    <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
     <script type="text/javascript">
+        $(function () {
+            // Proxy created on the fly
+            var job = $.connection.chatHub;
+            var chat = $.connection.chatHub;
+            var message = "Một yêu cầu mới vừa được gửi đến !";
+            // Create a function that the hub can call back to display messages.
+            chat.client.send = function (message) {
+                // Add the message to the page. 
+                alert(message);
+            };
+            // Declare a function on the job hub so the server can invoke it
+            job.client.displayStatus = function () {
+                getNotification();
+            };
+
+            // Start the connection
+            $.connection.hub.start();
+            getNotification();
+            
+            $('#sendmessage').click(function () {
+                // Call the Send method on the hub. 
+                chat.server.send(message);
+
+            });
+        });
+
+
+        function getNotification() {
+            var session = document.getElementById("session").value;
+            //var $tbl = $('#tblJobInfo');
+            $.ajax({
+                url: "/Home/getNotification",
+                type: "POST",
+                datatype: 'json',
+                data: { username: session },
+                success: function (result) {
+                    if (result > 0) {
+                     
+                        $("#count").html(result);
+                    }
+
+                }
+            });
+        }
+
+        function DeleteNotification() {
+            $.ajax({
+                url: "/Home/DeleteNotification",
+                type: "POST",
+                success: function (result) {
+                }
+            });
+        }
         $('#myTab a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         });
+
     </script>
+
 </body>
+
 </html>
