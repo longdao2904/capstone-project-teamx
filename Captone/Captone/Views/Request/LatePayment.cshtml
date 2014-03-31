@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "LatePayment";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<h3 style="color: orange">Các yêu cầu đã trễ hạn thanh toán</h3>
+<div class="table-responsive" id="RequestList">
+<table class="table">
+    <tr>
+        <th>Người gửi</th>
+        <th>Người nhận</th>
+        <th>Địa chỉ nhận</th>
+        <th>Điện thoại người gửi</th>
+        <th>Ngày gửi yêu cầu</th>
+        <th>Hạn chót thanh toán</th>
+        <th>Quản lý</th>
+    </tr>
+    @foreach (var request in Model)
+    {
+        <tr>
+            <td>@request.Username</td>
+            <td>@request.ReceiverName</td>
+            <td>@request.ReceiverAddress</td>
+            <td>@request.SenderPhone</td>
+            <td>@request.DateRequest</td>
+            <td>@request.DateRequest.AddDays(1)</td>
+            <td><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Chỉnh sửa trạng thái" onclick="Update()">\t 
+                <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Xóa yêu cầu" onclick="Delete()"></td> 
+            <input id="requestID" value="@request.RequestID" hidden=""/>
+        </tr>
+    }
+    </table>
+</div>
+<script>
+    function Delete() {
+        var id = document.getElementById("requestID").value;
+        $.ajax({
+            url: "/Request/Delete",
+            type: "POST",
+            data: { RequestID: parseInt(id) },
+            success: function() {
+                $('.closeModal').click();
+                $("#RequestList").fadeOut(200, function() {
+                    $("#Request-" + id).remove();
+                    $("#RequestList").fadeIn(200);
+                });
+            }
+        });
+    }
+    function Update() {
+        var id = document.getElementById("requestID").value;
+        $.ajax({
+            url: "/Request/UpdateDatePostForRequest",
+            type: "POST",
+            data: { RequestID: parseInt(id) },
+            success: function () {
+                $('.closeModal').click();
+                $("#RequestList").fadeOut(200, function () {
+                    $("#Request-" + id).remove();
+                    $("#RequestList").fadeIn(200);
+                });
+            }
+        });
+    }
+</script>

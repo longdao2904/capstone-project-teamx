@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Captone.Models.CoachType>
+<script type="text/javascript" src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/Content/TableJS/KeyTable.js"></script>
+@{
+    Layout = null;
+}
+
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="table display KeyTable dataTable" id="CoachTypesTbl" aria-describedby="example_info">
+            <thead>
+                <tr>
+                    <th>Số ghế ngồi
+                    </th>
+                    <th>Sức chứa khoang hàng
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Seats)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capacity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    window.onload = loadTable();
+
+    function loadTable() {
+        var oTable = $('#CoachTypesTbl').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('CoachTypesTbl'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+</script>
+<style type="text/css">
+    .bodyFix {
+        height: 100%;
+        overflow: scroll;
+    }
+
+    .modal-title {
+        font-weight: bolder;
+    }
+</style>

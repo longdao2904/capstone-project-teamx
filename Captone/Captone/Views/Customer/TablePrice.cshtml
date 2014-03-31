@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Captone.Models.ManageFee>
+@{
+    ViewBag.Title = "TablePrice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#home" data-toggle="tab" id="" onclick="">Biểu giá theo thông tin hàng hoá</a></li>
+    <li><a href="#other" data-toggle="tab" id="" >Biểu giá theo chặng đường đi</a></li>
+</ul>
+<div class="tab-content">
+    <div id="home" class="tab-pane active">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <th>Khối lượng ước tính</th>
+                    <th>Thể tích ước tính</th>
+                    <th>Giá tiền ước tính</th>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.MinVolume - @item.MaxWeight
+                            </td>
+                            <td>
+                                @item.MinVolume - @item.MaxVolume
+                            </td>
+                            <td>
+                                @item.Fee
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div id="other" class="tab-pane">
+        @Html.Action("TablePrice2", "Customer")
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function LoadPrice() {
+        $.ajax({
+            url: "",
+            type: "POST",
+            success : function(result) {
+                $("#other").html(result);
+            }
+        });
+    }
+</script>
