@@ -1,0 +1,52 @@
+﻿@model Captone.Models.Comment
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="clear"></div>
+<h3>Bạn có muốn xoá bình luận này?</h3>
+<article class="module width_3_quater">
+    <header style="text-align: center">
+        <h3>Xoá bình luận trạm</h3>
+    </header>
+    <div class="module_content">
+        <table class="tablesorter">
+            <thead>
+                <tr style="text-align: center">
+                   <td>Khách hàng</td>
+                    <td>Bình luận</td>
+                    <td>Ngày bình luận</td>
+                    <td>Trạm</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="text-align: center">
+                   <td>
+                            @Html.DisplayFor(model => model.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model=> model.CommentContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model=> model.DatePost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.StationID)
+                        </td>
+                    <td>
+                        @using (Html.BeginForm())
+                        {
+                            <p>
+                                <button type="submit" class="btn btn-danger">Xóa?</button>
+                                <button type="button" class="btn btn-info" onclick="window.location.href='/Feedback/ManageCommentList'">Huỷ</button>
+                            </p>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+    </div>
+</article>
+<!-- end of stats article -->
+

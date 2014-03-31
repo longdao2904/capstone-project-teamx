@@ -1,0 +1,96 @@
+﻿@model Captone.Models.Station
+
+@{
+    Layout = null;
+}
+<script src="~/Content/ui/jquery-ui.js"></script>
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css">
+
+<div class="col-md-8">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StationName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StationName)
+            @Html.ValidationMessageFor(model => model.StationName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StationLocation)
+        </div>
+        <div class="editor-field">
+            <div id="location" onchange="decodeM()">
+                @Html.EditorFor(model => model.StationLocation)
+            </div>
+            @Html.ValidationMessageFor(model => model.StationLocation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Province)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ProvinceID")
+            @Html.ValidationMessageFor(model => model.Province)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BreakTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BreakTime)
+            @Html.ValidationMessageFor(model => model.BreakTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StationPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StationPhone)
+            @Html.ValidationMessageFor(model => model.StationPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label" hidden="hidden">
+            @Html.LabelFor(model => model.Coordinate)
+        </div>
+        <div class="editor-field" hidden="hidden">
+            @Html.EditorFor(model => model.Coordinate)
+            @Html.ValidationMessageFor(model => model.Coordinate)
+        </div>
+        <br />
+        <p>
+            <button type="submit" class="btn btn-primary">Tạo mới</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+        </p>
+    }
+</div>
+
+<script type="text/javascript">
+    window.onload = initialize();
+
+    function initialize() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+
+    function decodeM() {
+        var address = document.getElementById("StationLocation").value;
+        $.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+            type: "POST",
+            success: function (res) {
+                document.getElementById('Coordinate').value = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+            }
+        });
+    }
+</script>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Captone.Models.Request>
+<script src="~/Content/js/demo/demo.js"></script>
+<div class="table-responsive" id="requestList">
+    <table class="table">
+        <tr>
+            <th>Địa chỉ người gửi
+            </th>
+            <th>Tên người nhận
+            </th>
+            <th>Địa chỉ người nhận
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>
+                Mã code
+            </th>
+            <th>Trạng thái
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            
+            <tr id="requestCustomer-@item.RequestID">
+                <td>
+                    @item.SenderAddress
+                </td>
+                <td>
+                    @item.ReceiverName
+                </td>
+                <td>
+                    @item.ReceiverAddress
+                </td>
+                <td>
+                    @item.DateRequest
+                </td>
+                <td>
+                    @item.RequestCode
+                </td>
+                <td>
+                    @item.DeliveryStatu.StatusName
+                </td>
+                @if (item.DeliveryStatusID == 1)
+                {
+                    <td>
+                        <input type="button" id="@item.RequestID" class="btn" value="Xóa yêu cầu" onclick="DeleteRequest(this.id);"/>
+                    </td>
+                }
+                @if (item.DeliveryStatusID == 4)
+                {
+                    <td>
+                        <ul id="inline-popups" class="abc">
+                            <a href="#test-popup" data-effect="mfp-newspaper" id="@item.RequestID" role="button" onclick="ListTripTracking();">Tracking</a>
+                        </ul>
+                    </td>    
+                }
+
+            </tr>
+        }
+
+    </table>
+    <div id="test-popup" class="white-popup mfp-with-anim mfp-hide">
+    </div>
+</div>
+<script type="text/javascript">
+    $('#inline-popups').magnificPopup({
+        delegate: 'a',
+        removalDelay: 300, //delay removal by X to allow out-animation
+        callbacks: {
+            beforeOpen: function () {
+                this.st.mainClass = this.st.el.attr('data-effect');
+            }
+        },
+        midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+    });
+    function ListTripTracking() {
+        var id = $("ul.abc a").attr("id");
+        $.ajax({
+            url: "/Home/ListTripTracking",
+            type:"POST",
+            data: { requestId: id },
+            success: function (result) {
+                $("#test-popup").html(result);
+                Tracking(id);
+            }
+        });
+    }
+  
+
+        function DeleteRequest(id) {
+            $.ajax({
+                url: "/Home/DeleteRequest",
+                type: "Post",
+                data: { requestId: id },
+                success: function (result) {
+                    if (result) {
+                        $("#requestCustomer-" + id).fadeOut(200, function () {
+                            $("#requestCustomer-" + id).remove();
+                            $("#requestCustomer-" + id).fadeIn(200);
+                        });
+                    }
+                }
+            });
+        }
+
+</script>

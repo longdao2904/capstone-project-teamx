@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Captone.Models.Request>
+
+@foreach(var item in Model)
+{
+    @item.Station.StationName <span> --> </span>  @item.Station1.StationName
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="380986db354c42e6b253482db16f0636" Name="Diagram1">
+        <EntityTypeShape EntityType="iDeliverModel.Account" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Assigning" Width="1.5" PointX="15.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Coach" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.CoachArrangement" Width="1.5" PointX="7.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.CoachType" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Comment" Width="1.5" PointX="7.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.DeliveryStatu" Width="1.5" PointX="8.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Invoice" Width="1.5" PointX="12.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.ManageFee" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Notification" Width="1.5" PointX="10.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Province" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Rating" Width="1.5" PointX="10.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Request" Width="1.5" PointX="10.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Route" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Schedule" Width="1.5" PointX="9.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Stage" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Station" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.Trip" Width="1.5" PointX="12" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iDeliverModel.UserInfo" Width="1.5" PointX="7.5" PointY="26.5" IsExpanded="true" />
+        <AssociationConnector Association="iDeliverModel.FK_Account_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Comment_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Notification_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Rating_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Request_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_UserInfo_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Assigning_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Assigning_Trip" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Coach_CoachType" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_CoachArrangement_Coach" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_CoachArrangement_Route" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Schedule_CoachArrangement" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Comment_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Request_DeliveryStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Invoice_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Request_ManageFee" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Notification_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Station_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Rating_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Request_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Request_Station1" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Route_Station" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Route_Station1" ManuallyRouted="false" />
+        <AssociationConnector Association="iDeliverModel.FK_Trip_Schedule" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

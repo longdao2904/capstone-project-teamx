@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Captone.Models.Invoice>
+@{
+    ViewBag.Title = "AcceptInvoice";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <th>Tên</th>
+            <th>Trạm gửi</th>
+            <th>Trạm nhận</th>
+            <th>Ngày gửi</th>
+            <th>Hình thức</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                   
+                    <td>@item.Request.Username</td>
+                    <td>@item.Request.Station.StationName</td>
+                    <td>@item.Request.Station1.StationName</td>
+                    <td>@item.Request.DateRequest</td>
+                    <td>@item.Request.TypeOfPayment</td>
+                    @if(item.Request.TypeOfPayment=="Thanh toán online")
+                    {
+                        <td><a href="#" class="btn btn-success">Xác nhận</a></td>
+                    }
+                    else
+                    {
+                        <td><a href="#" class="btn btn-success" onclick="getData(@item.InvoiceID)">In hoá đơn</a></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+
+</div>
+<script type="text/javascript">
+    function getData(id) {
+        
+        $.ajax({
+            url: "/Request/CreatePdf",
+            type: "POST",
+            data: { invoiceID:id},
+            success: function (result) {
+                console.log(result);
+                if (result) {
+                 
+                    //applay param to href
+                    //var param = "?weight=" + weight + "&volume=" + volume + "&price=" + price;
+                    var href = "/Request/DisplayPDF";// + param;
+
+                    window.open(href, "_blank", "width=500; height=600");
+                }
+            }
+        });
+    }
+
+</script>
