@@ -1,0 +1,110 @@
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Captone.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Captone.pdb
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Antlr3.Runtime.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\EntityFramework.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.Security.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Newtonsoft.Json.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Common.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Mvc.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Owin.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Net.Http.Formatting.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Helpers.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Http.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Http.WebHost.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Mvc.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Optimization.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Providers.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Razor.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.Deployment.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.Razor.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\WebActivator.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\WebGrease.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Microsoft.Owin.Security.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Newtonsoft.Json.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.pdb
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Common.pdb
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Common.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Mvc.pdb
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\Ninject.Web.Mvc.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Helpers.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\EntityFramework.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Net.Http.Formatting.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Http.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Http.WebHost.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Mvc.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.Razor.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.Deployment.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\bin\System.Web.WebPages.Razor.xml
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\obj\Debug\CapstoneProject.Extended.csprojResolveAssemblyReference.cache
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\obj\Debug\Captone.Resource.resources
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\obj\Debug\CapstoneProject.Extended.csproj.GenerateResource.Cache
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\obj\Debug\Captone.dll
+C:\Users\winvn_000\Desktop\Backup\CP.v1\Captone\obj\Debug\Captone.pdb
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Captone.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Captone.pdb
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Antlr3.Runtime.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\EntityFramework.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.Security.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Newtonsoft.Json.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Common.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Mvc.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Owin.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Net.Http.Formatting.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Helpers.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Http.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Http.WebHost.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Mvc.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Optimization.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Providers.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Razor.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.Deployment.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.Razor.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\WebActivator.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\WebGrease.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Microsoft.Owin.Security.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Newtonsoft.Json.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.pdb
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Common.pdb
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Common.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Mvc.pdb
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\Ninject.Web.Mvc.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Helpers.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\EntityFramework.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Net.Http.Formatting.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Http.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Http.WebHost.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Mvc.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.Razor.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.Deployment.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\bin\System.Web.WebPages.Razor.xml
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\obj\Debug\CapstoneProject.Extended.csprojResolveAssemblyReference.cache
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\obj\Debug\Captone.Resource.resources
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\obj\Debug\CapstoneProject.Extended.csproj.GenerateResource.Cache
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\obj\Debug\Captone.dll
+C:\Users\winvn_000\Desktop\Backup\Capstone Project\Captone\obj\Debug\Captone.pdb

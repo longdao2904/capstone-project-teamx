@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="iDeliverEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="Models.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="BackupPassword" ColumnName="BackupPassword" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="BannedStatus" ColumnName="BannedStatus" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assignings">
+      <EntityTypeMapping TypeName="Models.Assigning">
+        <MappingFragment StoreEntitySet="Assigning">
+          <ScalarProperty Name="TripID" ColumnName="TripID" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="IndicateOrder" ColumnName="IndicateOrder" />
+          <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Coaches">
+      <EntityTypeMapping TypeName="Models.Coach">
+        <MappingFragment StoreEntitySet="Coach">
+          <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="CoachTypeID" ColumnName="CoachTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoachArrangements">
+      <EntityTypeMapping TypeName="Models.CoachArrangement">
+        <MappingFragment StoreEntitySet="CoachArrangement">
+          <ScalarProperty Name="ArrangeID" ColumnName="ArrangeID" />
+          <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoachTypes">
+      <EntityTypeMapping TypeName="Models.CoachType">
+        <MappingFragment StoreEntitySet="CoachType">
+          <ScalarProperty Name="CoachTypeID" ColumnName="CoachTypeID" />
+          <ScalarProperty Name="Seats" ColumnName="Seats" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="Models.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+          <ScalarProperty Name="DatePost" ColumnName="DatePost" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryStatus">
+      <EntityTypeMapping TypeName="Models.DeliveryStatu">
+        <MappingFragment StoreEntitySet="DeliveryStatus">
+          <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="Models.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManageFees">
+      <EntityTypeMapping TypeName="Models.ManageFee">
+        <MappingFragment StoreEntitySet="ManageFee">
+          <ScalarProperty Name="FeeID" ColumnName="FeeID" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="MinWeight" ColumnName="MinWeight" />
+          <ScalarProperty Name="MaxWeight" ColumnName="MaxWeight" />
+          <ScalarProperty Name="MinVolume" ColumnName="MinVolume" />
+          <ScalarProperty Name="MaxVolume" ColumnName="MaxVolume" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="Models.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="isView" ColumnName="isView" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provinces">
+      <EntityTypeMapping TypeName="Models.Province">
+        <MappingFragment StoreEntitySet="Province">
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="Models.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="RateLevel" ColumnName="RateLevel" />
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="Models.Request">
+        <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
+          <ScalarProperty Name="FeeID" ColumnName="FeeID" />
+          <ScalarProperty Name="EstimateWeight" ColumnName="EstimateWeight" />
+          <ScalarProperty Name="EstimateVolume" ColumnName="EstimateVolume" />
+          <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FromLocation" ColumnName="FromLocation" />
+          <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
+          <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+          <ScalarProperty Name="ReceiverAddress" ColumnName="ReceiverAddress" />
+          <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+          <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+          <ScalarProperty Name="ReceiverPhone" ColumnName="ReceiverPhone" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TypeOfPayment" ColumnName="TypeOfPayment" />
+          <ScalarProperty Name="ArrivedDate" ColumnName="ArrivedDate" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="RequestCode" ColumnName="RequestCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="Models.Route">
+        <MappingFragment StoreEntitySet="Route">
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RouteStages">
+      <EntityTypeMapping TypeName="Models.RouteStage">
+        <MappingFragment StoreEntitySet="RouteStage">
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="StageID" ColumnName="StageID" />
+          <ScalarProperty Name="StageIndex" ColumnName="StageIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="Models.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="ArrangeID" ColumnName="ArrangeID" />
+          <ScalarProperty Name="EstimateDepartureTime" ColumnName="EstimateDepartureTime" />
+          <ScalarProperty Name="EstimateArrivalTime" ColumnName="EstimateArrivalTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stages">
+      <EntityTypeMapping TypeName="Models.Stage">
+        <MappingFragment StoreEntitySet="Stage">
+          <ScalarProperty Name="StageID" ColumnName="StageID" />
+          <ScalarProperty Name="StageName" ColumnName="StageName" />
+          <ScalarProperty Name="StartPoint" ColumnName="StartPoint" />
+          <ScalarProperty Name="EndPoint" ColumnName="EndPoint" />
+          <ScalarProperty Name="BreakTime" ColumnName="BreakTime" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Container" ColumnName="Container" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="Models.Station">
+        <MappingFragment StoreEntitySet="Station">
+          <ScalarProperty Name="StationID" ColumnName="StationID" />
+          <ScalarProperty Name="StationName" ColumnName="StationName" />
+          <ScalarProperty Name="StationLocation" ColumnName="StationLocation" />
+          <ScalarProperty Name="StationPhone" ColumnName="StationPhone" />
+          <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="AvgRatingLevel" ColumnName="AvgRatingLevel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Models.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trips">
+      <EntityTypeMapping TypeName="Models.Trip">
+        <MappingFragment StoreEntitySet="Trip">
+          <ScalarProperty Name="TripID" ColumnName="TripID" />
+          <ScalarProperty Name="EstimateDepartureTime" ColumnName="EstimateDepartureTime" />
+          <ScalarProperty Name="EstimateArrivalTime" ColumnName="EstimateArrivalTime" />
+          <ScalarProperty Name="RealDepartureTime" ColumnName="RealDepartureTime" />
+          <ScalarProperty Name="RealArrivalTime" ColumnName="RealArrivalTime" />
+          <ScalarProperty Name="EstimateVolume" ColumnName="EstimateVolume" />
+          <ScalarProperty Name="AvailableVolume" ColumnName="AvailableVolume" />
+          <ScalarProperty Name="RealVolume" ColumnName="RealVolume" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="Models.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

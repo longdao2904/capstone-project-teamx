@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Captone.Models.AssigningModel>
+@{
+    ViewBag.Title = "RequestPeding";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    int stationId = Convert.ToInt32(Session["StationID"]);
+}
+<div class="table-responsive">
+    <table class="table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
+        <thead>
+        <tr>
+            <th>Tên đăng nhập</th>
+            <th>Ngày khởi hành</th>
+            <th>Chuyến đã xếp</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><input type="checkbox" id="selectall" value="Select All"/></th>
+            <th></th>
+        </tr>
+            </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.Assign)
+            {
+                <tr>
+                    <td style="display: none" id="rqID">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td>
+                        <button class="btn btn-default example" data-placement="right" data-toggle="popover" data-container="body" type="button" data-original-title="" data-content=""data-trigger="click" id="" onclick="ListTrip(@item.RequestID);">Chi tiết chuyến đi</button>
+                    </td>
+                    <td style="display: none">@item.ToLocation</td>
+                    <td style="display: none">@item.SenderPhone</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="checkbox" name="chk" class="case"/></td>
+                    <td></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="/Assigning/ArrivedRequest?stationID=@stationId" onclick="ArriveRequest()">Hàng đã đến trạm</a>
+</div>
+<script type="text/javascript">
+    $('.example').popover({
+        html: true,
+        placement: 'right',
+        title: '<div id="trip-name"></div>',
+        content: '<div id="trip-for" class="table-responsive"></div>',
+        trigger: 'click'
+    });
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });    
+
+    function ListTrip(id) {
+        $.ajax({
+            url: "/Assigning/ListTripPeding",
+            type: "POST",
+            data: { requestId: id },
+            success: function (result) {
+                getLocation(id);
+                $("#trip-for").html(result);
+                $('#ListTripPeding input:checkbox').attr('checked', 'checked');
+                CheckRequestLate();
+            }
+        });
+    }
+
+    function getLocation(id) {
+        $.ajax({
+            url: "/Assigning/GetFromToLocation",
+            type: "POST",
+            data: { requestId: id },
+            success: function (result) {
+                $("#trip-name").html(result);
+            }
+        });
+    }
+
+    //change request status when checkbox 'arrived' checked
+    function getRequests() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+    // Sent request collection to controller
+    function ArriveRequest() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+</script>
+
+
