@@ -16,7 +16,7 @@
                 <div class="panel-body">
                     <p>
                         <a data-toggle="modal" id="" data-target="#coachModal" class="btn btn-outline btn-primary" onclick="Create()">Thêm xe mới</a>
-                        <a data-toggle="modal" id="" data-target="#coachTypesModal" class="btn btn-outline btn-primary" onclick="coachTypeTable()">Loại xe</a>
+                        <a class="btn btn-outline btn-primary" href="/CoachType/Index">Loại xe</a>
                     </p>
                     <div class="table-responsive">
                         <table class="table display KeyTable dataTable" id="CoachesTbl" aria-describedby="example_info">
@@ -85,26 +85,6 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div id="coachTypesModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Các loại xe</h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="coachTypesTbl">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="/CoachType/Create"><button type="button" class="btn btn-primary">Tạo loại xe mới</button></a>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 <script>
     window.onload = loadTable();
 
@@ -132,16 +112,6 @@
             "bFilter": true,
             "bInfo": true,
             "bAutoWidth": false
-        });
-    }
-
-    function coachTypeTable() {
-        $.ajax({
-            url: "/CoachType/CoachTypePartial",
-            type: "Get",
-            success: function (result) {
-                $("#coachTypesTbl").html(result);
-            }
         });
     }
 

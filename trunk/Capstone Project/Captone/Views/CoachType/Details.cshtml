@@ -1,43 +1,29 @@
 ﻿@model Captone.Models.CoachType
 
 @{
-    ViewBag.Title = "Loại xe";
-    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    Layout = null;
 }
-<div class="row">
-    <div class="col-lg-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                @ViewBag.Title
-            </div>
-            <div class="panel-body">
-                <fieldset>
-                    <legend>Thông tin loại xe</legend>
-                    <blockquote>
-                        <div class="display-label">
-                            @Html.LabelFor(model => model.Seats)
-                        </div>
-                        <div class="display-field">
-                            @Html.DisplayFor(model => model.Seats)
-                        </div>
-                        <div class="display-label">
-                            @Html.LabelFor(model => model.Capacity)
-                        </div>
-                        <div class="display-field">
-                            @Html.DisplayFor(model => model.Capacity)
-                        </div>
-                    </blockquote>
-                </fieldset>
-                <p>
-                    <a href="/CoachType/Edit/@Model.CoachTypeID">
-                        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
-                    </a>
-                    <a href="/CoachType/Index">
-                        <button type="button" class="btn btn-info">Quay lại danh sách</button>
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
+
+<strong>Số ghế ngồi
+</strong>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Seats)
 </div>
+
+<strong>Sức chứa khoang hàng
+</strong>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Capacity) (lít)
+</div>
+<br />
+
+<p>
+    <a href="/Coach/Edit/@Model.CoachTypeID">
+        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
+    </a>
+    <a href="/Coach/Delete/@Model.CoachTypeID">
+        <button type="button" class="btn btn-danger">Xóa loại xe này </button>
+    </a>
+    <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+</p>
 

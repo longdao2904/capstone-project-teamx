@@ -7,7 +7,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-        <strong>Tên trạm</strong>
+        <strong>Tên tuyến</strong>
         <div class="editor-field">
             @Html.EditorFor(model => model.RouteName)
             @Html.ValidationMessageFor(model => model.RouteName)

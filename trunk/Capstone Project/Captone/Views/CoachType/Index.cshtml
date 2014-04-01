@@ -1,55 +1,158 @@
 ﻿@model IEnumerable<Captone.Models.CoachType>
-<script type="text/javascript" src="~/Content/TableJS/jquery.dataTables.js"></script>
-<script type="text/javascript" src="~/Content/TableJS/KeyTable.js"></script>
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
     ViewBag.Title = "Các loại xe";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
 <div class="row">
-    <div class="col-lg-8">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                @ViewBag.Title
-            </div>
-            <div class="panel-body">
-                <p>
-                    <i class="fa fa-plus-square"></i>@Html.ActionLink("Thêm một loại xe", "Create")
-                </p>
-                <p>
-                    <a href="~/Coach/Index"><i class="fa fa-list-alt">Danh sách xe </i></a>
-                </p>
-                <div>
-                    @{
-                        Captone.Models.CoachType coachType = new Captone.Models.CoachType();
-                    }
-                    @{
-                        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");
-                        grid.Pager(WebGridPagerModes.NextPrevious);}
-                    <div id="gridContent" class="table-responsive">
-                        @grid.GetHtml(tableStyle: "webGrid",
-                    headerStyle: "header",
-                    alternatingRowStyle: "alt",
-                    selectedRowStyle: "select",
-                    columns: grid.Columns(
-                    grid.Column("Số ghế", format: (item) => item.GetSelectLink(item.Seats.ToString())),
-                    grid.Column("Capacity", "Sức chứa")))
-                        @if (grid.HasSelection)
-                        {
-                            coachType = (Captone.Models.CoachType)grid.Rows[grid.SelectedIndex].Value;
-                            <p><b>Số ghế</b> @coachType.Seats</p>
-                            <p><b>Sức chứa</b> @coachType.Capacity (m3)</p>
-                            <p>
-                                <a href="~/CoachType/Edit/@coachType.CoachTypeID">
-                                    <button class="btn btn-info">Cập nhật</button></a>
-                                <a href="~/CoachType/Delete/@coachType.CoachTypeID">
-                                    <button class="btn btn-danger">Xóa</button></a>
-                            </p>   
-                        }
+    <div class="col-lg-12">
+        <div class="col-lg-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    @ViewBag.Title
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <a data-toggle="modal" id="" data-target="#coachModal" class="btn btn-outline btn-primary" onclick="Create()">Thêm loại xe mới</a>
+                        <a class="btn btn-outline btn-primary" href="/Coach/Index">Danh sách xe</a>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table display KeyTable dataTable" id="CoachesTbl" aria-describedby="example_info">
+                            <thead>
+                                <tr>
+                                    <th>Số ghế ngồi
+                                    </th>
+                                    <th>Sức chứa của khoang hàng (lít)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a data-toggle="modal" id="" data-target="#coachDetail" onclick="Detail(@item.CoachTypeID)">@Html.DisplayFor(modelItem => item.Seats)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Seats)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div id="coachModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin xe mới</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="modal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="coachDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin xe</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="coachDetails">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="coachTypesModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Các loại xe</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="coachTypesTbl">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    window.onload = loadTable();
 
+    function init() {
+        loadTable();
+        coachTypeTable();
+    }
+
+    function loadTable() {
+        var oTable = $('#CoachesTbl').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('CoachesTbl'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+
+    function coachTypeTable() {
+        $.ajax({
+            url: "/Coach/Index",
+            type: "Get",
+            success: function (result) {
+                $("#coachTypesTbl").html(result);
+            }
+        });
+    }
+
+    function Create() {
+        $.ajax({
+            url: "/CoachType/Create",
+            type: "Get",
+            success: function (result) {
+                $("#modal").html(result);
+            }
+        });
+    }
+
+    function Detail(coachID) {
+        $.ajax({
+            url: "/CoachType/Details/" + coachID,
+            type: "Get",
+            success: function (result) {
+                $("#coachDetails").html(result);
+            }
+        });
+    }
+</script>
