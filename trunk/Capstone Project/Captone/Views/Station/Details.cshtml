@@ -1,0 +1,33 @@
+﻿@model Captone.Models.Station
+
+@{
+    Layout = null;
+}
+
+<div>
+    <strong>Tên trạm
+    </strong>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationName)
+    </div>
+    <br />
+    <strong>Địa chỉ trạm
+    </strong>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationLocation)
+    </div>
+    <br />
+    <strong>Số điện thoại lạc
+    </strong>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StationPhone)
+    </div>
+</div>
+<br />
+<p>
+    <a href="/Station/Edit/@Model.StationID">
+        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
+    </a>
+    <button type="button" class="btn btn-info" data-dismiss="modal">Quay lại danh sách</button>
+</p>
+

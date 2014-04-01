@@ -1,0 +1,65 @@
+﻿@model Captone.Models.Account
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit account</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Account</legend>
+
+
+        <strong>
+            @Html.LabelFor(model => model.Username)
+        </strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <strong>
+            @Html.LabelFor(model => model.Password)
+        </strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <strong>
+            @Html.LabelFor(model => model.Role)
+        </strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Role)
+            @Html.ValidationMessageFor(model => model.Role)
+        </div>
+
+        <strong>
+            @Html.LabelFor(model => model.Email)
+        </strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <strong>
+            @Html.LabelFor(model => model.Phone)
+        </strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
