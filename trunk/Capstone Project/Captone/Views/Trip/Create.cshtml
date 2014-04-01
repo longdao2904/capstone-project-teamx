@@ -1,6 +1,6 @@
 ﻿@model Captone.Models.Trip
-<script src="~/Content/ui/jquery-ui.js"></script>
-<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css">
+<script src="~/Content/ui/jquery-ui.js" type="text/javascript"></script>
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
 @{
     //ViewBag.Title = "Thêm chuyến mới";
     //Layout = "~/Views/Shared/_LayoutStaff.cshtml";
@@ -13,31 +13,31 @@
         {
             @Html.ValidationSummary(true)
 
-                <strong>
-                    Ngày chạy
-                </strong>
-                <div class="editor-field">
-                    <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value);" />
-                    @Html.ValidationMessageFor(model => model.Date)
-                </div>
-                <br/>
-                <strong>
-                    Tuyến
-                </strong>
-                <div class="editor-field">
-                    @Html.DropDownList("RouteID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
-                </div>
-                <br />
+            <strong>Ngày chạy
+            </strong>
+            <div class="editor-field">
+                <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value);" />
+                @Html.ValidationMessageFor(model => model.Date)
+            </div>
+            <br />
+            <strong>Tuyến
+            </strong>
+            <div class="editor-field">
+                @Html.DropDownList("RouteID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
+            </div>
+            <br />
             <p>
                 <button type="submit" class="btn btn-primary" onclick="SentObject()">Tạo mới</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
             </p>
         }
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div id="samedateTrip"></div>
     </div>
+</div>
+<div class="row">
     <div class="col-md-8">
         <div id="schedule"></div>
     </div>
