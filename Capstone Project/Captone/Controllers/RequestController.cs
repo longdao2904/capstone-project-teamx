@@ -106,13 +106,13 @@ namespace Captone.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-        #endregion
 
         protected override void Dispose(bool disposing)
         {
             _db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
 
         #region Update request status and prepare for return
         // Change status from 1 to 2 - Wating to Approved
