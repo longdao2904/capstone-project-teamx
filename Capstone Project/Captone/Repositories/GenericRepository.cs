@@ -11,18 +11,22 @@ namespace Captone.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected IUnitOfWork UnitOfWork { get; set; }
-        
+
         public GenericRepository(IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
         }
 
+        public GenericRepository()
+        {
+
+        }
         private iDeliverEntities Context
         {
             get { return (iDeliverEntities)UnitOfWork; }
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return Context.Set<T>();
         }

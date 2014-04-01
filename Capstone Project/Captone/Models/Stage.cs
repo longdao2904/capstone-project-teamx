@@ -21,13 +21,13 @@ namespace Captone.Models
     
         public int StageID { get; set; }
         public string StageName { get; set; }
-        public Nullable<int> StartPoint { get; set; }
-        public Nullable<int> EndPoint { get; set; }
-        public Nullable<System.TimeSpan> BreakTime { get; set; }
-        public Nullable<double> Duration { get; set; }
-        public Nullable<double> Distance { get; set; }
-        public Nullable<double> Container { get; set; }
-        public Nullable<double> Price { get; set; }
+        public int StartPoint { get; set; }
+        public int EndPoint { get; set; }
+        public System.TimeSpan BreakTime { get; set; }
+        public double Duration { get; set; }
+        public double Distance { get; set; }
+        public double Container { get; set; }
+        public double Price { get; set; }
     
         public virtual ICollection<RouteStage> RouteStages { get; set; }
         public virtual Station Station { get; set; }
