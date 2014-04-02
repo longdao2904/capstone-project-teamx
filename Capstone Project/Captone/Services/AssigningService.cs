@@ -39,9 +39,9 @@ namespace Captone.Services
         private Dictionary<Route, List<Stage>> _stageOfRoute = new Dictionary<Route, List<Stage>>();
         //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
-        private readonly int _maxWay = 5;
+        private const int MaxWay = 5;
         private readonly TimeSpan _deltaTime = new TimeSpan(0, 45, 0);
-        private readonly double _maxAngle = 135 * Math.PI / 180;
+        private const double MaxAngle = 135*Math.PI/180;
         //result of route
         List<Dictionary<Request, List<Stage>>> _tmpResult = new List<Dictionary<Request, List<Stage>>>();
         //result of trip
@@ -144,24 +144,14 @@ namespace Captone.Services
         //then, sort by the weight of request increasing
         public int RequestCompare(Request a, Request b)
         {
-            Invoice tmp1 = FindInvoiceFromRequest(a);
-            Invoice tmp2 = FindInvoiceFromRequest(b);
-            //compare by date post request increasingly
-            if (a.DateRequest > b.DateRequest) return 1;
+            var tmp1 = FindInvoiceFromRequest(a);
+            var tmp2 = FindInvoiceFromRequest(b);
+            //compare with criteria: Date Request -> Price -> Volume
             if (a.DateRequest == b.DateRequest)
             {
-                //compare by price of request increasingly
-                if (tmp1.Price > tmp2.Price) return 1;
-                if (tmp1.Price == tmp2.Price)
-                {
-                    //compare by volume of request increasingly
-                    if (tmp1.Volume > tmp2.Volume) return 1;
-                    if (tmp1.Volume == tmp2.Volume) return 0;
-                    return -1;
-                }
-                return -1;
+                return tmp1.Price == tmp2.Price ? (tmp1.Volume).CompareTo(tmp2.Volume) : (tmp1.Price).CompareTo(tmp2.Price);
             }
-            return -1;
+            return a.DateRequest.CompareTo(b.DateRequest);
         }
         //find invoice from the input request
         public Invoice FindInvoiceFromRequest(Request request)
@@ -232,95 +222,109 @@ namespace Captone.Services
         {
             return _trips.Where(t => t.RouteID == routeID).ToList();
         }
+        //sort base on departure time and then, arrival time
+        public int SortTripCompare(Trip a, Trip b)
+        {
+            return a.EstimateDepartureTime == b.EstimateDepartureTime ? 
+                (a.EstimateArrivalTime).CompareTo(b.EstimateArrivalTime) : 
+                (a.EstimateDepartureTime).CompareTo(b.EstimateDepartureTime);
+        }
         //processing with one trip
         public void ProcessingOneTrip(int routeID, Request request)
         {
             DateTime curr = DateTime.Now;
             //find the list of trip can serve this request
-            List<Trip> candidates = FindTripFromRoute(routeID);
+            var candidates = FindTripFromRoute(routeID);
+            //sort list trip base on the departure time and arrival time
+            candidates.Sort(SortTripCompare);
             foreach (var candidate in candidates)
             {
-                DateTime departure = ChangeTime(candidate.Date, candidate.EstimateArrivalTime);
+                var arrival = ChangeTime(candidate.Date, candidate.EstimateArrivalTime);
                 //if the time departure of trip is too late, don't consider it more
-                if (departure - curr > _maxTime) continue;
-                Invoice invoice = FindInvoiceFromRequest(request);
+                if (arrival - curr > _maxTime) continue;
+                var invoice = FindInvoiceFromRequest(request);
                 // if volume of trip is big enough, insert this solution to the result
-                if (candidate.AvailableVolume >= invoice.Volume)
-                {
-                    var tmpList = new List<Trip> { candidate };
-                    //update the volume
-                    candidate.AvailableVolume -= invoice.Volume;
-                    _finalResult.Add(request, tmpList);
-                    return;
-                }
+                if (candidate.AvailableVolume < invoice.Volume) continue;
+                var tmpList = new List<Trip> { candidate };
+                //update the volume
+                candidate.AvailableVolume -= invoice.Volume;
+                _finalResult.Add(request, tmpList);
+                return;
             }
         }
         //processing with multiple trips
         public void ProcessingMultipleTrip(Request request)
         {
-            var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
             var volume = FindInvoiceFromRequest(request).Volume;
-            if (volume != null)
+            var tmp = volume;
+            //find the path for delivery
+            FindPath(request);
+            //sort the list of ways base on the distance and duration
+            _tmpResult.Sort(CompareWays);
+            if (_tmpResult == null) return;
+            var tmpListOfResult = new List<List<Trip>>();
+            //iterate through each of found ways to find the found list route
+            foreach (var res in _tmpResult)
             {
-                var tmp = volume;
-                //find the path for delivery
-                FindPath(request);
-                _tmpResult.Sort(CompareDistance);
-                if (_tmpResult == null) return;
-                //iterate through each of request to find the found list route
-                foreach (var res in _tmpResult)
+                var current = DateTime.Now;
+                //take the list of stage from request
+                var tmpListStage = res.FirstOrDefault(x => x.Key == request).Value;
+                if (tmpListStage == null)
                 {
-                    var current = DateTime.Now;
-                    var tmpListStage = res.FirstOrDefault(x => x.Key == request).Value;
-                    if (tmpListStage == null)
+                    continue;
+                }
+                //iterate through each route to find the list of corresponding trips
+                int flag = 0;
+                var tmpListRoute = FindListRouteFromListStage(tmpListStage, true);
+                if (tmpListRoute == null) break;
+                foreach (var tmpListTrip in tmpListRoute.Select(route => FindTripFromRoute(route.RouteID)))
+                {
+                    //if some route of this way doesn't have trip, reject this way
+                    if (tmpListTrip == null)
                     {
+                        flag = -1;
                         continue;
                     }
-                    //iterate through each route to find the list of corresponding trips
-                    int flag = 0;
-                    List<Route> tmpListRoute = FindListRouteFromListStage(tmpListStage);
-                    if (tmpListRoute == null) break;
-                    foreach (var route in tmpListRoute)
+                    foreach (var trip in tmpListTrip)
                     {
-                        List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
-                        if (tmpListTrip == null)
+                        if (trip.AvailableVolume < tmp) flag = -1;
+                        var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
+                        if (departure - current >= _deltaTime)
                         {
-                            continue;
+                            current = ChangeTime(trip.Date, trip.EstimateArrivalTime);
+                            resTrip.Add(trip);
                         }
-                        foreach (var trip in tmpListTrip)
-                        {
-                            if (trip.AvailableVolume < tmp) flag = -1;
-                            var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
-                            if (departure >= current)
-                            {
-                                var arrival = ChangeTime(trip.Date, trip.EstimateArrivalTime);
-                                deliveryTime += (arrival - current);
-                                resTrip.Add(trip);
-                                //var breakTime = FindEndStationFromRoute(route).BreakTime;
-                                //if (breakTime != null)
-                                //    current = arrival.AddHours((double)breakTime);
-                            }
-                            else flag = -1;
-
-                        }
-                        //if there is not trip in one of route, reject whole list route of current ways
-                        if (deliveryTime > _maxTime || flag == -1)
-                        {
-                            resTrip.Clear();
-                            break;
-                        }
+                        else flag = -1;
                     }
-                    if (resTrip.Count > 0)
+                    //if there is not a chosen trip in one of route or the delivery time is too late
+                    //reject whole list route of current ways
+                    if (flag == -1)
                     {
-                        _finalResult.Add(request, resTrip);
-                        return;
+                        resTrip.Clear();
+                        break;
                     }
+                    //else, add the current solution to the list
+                    tmpListOfResult.Add(resTrip);
                 }
             }
+            //sort to find out the best solution
+            tmpListOfResult.Sort(CompareQualityOfSolution);
+            if (tmpListOfResult.Count > 0)
+            {
+                _finalResult.Add(request, tmpListOfResult.First());
+            }
         }
-        public int CompareDistance(Dictionary<Request, List<Stage>> a,
-                                    Dictionary<Request, List<Stage>> b)
+
+        //choose the solution with criteria: the arrival time -> number of route
+        public int CompareQualityOfSolution(List<Trip> a, List<Trip> b)
+        {
+            return a.Last().EstimateArrivalTime == b.Last().EstimateArrivalTime ? (a.Count).CompareTo(b.Count) : 
+                (a.Last().EstimateArrivalTime).CompareTo(b.Last().EstimateArrivalTime);
+        }
+
+        //compare the distance of two list of stage
+        public int CompareWays(Dictionary<Request, List<Stage>> a, Dictionary<Request, List<Stage>> b)
         {
             var request1 = new Request();
             var request2 = new Request();
@@ -334,15 +338,11 @@ namespace Captone.Services
                 request2 = list.Key;
                 break;
             }
-            List<Stage> tmp1 = a.FirstOrDefault(i => i.Key == request1).Value;
-            List<Stage> tmp2 = b.FirstOrDefault(i => i.Key == request2).Value;
-            if (FindDistanceFromListStage(tmp1) < FindDistanceFromListStage(tmp2)) return 1;
-            if (FindDistanceFromListStage(tmp1) == FindDistanceFromListStage(tmp2))
-            {
-                if (FindDurationFromListStage(tmp1) < FindDurationFromListStage(tmp2)) return 1;
-                return -1;
-            }
-            return -1;
+            var tmp1 = a.FirstOrDefault(i => i.Key == request1).Value;
+            var tmp2 = b.FirstOrDefault(i => i.Key == request2).Value;
+            return FindDistanceFromListStage(tmp1) == FindDistanceFromListStage(tmp2) ? 
+                FindDurationFromListStage(tmp1).CompareTo(FindDurationFromListStage(tmp2)) : 
+                FindDistanceFromListStage(tmp1).CompareTo(FindDistanceFromListStage(tmp2));
         }
         public double FindDistanceFromListStage(List<Stage> a)
         {
@@ -359,7 +359,7 @@ namespace Captone.Services
         {
             foreach (var listStage in _tmpResult)
             {
-                List<Stage> stages = listStage.FirstOrDefault(i => i.Key == request).Value;
+                var stages = listStage.FirstOrDefault(i => i.Key == request).Value;
                 if (stages == null) continue;
                 int count = stages.Count;
                 if (count == 1)
@@ -484,51 +484,49 @@ namespace Captone.Services
             var deliveryTime = new TimeSpan();
             var resTrip = new List<Trip>();
             var volume = FindInvoiceFromRequest(request).Volume;
-            if (volume != null)
+            var tmp = volume;
+            var current = DateTime.Now;
+            //    //iterate through each route to find the list of corresponding trips
+            int flag = 0;
+            //    List<Route> tmpListRoute = FindListRouteFromListStage(tmpListStage);
+            int index = -1;
+            foreach (var route in routes)
             {
-                var tmp = volume;
-                var current = DateTime.Now;
-                //    //iterate through each route to find the list of corresponding trips
-                int flag = 0;
-                //    List<Route> tmpListRoute = FindListRouteFromListStage(tmpListStage);
-                int index = -1;
-                foreach (var route in routes)
+                index++;
+                List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
+                if (tmpListTrip == null)
                 {
-                    index++;
-                    List<Trip> tmpListTrip = FindTripFromRoute(route.RouteID);
-                    if (tmpListTrip == null)
-                    {
-                        continue;
-                    }
-                    foreach (var trip in tmpListTrip)
-                    {
-                        if (FindVolumeOfTripWithStation(trip, stations[index]) < tmp) flag = -1;
-                        var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
-                        if (departure >= current)
-                        {
-                            var arrival = ChangeTime(trip.Date, trip.EstimateArrivalTime);
-                            deliveryTime += (arrival - current);
-                            resTrip.Add(trip);
-                            //var breakTime = FindEndStationFromRoute(route).BreakTime;
-                            //if (breakTime != null)
-                            //    current = arrival.AddHours((double)breakTime);
-                        }
-                        else flag = -1;
-
-                    }
-                    //if there is not trip in one of route, reject whole list route of current ways
-                    if (deliveryTime > _maxTime || flag == -1)
-                    {
-                        resTrip.Clear();
-                        break;
-                    }
+                    continue;
                 }
-                if (resTrip.Count > 0)
+                foreach (var trip in tmpListTrip)
                 {
-                    _finalResult.Add(request, resTrip);
+                    if (FindVolumeOfTripWithStation(trip, stations[index]) < tmp) flag = -1;
+                    var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
+                    if (departure >= current)
+                    {
+                        var arrival = ChangeTime(trip.Date, trip.EstimateArrivalTime);
+                        deliveryTime += (arrival - current);
+                        resTrip.Add(trip);
+                        //var breakTime = FindEndStationFromRoute(route).BreakTime;
+                        //if (breakTime != null)
+                        //    current = arrival.AddHours((double)breakTime);
+                    }
+                    else flag = -1;
+
+                }
+                //if there is not trip in one of route, reject whole list route of current ways
+                if (deliveryTime > _maxTime || flag == -1)
+                {
+                    resTrip.Clear();
+                    break;
                 }
             }
+            if (resTrip.Count > 0)
+            {
+                _finalResult.Add(request, resTrip);
+            }
         }
+
         public List<Stage> CutList(List<Stage> stages, int begin, int end)
         {
             var tmp = new List<Stage>();
@@ -571,17 +569,22 @@ namespace Captone.Services
                     if (stageOfRoute.Key == route)
                     {
                         //list all stage of the route and find its start station and its end station
-                        List<Stage> tmpStage = stageOfRoute.Value;
-                        Stage a = tmpStage[0];
-                        Stage b = tmpStage[tmpStage.Count - 1];
+                        var tmpStage = stageOfRoute.Value.ToList();
+                        if (tmpStage.Count == 0) return null;
+                        Stage a = tmpStage.First();
+                        Stage b = tmpStage.Last();
                         if (a.StartPoint == start && b.EndPoint == end) return route;
                     }
                 }
             }
             return null;
         }
-        public List<Route> FindListRouteFromListStage(List<Stage> stages)
+        public List<Route> FindListRouteFromListStage(List<Stage> stages, bool type)
         {
+            if (type)
+            {
+                return stages.Select(stage => FindRouteFromStations(stage.StartPoint, stage.EndPoint)).Where(a => a != null).ToList();
+            }
             int count = stages.Count;
             if (count <= 1) return null;
             //divide into 2 routes
@@ -711,7 +714,7 @@ namespace Captone.Services
                         var tmp = new Dictionary<Request, List<Stage>> { { request, tmpRoutes } };
                         _tmpResult.Add(tmp);
                         //allow _maxWay = 5 ways in searching -> the complexity of algorithm is approximate O(_maxWay|E||V|)
-                        if (_tmpResult.Count > _maxWay) return;
+                        if (_tmpResult.Count > MaxWay) return;
                     }
                     visited.Remove(visited.Last());
                     break;
@@ -765,7 +768,7 @@ namespace Captone.Services
                 double AB = Math.Sqrt(xAB * xAB + yAB * yAB + zBC * zBC);
                 double BC = Math.Sqrt(xBC * xBC + yBC * yBC + zBC * zBC);
                 //if the dot product of two vectors connect AB and BC is negative, reject immediately
-                if ((xAB * xBC + yAB * yBC + zAB * zBC) / AB * BC < Math.Cos(_maxAngle)) return false;
+                if ((xAB * xBC + yAB * yBC + zAB * zBC) / AB * BC < Math.Cos(MaxAngle)) return false;
             }
             //if all well, the line is accepted
             return true;
