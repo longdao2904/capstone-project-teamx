@@ -236,8 +236,8 @@ namespace Captone.Controllers
                     Assigning ass = new Assigning();
                     var requestId = item.Key.RequestID;
                     ass.RequestID = requestId;
-                    var tripId = item.Value[i].TripID;
-                    ass.TripID = tripId;
+                    var tripId = item.Value.Keys.ToList();
+                    ass.TripID = tripId[i].TripID;
                     ass.IndicateOrder = i + 1;
                     ass.AssignedDate = DateTime.Now;
                     var req = db.Requests.Where(p => p.RequestID == requestId).Single();
