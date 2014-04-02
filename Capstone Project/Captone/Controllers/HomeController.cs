@@ -222,8 +222,8 @@ namespace Captone.Controllers
 
         public ActionResult GetRoutePrice(string RouteName)
         {
-            string str = "select * from dbo.Route where RouteName like N'%" + RouteName + "%'";
-            var address = _db.Database.SqlQuery<Route>(str).ToList();
+            string str = "select * from dbo.Stage where StageName like N'%" + RouteName + "%'";
+            var address = _db.Database.SqlQuery<Stage>(str).ToList();
             return Json(address, JsonRequestBehavior.AllowGet);
         }
         public int getNotification(string username)
@@ -238,14 +238,16 @@ namespace Captone.Controllers
 
 
         }
-        public void DeleteNotification()
+        public void DeleteNotification(int StationID)
         {
-            var list = _db.Notifications.Where(p => p.isView == false).ToList();
-            foreach (var notification in list)
-            {
-                _db.Notifications.Remove(notification);
-                _db.SaveChanges();
-            }
+           
+                var list = _db.Notifications.Where(p => p.isView == false & p.StationID == StationID).ToList();
+                foreach (var notification in list)
+                {
+                    _db.Notifications.Remove(notification);
+                    _db.SaveChanges();
+                }
+            
         }
         public ActionResult AcceptInvoice(int StationID)
         {

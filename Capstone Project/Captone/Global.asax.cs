@@ -27,7 +27,7 @@ namespace Captone
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            //SqlDependency.Start(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString); 
+            SqlDependency.Start(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString); 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

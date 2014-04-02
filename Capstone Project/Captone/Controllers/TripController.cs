@@ -222,31 +222,31 @@ namespace Captone.Controllers
             return PartialView("ListTripForRequest", listTrip);
         }
 
-        //[HttpPost]
-        //[WebMethod]
-        //public void Assigning(List<Request> request)
-        //{
-        //    AssigningService assign = new AssigningService();
+        [HttpPost]
+        [WebMethod]
+        public void Assigning(List<Request> request)
+        {
+            AssigningService assign = new AssigningService();
 
-        //    var result = assign.Assigning(request, DateTime.Now);
-        //    foreach (var item in result)
-        //    {
-        //        for (var i = 0; i < item.Value.Count; i++)
-        //        {
-        //            Assigning ass = new Assigning();
-        //            var requestId = item.Key.RequestID;
-        //            ass.RequestID = requestId;
-        //            var tripId = item.Value[i].TripID;
-        //            ass.TripID = tripId;
-        //            ass.IndicateOrder = i + 1;
-        //            ass.AssignedDate = DateTime.Now;
-        //            var req = db.Requests.Where(p => p.RequestID == requestId).Single();
-        //            req.DeliveryStatusID = 3;
-        //            db.Assignings.Add(ass);
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //}
+            var result = assign.Assigning(request);
+            foreach (var item in result)
+            {
+                for (var i = 0; i < item.Value.Count; i++)
+                {
+                    Assigning ass = new Assigning();
+                    var requestId = item.Key.RequestID;
+                    ass.RequestID = requestId;
+                    var tripId = item.Value[i].TripID;
+                    ass.TripID = tripId;
+                    ass.IndicateOrder = i + 1;
+                    ass.AssignedDate = DateTime.Now;
+                    var req = db.Requests.Where(p => p.RequestID == requestId).Single();
+                    req.DeliveryStatusID = 3;
+                    db.Assignings.Add(ass);
+                    db.SaveChanges();
+                }
+            }
+        }
 
         //Pass estimated time to real time of trip when depart/arrive
         [HttpPost]

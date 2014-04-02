@@ -141,7 +141,7 @@
                             <a href="/Request/Index"><i class="fa fa-tasks"></i> Quản lý yêu cầu vận chuyển</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Request/AcceptRequest?stationID=@stationId">Tiếp nhận yêu cầu
+                                    <a href="/Request/AcceptRequest?stationID=@stationId" onclick="DeleteNotification(@stationId)">Tiếp nhận yêu cầu
                                     <div style="color: white; text-decoration-color: white; text-align: center; margin-left: 130px; margin-top: -20px; background-color: red; border-radius: 30px; width: 30px;" id="count">0</div>
                                     </a>
                                 </li>
@@ -354,9 +354,9 @@
         </footer>
     </div>
 
-    @*@RenderSection("scripts", required: false)*@
-    @*<script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
-    <script src="/signalr/hubs"></script>*@
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
+    <script src="/signalr/hubs"></script>
     <script type="text/javascript">
         $(function () {
             // Proxy created on the fly
@@ -402,10 +402,11 @@
             });
         }
 
-        function DeleteNotification() {
+        function DeleteNotification(id) {
             $.ajax({
                 url: "/Home/DeleteNotification",
                 type: "POST",
+                data: {StationID : id},
                 success: function (result) {
                 }
             });

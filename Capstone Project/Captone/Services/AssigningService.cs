@@ -48,10 +48,10 @@ namespace Captone.Services
         Dictionary<Request, List<Trip>> _finalResult = new Dictionary<Request, List<Trip>>();
         //adjancent list of station
         Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
-        //public AssigningService()
-        //{
-        //    //Constructor without argument
-        //}
+        public AssigningService()
+        {
+            //Constructor without argument
+        }
         public AssigningService(GenericRepository<Route> routeRepository
             , GenericRepository<Station> stationRepository
             , GenericRepository<Invoice> invoiceRepository

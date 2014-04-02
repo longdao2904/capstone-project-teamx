@@ -266,8 +266,8 @@ namespace Captone.Controllers
 
             List<string> str = new List<string>();
             string htmlText1 = "HOÁ ĐƠN KHÁCH HÀNG";
-            string htmlText2 = "Tên khách hàng: " + invoice.Request.Username;
-            string htmlText3 = "Mã hàng: " + invoice.Request.RequestCode;
+            string htmlText2 = "Mã hàng: " + invoice.Request.RequestCode;
+            string htmlText3 = "Tên khách hàng: " + invoice.Request.Username;
             string htmlText4 = "Gửi từ: " + invoice.Request.SenderAddress;
             string htmlText5 = "Đến: " + invoice.Request.ReceiverAddress;
             string htmlText6 = "Khối lượng hàng hoá:" + invoice.Weight;
@@ -317,35 +317,35 @@ namespace Captone.Controllers
             }
         }
 
-        //
-        //public FileResult DisplayPDF()
-        //{
-        //    string path = Server.MapPath("~/");
-        //    return File(path + "\\Invoice.pdf", "application/pdf");
-        //}
-        //  public double CalculatePrice(float weight, float volume, int FromLocation, int ToLocation)
-        //{
 
-        //    var list = _db.Routes.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
+        public FileResult DisplayPDF()
+        {
+            string path = Server.MapPath("~/");
+            return File(path + "\\Invoice.pdf", "application/pdf");
+        }
+        public double CalculatePrice(float weight, float volume, int FromLocation, int ToLocation)
+        {
 
-        //    var getPrice = _db.ManageFees.ToList();
-        //    double priceVolume = 0;
-        //    for (var i = 0; i < getPrice.Count; i++)
-        //    {
-        //        if ((weight > getPrice[i].MinWeight && weight < getPrice[i].MaxWeight) && (volume > getPrice[i].MinVolume && volume < getPrice[i].MaxVolume))
-        //        {
-        //            priceVolume = getPrice[i].Fee;
-        //        }
-        //        else if (weight > getPrice[i].MaxWeight && (volume > getPrice[i].MinVolume && volume < getPrice[i].MaxVolume))
-        //        {
-        //            priceVolume = (weight / getPrice[i].MaxWeight) * getPrice[i].Fee;
-        //        }
-        //        else if (volume > getPrice[i].MaxVolume)
-        //        {
-        //            priceVolume = (volume / getPrice[i].MaxVolume) * getPrice[i].Fee;
-        //        }
-        //    }
-        //    return (priceVolume + list.Price.Value);
-        //}
+            var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
+
+            var getPrice = _db.ManageFees.ToList();
+            double priceVolume = 0;
+            for (var i = 0; i < getPrice.Count; i++)
+            {
+                if ((weight > getPrice[i].MinWeight && weight < getPrice[i].MaxWeight) && (volume > getPrice[i].MinVolume && volume < getPrice[i].MaxVolume))
+                {
+                    priceVolume = getPrice[i].Fee;
+                }
+                else if (weight > getPrice[i].MaxWeight && (volume > getPrice[i].MinVolume && volume < getPrice[i].MaxVolume))
+                {
+                    priceVolume = (weight / getPrice[i].MaxWeight) * getPrice[i].Fee;
+                }
+                else if (volume > getPrice[i].MaxVolume)
+                {
+                    priceVolume = (volume / getPrice[i].MaxVolume) * getPrice[i].Fee;
+                }
+            }
+            return (priceVolume + list.Price);
+        }
     }
 }
