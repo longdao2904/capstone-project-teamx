@@ -45,7 +45,7 @@ namespace Captone.Services
         //result of route
         List<Dictionary<Request, List<Stage>>> _foundWays = new List<Dictionary<Request, List<Stage>>>();
         //result of trip
-        Dictionary<Request, List<Trip>> _finalResult = new Dictionary<Request, List<Trip>>();
+        Dictionary<Request, Dictionary<Trip, int>> _finalResult = new Dictionary<Request, Dictionary<Trip, int>>();
         //adjancent list of station
         Dictionary<Station, List<Station>> adj = new Dictionary<Station, List<Station>>();
         public AssigningService()
@@ -159,7 +159,7 @@ namespace Captone.Services
             return _invoices.FirstOrDefault(invoice => request.RequestID == invoice.RequestID);
         }
         //MAIN FUNCTION OF ASSIGNING PROCESS
-        public Dictionary<Request, List<Trip>> Assigning(List<Request> requests)
+        public Dictionary<Request, Dictionary<Trip, int>> Assigning(List<Request> requests)
         {
             InitData();
             //if the list request is empty, terminate function
@@ -245,10 +245,12 @@ namespace Captone.Services
                 var invoice = FindInvoiceFromRequest(request);
                 // if volume of trip is big enough, insert this solution to the result
                 if (candidate.AvailableVolume < invoice.Volume) continue;
-                var tmpList = new List<Trip> { candidate };
+                var tmpStation = FindListStageOfTrip(candidate).First().EndPoint;
+                var tmpMap = new Dictionary<Trip, int>();
+                tmpMap.Add(candidate, tmpStation);
                 //update the volume
                 candidate.AvailableVolume -= invoice.Volume;
-                _finalResult.Add(request, tmpList);
+                _finalResult.Add(request, tmpMap);
                 return;
             }
         }
@@ -263,7 +265,7 @@ namespace Captone.Services
             //sort the list of ways base on the distance and duration
             _foundWays.Sort(CompareWays);
             if (_foundWays == null) return;
-            var tmpListOfResult = new List<List<Trip>>();
+            var tmpListOfResult = new List<Dictionary<Trip, int>>();
             //iterate through each of found ways to find the found list route
             foreach (var res in _foundWays)
             {
@@ -305,20 +307,29 @@ namespace Captone.Services
                         break;
                     }
                     //else, add the current solution to the list
-                    tmpListOfResult.Add(resTrip);
+                    var tmpMap = new Dictionary<Trip, int>();
+                    foreach (var trip in resTrip)
+                    {
+                        var station = FindListStageOfTrip(trip).Last().EndPoint;
+                        tmpMap.Add(trip, station);
+                    }
+                    tmpListOfResult.Add(tmpMap);
                 }
             }
             //sort to find out the best solution
             tmpListOfResult.Sort(CompareQualityOfSolution);
             if (tmpListOfResult.Count > 0)
             {
-                _finalResult.Add(request, tmpListOfResult.First());
+                var first = tmpListOfResult.First();
+                _finalResult.Add(request, first);
             }
         }
 
         //choose the solution with criteria: the arrival time -> number of route
-        public int CompareQualityOfSolution(List<Trip> a, List<Trip> b)
+        public int CompareQualityOfSolution(Dictionary<Trip, int> resA, Dictionary<Trip, int> resB)
         {
+            var a = resA.Select(i => i.Key).ToList();
+            var b = resB.Select(i => i.Key).ToList();
             return a.Last().EstimateArrivalTime == b.Last().EstimateArrivalTime ? (a.Count).CompareTo(b.Count) : 
                 (a.Last().EstimateArrivalTime).CompareTo(b.Last().EstimateArrivalTime);
         }
@@ -357,7 +368,7 @@ namespace Captone.Services
         //processing middle trips
         public void ProcessingMiddleTrip(Request request)
         {
-            var tmpResult = new List<List<Trip>>();
+            var tmpResult = new List<Dictionary<Trip, int>>();
             foreach (var listStage in _foundWays)
             {
                 var stages = listStage.FirstOrDefault(i => i.Key == request).Value;
@@ -367,10 +378,15 @@ namespace Captone.Services
                 Route one = CheckSubWay(CutList(stages, 0, stages.Count - 1));
                 if (one != null)
                 {
-                    var stations = new List<int> {request.FromLocation};
+                    var stations = new List<int> {request.ToLocation};
                     var res = new List<Route> { one };
                     var solution = CheckResult(stations, res, request);
-                    if(solution != null) tmpResult.Add(solution);
+                    var tmpMap = new Dictionary<Trip, int>();
+                    for (int index = 0; index < solution.Count; index++)
+                    {
+                        tmpMap.Add(solution[index], stations[index]);
+                    }
+                    tmpResult.Add(tmpMap);
                 }
                 //find two routes
                 for (int i = 1; i < count - 1; i++)
@@ -379,10 +395,15 @@ namespace Captone.Services
                     Route b = CheckSubWay(CutList(stages, i, count - 1));
                     if (a != null && b != null)
                     {
-                        var stations = new List<int> {request.FromLocation, stages[i].StartPoint};
+                        var stations = new List<int> { stages[i].EndPoint, request.ToLocation };
                         var res = new List<Route> {a, b};
                         var solution = CheckResult(stations, res, request);
-                        if (solution != null) tmpResult.Add(solution);
+                        var tmpMap = new Dictionary<Trip, int>();
+                        for (int index = 0; index < solution.Count; index++)
+                        {
+                            tmpMap.Add(solution[index], stations[index]);
+                        }
+                        tmpResult.Add(tmpMap);
                     }
                 }
                 //find three routes
@@ -397,13 +418,18 @@ namespace Captone.Services
                         {
                             var stations = new List<int>
                                 {
-                                    request.FromLocation,
-                                    stages[i + 1].StartPoint,
-                                    stages[j + 1].StartPoint
+                                    stages[i + 1].EndPoint,
+                                    stages[j + 1].EndPoint,
+                                    request.ToLocation
                                 };
                             var res = new List<Route> { a, b, c };
                             var solution = CheckResult(stations, res, request);
-                            if (solution != null) tmpResult.Add(solution);
+                            var tmpMap = new Dictionary<Trip, int>();
+                            for (int index = 0; index < solution.Count; index++)
+                            {
+                                tmpMap.Add(solution[index], stations[index]);
+                            }
+                            tmpResult.Add(tmpMap);
                         }
                     }
                 }
@@ -423,14 +449,19 @@ namespace Captone.Services
                             {
                                 var stations = new List<int>
                                     {
-                                        request.FromLocation,
-                                        stages[i + 1].StartPoint,
-                                        stages[j + 1].StartPoint,
-                                        stages[k + 1].StartPoint
+                                        stages[i + 1].EndPoint,
+                                        stages[j + 1].EndPoint,
+                                        stages[k + 1].EndPoint,
+                                        request.ToLocation,
                                     };
                                 var res = new List<Route> { a, b, c, d };
                                 var solution = CheckResult(stations, res, request);
-                                if (solution != null) tmpResult.Add(solution);
+                                var tmpMap = new Dictionary<Trip, int>();
+                                for (int index = 0; index < solution.Count; index++)
+                                {
+                                    tmpMap.Add(solution[index], stations[index]);
+                                }
+                                tmpResult.Add(tmpMap);
                             }
                         }
                     }
@@ -463,7 +494,8 @@ namespace Captone.Services
         public List<int> FindStationFromAssignedRequest(Request request)
         {
             var stations = new HashSet<int>();
-            var trips = _finalResult.FirstOrDefault(i => i.Key == request).Value;
+            var tmpMap = _finalResult.FirstOrDefault(i => i.Key == request).Value;
+            var trips = tmpMap.Select(i => i.Key).ToList();
             foreach (var trip in trips)
             {
                 var stages = FindListStageOfTrip(trip);
@@ -484,7 +516,7 @@ namespace Captone.Services
         {
             return (from result in _finalResult
                     let listTrip = result.Value
-                    where listTrip.Any(t => t == trip)
+                    where listTrip.Any(t => t.Key == trip)
                     select result.Key).ToList();
         }
 

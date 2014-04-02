@@ -23,7 +23,7 @@ namespace Capstone.Test
         private readonly Mock<GenericRepository<Stage>> _stage = new Mock<GenericRepository<Stage>>();
         private readonly Mock<GenericRepository<RouteStage>> _routeStage = new Mock<GenericRepository<RouteStage>>();
 
-        DateTime now = new DateTime(2014,04,02,10,30, 0);
+        DateTime now = new DateTime(2014,04,02,15,30, 0);
         TimeSpan datePost = new TimeSpan(05,0,0);
 
         [TestMethod]

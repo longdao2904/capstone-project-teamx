@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapstoneProject.Extended", "Captone\CapstoneProject.Extended.csproj", "{C032DB0F-0B9A-49DA-99D3-0816243081B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capstone.Test", "Capstone.Test\Capstone.Test.csproj", "{8FFCBD46-3BC3-43B3-B7C5-0FDA3C271068}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C032DB0F-0B9A-49DA-99D3-0816243081B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C032DB0F-0B9A-49DA-99D3-0816243081B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C032DB0F-0B9A-49DA-99D3-0816243081B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FFCBD46-3BC3-43B3-B7C5-0FDA3C271068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FFCBD46-3BC3-43B3-B7C5-0FDA3C271068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FFCBD46-3BC3-43B3-B7C5-0FDA3C271068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FFCBD46-3BC3-43B3-B7C5-0FDA3C271068}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
