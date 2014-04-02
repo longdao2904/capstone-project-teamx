@@ -63,12 +63,13 @@
     <Compile Include="AssigningServiceTest3.cs" />
     <Compile Include="AssigningServiceTest4.cs" />
     <Compile Include="AssigningServiceTest5.cs" />
+    <Compile Include="AssigningServiceTest6.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="GenericRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Captone\Captone.csproj">
+    <ProjectReference Include="..\Captone\CapstoneProject.Extended.csproj">
       <Project>{c032db0f-0b9a-49da-99d3-0816243081b8}</Project>
       <Name>Captone</Name>
     </ProjectReference>

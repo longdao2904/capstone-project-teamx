@@ -351,18 +351,26 @@ namespace Captone.Services
             }
             var tmp1 = a.FirstOrDefault(i => i.Key == request1).Value;
             var tmp2 = b.FirstOrDefault(i => i.Key == request2).Value;
-            return FindDistanceFromListStage(tmp1) == FindDistanceFromListStage(tmp2) ? 
+        var check = FindDistanceFromListStage(tmp1) == FindDistanceFromListStage(tmp2) ? 
                 FindDurationFromListStage(tmp1).CompareTo(FindDurationFromListStage(tmp2)) : 
                 FindDistanceFromListStage(tmp1).CompareTo(FindDistanceFromListStage(tmp2));
+            return check;
         }
         public double FindDistanceFromListStage(List<Stage> a)
         {
-            return a.Sum(stage => stage.Distance);
+            List<Double> sumDistance = new List<Double>();
+            foreach(var item in a)
+            {
+                sumDistance.Add(item.Distance);
+            }
+            double sum = sumDistance.Sum();
+            return sum;
         }
 
         public double FindDurationFromListStage(List<Stage> a)
         {
-            return a.Sum(stage => stage.Duration);
+            var sumDuration = a.Sum(stage => stage.Duration);
+            return sumDuration;
         }
 
         //processing middle trips
