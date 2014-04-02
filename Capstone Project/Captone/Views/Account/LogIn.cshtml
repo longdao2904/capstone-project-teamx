@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đăng nhập</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="~/Content/Css/sb-admin.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="modal-content" style="margin-top: 25%;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Vui lòng đăng nhập</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="tên đăng nhập" id="Username" type="text" autofocus="">
+                            <br />
+                            <input class="form-control" placeholder="mật khẩu" id="Password" type="password">
+                            <br />
+                            <!-- Change this to a button or input when using this as a form -->
+                            <input type="submit" value="Đăng nhập" class="btn btn-success" onclick="CheckLogin()" />
+                            <a data-toggle="modal" id="" data-target="#registerModal" onclick="RegisterModal()" class="btn btn-info">Đăng ký</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="~/Content/js/sb-admin.js"></script>
+
+    <div id="registerModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="newModal">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function CheckLogin() {
+        var username = document.getElementById('Username').value;
+        var password = document.getElementById('Password').value;
+        $.ajax({
+            url: "/Account/LogOn",
+            type: "POST",
+            data: { Username: username, Password: password },
+            success: function (result) {
+                if (result) {
+                    location.href = "/Home/Index";
+                }
+            }
+        });
+    }
+
+    function RegisterModal() {
+        $.ajax({
+            url: "/Account/Register",
+            type: "Get",
+            success: function (result) {
+                $("#newModal").html(result);
+            }
+        });
+    }
+</script>
+<style type="text/css">
+    .regbox {
+        margin: 10% -20%;
+        width: 130%;
+        text-align: center;
+    }
+
+    .loginbox {
+        margin: auto;
+        width: 65%;
+        text-align: center;
+    }
+
+    .modal-title {
+        font-weight: bolder;
+    }
+
+    .inputrow {
+        display: block;
+        width: auto;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
