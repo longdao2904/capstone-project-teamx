@@ -18,6 +18,7 @@ namespace Captone.Models
         public int RequestID { get; set; }
         public Nullable<int> IndicateOrder { get; set; }
         public Nullable<System.DateTime> AssignedDate { get; set; }
+        public Nullable<int> StopStation { get; set; }
     
         public virtual Trip Trip { get; set; }
         public virtual Request Request { get; set; }

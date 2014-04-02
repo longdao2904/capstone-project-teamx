@@ -11,7 +11,7 @@
 }
 <input type="hidden" value="@username" id="session"/>
 <div class="container">
-   
+
     <input type="button" id="sendmessage" value="Send" />
 
 </div>
@@ -61,7 +61,11 @@
                             <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
                         </div>
-      
+                        <div class="bub-container3">
+                            <input type="checkbox" id="bulb3" class="light" onclick="showLocation()" />
+
+                            <label for="bulb3" class="bulbs"></label>
+                        </div>
                         <div class="each-field">
                             Số Điện Thoại Người Nhận
                             <br />
@@ -128,7 +132,7 @@
         </div>
 
         <div class="button-location">
-            <button type="submit" class="btn btn-lg btn-success" style="margin-left: 190px; margin-top: 10px;" >Hoàn Tất</button>
+            <button type="submit" class="btn btn-lg btn-success" style="margin-left: 190px; margin-top: 10px;">Hoàn Tất</button>
         </div>
 
     </form>
@@ -138,7 +142,7 @@
 
 <script type="text/javascript">
 
-    
+
     function feeChange() {
         var e = document.getElementById("Weigh");
         var v = document.getElementById("Volume");
@@ -151,12 +155,16 @@
     }
 
     function showPopUp() {
-
+        var bulb = document.getElementById("bulb").checked;
+        if (bulb) {
             //when bulb turn on
             GoogleMaker();
             checkStation();
             $("#hide").focus();
-  
+        } else {
+            document.getElementById("map").innerHTML = "";
+        }
+
 
     }
 
@@ -164,7 +172,7 @@
         var bulb = document.getElementById("bulb2").checked;
         if (bulb) {
             showMap();
-        
+
         } else {
             document.getElementById("hide").innerHTML = "";
         }
@@ -187,7 +195,12 @@
         var address = document.getElementById("AddressOfSender").value;
         if (address != null) {
             StationMaker();
-            showPopUp();
+            $('.bub-container').show();
+
+        } if (address == "") {
+            $('.bub-container').hide();
+            document.getElementById("bulb").checked = false;
+
         }
     }
 
@@ -195,7 +208,11 @@
         var address = document.getElementById("AddressOfReceiver").value;
         if (address != null) {
             ToLocationMaker();
-            showLocation();
+            $('.bub-container3').show();
+        } if (address == "") {
+            $('.bub-container3').hide();
+            document.getElementById("bulb3").checked = false;
+
         }
 
     }
@@ -249,12 +266,7 @@
             SetVolume(this);
             CalculateFee();
             feeChange();
-            if (weigh.value == "") {
-                document.getElementById("buttonSuggest").disabled = true;
-            }
-            else {
-                document.getElementById("buttonSuggest").disabled = false;
-            }
+         
 
         };
     }
@@ -322,7 +334,7 @@
         var dis = [];
         var str = document.getElementById('AddressOfSender').value;
         var sender = str.split(",");
-    
+
         $.ajax({
             url: "/Home/GetAddressStation",
             contentType: "application/json",
@@ -385,14 +397,14 @@
         var dis = [];
         var str = document.getElementById('AddressOfReceiver').value;
         var sender = str.split(",");
-    
+
         $.ajax({
             url: "/Home/GetAddressStation",
             contentType: "application/json",
             dataType: "json",
             data: { stationLocation: sender[sender.length - 1] },
             success: function (result) {
-          
+
                 var directionsService = new google.maps.DirectionsService();
                 var directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -410,7 +422,7 @@
                                 if (index < result.length) {
                                     for (var m = 0; m < response.routes[0].legs.length; m++) {
                                         var d = result[index].StationID + " . " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
-                            
+
                                         index++;
                                         dis.push(d);
                                     }
@@ -494,7 +506,7 @@
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;
                 for (i in result) {
-                    
+
                     var images = '@Url.Content("~/Content/Images/station.png")';
                     var re = result[i].Coordinate.indexOf(',');
                     var Lat = parseFloat(result[i].Coordinate.substring(0, re));
