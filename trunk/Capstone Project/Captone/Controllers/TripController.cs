@@ -14,14 +14,11 @@ namespace Captone.Controllers
         private iDeliverEntities db = new iDeliverEntities();
 
         #region CRUD
-        //
-        // GET: /Trip/
-
         public ActionResult Index()
         {
             //if (Session["USERNAME"] == null)
             //{
-            //    return RedirectToAction("LogOn", "Account");
+            //    return RedirectToAction("LogIn", "Account");
             //}
             //else
             //{
@@ -48,7 +45,7 @@ namespace Captone.Controllers
         {
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             else
             {
@@ -76,7 +73,7 @@ namespace Captone.Controllers
             }
             else
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
         }
 
@@ -135,7 +132,7 @@ namespace Captone.Controllers
         {
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             else
             {
@@ -158,7 +155,7 @@ namespace Captone.Controllers
         {
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             else
             {
@@ -181,7 +178,7 @@ namespace Captone.Controllers
         {
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             else
             {

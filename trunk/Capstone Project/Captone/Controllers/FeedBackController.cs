@@ -20,38 +20,66 @@ namespace Captone.Content
 
         public ActionResult Index()
         {
-            return View(_db.Stations.ToList());
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else
+            {
+                return View(_db.Stations.ToList());
+            }
         }
         //List Province
         public ActionResult ListProvince()
         {
-            IEnumerable<SelectListItem> province = (from p
-                           in _db.Stations
-                                                    group p by new
-                                                    {
-                                                        p.ProvinceID,
-                                                        p.Province.ProvinceName
-                                                    } into k
-                                                    select new SelectListItem()
-                                                    {
-                                                        Text = k.Key.ProvinceName,
-                                                        Value = SqlFunctions.StringConvert((double)k.Key.ProvinceID).Trim()
-                                                    }).ToList();
-            ViewBag.ListProvince = province;
-            return PartialView("ListProvince");
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else
+            {
+                IEnumerable<SelectListItem> province = (from p
+                               in _db.Stations
+                                                        group p by new
+                                                        {
+                                                            p.ProvinceID,
+                                                            p.Province.ProvinceName
+                                                        } into k
+                                                        select new SelectListItem()
+                                                        {
+                                                            Text = k.Key.ProvinceName,
+                                                            Value = SqlFunctions.StringConvert((double)k.Key.ProvinceID).Trim()
+                                                        }).ToList();
+                ViewBag.ListProvince = province;
+                return PartialView("ListProvince");
+            }
         }
         //List Station of Province
         public ActionResult ListStation(int province)
         {
-            var station = _db.Stations.Where(p => p.ProvinceID == province).ToList();
-            return PartialView("ListStation", station);
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else
+            {
+                var station = _db.Stations.Where(p => p.ProvinceID == province).ToList();
+                return PartialView("ListStation", station);
+            }
         }
         //List Comment of Station
         public ActionResult ListComment(int station)
         {
-            var comment = _db.Comments.Where(p => p.StationID == station).ToList();
-            ViewBag.StationSelect = _db.Stations.Where(s => s.StationID == station).FirstOrDefault();
-            return PartialView("ListComment", comment);
+            if (Session["USERNAME"] == null)
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            else
+            {
+                var comment = _db.Comments.Where(p => p.StationID == station).ToList();
+                ViewBag.StationSelect = _db.Stations.Where(s => s.StationID == station).FirstOrDefault();
+                return PartialView("ListComment", comment);
+            }
         }
 
         //List All Comment to Manage

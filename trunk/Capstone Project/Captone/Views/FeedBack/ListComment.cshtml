@@ -57,7 +57,7 @@
         <div id="myTabContent" class="tab-content">
             <div class="list-group">
                 <div class="list-group-item" style="height: 100%">
-                    <div class="fa fa-building-o fa-fw" style="color: #27ae60; font-weight: bold">@item.Username</div>
+                    <div class="fa fa-user fa-fw" style="color: #27ae60; font-weight: bold">@item.Username</div>
                     <br />
                     <div id="detail" style="padding-left: 30px">
                         @item.CommentContent
@@ -66,15 +66,37 @@
             </div>
         </div>
     }
-
-    <div class="form-group">
-        Ý kiến của bạn:
+    @{if (username != null)
+      {
+        <div class="form-group">
+            Ý kiến của bạn:
         <textarea class="form-control" row="3" id="comment" name="Comment" style="height: 100px; width: 500px"></textarea>
-        <br />
-        <input id="CommentID" type="button" value="Bình luận" class="btn" />
-    </div>
+            <br />
+            <input id="CommentID" type="button" value="Bình luận" class="btn" />
+        </div>
+      }
+      else
+      {
+        <h3>Vui lòng <a data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()">đăng nhập</a> để bình luận</h3>
+      }
+    }
 </div>
-
+<div id="loginModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content loginbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <div id="accountModal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <script type="text/javascript">
 
@@ -82,6 +104,16 @@
         ratingStation();
         commentStation();
     });
+
+    function LoginModal() {
+        $.ajax({
+            url: "/Account/LogOn",
+            type: "Get",
+            success: function (result) {
+                $("#accountModal").html(result);
+            }
+        });
+    }
 
     function ratingStation() {
         var user = document.getElementById("username").value;

@@ -354,68 +354,68 @@
         </footer>
     </div>
 
-    @RenderSection("scripts", required: false)
+    @*@RenderSection("scripts", required: false)
     <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
-    <script src="/signalr/hubs"></script>
+    <script src="/signalr/hubs"></script>*@
     <script type="text/javascript">
-        $(function () {
-            // Proxy created on the fly
-            var job = $.connection.chatHub;
-            var chat = $.connection.chatHub;
-            var message = "Một yêu cầu mới vừa được gửi đến !";
-            // Create a function that the hub can call back to display messages.
-            chat.client.send = function (message) {
-                // Add the message to the page. 
-                alert(message);
-            };
-            // Declare a function on the job hub so the server can invoke it
-            job.client.displayStatus = function () {
-                getNotification();
-            };
+        //$(function () {
+        //    // Proxy created on the fly
+        //    var job = $.connection.chatHub;
+        //    var chat = $.connection.chatHub;
+        //    var message = "Một yêu cầu mới vừa được gửi đến !";
+        //    // Create a function that the hub can call back to display messages.
+        //    chat.client.send = function (message) {
+        //        // Add the message to the page. 
+        //        alert(message);
+        //    };
+        //    // Declare a function on the job hub so the server can invoke it
+        //    job.client.displayStatus = function () {
+        //        getNotification();
+        //    };
 
-            // Start the connection
-            $.connection.hub.start();
-            getNotification();
+        //    // Start the connection
+        //    $.connection.hub.start();
+        //    getNotification();
 
-            $('#sendmessage').click(function () {
-                // Call the Send method on the hub. 
-                chat.server.send(message);
+        //    $('#sendmessage').click(function () {
+        //        // Call the Send method on the hub. 
+        //        chat.server.send(message);
 
-            });
-        });
+        //    });
+        //});
 
-        function getNotification() {
-            var session = document.getElementById("session").value;
-            //var $tbl = $('#tblJobInfo');
-            $.ajax({
-                url: "/Home/getNotification",
-                type: "POST",
-                datatype: 'json',
-                data: { username: session },
-                success: function (result) {
-                    if (result > 0) {
+        //function getNotification() {
+        //    var session = document.getElementById("session").value;
+        //    //var $tbl = $('#tblJobInfo');
+        //    $.ajax({
+        //        url: "/Home/getNotification",
+        //        type: "POST",
+        //        datatype: 'json',
+        //        data: { username: session },
+        //        success: function (result) {
+        //            if (result > 0) {
 
-                        $("#count").html(result);
-                    }
+        //                $("#count").html(result);
+        //            }
 
-                }
-            });
-        }
+        //        }
+        //    });
+        //}
 
-        function DeleteNotification(id) {
-            $.ajax({
-                url: "/Home/DeleteNotification",
-                type: "POST",
-                data: {StationID : id},
-                success: function (result) {
-                }
-            });
-        }
+        //function DeleteNotification(id) {
+        //    $.ajax({
+        //        url: "/Home/DeleteNotification",
+        //        type: "POST",
+        //        data: {StationID : id},
+        //        success: function (result) {
+        //        }
+        //    });
+        //}
 
-        $('#myTab a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
+        //$('#myTab a').click(function (e) {
+        //    e.preventDefault();
+        //    $(this).tab('show');
+        //});
 
         function LoginModal() {
             $.ajax({
