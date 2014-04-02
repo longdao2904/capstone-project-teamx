@@ -15,8 +15,8 @@ namespace Captone.Models
     public partial class Invoice
     {
         public int InvoiceID { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public Nullable<double> Volume { get; set; }
+        public double Weight { get; set; }
+        public double Volume { get; set; }
         public double Price { get; set; }
         public int RequestID { get; set; }
     
