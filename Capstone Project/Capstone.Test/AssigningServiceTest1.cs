@@ -23,7 +23,7 @@ namespace Capstone.Test
         private readonly Mock<GenericRepository<Stage>> _stage = new Mock<GenericRepository<Stage>>();
         private readonly Mock<GenericRepository<RouteStage>> _routeStage = new Mock<GenericRepository<RouteStage>>();
 
-        DateTime now = new DateTime(2014,04,01,23,30, 0);
+        DateTime now = new DateTime(2014,04,02,10,30, 0);
         TimeSpan datePost = new TimeSpan(05,0,0);
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace Capstone.Test
                     new Trip{TripID = 1, 
                              EstimateArrivalTime = datePost,
                              EstimateDepartureTime = datePost,
-                             AvailableVolume = 1.0,
+                             AvailableVolume = 3.0,
                              Date = now,
                              RouteID = 1,
                              IsActive = true,
@@ -62,26 +62,25 @@ namespace Capstone.Test
                     new Trip{TripID = 2, 
                              EstimateArrivalTime = datePost,
                              EstimateDepartureTime = datePost,
-                             AvailableVolume = 1.0,
+                             AvailableVolume = 5.0,
                              Date = now,
-                             RouteID = 2,
-                             IsActive = true,
-                    },
-                    new Trip{TripID = 3, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
-                             AvailableVolume = 2.5,
-                             Date = now,
-                             RouteID = 3,
+                             RouteID = 1,
                              IsActive = true,
                     },
                     new Trip{TripID = 4, 
                              EstimateArrivalTime = datePost,
                              EstimateDepartureTime = datePost,
-                             EstimateVolume = 1.1,
                              AvailableVolume = 1.5,
                              Date = now,
-                             RouteID = 4,
+                             RouteID = 2,
+                             IsActive = true,
+                    },
+                    new Trip{TripID = 3, 
+                             EstimateArrivalTime = datePost.Add(new TimeSpan(5,0,0)),
+                             EstimateDepartureTime = datePost,
+                             AvailableVolume = 1.5,
+                             Date = now,
+                             RouteID = 2,
                              IsActive = true,
                     },
                 };
@@ -95,18 +94,6 @@ namespace Capstone.Test
                     new Route{RouteID = 2,
                               RouteName = "Sài Gòn - Đà Lạt",
                               },
-                    //new Route{RouteID = 3,
-                    //          RouteName = "Sài Gòn - Đà Nẵng",
-                    //          StartPoint = 1, 
-                    //          EndPoint = 4,
-                    //          Duration = 8.1,
-                    //          Distance = 6},
-                    //new Route{RouteID = 4,
-                    //          RouteName = "Vũng Tàu - Đà Nẵng",
-                    //          StartPoint = 3, 
-                    //          EndPoint = 4,
-                    //          Duration = 8.1,
-                    //          Distance = 6},
                 };
             var stages = new List<Stage>
                 {
@@ -131,10 +118,6 @@ namespace Capstone.Test
                     new RouteStage{StageID = 2,
                                 RouteID = 2,
                                 },
-                    //new Stage{StageID = 1,
-                    //            FromLocation = 1,
-                    //            ToLocation = 1,
-                    //            },
                 };
             var stations = new List<Station>
                 {
@@ -163,12 +146,12 @@ namespace Capstone.Test
                 {
                     new Invoice{InvoiceID = 1,
                                 RequestID = 1,
-                                Volume = 1,
+                                Volume = 4,
                                 Weight = 2,
                                 Price = 5.6},
                     new Invoice{InvoiceID = 2,
                                 RequestID = 2,
-                                Volume = 0.5,
+                                Volume = 1.5,
                                 Weight = 2,
                                 Price = 5.6},
                 };

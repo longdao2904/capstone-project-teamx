@@ -303,6 +303,7 @@
     <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\Interfaces\IStageRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStationRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -318,6 +319,7 @@
     <Compile Include="Repositories\RouteRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\StageRepository.cs" />
     <Compile Include="Repositories\StationRepository.cs">
       <SubType>Code</SubType>
     </Compile>
