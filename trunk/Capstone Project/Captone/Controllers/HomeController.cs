@@ -81,6 +81,13 @@ namespace Captone.Controllers
 
         public ActionResult PostRequest(FormCollection col)
         {
+            var fromlocation = int.Parse(col["FromLocation"]);
+            var getStationID = _db.Stations.Where(p => p.StationID == fromlocation).Single();
+            Notification notification = new Notification();
+            notification.Username = col["Username"];
+            notification.StationID = getStationID.StationID;
+            notification.isView = false;
+            _db.Notifications.Add(notification);
             Request request = new Request();
             request.Username = col["Username"];
             request.DeliveryStatusID = 1;
