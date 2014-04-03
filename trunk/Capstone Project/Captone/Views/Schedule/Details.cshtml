@@ -1,36 +1,32 @@
 ﻿@model Captone.Models.Schedule
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
+<div>
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>Schedule</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.CoachArrangement.ArrangeID)
-    </div>
+    <strong >
+         Xe chạy
+    </strong>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CoachArrangement.ArrangeID)
+        @Html.DisplayFor(model => model.CoachArrangement.Coach.NumberPlate)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-    </div>
+    <br />
+    <strong>
+         Giờ đi dự kiến
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.EstimateDepartureTime)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-    </div>
+    <br />
+    <strong>
+        Giờ đến dự kiến
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.EstimateArrivalTime)
     </div>
-</fieldset>
+</div>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ScheduleID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <button type="button" class="btn btn-info" data-dismiss="modal">Quay lại danh sách</button>
 </p>

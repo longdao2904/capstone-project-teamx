@@ -12,41 +12,41 @@
     {
         @Html.ValidationSummary(true)
 
-        <div class="editor-label">
+        <strong>
             Tuyến
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.DropDownList("RouteID", String.Empty)
             @Html.ValidationMessageFor(model => model.CoachArrangement.RouteID)
         </div>
-
-        <div class="editor-label">
+        <br />
+        <strong>
             Xe
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.DropDownList("Coaches", new List<SelectListItem>())
             @Html.ValidationMessageFor(model => model.CoachArrangement.CoachID)
         </div>
 
-        <div class="editor-label" style="display: none">
+        <div  style="display: none">
             @Html.LabelFor(model => model.ArrangeID, "CoachArrangement")
         </div>
         <div class="editor-field" style="display: none">
             @Html.DropDownList("ArrangeID", String.Empty)
             @Html.ValidationMessageFor(model => model.ArrangeID)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateDepartureTime)
-        </div>
+        <br />
+        <strong >
+            Giờ đi dự kiến
+        </strong>
         <div class="editor-field">
             @Html.EditorFor(model => model.EstimateDepartureTime)
             @Html.ValidationMessageFor(model => model.EstimateDepartureTime)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateArrivalTime)
-        </div>
+        <br />
+        <strong>
+            Giờ đến dự kiến
+        </strong>
         <div class="editor-field">
             @Html.EditorFor(model => model.EstimateArrivalTime)
             @Html.ValidationMessageFor(model => model.EstimateArrivalTime)
