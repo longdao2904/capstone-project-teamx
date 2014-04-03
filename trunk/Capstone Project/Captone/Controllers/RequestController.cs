@@ -326,7 +326,7 @@ namespace Captone.Controllers
         public double CalculatePrice(float weight, float volume, int FromLocation, int ToLocation)
         {
 
-            var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
+            var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).SingleOrDefault();
 
             var getPrice = _db.ManageFees.ToList();
             double priceVolume = 0;
