@@ -1,75 +1,165 @@
 ﻿@model IEnumerable<Captone.Models.Stage>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách chặng";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <p>
+                    <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-outline btn-primary" onclick="CreateStation()">Thêm chặng mới</a>
+                </p>
+                <div class="table-responsive">
+                    <table class="table display KeyTable dataTable" id="TableStations" aria-describedby="example_info">
+                        <thead>
+                            <tr>
+                                <th>Tên chặng
+                                </th>
+                                <th>Trạm đầu
+                                </th>
+                                <th>Trạm cuối
+                                </th>
+                                <th>Thời gian nghỉ
+                                </th>
+                                <th>Thời gian xe chạy
+                                </th>
+                                <th>Quãng đường
+                                </th>
+                                <th>Tỉ trọng tải hàng
+                                </th>
+                                <th>Giá vận chuyển
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a data-toggle="modal" id="" data-target="#modalDetail" onclick="Detail(@item.StageID)">@Html.DisplayFor(modelItem => item.StageName)</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Station1.StationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Station.StationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BreakTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Duration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Distance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Container)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin chặng mới</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="modal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Chi tiết chặng</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="tripDetails">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    window.onload = loadTable();
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StageName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Station1.StationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Station.StationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BreakTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Container)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th></th>
-    </tr>
+    function Detail(id) {
+        $.ajax({
+            url: "/Stage/Details/" + id,
+            type: "Get",
+            success: function (result) {
+                $("#tripDetails").html(result);
+            }
+        });
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StageName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Station1.StationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Station.StationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BreakTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Container)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StageID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StageID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StageID })
-        </td>
-    </tr>
-}
+    function loadTable() {
+        var oTable = $('#TableStations').dataTable();
 
-</table>
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('TableStations'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+
+    function CreateStation() {
+        $.ajax({
+            url: "/Stage/Create",
+            type: "Get",
+            success: function (result) {
+                $("#modal").html(result);
+            }
+        });
+    }
+</script>
+<style type="text/css">
+    .bodyFix {
+        height: 100%;
+        overflow: scroll;
+    }
+    .modal-title {
+        font-weight:bolder;
+    }
+</style>

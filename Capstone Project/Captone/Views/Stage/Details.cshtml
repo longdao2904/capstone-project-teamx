@@ -1,71 +1,72 @@
 ﻿@model Captone.Models.Stage
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>Stage</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StageName)
-    </div>
+<div>
+    <strong>Tên chặng
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.StageName)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station1.StationName)
-    </div>
+    <br />
+    <strong>Trạm đầu
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station1.StationName)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station.StationName)
-    </div>
+    <br />
+    <strong>Trạm cuối
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Station.StationName)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.BreakTime)
-    </div>
+    <br />
+    <strong>Thời gian nghỉ
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.BreakTime)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Duration)
-    </div>
+    <br />
+    <strong>Thời gian xe chạy
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Duration)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Distance)
-    </div>
+    <br />
+    <strong>Quãng đường
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Distance)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Container)
-    </div>
+    <br />
+    <strong>Tỉ trọng tải hàng
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Container)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
+    <br />
+    <strong>Giá vận chuyển
+    </strong>
     <div class="display-field">
         @Html.DisplayFor(model => model.Price)
     </div>
-</fieldset>
+</div>
+<br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.StageID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="/Stage/Edit/@Model.StageID">
+        <button type="button" class="btn btn-primary">Chỉnh sửa thông tin </button>
+    </a>
+    <a href="/Stage/Delete/@Model.StageID">
+        <button type="button" class="btn btn-danger">Xóa chặng này </button>
+    </a>
+    <button type="button" class="btn btn-info" data-dismiss="modal">Quay lại danh sách</button>
 </p>

@@ -16,7 +16,7 @@
             @Html.EditorFor(model => model.StationName)
             @Html.ValidationMessageFor(model => model.StationName)
         </div>
-
+        <br />
         <strong>Địa chỉ
         </strong>
         <div class="editor-field">
@@ -25,14 +25,14 @@
             </div>
             @Html.ValidationMessageFor(model => model.StationLocation)
         </div>
-
+        <br />
         <strong>Tỉnh thành
         </strong>
         <div class="editor-field">
             @Html.DropDownList("ProvinceID")
             @Html.ValidationMessageFor(model => model.Province)
         </div>
-
+        <br />
         <strong>Số điện thoại
         </strong>
         <div class="editor-field">

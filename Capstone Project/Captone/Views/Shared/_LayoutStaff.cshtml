@@ -67,20 +67,6 @@
                         <a href="/Home/Index"><i class="fa fa-home fa-fw"></i>Trang chủ</a>
                     </li>
                     <li class="active">
-                        <a href="/Home/SentRequestForm"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>
-                        @if (Username != null && UserRole == "Customer")
-                        {                        
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/Home/ListStatusCustomer?Username=@Username"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
-                                </li>
-                                <li>
-                                    <a href="/Customer/Index"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
-                                </li>
-                            </ul>
-                        }
-                    </li>
-                    <li class="active">
                         <a href="#"><i class="fa fa-users fa-fw"></i>Người dùng@*<span class="fa arrow"></span>*@</a>
                         @if (Username == null)
                         {
