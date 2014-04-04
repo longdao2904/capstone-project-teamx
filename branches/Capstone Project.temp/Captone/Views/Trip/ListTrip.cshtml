@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+@{
+    Layout = null;
+    
+}
+
+<div class="table-responsive">
+    <table class="table display KeyTable dataTable" id="SameTrips" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Biển số xe
+                </th>
+                <th>Chạy tuyến
+                </th>
+                <th>Ngày chạy
+                </th>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Coach.NumberPlate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Route.RouteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    window.onload = loadTable();
+
+    function loadTable() {
+        var oTable = $('#SameTrips').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bSort": true,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('SameTrips'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "sPaginationType": "full_numbers"
+        });
+    }
+
+    $(document).ready(function () {
+        $('#SameTrips').dataTable({
+            "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+    });
+</script>

@@ -1,0 +1,28 @@
+﻿@model Captone.Models.Route
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        <strong>Tên tuyến</strong>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RouteName)
+            @Html.ValidationMessageFor(model => model.RouteName)
+        </div>
+    <br />
+        <p>
+            <button type="submit" class="btn btn-primary">Tạo mới</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+        </p>
+}
+<script>
+    window.onload = initialize();
+
+    function initialize() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+</script>
