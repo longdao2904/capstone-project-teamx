@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "Gói hàng đã giao";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+<h3 style="color: orange">Các gói hàng đã được giao</h3>
+<div class="table-responsive" id="RequestList">
+    <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Người gửi
+                </th>
+                <th>Người nhận
+                </th>
+                <th>Ngày gửi
+                </th>
+                <th>Trạm gửi
+                </th>
+                <th>Trạm nhận
+                </th>
+                <th>Ngày đến
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            
+            <tr id="request-@item.RequestID">
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.ReceiverName
+                </td>
+                <td>
+                    @item.DateRequest.ToShortDateString()
+                </td>
+                <td>
+                    @item.Station.StationName
+                </td>
+                <td>
+                    @item.Station1.StationName
+                </td>
+                <td>
+                    @item.DateRequest.ToShortDateString()
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });
+</script>

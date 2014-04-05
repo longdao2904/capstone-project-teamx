@@ -1,0 +1,42 @@
+﻿@model Captone.Models.CoachType
+
+@{
+    ViewBag.Title = "Xóa loại xe";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Bạn có muốn xóa loại xe @Model.Seats chỗ này ?</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Seats)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Seats)
+                        </div>
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.Capacity)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Capacity)
+                        </div>
+                    </blockquote>
+                </fieldset>
+                @using (Html.BeginForm())
+{
+                    <p>
+                        <button type="submit" class="btn btn-danger">Xóa loại xe này</button>
+                        <button type="button" class="btn btn-info" onclick="window.location.href='/CoachType/Index'">Quay lại danh sách</button>
+                    </p>
+}
+            </div>
+        </div>
+    </div>
+</div>
+

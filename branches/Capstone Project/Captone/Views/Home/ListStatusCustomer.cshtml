@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "ListStatusCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var username = (string) Session["USERNAME"];
+}
+<ul id="myTab" class="nav nav-pills">
+    @foreach (var stt in ViewBag.Status)
+    {
+        <li><a href="#pills" id="@stt.Value" data-toggle="tab" onclick="LoadRequestCustomer(this.id, '@username')">@stt.Text</a></li>
+    }
+</ul>
+<br/>
+<div id="requestCustomer">
+    
+</div>
+
+<script type="text/javascript">
+    function LoadRequestCustomer(id,username) {
+        $.ajax({
+            url: "/Home/ListRequestCustomer",
+            type: "POST",
+            data: { DeliveryStatusID: id, Username: username },
+            success: function (result) {
+                $("#requestCustomer").html(result);
+            }
+        });
+      
+    }
+    var DrivePath = [];
+    var color = ['#7FFF00', '#000000', 'red', '#7FFF00', '#000000', 'red'];
+    var color2 = ['#7FFF00', 'red', '#000000', '#7FFF00', 'red', '#000000'];
+    function Tracking(id) {
+        var idT = document.getElementsByName("" + id);
+        var waypoints = [];
+        var route = [];
+        var startPoint;
+        var endPoint;
+        var timeWaypoints = [];
+        var check = 0;
+        var timeEndPoint;
+
+        for (var i = 0; i < idT.length; i++) {
+            var item = idT[i].value.split(" - ");
+            route.push({
+                Start: item[0],
+                WayPoint: item[1],
+                Time: item[2]
+            });
+        }
+        if (route.length > 1) {
+            endPoint = route[route.length - 1].WayPoint;
+
+            startPoint = route[0].Start;
+            for (var j = 0; j < route.length - 1; j++) {
+                waypoints.push({
+                    location: route[j].WayPoint,
+                    stopover: true
+                });
+
+            }
+            var firstTime = "00:00:00";
+            timeWaypoints.push(firstTime);
+            for (var p = 0; p < route.length - 1; p++) {
+                var time = route[p].Time;
+                timeWaypoints.push(time);
+            }
+            timeEndPoint = route[route.length - 1].Time;
+            timeWaypoints.push(timeEndPoint);
+        }
+        if (route.length == 1) {
+            startPoint = route[0].Start;
+            endPoint = route[0].WayPoint;
+            timeEndPoint = route[0].Time;
+        }
+        var myOptions = {
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map1"), myOptions);
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+        var d = new Date();
+
+        var current = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+        var request = {
+            origin: startPoint + "",
+            destination: endPoint + "",
+            waypoints: waypoints,
+            optimizeWaypoints: true,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        getLong(startPoint);
+        for (var u = 0; u < waypoints.length; u++) {
+            getLong(waypoints[u].location);
+        }
+        getLong(endPoint);
+        for (var index in DrivePath) {
+            (function (record) {
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        if (record == DrivePath.length - 1) {
+                        if (DrivePath.length == 2) {
+                            if (Date.parse('01/01/2011 ' + timeEndPoint) > Date.parse('01/01/2011 ' + current)) {
+                                var PathStyle0 = new google.maps.Polyline({
+                                    path: [DrivePath[0], DrivePath[1]],
+                                    map: map,
+                                    strokeColor: '#000000',
+                                    strokeOpacity: 1.0,
+                                    strokeWeight: 2
+                                });
+                                PathStyle0.setMap(map);
+                            }
+                        }
+                       else if (check < timeWaypoints.length) {
+                            for (var y = 0; y < DrivePath.length; y++) {
+
+                                if (Date.parse('01/01/2011 ' + timeWaypoints[check + 1]) < Date.parse('01/01/2011 ' + current)) {
+
+                                    var PathStyle = new google.maps.Polyline({
+                                        path: [DrivePath[y], DrivePath[y + 1]],
+                                        map: map,
+                                        strokeColor: color[y],
+                                        strokeOpacity: 1.0,
+                                        strokeWeight: 2
+                                    });
+                                    PathStyle.setMap(map);
+
+                                }
+
+                                if (Date.parse('01/01/2011 ' + timeWaypoints[check + 1]) > Date.parse('01/01/2011 ' + current)) {
+                                    var PathStyle1 = new google.maps.Polyline({
+                                        path: [DrivePath[y], DrivePath[y + 1]],
+                                        map: map,
+                                        strokeColor: color2[y + 1],
+                                        strokeOpacity: 1.0,
+                                        strokeWeight: 2
+                                    });
+                                    PathStyle1.setMap(map);
+                                }
+                                check++;
+                            }
+                        }
+                        directionsDisplay.setDirections(response);
+                    }
+                }
+                });
+            })(index);
+        }
+    }
+
+    function getLong(address) {
+        $.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+            type: "POST",
+            async: false,
+            success: function (res) {
+                var render = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+                var commaPos = render.indexOf(',');
+                var coordinatesLat = parseFloat(render.substring(0, commaPos));
+                var coordinatesLong = parseFloat(render.substring(commaPos + 1, render.length));
+                DrivePath.push(new google.maps.LatLng(coordinatesLat, coordinatesLong));
+            }
+        });
+    }
+</script>

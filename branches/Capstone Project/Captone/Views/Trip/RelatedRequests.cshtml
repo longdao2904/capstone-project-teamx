@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Captone.Models.Request>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>Người gửi
+                </th>
+                <th>Ngày gửi
+                </th>
+                <th>Trạm gửi
+                </th>
+                <th>Trạm nhận
+                </th>
+                <th>Trạng thái
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {            
+                <tr>
+                    <td style="display: none;">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.DateRequest.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Station.StationName
+                    </td>
+                    <td>
+                        @item.Station1.StationName
+                    </td>
+                    <td>
+                        @item.DeliveryStatu.StatusName
+                    </td>
+                    <td style="display: none" id="deliverysttID">
+                        @item.DeliveryStatusID
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    $("document").ready(function () {
+        $("#chkAll").click(function () {
+            var checked = $(this).is(':checked');
+            $(".sid").attr("checked", checked);
+        });
+        $(".sid").click(function () {
+            var valid = true;
+            $(".sid").each(function () {
+                var checked = $(this).is(':checked');
+                if (!checked) {
+                    valid = false;
+                }
+            });
+            $("#chkAll").attr("checked", valid);
+        });
+    });
+</script>

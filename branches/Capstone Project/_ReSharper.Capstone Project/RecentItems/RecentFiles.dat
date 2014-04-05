@@ -1,0 +1,66 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:LatePayment.cshtml" caret="331" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ArrivedRequest.cshtml" caret="1781" fromTop="4" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Shared/f:_LayoutStaff.cshtml" caret="7556" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:RequestPeding.cshtml" caret="1244" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:RequestController.cs" caret="1049" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:Ribbon.css" caret="455" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:bootstrap.css" caret="5822" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:sb-admin.css" caret="129" fromTop="11" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/f:Site.css" caret="248" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:font-awesome/d:css/f:font-awesome.css" caret="1061" fromTop="16" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:SentRequest.css" caret="697" fromTop="6" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:TripController.cs" caret="6650" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/f:Web.config" caret="7283" fromTop="109" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:iDeliver.Context.cs" caret="2213" fromTop="25" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:iDeliver.Context.tt" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Invoice.cs" caret="673" fromTop="18" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Assigning.cs" caret="776" fromTop="20" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Services/f:AssigningService.cs" caret="20121" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Shared/f:_Layout.cshtml" caret="9177" fromTop="5" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:iDeliver.tt" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:ListTripModel.cs" caret="689" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListAssign.cshtml" caret="1502" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:SMSController.cs" caret="712" fromTop="9" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:AssigningController.cs" caret="9323" fromTop="25" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListRequestForTrip.cshtml" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListTrip.cshtml" caret="1317" fromTop="12" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Stage.cs" caret="1066" fromTop="23" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListStatusCustomer.cshtml" caret="456" fromTop="6" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListTripPeding.cshtml" caret="2613" fromTop="18" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListRequestCustomer.cshtml" caret="1879" fromTop="18" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:AssigningModel.cs" caret="430" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:AcceptRequest.cshtml" caret="271" fromTop="4" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:AcceptInvoice.cshtml" caret="189" fromTop="5" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:RequestPeding.cshtml" caret="319" fromTop="7" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ArrivedRequest.cshtml" caret="1781" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:DeliveredRequest.cshtml" caret="1366" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ExpiredRequest.cshtml" caret="337" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:LatePayment.cshtml" caret="331" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:ListRequest.cshtml" caret="444" fromTop="11" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:RequestController.cs" caret="1176" fromTop="10" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListAssign.cshtml" caret="5593" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Shared/f:_LayoutStaff.cshtml" caret="7556" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:Ribbon.css" caret="455" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:bootstrap.css" caret="5822" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:sb-admin.css" caret="129" fromTop="2" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/f:Site.css" caret="248" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:font-awesome/d:css/f:font-awesome.css" caret="1047" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:SentRequest.css" caret="697" fromTop="6" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Shared/f:_Layout.cshtml" caret="9177" fromTop="5" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Services/f:AssigningService.cs" caret="11851" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/f:Web.config" caret="7283" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:iDeliver.Context.cs" caret="2213" fromTop="25" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Invoice.cs" caret="673" fromTop="18" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Stage.cs" caret="1066" fromTop="23" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:Assigning.cs" caret="776" fromTop="20" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Models/f:ListTripModel.cs" caret="689" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListTrip.cshtml" caret="1260" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:AssigningController.cs" caret="9323" fromTop="25" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ListTripPeding.cshtml" caret="409" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListRequestCustomer.cshtml" caret="1782" fromTop="15" />
+  </RecentEdits>
+</RecentFiles>

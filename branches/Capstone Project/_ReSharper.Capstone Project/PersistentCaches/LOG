@@ -1,0 +1,5 @@
+2014/04/04-10:56:35.321 1be0 Recovering log #45
+2014/04/04-10:56:35.449 1be0 Level-0 table #47: started
+2014/04/04-10:56:35.704 1be0 Level-0 table #47: 296063 bytes OK
+2014/04/04-10:56:36.002 1be0 Delete type=0 #45
+2014/04/04-10:56:36.003 1be0 Delete type=3 #43

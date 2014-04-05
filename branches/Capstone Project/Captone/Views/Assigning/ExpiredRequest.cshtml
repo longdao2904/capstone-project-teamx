@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "Gói hàng đã hết hạn";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    var stationID = Convert.ToInt32(Session["StationID"]);
+}
+<h3 style="color: orange">Các gói hàng đã hết hạn chờ giao</h3>
+<div class="table-responsive" id="requestList">
+    <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Người gửi 
+                </th>
+                <th>Người nhận
+                </th>
+                <th>Trạm gửi
+                </th>
+                <th>Ngày gửi
+                </th>
+                <th>Trạm nhận
+                </th>
+                <th>Ngày đến
+                </th>
+                <th>
+                    <input type="checkbox" id="selectall" value="Select All" />
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {            
+                <tr id="request-@item.RequestID">
+                    <td style="display: none;" id="rqID">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.ReceiverName
+                    </td>
+                    <td>
+                        @item.Station.StationName
+                    </td>
+                    <td>
+                        @item.DateRequest
+                    </td>
+                    <td>
+                        @item.Station1.StationName
+                    </td>
+                    <td>
+                        @item.ArrivedDate
+                    </td>
+                    <td>
+                        <input type="checkbox" name="chk" class="case" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a onclick="returnPackage()" class="btn btn-success" href="/Assigning/ExpiredRequest?stationID=@stationID">Trả hàng</a>
+    </p>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });
+
+    // get checked requests id
+    function getRequests() {
+        var request = [];
+        $('[name="chk"]:checked').each(function () {
+            var id = document.getElementById('rqID').innerText.trim();
+            request.push(id);
+        });
+        return request;
+    }
+
+    function returnPackage() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/Return",
+            type: "POST",
+            data: JSON.stringify({ listRequest: requests }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+</script>
