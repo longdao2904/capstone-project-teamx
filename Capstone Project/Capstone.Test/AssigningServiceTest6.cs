@@ -26,8 +26,8 @@ namespace Capstone.Test
                                 DateRequest = now,
                                 DeliveryStatusID = 2},
                     new Request{RequestID = 2,
-                                FromLocation = 3,
-                                ToLocation = 5,
+                                FromLocation = 1,
+                                ToLocation = 6,
                                 DateRequest = now,
                                 DeliveryStatusID = 2},
                 };
