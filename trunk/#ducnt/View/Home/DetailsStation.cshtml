@@ -1,0 +1,42 @@
+﻿<div class="tabbable">
+    <input type="hidden" id="StationID" value ="@ViewBag.DetailStation.StationID" />
+    <input type="hidden" id="ProvinceID" value="@ViewBag.DetailStation.ProvinceID"/>
+    <ul id="myTab" class="nav nav-tabs">
+        <li>
+            <a data-toggle="tab" onclick="DetailStationRequest();" class="active">Yêu cầu vận chuyển</a>
+        </li>
+        <li>
+            <a data-toggle="tab" onclick="DetailStationRoute();">Tuyến đường</a>
+        </li>
+    </ul>
+    <br />
+    <div id="detailStation">
+    </div>
+</div>
+
+<script type="text/javascript">
+    function DetailStationRoute() {
+        var provinceID = document.getElementById("ProvinceID").value;
+        $.ajax({
+            url: "/Home/DetailStationRoute",
+            type: "Post",
+            data: { ProvinceID: provinceID},
+            success: function (result) {
+                $("#detailStation").html(result);
+            }
+        });
+    }
+
+    
+    function DetailStationRequest() {
+        var stationID = document.getElementById("StationID").value
+        $.ajax({
+            url: "/Home/DetailStationRequest",
+            type: "Post",
+            data: { StationID:  stationID},
+            success: function (result) {
+                $("#detailStation").html(result);
+            }
+        });
+    }
+</script>
