@@ -43,7 +43,7 @@ namespace Capstone.Test
                              EstimateArrivalTime = datePost,
                              EstimateDepartureTime = datePost,
                              AvailableVolume = 1.0,
-                             Date = now,
+                             Date = now.AddHours(3),
                              RouteID = 2,
                              IsActive = true,
                     },

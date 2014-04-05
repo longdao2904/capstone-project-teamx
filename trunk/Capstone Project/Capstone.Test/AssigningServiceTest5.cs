@@ -22,7 +22,7 @@ namespace Capstone.Test
                 {
                     new Request{RequestID = 1,
                                 FromLocation = 1,
-                                ToLocation = 7,
+                                ToLocation = 6,
                                 DateRequest = now,
                                 DeliveryStatusID = 2},
                     new Request{RequestID = 2,
@@ -66,15 +66,6 @@ namespace Capstone.Test
                              RouteID = 2,
                              IsActive = true,
                     },
-                    new Trip{TripID = 3,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
-                             EstimateVolume = 5.0,
-                             AvailableVolume = 5.0,
-                             Date = now.AddHours(6),
-                             RouteID = 3,
-                             IsActive = true,
-                    },
                     new Trip{TripID = 4,
                              EstimateArrivalTime = datePost,
                              EstimateDepartureTime = datePost,
@@ -82,15 +73,6 @@ namespace Capstone.Test
                              AvailableVolume = 5.0,
                              Date = now.AddHours(9),
                              RouteID = 4,
-                             IsActive = true,
-                    },
-                    new Trip{TripID = 5,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
-                             EstimateVolume = 5.0,
-                             AvailableVolume = 5.0,
-                             Date = now.AddHours(12),
-                             RouteID = 5,
                              IsActive = true,
                     },
                     new Trip{TripID = 6,
@@ -113,17 +95,11 @@ namespace Capstone.Test
                     new Route{RouteID = 2,
                               RouteName = "Gò Công - Sài Gòn",
                               },
-                    new Route{RouteID = 3,
-                              RouteName = "Sài Gòn - Biên Hòa",
-                              },
                     new Route{RouteID = 4,
-                              RouteName = "Biên Hòa - Vũng Tàu",
-                              },
-                    new Route{RouteID = 5,
-                              RouteName = "Vũng Tàu - Đà Lạt",
+                              RouteName = "Sài Gòn - Vũng Tàu",
                               },
                     new Route{RouteID = 6,
-                              RouteName = "Đà Lạt - Đà Nẵng",
+                              RouteName = "Biên Hòa - Đà Nẵng",
                               },
                 };
             var stages = new List<Stage>
@@ -155,30 +131,48 @@ namespace Capstone.Test
                 };
             var routeStage = new List<RouteStage>
                 {
-                    new RouteStage{StageID = 1,
-                                RouteID = 1,
-                                StageIndex = 1,
-                                },
-                    new RouteStage{StageID = 2,
-                                RouteID = 2,
-                                StageIndex = 1,
-                                },
-                    new RouteStage{StageID = 3,
-                                RouteID = 3,
-                                StageIndex = 1,
-                                },
-                    new RouteStage{StageID = 4,
-                                RouteID = 4,
-                                StageIndex = 1,
-                                },
-                    new RouteStage{StageID = 5,
-                                RouteID = 5,
-                                StageIndex = 1,
-                                },
-                  new RouteStage{StageID = 6,
-                                RouteID = 6,
-                                StageIndex = 1,
-                                },
+                    new RouteStage
+                        {
+                            StageID = 1,
+                            RouteID = 1,
+                            StageIndex = 1,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 2,
+                            RouteID = 2,
+                            StageIndex = 1,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 3,
+                            RouteID = 4,
+                            StageIndex = 1,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 4,
+                            RouteID = 4,
+                            StageIndex = 2,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 4,
+                            RouteID = 6,
+                            StageIndex = 1,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 5,
+                            RouteID = 6,
+                            StageIndex = 2,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 6,
+                            RouteID = 6,
+                            StageIndex = 3,
+                        },
                 };
             var stations = new List<Station>
                 {
