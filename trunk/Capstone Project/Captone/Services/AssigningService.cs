@@ -39,8 +39,8 @@ namespace Captone.Services
         private Dictionary<Route, List<Stage>> _stageOfRoute = new Dictionary<Route, List<Stage>>();
         //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
-        private const int MaxWay = 5;
-        private readonly TimeSpan _deltaTime = new TimeSpan(0, 45, 0);
+        private const int MaxWay = 3;
+        private readonly TimeSpan _deltaTime = new TimeSpan(0, 0, 0);
         private const double MaxAngle = 135*Math.PI/180;
         //result of route
         List<Dictionary<Request, List<Stage>>> _foundWays = new List<Dictionary<Request, List<Stage>>>();
@@ -118,24 +118,16 @@ namespace Captone.Services
         {
             foreach (var route in _routes)
             {
-                var listRouteStage = new List<RouteStage>();
-                foreach (var routeStage in _routeStages)
+                var listRouteStage = _routeStages.Where(routeStage => routeStage.RouteID == route.RouteID).ToList();
+                listRouteStage.Sort(delegate(RouteStage stage1, RouteStage stage2)
                 {
-                    if (routeStage.RouteID == route.RouteID)
-                    {
-                        listRouteStage.Add(routeStage);
-                    }
-                    listRouteStage.Sort(delegate(RouteStage stage1, RouteStage stage2)
-                    {
-                        if (stage1.StageIndex > stage2.StageIndex) return 1;
-                        return -1;
-                    });
-                }
+                    if (stage1.StageIndex > stage2.StageIndex) return 1;
+                    return -1;
+                });
                 var listStage = new List<Stage>();
                 //add list of stage for each route, sort by the increasing index
                 foreach (var routeStage in listRouteStage)
-                {
-                    listStage.AddRange(_stages.Where(stage => routeStage.StageID == stage.StageID));
+                {                    listStage.AddRange(_stages.Where(stage => routeStage.StageID == stage.StageID));
                 }
                 _stageOfRoute.Add(route, listStage);
             }
@@ -220,7 +212,22 @@ namespace Captone.Services
         //list all trips travel on the route
         public List<Trip> FindTripFromRoute(int routeID)
         {
-            return _trips.Where(t => t.RouteID == routeID).ToList();
+            var trips = new List<Trip>();
+            foreach (var trip in _trips)
+            {
+                if (trip.RouteID == routeID)
+                {
+                    trips.Add(trip);
+                }
+            }
+            if (trips.Count  == 0) return null;
+            trips.Sort(delegate(Trip a, Trip b)
+                {
+                    if (a.RealDepartureTime > b.RealDepartureTime) return 1;
+                    if (a.RealDepartureTime == b.RealDepartureTime) return 0;
+                    return -1;
+                });
+            return trips;
         }
         //sort base on departure time and then, arrival time
         public int SortTripCompare(Trip a, Trip b)
@@ -245,7 +252,7 @@ namespace Captone.Services
                 var invoice = FindInvoiceFromRequest(request);
                 // if volume of trip is big enough, insert this solution to the result
                 if (candidate.AvailableVolume < invoice.Volume) continue;
-                var tmpStation = FindListStageOfTrip(candidate).First().EndPoint;
+                var tmpStation = FindListStageOfTrip(candidate).Last().EndPoint;
                 var tmpMap = new Dictionary<Trip, int>();
                 tmpMap.Add(candidate, tmpStation);
                 //update the volume
@@ -257,11 +264,12 @@ namespace Captone.Services
         //processing with multiple trips
         public void ProcessingMultipleTrip(Request request)
         {
-            var resTrip = new List<Trip>();
             var volume = FindInvoiceFromRequest(request).Volume;
             var tmp = volume;
             //find the path for delivery
+            _foundWays.Clear();
             FindPath(request);
+            CleanWay(request);
             //sort the list of ways base on the distance and duration
             _foundWays.Sort(CompareWays);
             if (_foundWays == null) return;
@@ -269,19 +277,25 @@ namespace Captone.Services
             //iterate through each of found ways to find the found list route
             foreach (var res in _foundWays)
             {
+                var resTrip = new List<Trip>();
                 var current = DateTime.Now;
                 //take the list of stage from request
                 var tmpListStage = res.FirstOrDefault(x => x.Key == request).Value;
-                if (tmpListStage == null)
+                if (tmpListStage == null || tmpListStage.Count  == 0)
                 {
                     continue;
                 }
                 //iterate through each route to find the list of corresponding trips
                 int flag = 0;
-                var tmpListRoute = FindListRouteFromListStage(tmpListStage, true);
-                if (tmpListRoute == null) break;
-                foreach (var tmpListTrip in tmpListRoute.Select(route => FindTripFromRoute(route.RouteID)))
+                var tmpListRoute = new List<Route>();
+                if (FindListRouteFromListStage(tmpListStage) != null)
                 {
+                    tmpListRoute = FindListRouteFromListStage(tmpListStage);
+                }
+                foreach (var route in tmpListRoute)
+                {
+                    if(route == null) continue;
+                    var tmpListTrip = FindTripFromRoute(route.RouteID);
                     //if some route of this way doesn't have trip, reject this way
                     if (tmpListTrip == null)
                     {
@@ -296,8 +310,9 @@ namespace Captone.Services
                         {
                             current = ChangeTime(trip.Date, trip.EstimateArrivalTime);
                             resTrip.Add(trip);
+                            break;
                         }
-                        else flag = -1;
+                        flag = -1;
                     }
                     //if there is not a chosen trip in one of route or the delivery time is too late
                     //reject whole list route of current ways
@@ -307,6 +322,9 @@ namespace Captone.Services
                         break;
                     }
                     //else, add the current solution to the list
+                }
+                if (flag != -1 && resTrip.Count > 0)
+                {
                     var tmpMap = new Dictionary<Trip, int>();
                     foreach (var trip in resTrip)
                     {
@@ -317,14 +335,30 @@ namespace Captone.Services
                 }
             }
             //sort to find out the best solution
-            tmpListOfResult.Sort(CompareQualityOfSolution);
             if (tmpListOfResult.Count > 0)
             {
+                if(tmpListOfResult.Count >= 2) tmpListOfResult.Sort(CompareQualityOfSolution);
                 var first = tmpListOfResult.First();
                 _finalResult.Add(request, first);
             }
         }
 
+        public void CleanWay(Request request)
+        {
+            foreach (var foundWay in _foundWays)
+            {
+                if (foundWay.ContainsKey(request))
+                {
+                    var tmpStage = foundWay.Values.First();
+                    var checkStage = new HashSet<Stage>();
+                    foreach (var stage in tmpStage)
+                    {
+                        checkStage.Add(stage);
+                    }
+                    if (checkStage.Count != tmpStage.Count) _foundWays.Remove(foundWay);
+                }
+            }
+        }
         //choose the solution with criteria: the arrival time -> number of route
         public int CompareQualityOfSolution(Dictionary<Trip, int> resA, Dictionary<Trip, int> resB)
         {
@@ -376,6 +410,8 @@ namespace Captone.Services
         //processing middle trips
         public void ProcessingMiddleTrip(Request request)
         {
+            _foundWays.Clear();
+            FindPath(request);
             var tmpResult = new List<Dictionary<Trip, int>>();
             foreach (var listStage in _foundWays)
             {
@@ -390,23 +426,8 @@ namespace Captone.Services
                     var res = new List<Route> { one };
                     var solution = CheckResult(stations, res, request);
                     var tmpMap = new Dictionary<Trip, int>();
-                    for (int index = 0; index < solution.Count; index++)
+                    if (solution != null)
                     {
-                        tmpMap.Add(solution[index], stations[index]);
-                    }
-                    tmpResult.Add(tmpMap);
-                }
-                //find two routes
-                for (int i = 1; i < count - 1; i++)
-                {
-                    Route a = CheckSubWay(CutList(stages, 0, i - 1));
-                    Route b = CheckSubWay(CutList(stages, i, count - 1));
-                    if (a != null && b != null)
-                    {
-                        var stations = new List<int> { stages[i].EndPoint, request.ToLocation };
-                        var res = new List<Route> {a, b};
-                        var solution = CheckResult(stations, res, request);
-                        var tmpMap = new Dictionary<Trip, int>();
                         for (int index = 0; index < solution.Count; index++)
                         {
                             tmpMap.Add(solution[index], stations[index]);
@@ -414,25 +435,19 @@ namespace Captone.Services
                         tmpResult.Add(tmpMap);
                     }
                 }
-                //find three routes
-                for (int i = 1; i < count - 1; i++)
+                //find two routes
+                for (int i = 0; i < count - 1; i++)
                 {
-                    for (int j = i + 1; j < count - 2; j++)
+                    Route a = CheckSubWay(CutList(stages, 0, i));
+                    Route b = CheckSubWay(CutList(stages, i+1, count - 1));
+                    if (a != null && b != null)
                     {
-                        Route a = CheckSubWay(CutList(stages, 0, i));
-                        Route b = CheckSubWay(CutList(stages, i + 1, j));
-                        Route c = CheckSubWay(CutList(stages, j + 1, count - 1));
-                        if (a != null && b != null && c != null)
+                        var stations = new List<int> { stages[i].EndPoint, request.ToLocation };
+                        var res = new List<Route> {a, b};
+                        var solution = CheckResult(stations, res, request);
+                        var tmpMap = new Dictionary<Trip, int>();
+                        if (solution != null && CheckDistinct(res))
                         {
-                            var stations = new List<int>
-                                {
-                                    stages[i + 1].EndPoint,
-                                    stages[j + 1].EndPoint,
-                                    request.ToLocation
-                                };
-                            var res = new List<Route> { a, b, c };
-                            var solution = CheckResult(stations, res, request);
-                            var tmpMap = new Dictionary<Trip, int>();
                             for (int index = 0; index < solution.Count; index++)
                             {
                                 tmpMap.Add(solution[index], stations[index]);
@@ -441,12 +456,42 @@ namespace Captone.Services
                         }
                     }
                 }
-                //divide into 4 routes
-                for (int i = 1; i < count - 1; i++)
+                //find three routes
+                for (int i = 0; i <= count - 1; i++)
                 {
-                    for (int j = i + 1; j < count - 2; j++)
+                    for (int j = i + 1; j < count - 1; j++)
                     {
-                        for (int k = j + 1; k < count - 3; k++)
+                        Route a = CheckSubWay(CutList(stages, 0, i));
+                        Route b = CheckSubWay(CutList(stages, i + 1, j));
+                        Route c = CheckSubWay(CutList(stages, j + 1, count - 1));
+                        if (a != null && b != null && c != null)
+                        {
+                            var stations = new List<int>
+                                {
+                                    stages[i].EndPoint,
+                                    stages[j].EndPoint,
+                                    request.ToLocation
+                                };
+                            var res = new List<Route> { a, b, c };
+                            var solution = CheckResult(stations, res, request);
+                            var tmpMap = new Dictionary<Trip, int>();
+                            if (solution != null && CheckDistinct(res))
+                            {
+                                for (int index = 0; index < solution.Count; index++)
+                                {
+                                    tmpMap.Add(solution[index], stations[index]);
+                                }
+                                tmpResult.Add(tmpMap);
+                            }
+                        }
+                    }
+                }
+                //divide into 4 routes
+                for (int i = 0; i <= count - 3; i++)
+                {
+                    for (int j = i + 1; j <= count - 2; j++)
+                    {
+                        for (int k = j + 1; k < count - 1; k++)
                         {
                             Route a = CheckSubWay(CutList(stages, 0, i));
                             Route b = CheckSubWay(CutList(stages, i + 1, j));
@@ -457,19 +502,22 @@ namespace Captone.Services
                             {
                                 var stations = new List<int>
                                     {
-                                        stages[i + 1].EndPoint,
-                                        stages[j + 1].EndPoint,
-                                        stages[k + 1].EndPoint,
+                                        stages[i].EndPoint,
+                                        stages[j].EndPoint,
+                                        stages[k].EndPoint,
                                         request.ToLocation,
                                     };
                                 var res = new List<Route> { a, b, c, d };
                                 var solution = CheckResult(stations, res, request);
                                 var tmpMap = new Dictionary<Trip, int>();
-                                for (int index = 0; index < solution.Count; index++)
+                                if (solution != null && CheckDistinct(res))
                                 {
-                                    tmpMap.Add(solution[index], stations[index]);
+                                    for (int index = 0; index < solution.Count; index++)
+                                    {
+                                        tmpMap.Add(solution[index], stations[index]);
+                                    }
+                                    tmpResult.Add(tmpMap);
                                 }
-                                tmpResult.Add(tmpMap);
                             }
                         }
                     }
@@ -477,9 +525,20 @@ namespace Captone.Services
             }
             if (tmpResult.Count > 0)
             {
-                tmpResult.Sort(CompareQualityOfSolution);
+                if(tmpResult.Count >= 2) tmpResult.Sort(CompareQualityOfSolution);
                 _finalResult.Add(request, tmpResult.First());
             }
+        }
+        //check the list of route
+        public bool CheckDistinct(List<Route> routes)
+        {
+            var tmp = new HashSet<Route>();
+            foreach (var route in routes)
+            {
+                tmp.Add(route);
+            }
+            if (routes.Count == tmp.Count) return true;
+            return false;
         }
         public float FindVolumeOfTripWithStation(Trip trip, int stationID)
         {
@@ -535,7 +594,6 @@ namespace Captone.Services
             var tmp = volume;
             var current = DateTime.Now;
             //iterate through each route to find the list of corresponding trips
-            int flag = 0;
             int index = -1;
             foreach (var route in routes)
             {
@@ -547,22 +605,25 @@ namespace Captone.Services
                 }
                 foreach (var trip in tmpListTrip)
                 {
-                    if (FindVolumeOfTripWithStation(trip, stations[index]) < tmp) flag = -1;
+                    //if there is not trip in one of route, reject whole list route of current ways
+                    if (FindVolumeOfTripWithStation(trip, stations[index]) < tmp)
+                    {
+                        resTrip.Clear();
+                        break;
+                    }
                     var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
                     if (departure - current >= _deltaTime)
                     {
                         current = ChangeTime(trip.Date, trip.EstimateArrivalTime);
                         resTrip.Add(trip);
                     }
-                    else flag = -1;
-
+                    else
+                    {
+                        resTrip.Clear();
+                        break;
+                    }
                 }
-                //if there is not trip in one of route, reject whole list route of current ways
-                if (flag == -1)
-                {
-                    resTrip.Clear();
-                    break;
-                }
+                //else, add the current solution to the list
             }
             return resTrip.Count > 0 ? resTrip : null;
         }
@@ -610,7 +671,7 @@ namespace Captone.Services
                     {
                         //list all stage of the route and find its start station and its end station
                         var tmpStage = stageOfRoute.Value.ToList();
-                        if (tmpStage.Count == 0) return null;
+                        if (tmpStage.Count == 0) break;
                         Stage a = tmpStage.First();
                         Stage b = tmpStage.Last();
                         if (a.StartPoint == start && b.EndPoint == end) return route;
@@ -619,63 +680,78 @@ namespace Captone.Services
             }
             return null;
         }
-        public List<Route> FindListRouteFromListStage(List<Stage> stages, bool type)
+        //case multiples trips
+        public List<Route> FindListRouteFromListStage(List<Stage> stages)
         {
-            if (type)
+            var a = new Route();
+            var b = new Route();
+            var c = new Route();
+            var d = new Route();
+            var res = new List<Route>();
+            //check whether this is a whole route
+            a = FindRouteFromStations(stages.First().StartPoint, stages.Last().EndPoint);
+            if (a != null)
             {
-                return stages.Select(stage => FindRouteFromStations(stage.StartPoint, stage.EndPoint)).Where(a => a != null).ToList();
+                res = new List<Route> {a};
+                return res;
             }
             int count = stages.Count;
-            if (count <= 1) return null;
             //divide into 2 routes
-            for (int i = 1; i <= count - 1; i++)
+            for (int i = 0; i < count - 1; i++)
             {
-                Route a = FindRouteFromStations(stages[0].StartPoint, stages[i - 1].EndPoint);
-                Route b = FindRouteFromStations(stages[i].StartPoint, stages[count - 1].EndPoint);
+                a = FindRouteFromStations(stages[0].StartPoint, stages[i].EndPoint);
+                b = FindRouteFromStations(stages[i+1].StartPoint, stages[count - 1].EndPoint);
                 if (a != null && b != null)
                 {
-                    var res = new List<Route> { a, b };
+                    res = new List<Route> {a, b};
                     return res;
                 }
             }
             //divide into 3 routes
-            if (count == 2) return null;
-            for (int i = 1; i <= count - 2; i++)
+            for (int i = 0; i <= count - 1; i++)
             {
-                for (int j = i + 1; j <= count - 1; j++)
+                for (int j = i + 1; j < count - 1; j++)
                 {
-                    Route a = FindRouteFromStations(stages[0].StartPoint, stages[i - 1].EndPoint);
-                    Route b = FindRouteFromStations(stages[i].StartPoint, stages[j - 1].EndPoint);
-                    Route c = FindRouteFromStations(stages[j].StartPoint, stages[count - 1].EndPoint);
+                    a = FindRouteFromStations(stages[0].StartPoint, stages[i].EndPoint);
+                    b = FindRouteFromStations(stages[i+1].StartPoint, stages[j].EndPoint);
+                    c = FindRouteFromStations(stages[j+1].StartPoint, stages[count - 1].EndPoint);
                     if (a != null && b != null && c != null)
                     {
-                        var res = new List<Route> { a, b, c };
+                        res = new List<Route> {a, b, c};
                         return res;
                     }
                 }
             }
             //divide into 4 routes
-            if (count == 3) return null;
-            for (int i = 1; i <= count - 3; i++)
+            for (int i = 0; i <= count - 1; i++)
             {
-                for (int j = i + 1; j <= count - 2; j++)
+                for (int j = i + 1; j <= count - 1; j++)
                 {
-                    for (int k = j + 1; k <= count - 1; k++)
+                    for (int k = j + 1; k < count - 1; k++)
                     {
-                        Route a = FindRouteFromStations(stages[0].StartPoint, stages[i - 1].EndPoint);
-                        Route b = FindRouteFromStations(stages[i].StartPoint, stages[j - 1].EndPoint);
-                        Route c = FindRouteFromStations(stages[j].StartPoint, stages[k - 1].EndPoint);
-                        Route d = FindRouteFromStations(stages[k].StartPoint, stages[count - 1].EndPoint);
-                        if (a != null && b != null && c != null)
+                        a = FindRouteFromStations(stages[0].StartPoint, stages[i].EndPoint);
+                        b = FindRouteFromStations(stages[i+1].StartPoint, stages[j].EndPoint);
+                        c = FindRouteFromStations(stages[j+1].StartPoint, stages[k].EndPoint);
+                        d = FindRouteFromStations(stages[k+1].StartPoint, stages[count - 1].EndPoint);
+                        if (a != null && b != null && c != null && d != null)
                         {
-                            var res = new List<Route> { a, b, c, d };
+                            res = new List<Route> {a, b, c, d};
                             return res;
                         }
                     }
                 }
             }
+            //don't divide more but try divide each stage into a route
+            foreach (var stage in stages)
+            {
+                var route = FindRouteFromStations(stage.StartPoint, stage.EndPoint);
+                if (route == null) break;
+                res.Add(route);
+            }
+            if (res.Count == stages.Count) return res;
             return null;
         }
+
         //check whether the way of request is belong to the way of route
         public bool CheckWay(Request request, Route route)
         {
@@ -737,7 +813,7 @@ namespace Captone.Services
         public void BreadthFirstSearch(Request request, Station toStation, List<Station> visited)
         {
             Station currNode = visited.Last();
-            List<Station> nodes = adj.FirstOrDefault(x => x.Key == currNode).Value;
+            List<Station> nodes = adj.FirstOrDefault(x => x.Key == currNode).Value.ToList();
             foreach (var station in nodes)
             {
                 if (visited.Contains(station)) continue;
@@ -749,7 +825,13 @@ namespace Captone.Services
                         var tmpRoutes = new List<Stage>();
                         for (int i = 0; i < visited.Count - 1; i++)
                         {
-                            tmpRoutes.Add(FindStageFromStation(visited[i], visited[i + 1]));
+                            var stage = FindStageFromStation(visited[i], visited[i + 1]);
+                            if (stage != null) tmpRoutes.Add(stage);
+                            else
+                            {
+                                tmpRoutes.Clear();
+                                break;
+                            }
                         }
                         var tmp = new Dictionary<Request, List<Stage>> { { request, tmpRoutes } };
                         _foundWays.Add(tmp);
@@ -802,13 +884,13 @@ namespace Captone.Services
                 double xAB = x[2] - x[1];
                 double yAB = y[2] - y[1];
                 double zAB = z[2] - z[1];
-                double xBC = x[3] - z[2];
+                double xBC = x[3] - x[2];
                 double yBC = y[3] - y[2];
                 double zBC = z[3] - z[2];
-                double AB = Math.Sqrt(xAB * xAB + yAB * yAB + zBC * zBC);
+                double AB = Math.Sqrt(xAB * xAB + yAB * yAB + zAB * zAB);
                 double BC = Math.Sqrt(xBC * xBC + yBC * yBC + zBC * zBC);
                 //if the dot product of two vectors connect AB and BC is negative, reject immediately
-                if ((xAB * xBC + yAB * yBC + zAB * zBC) / AB * BC < Math.Cos(MaxAngle)) return false;
+                if (((xAB * xBC + yAB * yBC + zAB * zBC) / (AB * BC)) < Math.Cos(MaxAngle)) return false;
             }
             //if all well, the line is accepted
             return true;
