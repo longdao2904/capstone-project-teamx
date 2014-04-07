@@ -1,11 +1,11 @@
 ﻿<script src="~/Content/js/demo/demo.js"></script>
 <div class="tabbable">
-    <ul id="myTab" class="nav nav-tabs">
+    <ul id="myTab" class="nav nav-pills">
 
         @foreach (var item in ViewBag.ListProvince)
         {
              
-            <li><a href="#@item.Value" data-toggle="tab" id="@item.Value" onclick="listS(this.id)">@item.Text</a></li>
+            <li><a href="#@item.Value-pills" data-toggle="tab" id="@item.Value" onclick="listS(this.id)">@item.Text</a></li>
 
         }
     </ul>

@@ -1,20 +1,20 @@
 ﻿@model Captone.Models.Request
 <input type="hidden" value="@Model.RequestID" id="RequestID" name="RequestID"/>
 <div class="each-field">
-    Khối lượng 
+    Khối lượng thực
                             <br />
     <input type="text" name="Weight" id="Weight" value="" class="form-control" />
 </div>
 
 <div class="each-field">
-    Thể tích 
+    Thể tích thực
                             <br />
     <input type="text" name="Volume" id="Volume" class="form-control" onchange="CalculatePrice()" />
 
 </div>
 
 <div class="each-field">
-    Giá
+    Thành tiền
                             <br />
     <input type="text" name="Price" id="Price" class="form-control" disabled="disabled" />
 </div>

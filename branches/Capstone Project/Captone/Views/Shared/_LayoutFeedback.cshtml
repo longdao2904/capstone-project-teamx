@@ -44,9 +44,9 @@
                 @if (Username != null)
                 {
                     string username = Username.ToUpper();
-                    <p class="nav navbar-top-links navbar-right" style="margin-top: 1%; color: white">
-                        <i class="fa fa-user fa-fw"></i>@username <br />
-                        <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                    <p class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
+                        <i class="fa fa-user fa-fw"></i>@username
+                        <a href="/Account/LogOff">| <i class="fa fa-sign-out"></i>Đăng xuất</a>
                     </p>
                 }
                 else
@@ -180,7 +180,9 @@
                                     <li>
                                         <a href="/Request/ListRequest?stationId=@stationId">Xếp lịch vận chuyển</a>
                                     </li>
-                      
+                                    <li>
+                                        <a href="/Assigning/ListAssign?stationID=@stationId">Xác nhận chuyển hàng</a>
+                                    </li>
                                     <li>
                                         <a href="/Assigning/RequestPeding?stationId=@stationId">Hàng đang vận chuyển</a>
                                     </li>
@@ -222,12 +224,12 @@
                     {
                         <li class="active">
                             <div class="rectangle topstation">
-                                <i class="fa fa-building-o"></i> Trạm được đánh giá cao
+                                <i class="fa fa-building-o"></i>Trạm được đánh giá cao
                             </div>
                             <div class="triangle-r"></div>
-                                <ul class="nav nav-second-level">
-                                    <div id="topStation"></div>
-                                </ul>
+                            <ul class="nav nav-second-level">
+                                <div id="topStation"></div>
+                            </ul>
                         </li>
                     }
                 </ul>
@@ -239,61 +241,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="hide" tabindex="-1">
-
-                                <div id="description" style="display: none"></div>
-                                <div id="map" style="height: 400px;">
-                                </div>
-                                <div id="shortest">
-                                </div>
-                                <div class="bub-container2">
-                                    <input type="checkbox" id="bulb2" class="light" onclick="showGoogleMap()" />
-
-                                    <label for="bulb2" class="bulbs"></label>
-
-                                    <div style="margin-left: 135px; margin-top: -30px;">Lịch trình dự kiến</div>
-                                    <div style="margin-left: 200px">
-                                        <div id="duration"></div>
-                                        <div id="distance"></div>
-                                    </div>
-                                </div>
-                                <!-- /.panel-body -->
-                            </div>
-                            <!-- /.panel -->
-                        </div>
-                        <!-- /.col-lg-8 -->
-
-                        <!-- /.col-lg-4 -->
-
-                        <!-- /.col-lg-8 -->
-
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- Danh sách trạm -->
-                <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <i class="fa fa-building-o fa-fw"></i>Danh sách trạm
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            @Html.Action("ListProvince", "Home")
-                            <!-- /.list-group -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="row" style="padding-top: 160px">
-                        @RenderBody()
-                    </div>
+                    @RenderBody()
                 </div>
             </div>
         </div>
@@ -337,7 +285,54 @@
     <div>
         <div style="clear: both;"></div>
 
- 
+        @*<div class="contain">
+                <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <div class="carousel-inner">
+                        <div class="item">
+                            <div class="row featurette" style="margin-left: 40px;">
+                                <div class="col-md-7">
+                                    <h2 class="featurette-heading">Giao hàng <span class="text-muted">Nhanh chóng, đúng thời gian</span></h2>
+                                    <p class="lead">Đến nay, công ty đã có trên 200 xe khách 45 chỗ thương hiệu Huyndai dòng cao</p>
+                                    <p class="lead">cấp nhất dành cho các tuyến cố định.</p>
+                                    <p class="lead">
+                                    Số lượng phương tiện vận chuyển khỏang 70 xe Hyundai Aero Space đời mới 
+                                    <p class="lead">và sang trọng.</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <img src="~/Content/Images/Slider/tq2.jpg" class="imageClass" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="item">
+                            <div class="row featurette" style="margin-left: 100px;">
+                                <div class="col-md-5">
+                                    <img src="~/Content/Images/Slider/viet-1.jpg" class="imageClass" />
+                                </div>
+                                <div class="col-md-7" style="margin-left: -120px;">
+                                    <h2 class="featurette-heading">Lực lượng nhân viên <span class="text-muted">Chuyên nghiệp, cẩn thận</span></h2>
+                                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="item active">
+                            <div class="row featurette" style="margin-left: 40px;">
+                                <div class="col-md-7">
+                                    <h2 class="featurette-heading">Tổng đài <span class="text-muted">Nhiệt tình, chu đáo</span></h2>
+                                    <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <img src="~/Content/Images/Slider/ACB.jpg" class="imageClass" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
 
         <footer class="footer">
             <div class="container">
@@ -473,9 +468,8 @@
         .modal-title {
             font-weight: bolder;
         }
+
         .topstation {
-            font-size: 1.62em;
-            font-family: FontAwesome;
             font-size: 1.35em;
             color: white;
         }

@@ -33,7 +33,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: lightblue; height: 80px;" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #428bca; height: 70px;" style="margin-bottom: 0">
             <!-- /.navbar-header -->
             <div class="col-lg-4" id="truck" style="right:-380px;">
                 <a class="navbar-brand" href="/Home/Index" style="color: white"><i class="fa fa-truck fa-3x"> i-Deliver</i></a>
@@ -44,11 +44,12 @@
                 {
                     string username = Username.ToUpper();
                     <div class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
-                    <p >
-                        <i class="fa fa-user fa-fw"></i>@username
-                        <a href="/Account/LogOff">| <i class="fa fa-sign-out"></i>Đăng xuất</a>
-                    </p>
-                        <p>Nhân viên trạm @stationName</p>
+                        <p style="color: white; float: right">
+                            <i class="fa fa-user fa-fw"></i>@username |
+                        <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                        </p>
+                        <br />
+                        <p style="color: white; float: right">Nhân viên trạm @stationName</p>
                     </div>
                 }
                 else
