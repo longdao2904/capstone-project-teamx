@@ -286,44 +286,32 @@ namespace Captone.Services
                     continue;
                 }
                 //iterate through each route to find the list of corresponding trips
-                int flag = 0;
                 var tmpListRoute = new List<Route>();
                 if (FindListRouteFromListStage(tmpListStage) != null)
                 {
                     tmpListRoute = FindListRouteFromListStage(tmpListStage);
                 }
+                int count = tmpListRoute.Count;
                 foreach (var route in tmpListRoute)
                 {
                     if(route == null) continue;
                     var tmpListTrip = FindTripFromRoute(route.RouteID);
                     //if some route of this way doesn't have trip, reject this way
-                    if (tmpListTrip == null)
-                    {
-                        flag = -1;
-                        continue;
-                    }
+                    if (tmpListTrip == null) continue;
                     foreach (var trip in tmpListTrip)
                     {
-                        if (trip.AvailableVolume < tmp) flag = -1;
                         var departure = trip.EstimateDepartureTime;
-                        if (departure - current >= _deltaTime)
+                        if (trip.AvailableVolume >= tmp && departure - current >= _deltaTime)
                         {
                             current = trip.EstimateArrivalTime;
                             resTrip.Add(trip);
                             break;
                         }
-                        flag = -1;
                     }
                     //if there is not a chosen trip in one of route or the delivery time is too late
                     //reject whole list route of current ways
-                    if (flag == -1)
-                    {
-                        resTrip.Clear();
-                        break;
-                    }
-                    //else, add the current solution to the list
                 }
-                if (flag != -1 && resTrip.Count > 0)
+                if (resTrip.Count == count && count > 0)
                 {
                     var tmpMap = new Dictionary<Trip, int>();
                     foreach (var trip in resTrip)
@@ -416,7 +404,7 @@ namespace Captone.Services
             foreach (var listStage in _foundWays)
             {
                 var stages = listStage.FirstOrDefault(i => i.Key == request).Value;
-                if(stages == null) continue;
+                if(stages == null || stages.Count == 0) continue;
                 int count = stages.Count;
                 //find one route
                 Route one = CheckSubWay(CutList(stages, 0, stages.Count - 1));
@@ -595,6 +583,7 @@ namespace Captone.Services
             var current = DateTime.Now;
             //iterate through each route to find the list of corresponding trips
             int index = -1;
+            int count = routes.Count;
             foreach (var route in routes)
             {
                 index++;
@@ -606,26 +595,17 @@ namespace Captone.Services
                 foreach (var trip in tmpListTrip)
                 {
                     //if there is not trip in one of route, reject whole list route of current ways
-                    if (FindVolumeOfTripWithStation(trip, stations[index]) < tmp)
-                    {
-                        resTrip.Clear();
-                        break;
-                    }
                     var departure = trip.EstimateDepartureTime;
-                    if (departure - current >= _deltaTime)
+                    if (FindVolumeOfTripWithStation(trip, stations[index]) >= tmp && departure - current >= _deltaTime)
                     {
                         current = trip.EstimateArrivalTime;
                         resTrip.Add(trip);
-                    }
-                    else
-                    {
-                        resTrip.Clear();
                         break;
                     }
                 }
                 //else, add the current solution to the list
             }
-            return resTrip.Count > 0 ? resTrip : null;
+            return resTrip.Count == count ? resTrip : null;
         }
 
         public List<Stage> CutList(List<Stage> stages, int begin, int end)
