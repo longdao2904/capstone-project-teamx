@@ -1,4 +1,5 @@
-﻿using Captone.Models;
+﻿using System.Data.Objects.SqlClient;
+using Captone.Models;
 using Captone.Services;
 using System;
 using System.Collections.Generic;
@@ -43,38 +44,46 @@ namespace Captone.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            if (Session["USERNAME"] == null)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else
-            {
+            //if (Session["USERNAME"] == null)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else
+            //{
                 Trip trip = db.Trips.Find(id);
                 if (trip == null)
                 {
                     return HttpNotFound();
                 }
                 return View(trip);
-            }
+            //}
         }
 
         //
         // GET: /Trip/Create
 
-        [WebMethod]
-        public ActionResult Create()
+        public ActionResult Create(int stationID)
         {
-            string username = (string)Session["USERNAME"];
-            string role = (string)Session["UserRole"];
-            if (username != null && role == "Staff")
-            {
-                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+            //string username = (string)Session["USERNAME"];
+            //string role = (string)Session["UserRole"];
+            //if (username != null && role == "Staff")
+            //{
+
+            ViewData["RouteID"] = (from p
+                                       in db.RouteStages join l in db.Stages on p.StageID equals l.StageID
+                                   where p.StageIndex == 1 & p.Stage.StartPoint == stationID
+                                   select new SelectListItem()
+                                              {
+                                                  Text = p.Route.RouteName,
+                                                  Value = SqlFunctions.StringConvert((double)p.RouteID)
+                                              }
+                                  ).ToList();
                 return View();
-            }
-            else
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
         }
 
         //
@@ -82,7 +91,7 @@ namespace Captone.Controllers
 
         [HttpPost]
         [WebMethod]
-        public ActionResult Create(List<Trip> trips)
+        public ActionResult Create(List<Trip> trips, DateTime date)
         {
             if (ModelState.IsValid)
             {
@@ -90,31 +99,31 @@ namespace Captone.Controllers
                 {
                     foreach (var trip in trips)
                     {
+                        var schedule = db.Schedules.FirstOrDefault(s => s.ScheduleID == trip.ScheduleID);
+                        var route = schedule.CoachArrangement.Route;
+                        var stages = db.RouteStages.Where(r => r.RouteID == route.RouteID).ToList();
+                        var deltaTime = 0.0;
+                        foreach (var stage in stages)
+                        {
+                            deltaTime += (stage.Stage.Duration);
+                        }
                         Trip t = new Trip();
-                        t.EstimateDepartureTime = trip.EstimateDepartureTime;
-                        t.EstimateArrivalTime = trip.EstimateArrivalTime;
+                        var tmpTime = date.Add(trip.EstimateDepartureTime.TimeOfDay);
                         t.RouteID = trip.RouteID;
                         t.CoachID = trip.CoachID;
                         t.ScheduleID = trip.ScheduleID;
                         // Estimate volume = Capacity of coach run this trip * max volume level of route where trip run
-                        t.EstimateVolume = trip.EstimateVolume;
-                        t.AvailableVolume = trip.EstimateVolume;
+                        
+                        double capacity = schedule.CoachArrangement.Coach.CoachType.Capacity;
+                        double container = schedule.CoachArrangement.Route.Container.Value;
+                        t.EstimateVolume = capacity * container;
+                        t.AvailableVolume = t.EstimateVolume;
                         t.IsActive = true;
                         t.Status = "Chưa chạy";
                         for (int i = 0; i < 7; i++)
                         {
-                            TimeSpan day = new TimeSpan();
-                            if (i == 0)
-                            {
-                                day = new TimeSpan(0, 0, 0, 0);
-                            }
-                            else
-                            {
-                                day = new TimeSpan(i / i, 0, 0, 0);
-                            }
-                            DateTime nextday = trip.EstimateDepartureTime.Date.Add(day);
-                            trip.EstimateDepartureTime = nextday.Date;
-                            t.EstimateDepartureTime = trip.EstimateDepartureTime.Date;
+                            t.EstimateDepartureTime = tmpTime.AddDays(i);
+                            t.EstimateArrivalTime = tmpTime.AddDays(i).AddHours(deltaTime);
                             db.Trips.Add(t);
                             db.SaveChanges();
                         }
@@ -130,12 +139,12 @@ namespace Captone.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            if (Session["USERNAME"] == null)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else
-            {
+            //if (Session["USERNAME"] == null)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else
+            //{
                 Trip trip = db.Trips.Find(id);
                 ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
                 ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
@@ -144,7 +153,7 @@ namespace Captone.Controllers
                     return HttpNotFound();
                 }
                 return View(trip);
-            }
+            //}
         }
 
         //
@@ -153,12 +162,12 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult Edit(Trip trip)
         {
-            if (Session["USERNAME"] == null)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else
-            {
+            //if (Session["USERNAME"] == null)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else
+            //{
                 ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
                 ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
                 if (ModelState.IsValid)
@@ -168,7 +177,7 @@ namespace Captone.Controllers
                     return RedirectToAction("Index");
                 }
                 return View(trip);
-            }
+            //}
         }
 
         //
@@ -176,19 +185,19 @@ namespace Captone.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            if (Session["USERNAME"] == null)
-            {
-                return RedirectToAction("LogIn", "Account");
-            }
-            else
-            {
+            //if (Session["USERNAME"] == null)
+            //{
+            //    return RedirectToAction("LogIn", "Account");
+            //}
+            //else
+            //{
                 Trip trip = db.Trips.Find(id);
                 if (trip == null)
                 {
                     return HttpNotFound();
                 }
                 return View(trip);
-            }
+            //}
         }
 
         //

@@ -282,7 +282,7 @@
           </Key>
           <Property Name="RouteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RouteName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Container" Type="nchar" MaxLength="10" />
+          <Property Name="Container" Type="float" />
         </EntityType>
         <EntityType Name="RouteStage">
           <Key>
@@ -1014,7 +1014,7 @@
           </Key>
           <Property Name="RouteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="RouteName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Container" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Container" Type="Double" />
           <NavigationProperty Name="CoachArrangements" Relationship="iDeliverModel.FK_CoachArrangement_Route" FromRole="Route" ToRole="CoachArrangement" />
           <NavigationProperty Name="RouteStages" Relationship="iDeliverModel.FK_RouteStage_Route" FromRole="Route" ToRole="RouteStage" />
           <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Route" ToRole="Trip" />

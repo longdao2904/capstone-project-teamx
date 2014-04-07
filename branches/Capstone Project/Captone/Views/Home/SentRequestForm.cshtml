@@ -310,14 +310,14 @@
         var options1 = select1.options[select1.selectedIndex].text;
         var weigh = options.split(" - ");
         var volume = options1.split(" - ");
-        var getprice = getPriceRoute();
+      
         $.ajax({
             url: "/Home/CalculateFee",
             type: "Post",
             data: { minWeight: weigh[0], maxWeight: weigh[1] },
             success: function (result) {
                 var fee = result.split(" = ");
-                var suggestprice = +getprice + +fee[1].substring(0, fee[1].length - 1);
+                var suggestprice =  +fee[1].substring(0, fee[1].length - 1);
                 $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + suggestprice + "VND" + "</strong>" + "</p>" + "</div>");
             }
         });

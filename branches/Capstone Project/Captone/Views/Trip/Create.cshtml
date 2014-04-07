@@ -16,14 +16,13 @@
             <strong>Ngày chạy
             </strong>
             <div class="editor-field">
-                <input type="text" id="datepicker" name="Date" class="form-control" onchange="listTrip(this.value);" />
-                @Html.ValidationMessageFor(model => model.Date)
+                <input type="text" id="datepicker" name="Date" class="form-control"/>
             </div>
             <br />
             <strong>Tuyến
             </strong>
             <div class="editor-field">
-                @Html.DropDownList("RouteID", String.Empty)
+                @Html.DropDownList("RouteID", ViewData["RouteID"] as List<SelectListItem>)
                 @Html.ValidationMessageFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
             </div>
             <br />
@@ -76,7 +75,7 @@
     }
 
     $('#RouteID').on('change', function () {
-        listOnRoute($('#RouteID').val())
+        listOnRoute($('#RouteID').val());
     });
 
     function DatePicker() {
@@ -89,15 +88,11 @@
         $('[name="1"]:checked').each(function () {
             var row = $(this).closest('tr');
             var sch = {
-                // cột 1 là ScheduleID, lấy value từ cột 2
-                // sử dụng row.find('#idCol') / row.find('#nameCol')
                 ScheduleID: row.find('td:nth-child(2)').text(),
                 RouteID: $('#RouteID').val(),
                 CoachID: row.find('td:nth-child(4)').text(),
                 EstimateDepartureTime: row.find('td:nth-child(7)').text(),
-                EstimateArrivalTime: row.find('td:nth-child(8)').text(),
-                EstimateVolume: row.find('td:nth-child(9)').text() * row.find('td:nth-child(10)').text(),
-                Date: $('#datepicker').val()
+                EstimateVolume: row.find('td:nth-child(9)').text() * row.find('td:nth-child(10)').text()
             };
             // Push schedule object to collection
             schedules.push(sch);
@@ -108,10 +103,11 @@
     // Sent schedule objects to controller
     function SentObject() {
         var trips = getScheduleObject();
+        var date = $('#datepicker').val();
         $.ajax({
             url: "/Trip/Create",
             type: "POST",
-            data: JSON.stringify({ trips: trips }),
+            data: JSON.stringify({ trips: trips, date : date }),
             contentType: "application/json",
             dataType: "json",
             success: function (result) {

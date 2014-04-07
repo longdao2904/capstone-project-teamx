@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Captone.Repositories.Interfaces;
-
 namespace Captone.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using Captone.Repositories.Interfaces;
     
     public partial class iDeliverEntities : DbContext, IUnitOfWork
     {
@@ -48,6 +47,7 @@ namespace Captone.Models
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserInfo> UserInfoes { get; set; }
+
         public void SaveChanges()
         {
             base.SaveChanges();

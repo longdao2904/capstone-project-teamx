@@ -23,7 +23,7 @@ namespace Captone.Models
     
         public int RouteID { get; set; }
         public string RouteName { get; set; }
-        public string Container { get; set; }
+        public Nullable<double> Container { get; set; }
     
         public virtual ICollection<CoachArrangement> CoachArrangements { get; set; }
         public virtual ICollection<RouteStage> RouteStages { get; set; }
