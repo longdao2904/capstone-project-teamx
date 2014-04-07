@@ -26,7 +26,6 @@ namespace Captone.Models
         public System.TimeSpan BreakTime { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }
-        public double Container { get; set; }
         public double Price { get; set; }
     
         public virtual ICollection<RouteStage> RouteStages { get; set; }

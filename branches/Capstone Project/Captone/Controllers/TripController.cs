@@ -34,7 +34,7 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult ListTrip(DateTime tripDate)
         {
-            var trips = db.Trips.Where(t => t.Date == tripDate);
+            var trips = db.Trips.Where(t => t.EstimateDepartureTime == tripDate);
             return View(trips.ToList());
         }
 
@@ -112,9 +112,9 @@ namespace Captone.Controllers
                             {
                                 day = new TimeSpan(i / i, 0, 0, 0);
                             }
-                            DateTime nextday = trip.Date.Add(day);
-                            trip.Date = nextday.Date;
-                            t.Date = trip.Date.Date;
+                            DateTime nextday = trip.EstimateDepartureTime.Date.Add(day);
+                            trip.EstimateDepartureTime = nextday.Date;
+                            t.EstimateDepartureTime = trip.EstimateDepartureTime.Date;
                             db.Trips.Add(t);
                             db.SaveChanges();
                         }
@@ -257,9 +257,9 @@ namespace Captone.Controllers
                 foreach (var trip in trips)
                 {
                     DateTime current = DateTime.Now;
-                    if (trip.Date.ToShortDateString() == current.ToShortDateString())
+                    if (trip.EstimateDepartureTime.ToShortDateString() == current.ToShortDateString())
                     {
-                        Trip t = db.Trips.Where(tr => tr.TripID == trip.TripID).FirstOrDefault();
+                        Trip t = db.Trips.FirstOrDefault(tr => tr.TripID == trip.TripID);
                         t.RealDepartureTime = trip.EstimateDepartureTime;
                         t.RealArrivalTime = trip.EstimateArrivalTime;
                         db.Entry(t).State = EntityState.Modified;
@@ -379,8 +379,8 @@ namespace Captone.Controllers
                 TimeSpan latetime = new TimeSpan();
                 TimeSpan estimateArrival = new TimeSpan();
                 latetime = (TimeSpan)(item.RealDepartureTime - item.EstimateDepartureTime);
-                estimateArrival = (TimeSpan)(item.EstimateArrivalTime + latetime);
-                item.EstimateArrivalTime = estimateArrival;
+                estimateArrival = (item.EstimateArrivalTime.TimeOfDay + latetime);
+                item.EstimateArrivalTime.Add(estimateArrival);
                 list.Add(item);
             }
             return View(list);
@@ -405,7 +405,7 @@ namespace Captone.Controllers
             }
             // update real departed time and status of trip
             var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
-            trip.RealDepartureTime = DateTime.Now.TimeOfDay;
+            trip.RealDepartureTime = DateTime.Now;
             trip.Status = "Đang chạy";
             db.Entry(trip).State = EntityState.Modified;
             db.SaveChanges();
@@ -442,7 +442,7 @@ namespace Captone.Controllers
             }
             // update real arrival time of trip
             var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
-            trip.RealArrivalTime = DateTime.Now.TimeOfDay;
+            trip.RealArrivalTime = DateTime.Now;
             trip.Status = "Đã đến đích";
             db.Entry(trip).State = EntityState.Modified;
             db.SaveChanges();

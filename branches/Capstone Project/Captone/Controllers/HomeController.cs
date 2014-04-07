@@ -96,7 +96,6 @@ namespace Captone.Controllers
             request.EstimateWeight = col["EstimateWeight"];
             request.EstimateVolume = col["EstimateVolume"];
             request.DateRequest = DateTime.Parse(col["DateRequest"]);
-            request.Description = "";
             request.FromLocation = int.Parse(col["FromLocation"]);
             request.ToLocation = int.Parse(col["ToLocation"]);
             request.SenderAddress = col["SenderAddress"];

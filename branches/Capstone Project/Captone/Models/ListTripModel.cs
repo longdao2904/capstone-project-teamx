@@ -9,8 +9,8 @@ namespace Captone.Models
     {
         public string RouteName { get; set; }
         public string NumberPlate { get; set; }
-        public System.TimeSpan EstimateArrivalTime { get; set; }
-        public System.TimeSpan EstimateDepartureTime { get; set; }
+        public DateTime EstimateArrivalTime { get; set; }
+        public DateTime EstimateDepartureTime { get; set; }
         public int TripID { get; set; }
         public string Status { get; set; }
         public int StopStation { get; set; }

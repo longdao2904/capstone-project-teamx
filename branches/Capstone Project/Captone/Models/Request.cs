@@ -23,11 +23,10 @@ namespace Captone.Models
         public int RequestID { get; set; }
         public string Username { get; set; }
         public int DeliveryStatusID { get; set; }
-        public Nullable<int> FeeID { get; set; }
+        public int FeeID { get; set; }
         public string EstimateWeight { get; set; }
         public string EstimateVolume { get; set; }
         public System.DateTime DateRequest { get; set; }
-        public string Description { get; set; }
         public int FromLocation { get; set; }
         public int ToLocation { get; set; }
         public string SenderAddress { get; set; }
@@ -35,10 +34,10 @@ namespace Captone.Models
         public string SenderPhone { get; set; }
         public string ReceiverName { get; set; }
         public string ReceiverPhone { get; set; }
-        public Nullable<bool> Type { get; set; }
+        public bool Type { get; set; }
         public string TypeOfPayment { get; set; }
         public Nullable<System.DateTime> ArrivedDate { get; set; }
-        public Nullable<bool> Payment { get; set; }
+        public bool Payment { get; set; }
         public string RequestCode { get; set; }
     
         public virtual Account Account { get; set; }

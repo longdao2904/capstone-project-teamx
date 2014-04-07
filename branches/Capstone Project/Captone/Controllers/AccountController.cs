@@ -94,7 +94,6 @@ namespace Captone.Controllers
                 tmp.Username = model.Username;
                 tmp.Password = model.Password;
                 tmp.Email = model.Email;
-                tmp.Phone = model.Phone;
                 tmp.Role = "Customer";
                 tmp.BannedStatus = false;
                 // Attempt to register the user
@@ -191,7 +190,6 @@ namespace Captone.Controllers
                 tmp.Username = model.Username;
                 tmp.Password = model.Password;
                 tmp.Email = model.Email;
-                tmp.Phone = model.Phone;
                 tmp.Role = "Customer";
                 tmp.BannedStatus = false;
                 // Attempt to register the user

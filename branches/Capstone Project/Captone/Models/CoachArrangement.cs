@@ -20,8 +20,8 @@ namespace Captone.Models
         }
     
         public int ArrangeID { get; set; }
-        public Nullable<int> CoachID { get; set; }
-        public Nullable<int> RouteID { get; set; }
+        public int CoachID { get; set; }
+        public int RouteID { get; set; }
     
         public virtual Coach Coach { get; set; }
         public virtual Route Route { get; set; }

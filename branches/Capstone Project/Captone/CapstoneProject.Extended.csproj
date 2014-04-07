@@ -282,50 +282,12 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Repositories\AccountRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Repositories\BaseRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\CoachRepository.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IAccountRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interfaces\ICoachRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interfaces\IInvoiceRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IManageFeeRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IRequestRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IRouteRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interfaces\IStageRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IStationRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interfaces\ITripRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Repositories\Interfaces\IUnitOfWork.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\InvoiceRepository.cs" />
-    <Compile Include="Repositories\ManageFeeRepository.cs" />
-    <Compile Include="Repositories\RequestRepository.cs" />
-    <Compile Include="Repositories\RouteRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\StageRepository.cs" />
-    <Compile Include="Repositories\StationRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\TripRepository.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Resource.Designer.cs">
@@ -342,9 +304,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\AssigningService.cs" />
-    <Compile Include="Services\CoachService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Services\EncodingPassword.cs" />
     <Compile Include="Services\ExpiredRequestService.cs" />
     <Compile Include="Services\Interfaces\IAccountService.cs">
@@ -353,22 +312,7 @@
     <Compile Include="Services\Interfaces\IAssigningService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\Interfaces\ICoachService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Services\Interfaces\IExpiredRequestService.cs" />
-    <Compile Include="Services\Interfaces\IInvoiceService.cs" />
-    <Compile Include="Services\Interfaces\IManageFeeService.cs" />
-    <Compile Include="Services\Interfaces\IRequestService.cs" />
-    <Compile Include="Services\Interfaces\IRouteService.cs" />
-    <Compile Include="Services\Interfaces\IStationService.cs" />
-    <Compile Include="Services\Interfaces\ITripService.cs" />
-    <Compile Include="Services\InvoiceService.cs" />
-    <Compile Include="Services\ManageFeeService.cs" />
-    <Compile Include="Services\RequestService.cs" />
-    <Compile Include="Services\RouteService.cs" />
-    <Compile Include="Services\StationService.cs" />
-    <Compile Include="Services\TripService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

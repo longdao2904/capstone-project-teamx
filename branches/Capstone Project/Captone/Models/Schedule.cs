@@ -22,7 +22,6 @@ namespace Captone.Models
         public int ScheduleID { get; set; }
         public int ArrangeID { get; set; }
         public System.TimeSpan EstimateDepartureTime { get; set; }
-        public System.TimeSpan EstimateArrivalTime { get; set; }
     
         public virtual CoachArrangement CoachArrangement { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }

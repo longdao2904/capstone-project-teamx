@@ -127,6 +127,10 @@
             <End Role="Province" EntitySet="Province" />
             <End Role="Station" EntitySet="Station" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trip_Route" Association="iDeliverModel.Store.FK_Trip_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Trip" EntitySet="Trip" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trip_Schedule" Association="iDeliverModel.Store.FK_Trip_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Trip" EntitySet="Trip" />
@@ -145,7 +149,6 @@
           <Property Name="BackupPassword" Type="nvarchar" MaxLength="50" />
           <Property Name="Role" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="BannedStatus" Type="bit" />
           <Property Name="StationID" Type="int" />
         </EntityType>
@@ -173,8 +176,8 @@
             <PropertyRef Name="ArrangeID" />
           </Key>
           <Property Name="ArrangeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CoachID" Type="int" />
-          <Property Name="RouteID" Type="int" />
+          <Property Name="CoachID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CoachType">
           <Key>
@@ -256,23 +259,22 @@
           <Property Name="RequestID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="DeliveryStatusID" Type="int" Nullable="false" />
-          <Property Name="FeeID" Type="int" />
+          <Property Name="FeeID" Type="int" Nullable="false" />
           <Property Name="EstimateWeight" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="EstimateVolume" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="DateRequest" Type="date" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DateRequest" Type="datetime" Nullable="false" />
           <Property Name="FromLocation" Type="int" Nullable="false" />
           <Property Name="ToLocation" Type="int" Nullable="false" />
-          <Property Name="SenderAddress" Type="nvarchar" MaxLength="500" />
-          <Property Name="ReceiverAddress" Type="nvarchar" MaxLength="500" />
-          <Property Name="SenderPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderAddress" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ReceiverAddress" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="SenderPhone" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="ReceiverName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="ReceiverPhone" Type="nvarchar" MaxLength="50" />
-          <Property Name="Type" Type="bit" />
+          <Property Name="ReceiverPhone" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Type" Type="bit" Nullable="false" />
           <Property Name="TypeOfPayment" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ArrivedDate" Type="date" />
-          <Property Name="Payment" Type="bit" />
-          <Property Name="RequestCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Payment" Type="bit" Nullable="false" />
+          <Property Name="RequestCode" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -280,6 +282,7 @@
           </Key>
           <Property Name="RouteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="RouteName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Container" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RouteStage">
           <Key>
@@ -288,7 +291,7 @@
           </Key>
           <Property Name="RouteID" Type="int" Nullable="false" />
           <Property Name="StageID" Type="int" Nullable="false" />
-          <Property Name="StageIndex" Type="int" />
+          <Property Name="StageIndex" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -297,7 +300,6 @@
           <Property Name="ScheduleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ArrangeID" Type="int" Nullable="false" />
           <Property Name="EstimateDepartureTime" Type="time" Nullable="false" Precision="0" />
-          <Property Name="EstimateArrivalTime" Type="time" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Stage">
           <Key>
@@ -310,7 +312,6 @@
           <Property Name="BreakTime" Type="time" Nullable="false" Precision="0" />
           <Property Name="Duration" Type="float" Nullable="false" />
           <Property Name="Distance" Type="float" Nullable="false" />
-          <Property Name="Container" Type="float" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Station">
@@ -340,14 +341,13 @@
             <PropertyRef Name="TripID" />
           </Key>
           <Property Name="TripID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="EstimateDepartureTime" Type="time" Nullable="false" Precision="0" />
-          <Property Name="EstimateArrivalTime" Type="time" Nullable="false" Precision="0" />
-          <Property Name="RealDepartureTime" Type="time" Precision="0" />
-          <Property Name="RealArrivalTime" Type="time" Precision="0" />
+          <Property Name="EstimateDepartureTime" Type="datetime" Nullable="false" />
+          <Property Name="EstimateArrivalTime" Type="datetime" Nullable="false" />
+          <Property Name="RealDepartureTime" Type="datetime" />
+          <Property Name="RealArrivalTime" Type="datetime" />
           <Property Name="EstimateVolume" Type="float" Nullable="false" />
           <Property Name="AvailableVolume" Type="float" />
           <Property Name="RealVolume" Type="float" />
-          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="RouteID" Type="int" Nullable="false" />
           <Property Name="CoachID" Type="int" Nullable="false" />
           <Property Name="ScheduleID" Type="int" Nullable="false" />
@@ -362,7 +362,7 @@
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
-          <Property Name="Phone number" Type="nchar" MaxLength="11" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Assigning_Station">
           <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
@@ -413,7 +413,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CoachArrangement_Coach">
-          <End Role="Coach" Type="iDeliverModel.Store.Coach" Multiplicity="0..1" />
+          <End Role="Coach" Type="iDeliverModel.Store.Coach" Multiplicity="1" />
           <End Role="CoachArrangement" Type="iDeliverModel.Store.CoachArrangement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Coach">
@@ -425,7 +425,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CoachArrangement_Route">
-          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="0..1" />
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="1" />
           <End Role="CoachArrangement" Type="iDeliverModel.Store.CoachArrangement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Route">
@@ -557,7 +557,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
-          <End Role="ManageFee" Type="iDeliverModel.Store.ManageFee" Multiplicity="0..1" />
+          <End Role="ManageFee" Type="iDeliverModel.Store.ManageFee" Multiplicity="1" />
           <End Role="Request" Type="iDeliverModel.Store.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
@@ -661,6 +661,18 @@
             </Principal>
             <Dependent Role="Station">
               <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trip_Route">
+          <End Role="Route" Type="iDeliverModel.Store.Route" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Store.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="RouteID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -807,6 +819,10 @@
             <End Role="Route" EntitySet="Routes" />
             <End Role="RouteStage" EntitySet="RouteStages" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trip_Route" Association="iDeliverModel.FK_Trip_Route">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
           <AssociationSet Name="FK_RouteStage_Stage" Association="iDeliverModel.FK_RouteStage_Stage">
             <End Role="Stage" EntitySet="Stages" />
             <End Role="RouteStage" EntitySet="RouteStages" />
@@ -833,7 +849,6 @@
           <Property Name="BackupPassword" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Role" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="BannedStatus" Type="Boolean" />
           <Property Name="StationID" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="iDeliverModel.FK_Comment_Account" FromRole="Account" ToRole="Comment" />
@@ -872,8 +887,8 @@
             <PropertyRef Name="ArrangeID" />
           </Key>
           <Property Name="ArrangeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="CoachID" Type="Int32" />
-          <Property Name="RouteID" Type="Int32" />
+          <Property Name="CoachID" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Coach" Relationship="iDeliverModel.FK_CoachArrangement_Coach" FromRole="CoachArrangement" ToRole="Coach" />
           <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_CoachArrangement_Route" FromRole="CoachArrangement" ToRole="Route" />
           <NavigationProperty Name="Schedules" Relationship="iDeliverModel.FK_Schedule_CoachArrangement" FromRole="CoachArrangement" ToRole="Schedule" />
@@ -969,23 +984,22 @@
           <Property Name="RequestID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="DeliveryStatusID" Type="Int32" Nullable="false" />
-          <Property Name="FeeID" Type="Int32" />
+          <Property Name="FeeID" Type="Int32" Nullable="false" />
           <Property Name="EstimateWeight" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="EstimateVolume" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="DateRequest" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="DateRequest" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FromLocation" Type="Int32" Nullable="false" />
           <Property Name="ToLocation" Type="Int32" Nullable="false" />
-          <Property Name="SenderAddress" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="ReceiverAddress" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="SenderPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SenderAddress" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="ReceiverAddress" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="SenderPhone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ReceiverName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="ReceiverPhone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Type" Type="Boolean" />
+          <Property Name="ReceiverPhone" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="Boolean" Nullable="false" />
           <Property Name="TypeOfPayment" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="ArrivedDate" Type="DateTime" Precision="0" />
-          <Property Name="Payment" Type="Boolean" />
-          <Property Name="RequestCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Payment" Type="Boolean" Nullable="false" />
+          <Property Name="RequestCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_RequestOfAccount" FromRole="Request" ToRole="Account" />
           <NavigationProperty Name="Assignings" Relationship="iDeliverModel.FK_AssigningForRequest" FromRole="Request" ToRole="Assigning" />
           <NavigationProperty Name="DeliveryStatu" Relationship="iDeliverModel.FK_Request_DeliveryStatus" FromRole="Request" ToRole="DeliveryStatus" />
@@ -1000,8 +1014,10 @@
           </Key>
           <Property Name="RouteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="RouteName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Container" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="CoachArrangements" Relationship="iDeliverModel.FK_CoachArrangement_Route" FromRole="Route" ToRole="CoachArrangement" />
           <NavigationProperty Name="RouteStages" Relationship="iDeliverModel.FK_RouteStage_Route" FromRole="Route" ToRole="RouteStage" />
+          <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Route" ToRole="Trip" />
         </EntityType>
         <EntityType Name="RouteStage">
           <Key>
@@ -1010,7 +1026,7 @@
           </Key>
           <Property Name="RouteID" Type="Int32" Nullable="false" />
           <Property Name="StageID" Type="Int32" Nullable="false" />
-          <Property Name="StageIndex" Type="Int32" />
+          <Property Name="StageIndex" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_RouteStage_Route" FromRole="RouteStage" ToRole="Route" />
           <NavigationProperty Name="Stage" Relationship="iDeliverModel.FK_RouteStage_Stage" FromRole="RouteStage" ToRole="Stage" />
         </EntityType>
@@ -1021,7 +1037,6 @@
           <Property Name="ScheduleID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ArrangeID" Type="Int32" Nullable="false" />
           <Property Name="EstimateDepartureTime" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="EstimateArrivalTime" Type="Time" Nullable="false" Precision="0" />
           <NavigationProperty Name="CoachArrangement" Relationship="iDeliverModel.FK_Schedule_CoachArrangement" FromRole="Schedule" ToRole="CoachArrangement" />
           <NavigationProperty Name="Trips" Relationship="iDeliverModel.FK_Trip_Schedule" FromRole="Schedule" ToRole="Trip" />
         </EntityType>
@@ -1036,7 +1051,6 @@
           <Property Name="BreakTime" Type="Time" Nullable="false" Precision="0" />
           <Property Name="Duration" Type="Double" Nullable="false" />
           <Property Name="Distance" Type="Double" Nullable="false" />
-          <Property Name="Container" Type="Double" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <NavigationProperty Name="RouteStages" Relationship="iDeliverModel.FK_RouteStage_Stage" FromRole="Stage" ToRole="RouteStage" />
           <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_EndStationOfStage" FromRole="Stage" ToRole="Station" />
@@ -1079,20 +1093,20 @@
             <PropertyRef Name="TripID" />
           </Key>
           <Property Name="TripID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="EstimateDepartureTime" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="EstimateArrivalTime" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="RealDepartureTime" Type="Time" Precision="0" />
-          <Property Name="RealArrivalTime" Type="Time" Precision="0" />
+          <Property Name="EstimateDepartureTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstimateArrivalTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RealDepartureTime" Type="DateTime" Precision="3" />
+          <Property Name="RealArrivalTime" Type="DateTime" Precision="3" />
           <Property Name="EstimateVolume" Type="Double" Nullable="false" />
           <Property Name="AvailableVolume" Type="Double" />
           <Property Name="RealVolume" Type="Double" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RouteID" Type="Int32" Nullable="false" />
           <Property Name="CoachID" Type="Int32" Nullable="false" />
           <Property Name="ScheduleID" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Assignings" Relationship="iDeliverModel.FK_Assigning_Trip" FromRole="Trip" ToRole="Assigning" />
+          <NavigationProperty Name="Route" Relationship="iDeliverModel.FK_Trip_Route" FromRole="Trip" ToRole="Route" />
           <NavigationProperty Name="Schedule" Relationship="iDeliverModel.FK_Trip_Schedule" FromRole="Trip" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="UserInfo">
@@ -1103,7 +1117,7 @@
           <Property Name="Firstname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Lastname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="Phone_number" Type="String" MaxLength="11" Unicode="true" FixedLength="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="iDeliverModel.FK_UserInfo_Account" FromRole="UserInfo" ToRole="Account" />
         </EntityType>
         <Association Name="FK_Comment_Account">
@@ -1227,7 +1241,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CoachArrangement_Coach">
-          <End Role="Coach" Type="iDeliverModel.Coach" Multiplicity="0..1" />
+          <End Role="Coach" Type="iDeliverModel.Coach" Multiplicity="1" />
           <End Role="CoachArrangement" Type="iDeliverModel.CoachArrangement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Coach">
@@ -1239,7 +1253,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CoachArrangement_Route">
-          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="0..1" />
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="1" />
           <End Role="CoachArrangement" Type="iDeliverModel.CoachArrangement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Route">
@@ -1299,7 +1313,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Request_ManageFee">
-          <End Role="ManageFee" Type="iDeliverModel.ManageFee" Multiplicity="0..1" />
+          <End Role="ManageFee" Type="iDeliverModel.ManageFee" Multiplicity="1" />
           <End Role="Request" Type="iDeliverModel.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ManageFee">
@@ -1382,6 +1396,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Trip_Route">
+          <End Role="Route" Type="iDeliverModel.Route" Multiplicity="1" />
+          <End Role="Trip" Type="iDeliverModel.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RouteStage_Stage">
           <End Role="Stage" Type="iDeliverModel.Stage" Multiplicity="1" />
           <End Role="RouteStage" Type="iDeliverModel.RouteStage" Multiplicity="*" />
@@ -1444,7 +1470,6 @@
                 <ScalarProperty Name="BackupPassword" ColumnName="BackupPassword" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="BannedStatus" ColumnName="BannedStatus" />
                 <ScalarProperty Name="StationID" ColumnName="StationID" />
               </MappingFragment>
@@ -1570,7 +1595,6 @@
                 <ScalarProperty Name="EstimateWeight" ColumnName="EstimateWeight" />
                 <ScalarProperty Name="EstimateVolume" ColumnName="EstimateVolume" />
                 <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="FromLocation" ColumnName="FromLocation" />
                 <ScalarProperty Name="ToLocation" ColumnName="ToLocation" />
                 <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
@@ -1591,6 +1615,7 @@
               <MappingFragment StoreEntitySet="Route">
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />
                 <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+                <ScalarProperty Name="Container" ColumnName="Container" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1609,7 +1634,6 @@
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
                 <ScalarProperty Name="ArrangeID" ColumnName="ArrangeID" />
                 <ScalarProperty Name="EstimateDepartureTime" ColumnName="EstimateDepartureTime" />
-                <ScalarProperty Name="EstimateArrivalTime" ColumnName="EstimateArrivalTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1623,7 +1647,6 @@
                 <ScalarProperty Name="BreakTime" ColumnName="BreakTime" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Distance" ColumnName="Distance" />
-                <ScalarProperty Name="Container" ColumnName="Container" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1663,7 +1686,6 @@
                 <ScalarProperty Name="EstimateVolume" ColumnName="EstimateVolume" />
                 <ScalarProperty Name="AvailableVolume" ColumnName="AvailableVolume" />
                 <ScalarProperty Name="RealVolume" ColumnName="RealVolume" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />
                 <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
@@ -1679,7 +1701,7 @@
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

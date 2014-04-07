@@ -16,7 +16,7 @@ namespace Captone.Models
     {
         public int RouteID { get; set; }
         public int StageID { get; set; }
-        public Nullable<int> StageIndex { get; set; }
+        public int StageIndex { get; set; }
     
         public virtual Route Route { get; set; }
         public virtual Stage Stage { get; set; }

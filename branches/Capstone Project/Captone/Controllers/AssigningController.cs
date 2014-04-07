@@ -71,9 +71,7 @@ namespace Captone.Controllers
                                RequestID = p.RequestID,
                                IndicateOrder = p.IndicateOrder,
                                ToLocation = p.Request.ToLocation,
-                               StopStationName = p.Station.StationName,
-                               Date = l.Date
-
+                               StopStationName = p.Station.StationName
                            }
                           ).FirstOrDefault();
                 ass.Add(get);
@@ -98,7 +96,7 @@ namespace Captone.Controllers
                 deliverStatus.DeliveryStatusID = 4;
                 var trip = _db.Assignings.Where(p => p.RequestID == item.RequestID & p.IndicateOrder == 1).Single();
                 trip.Trip.Status = "Đang chạy";
-                trip.Trip.RealDepartureTime = DateTime.Now.TimeOfDay;
+                trip.Trip.RealDepartureTime = DateTime.Now;
                 _db.SaveChanges();
             }
         }
@@ -110,7 +108,7 @@ namespace Captone.Controllers
             {
                 if (trip.Status.Trim().Equals("Đang chạy"))
                 {
-                    if (trip.EstimateArrivalTime > DateTime.Now.TimeOfDay)
+                    if (trip.EstimateArrivalTime > DateTime.Now)
                     {
                         return Json(new { check = false }, JsonRequestBehavior.AllowGet);
                     }
@@ -126,14 +124,13 @@ namespace Captone.Controllers
                                              (from n in _db.Assignings
                                               join k in _db.Requests on n.RequestID equals k.RequestID
                                               join u in _db.Trips on n.TripID equals u.TripID
-                                              group u by new { u.Date, n.RequestID, k.Username, n.Request.DeliveryStatusID, n.StopStation, k.ToLocation, k.SenderPhone, k.RequestCode }
+                                              group u by new { n.RequestID, k.Username, n.Request.DeliveryStatusID, n.StopStation, k.ToLocation, k.SenderPhone, k.RequestCode }
                                                   into a
 
                                                   select new
                                                   {
                                                       a.Key.Username,
                                                       a.Key.RequestID,
-                                                      a.Key.Date,
                                                       a.Key.DeliveryStatusID,
                                                       a.Key.ToLocation,
                                                       a.Key.SenderPhone,
@@ -146,7 +143,6 @@ namespace Captone.Controllers
                                          {
                                              Username = p.Username,
                                              RequestID = p.RequestID,
-                                             Date = p.Date,
                                              ToLocation = p.ToLocation,
                                              SenderPhone = p.SenderPhone,
                                              StopStation = p.StopStation,
@@ -182,7 +178,6 @@ namespace Captone.Controllers
                                IndicateOrder = p.IndicateOrder,
                                ToLocation = p.Request.ToLocation,
                                StopStationName = p.Station.StationName,
-                               Date = l.Date
 
                            }
                           ).FirstOrDefault();
@@ -195,7 +190,7 @@ namespace Captone.Controllers
             var id = Session["StationID"];
             var list = _db.Assignings.Where(p => p.TripID == tripId & p.RequestID == requestId).Single();
             list.Trip.Status = "Đã đến";
-            list.Trip.RealArrivalTime = DateTime.Now.TimeOfDay;
+            list.Trip.RealArrivalTime = DateTime.Now;
             _db.SaveChanges();
             return RedirectToAction("RequestPeding", new { stationId = id });
         }
@@ -207,7 +202,7 @@ namespace Captone.Controllers
             {
 
                 assigning.Trip.Status = "Đang chạy";
-                assigning.Trip.RealDepartureTime = DateTime.Now.TimeOfDay;
+                assigning.Trip.RealDepartureTime = DateTime.Now;
                 _db.SaveChanges();
 
 

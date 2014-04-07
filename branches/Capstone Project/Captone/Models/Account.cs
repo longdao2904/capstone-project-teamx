@@ -27,7 +27,6 @@ namespace Captone.Models
         public string BackupPassword { get; set; }
         public string Role { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
         public Nullable<bool> BannedStatus { get; set; }
         public Nullable<int> StationID { get; set; }
     

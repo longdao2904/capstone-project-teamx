@@ -109,7 +109,7 @@ namespace Captone.Services
         //accept trips have departure time later from now 45 min and current status is active 
         public void FilterTrip()
         {
-            var tmpList = _trips.Where(trip => ChangeTime(trip.Date, trip.EstimateDepartureTime) - DateTime.Now >=
+            var tmpList = _trips.Where(trip => trip.EstimateDepartureTime - DateTime.Now >=
                 _deltaTime && trip.IsActive).ToList();
             _trips = tmpList;
         }
@@ -246,7 +246,7 @@ namespace Captone.Services
             candidates.Sort(SortTripCompare);
             foreach (var candidate in candidates)
             {
-                var arrival = ChangeTime(candidate.Date, candidate.EstimateArrivalTime);
+                var arrival = candidate.EstimateArrivalTime;
                 //if the time departure of trip is too late, don't consider it more
                 if (arrival - curr > _maxTime) continue;
                 var invoice = FindInvoiceFromRequest(request);
@@ -305,10 +305,10 @@ namespace Captone.Services
                     foreach (var trip in tmpListTrip)
                     {
                         if (trip.AvailableVolume < tmp) flag = -1;
-                        var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
+                        var departure = trip.EstimateDepartureTime;
                         if (departure - current >= _deltaTime)
                         {
-                            current = ChangeTime(trip.Date, trip.EstimateArrivalTime);
+                            current = trip.EstimateArrivalTime;
                             resTrip.Add(trip);
                             break;
                         }
@@ -611,10 +611,10 @@ namespace Captone.Services
                         resTrip.Clear();
                         break;
                     }
-                    var departure = ChangeTime(trip.Date, trip.EstimateDepartureTime);
+                    var departure = trip.EstimateDepartureTime;
                     if (departure - current >= _deltaTime)
                     {
-                        current = ChangeTime(trip.Date, trip.EstimateArrivalTime);
+                        current = trip.EstimateArrivalTime;
                         resTrip.Add(trip);
                     }
                     else
@@ -776,15 +776,7 @@ namespace Captone.Services
             }
             return true;
         }
-        //add a time span to datetime 
-        public DateTime ChangeTime(DateTime a, TimeSpan b)
-        {
-            DateTime result = a;
-            result = result.AddHours(b.Days);
-            result = result.AddHours(b.Hours);
-            result = result.AddMinutes(b.Minutes);
-            return result;
-        }
+        
         //find all path between two station of the request
         public void FindPath(Request request)
         {

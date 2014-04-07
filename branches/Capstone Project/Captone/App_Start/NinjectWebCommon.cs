@@ -79,23 +79,8 @@ namespace Captone.App_Start
             //Binding IUnit Of Work
            kernel.Bind<IUnitOfWork>().To<iDeliverEntities>().InRequestScope();
 
-            //Binding Repositories
-            kernel.Bind<IAccountRepository>().To<AccountRepository>();
-            kernel.Bind<ICoachRepository>().To<CoachRepository>();
-            kernel.Bind<ITripRepository>().To<TripRepository>();
-            kernel.Bind<IRequestRepository>().To<RequestRepository>();
-            kernel.Bind<IRouteRepository>().To<RouteRepository>();
-            kernel.Bind<IStationRepository>().To<StationRepository>();
-            kernel.Bind<IInvoiceRepository>().To<InvoiceRepository>();
-
             //Binding Services
             kernel.Bind<IAccountService>().To<AccountService>();
-            kernel.Bind<ICoachService>().To<CoachService>();
-            kernel.Bind<IRequestService>().To<RequestService>();
-            kernel.Bind<IRouteService>().To<RouteService>();
-            kernel.Bind<IStationService>().To<StationService>();
-            kernel.Bind<ITripService>().To<TripService>();
-            kernel.Bind<IInvoiceService>().To<InvoiceService>();
             kernel.Bind<IExpiredRequestService>().To<ExpiredRequestService>();
         }
 

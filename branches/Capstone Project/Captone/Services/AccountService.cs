@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Captone.Extensions;
 using Captone.Models;
+using Captone.Repositories;
 using Captone.Repositories.Interfaces;
 using Captone.Services.Interfaces;
 
@@ -9,21 +10,22 @@ namespace Captone.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly GenericRepository<Account> _accountRepository =
+            new GenericRepository<Account>(new iDeliverEntities());
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(GenericRepository<Account> accountRepository)
         {
             _accountRepository = accountRepository;
         }
 
         public List<Account> GetAllCustomers()
         {
-            return _accountRepository.GetAllAccounts().Where(i => i.Role == Resource.Customer).ToList();
+            return _accountRepository.GetAll().Where(i => i.Role == Resource.Customer).ToList();
         }
 
         public List<Account> GetAllStaff()
         {
-            return _accountRepository.GetAllAccounts().Where(i => i.Role == Resource.Staff).ToList();
+            return _accountRepository.GetAll().Where(i => i.Role == Resource.Staff).ToList();
         }
 
         public bool EditAccount(Account account, string role)
@@ -42,14 +44,14 @@ namespace Captone.Services
             }
             if (hasPrivileage)
             {
-                _accountRepository.Edit(account);
+              //  _accountRepository.Edit(account);
             }
             return true;
         }
 
         public Account GetAccount(string username)
         {
-            return _accountRepository.GetAllAccounts().SingleOrDefault(i => i.Username == username);
+            return _accountRepository.GetAll().SingleOrDefault(i => i.Username == username);
         }
     }
 }
