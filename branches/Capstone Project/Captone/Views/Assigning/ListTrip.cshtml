@@ -7,6 +7,8 @@
             </th>
             <th>Xe 
             </th>
+            <th>Ngày chạy
+            </th>
             <th>Dự kiến chạy
             </th>
             <th>Dự kiến đến 
@@ -25,6 +27,9 @@
                 </td>
                 <td>
                     @item.NumberPlate
+                </td>
+                <td>
+                    @item.Date.ToShortDateString()
                 </td>
                 <td id="est1">
                     @item.EstimateDepartureTime

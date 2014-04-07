@@ -17,18 +17,18 @@ namespace Captone.Controllers
                                              (from n in _db.Assignings
                                               join k in _db.Requests on n.RequestID equals k.RequestID
                                               join u in _db.Trips on n.TripID equals u.TripID
-                                              group u by new { u.Date, n.RequestID, k.Username, n.Request.DeliveryStatusID, k.ToLocation, k.SenderPhone, k.FromLocation }
+                                              group u by new {n.RequestID, k.Username, n.Request.DeliveryStatusID, k.ToLocation, k.SenderPhone, k.FromLocation, k.RequestCode }
                                                   into a
 
                                                   select new
                                             {
                                                 a.Key.Username,
                                                 a.Key.RequestID,
-                                                a.Key.Date,
                                                 a.Key.DeliveryStatusID,
                                                 a.Key.ToLocation,
                                                 a.Key.SenderPhone,
-                                                a.Key.FromLocation
+                                                a.Key.FromLocation,
+                                                a.Key.RequestCode
                                             }
                             )
                                          where p.DeliveryStatusID == 3 & p.FromLocation == stationID
@@ -36,9 +36,9 @@ namespace Captone.Controllers
                                             {
                                                 Username = p.Username,
                                                 RequestID = p.RequestID,
-                                                Date = p.Date,
                                                 ToLocation = p.ToLocation,
-                                                SenderPhone = p.SenderPhone
+                                                SenderPhone = p.SenderPhone,
+                                                RequestCode = p.RequestCode
                                             }
                        ).ToList();
             ViewBag.Assign = item;

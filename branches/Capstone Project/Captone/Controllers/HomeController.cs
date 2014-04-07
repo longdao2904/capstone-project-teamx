@@ -1,4 +1,5 @@
-﻿using System.Web.Services;
+﻿using System.Linq.Expressions;
+using System.Web.Services;
 using Captone.Models;
 using System;
 using System.Collections.Generic;
@@ -249,20 +250,58 @@ namespace Captone.Controllers
 
         public void DeleteNotification(int StationID)
         {
-           
-                var list = _db.Notifications.Where(p => p.isView == false & p.StationID == StationID).ToList();
-                foreach (var notification in list)
-                {
-                    _db.Notifications.Remove(notification);
-                    _db.SaveChanges();
-                }
-            
+
+            var list = _db.Notifications.Where(p => p.isView == false & p.StationID == StationID).ToList();
+            foreach (var notification in list)
+            {
+                _db.Notifications.Remove(notification);
+                _db.SaveChanges();
+            }
+
         }
 
         public ActionResult AcceptInvoice(int StationID)
         {
             var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID).ToList();
             return View(list);
+        }
+        //Details Station
+        public ActionResult DetailsStation(int StationID)
+        {
+            var station = _db.Stations.Where(s => s.StationID == StationID).FirstOrDefault();
+            ViewBag.DetailStation = station;
+            return PartialView();
+        }
+        //Detail Route on Station
+        public ActionResult DetailStationRoute(int ProvinceID)
+        {
+            var province = _db.Provinces.Where(p => p.ProvinceID == ProvinceID).FirstOrDefault();
+            var provinceName = province.ProvinceName;
+            if (provinceName == "Hồ Chí Minh")
+            {
+                provinceName = "Sài Gòn";
+            }
+            //string sql = "SELECT Distinct RouteName FROM dbo.Route WHERE RouteName LIKE N'" + provinceName + "%'";
+            //var listRoute = _db.Database.SqlQuery<Route>(sql);
+
+            IEnumerable<DetailStationModel> list = (from p
+                              in _db.Stages
+                              where  p.StageName.StartsWith(provinceName)
+                              select new  DetailStationModel()
+                              {
+                                  RouteName = p.StageName,
+                                  duration = p.Duration
+                                                }
+                                 ).Distinct();
+
+            return PartialView(list);
+        }
+
+        //Detail Request on Station
+        public ActionResult DetailStationRequest(int StationID)
+        {
+            var request = _db.Requests.Where(r => r.FromLocation == StationID).ToList();
+            return PartialView("DetailStationRequest", request);
         }
     }
 }

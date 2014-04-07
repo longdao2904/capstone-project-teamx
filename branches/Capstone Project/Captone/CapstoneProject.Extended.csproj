@@ -217,6 +217,7 @@
     <Compile Include="Models\DeliveryStatu.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetailStationModel.cs" />
     <Compile Include="Models\iDeliver.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1007,6 +1008,10 @@
     <Content Include="Views\Route\Edit.cshtml" />
     <Content Include="Views\Route\Delete.cshtml" />
     <Content Include="Views\Station\TopStation.cshtml" />
+    <Content Include="Views\Home\DetailsStation.cshtml" />
+    <Content Include="Views\Home\DetailStationRequest.cshtml" />
+    <Content Include="Views\Home\DetailStationRoute.cshtml" />
+    <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

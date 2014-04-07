@@ -151,9 +151,9 @@
     </Key>
     <Property Name="RequestID" Type="int" Nullable="false" />
     <Property Name="TripID" Type="int" Nullable="false" />
-    <Property Name="IndicateOrder" Type="int" />
-    <Property Name="AssignedDate" Type="date" />
-    <Property Name="StopStation" Type="int" />
+    <Property Name="IndicateOrder" Type="int" Nullable="false" />
+    <Property Name="AssignedDate" Type="date" Nullable="false" />
+    <Property Name="StopStation" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Coach">
     <Key>
@@ -203,8 +203,8 @@
       <PropertyRef Name="InvoiceID" />
     </Key>
     <Property Name="InvoiceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Weight" Type="float" />
-    <Property Name="Volume" Type="float" />
+    <Property Name="Weight" Type="float" Nullable="false" />
+    <Property Name="Volume" Type="float" Nullable="false" />
     <Property Name="Price" Type="float" Nullable="false" />
     <Property Name="RequestID" Type="int" Nullable="false" />
   </EntityType>
@@ -299,14 +299,14 @@
       <PropertyRef Name="StageID" />
     </Key>
     <Property Name="StageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="StageName" Type="nvarchar" MaxLength="50" />
-    <Property Name="StartPoint" Type="int" />
-    <Property Name="EndPoint" Type="int" />
-    <Property Name="BreakTime" Type="time" Precision="0" />
-    <Property Name="Duration" Type="float" />
-    <Property Name="Distance" Type="float" />
-    <Property Name="Container" Type="float" />
-    <Property Name="Price" Type="float" />
+    <Property Name="StageName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="StartPoint" Type="int" Nullable="false" />
+    <Property Name="EndPoint" Type="int" Nullable="false" />
+    <Property Name="BreakTime" Type="time" Nullable="false" Precision="0" />
+    <Property Name="Duration" Type="float" Nullable="false" />
+    <Property Name="Distance" Type="float" Nullable="false" />
+    <Property Name="Container" Type="float" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Station">
     <Key>
@@ -360,7 +360,7 @@
     <Property Name="Phone number" Type="nchar" MaxLength="11" />
   </EntityType>
   <Association Name="FK_Assigning_Station">
-    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
     <End Role="Assigning" Type="iDeliverModel.Store.Assigning" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">
@@ -456,7 +456,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EndStationOfStage">
-    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
     <End Role="Stage" Type="iDeliverModel.Store.Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">
@@ -636,7 +636,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_StartStationOfStage">
-    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Store.Station" Multiplicity="1" />
     <End Role="Stage" Type="iDeliverModel.Store.Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">

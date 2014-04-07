@@ -157,9 +157,9 @@
     </Key>
     <Property Name="RequestID" Type="Int32" Nullable="false" />
     <Property Name="TripID" Type="Int32" Nullable="false" />
-    <Property Name="IndicateOrder" Type="Int32" />
-    <Property Name="AssignedDate" Type="DateTime" Precision="0" />
-    <Property Name="StopStation" Type="Int32" />
+    <Property Name="IndicateOrder" Type="Int32" Nullable="false" />
+    <Property Name="AssignedDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="StopStation" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_Assigning_Station" FromRole="Assigning" ToRole="Station" />
     <NavigationProperty Name="Trip" Relationship="iDeliverModel.FK_Assigning_Trip" FromRole="Assigning" ToRole="Trip" />
     <NavigationProperty Name="Request" Relationship="iDeliverModel.FK_AssigningForRequest" FromRole="Assigning" ToRole="Request" />
@@ -221,8 +221,8 @@
       <PropertyRef Name="InvoiceID" />
     </Key>
     <Property Name="InvoiceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="Weight" Type="Double" />
-    <Property Name="Volume" Type="Double" />
+    <Property Name="Weight" Type="Double" Nullable="false" />
+    <Property Name="Volume" Type="Double" Nullable="false" />
     <Property Name="Price" Type="Double" Nullable="false" />
     <Property Name="RequestID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Request" Relationship="iDeliverModel.FK_InvoiceOfRequest" FromRole="Invoice" ToRole="Request" />
@@ -337,14 +337,14 @@
       <PropertyRef Name="StageID" />
     </Key>
     <Property Name="StageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="StageName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="StartPoint" Type="Int32" />
-    <Property Name="EndPoint" Type="Int32" />
-    <Property Name="BreakTime" Type="Time" Precision="0" />
-    <Property Name="Duration" Type="Double" />
-    <Property Name="Distance" Type="Double" />
-    <Property Name="Container" Type="Double" />
-    <Property Name="Price" Type="Double" />
+    <Property Name="StageName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="StartPoint" Type="Int32" Nullable="false" />
+    <Property Name="EndPoint" Type="Int32" Nullable="false" />
+    <Property Name="BreakTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="Duration" Type="Double" Nullable="false" />
+    <Property Name="Distance" Type="Double" Nullable="false" />
+    <Property Name="Container" Type="Double" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
     <NavigationProperty Name="RouteStages" Relationship="iDeliverModel.FK_RouteStage_Stage" FromRole="Stage" ToRole="RouteStage" />
     <NavigationProperty Name="Station" Relationship="iDeliverModel.FK_EndStationOfStage" FromRole="Stage" ToRole="Station" />
     <NavigationProperty Name="Station1" Relationship="iDeliverModel.FK_StartStationOfStage" FromRole="Stage" ToRole="Station" />
@@ -486,7 +486,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Assigning_Station">
-    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
     <End Role="Assigning" Type="iDeliverModel.Assigning" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">
@@ -714,7 +714,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EndStationOfStage">
-    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
     <End Role="Stage" Type="iDeliverModel.Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">
@@ -726,7 +726,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_StartStationOfStage">
-    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="0..1" />
+    <End Role="Station" Type="iDeliverModel.Station" Multiplicity="1" />
     <End Role="Stage" Type="iDeliverModel.Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Station">

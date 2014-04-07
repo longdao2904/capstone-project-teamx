@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4eb7887ab32c4663b494d86be8099211" Name="Diagram1">
+      <Diagram DiagramId="dc8167edd8cd4304bbe3b520c52b0716" Name="Diagram1">
         <EntityTypeShape EntityType="iDeliverModel.Account" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Assigning" Width="1.5" PointX="12.75" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="iDeliverModel.Coach" Width="1.5" PointX="3.75" PointY="2.375" IsExpanded="true" />

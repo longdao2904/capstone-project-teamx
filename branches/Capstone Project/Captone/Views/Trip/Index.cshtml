@@ -21,6 +21,9 @@
                     <li class=""><a href="#arrive-pills" data-toggle="tab" onclick="arriveTrip()">Đã đến trạm</a>
                     </li>
                 </ul>
+           
+                    <a data-toggle="modal" style="margin-left: 440px;margin-top: -65px;" data-target="#myModal" class="btn btn-outline btn-primary" onclick="CreateTrip()">Tạo chuyến mới</a>
+               
                 <div class="tab-content">
                     <div class="tab-pane fade active in" id="list-pills">
                         <br />
@@ -28,22 +31,16 @@
                             <div class="table-responsive">
                                 <table class="table display KeyTable dataTable" id="TableTrips" aria-describedby="example_info">
                                     <thead>
-                                        <p>
-                                            <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-outline btn-primary" onclick="CreateTrip()">Tạo chuyến mới</a>
-                                        </p>
                                         <tr>
                                             <th>Ngày đi 
                                             </th>
                                             <th>Tuyến                                            
                                             </th>
-                                            <th>
-                                                Xe chạy
+                                            <th>Xe chạy
                                             </th>
-                                            <th>
-                                                Giờ đi dự kiến
+                                            <th>Giờ đi dự kiến
                                             </th>
-                                            <th>
-                                                Giờ đến dự kiến
+                                            <th>Giờ đến dự kiến
                                             </th>
                                             <th></th>
                                         </tr>
