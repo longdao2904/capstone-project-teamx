@@ -12,24 +12,20 @@
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Account.Username)
+                            <th>Khách hàng
                             </th>
-                            <th class="sorting">
-                                @Html.DisplayNameFor(model => model.ManageFee.Fee)
+                            <th class="sorting">Giá
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DateRequest)
+                            <th>Ngày gửi yêu cầu
                             </th>
                             <th>Route
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
+                            <th>Trạng thái vận chuyển
                             </th>
                         </tr>
 
                         @foreach (var item in Model)
-            {
+                        {
                             <tr>
                                 @Html.HiddenFor(modelItem => item.RequestID)
                                 <td>
@@ -49,7 +45,7 @@
                                     @Html.DisplayFor(modelItem => item.DeliveryStatu.StatusName)
                                 </td>
                             </tr>
-            }
+                        }
                     </table>
                 </div>
             </div>
@@ -60,6 +56,6 @@
             <div class="panel-heading">Các chuyến xe chờ để vận chuyển hàng</div>
             <div class="panel-body"></div>
         </div>
-    </div>    
-    
+    </div>
+
 </div>

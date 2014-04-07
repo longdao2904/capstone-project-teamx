@@ -4,14 +4,13 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit account</h2>
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Account</legend>
+        <legend></legend>
 
 
         <strong>
@@ -61,5 +60,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </div>

@@ -4,13 +4,12 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Route</legend>
+        <legend></legend>
 
         @Html.HiddenFor(model => model.RouteID)
 
@@ -29,7 +28,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </div>
 
 @section Scripts {

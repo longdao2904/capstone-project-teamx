@@ -5,54 +5,42 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết</h2>
 
 <fieldset>
-    <legend>ManageFee</legend>
+    <legend></legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.FeeID)
-    </div>
-    <div class="display-field">
+        <strong>FeeID</strong>
         @Html.DisplayFor(model => model.FeeID)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Fee)
-    </div>
-    <div class="display-field">
+        <strong>Giá: </strong>
         @Html.DisplayFor(model => model.Fee)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.MinWeight)
-    </div>
-    <div class="display-field">
+        <strong>Khối lượng nhỏ nhất: </strong>
         @Html.DisplayFor(model => model.MinWeight)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.MaxWeight)
-    </div>
-    <div class="display-field">
+        <strong>Khối lượng lớn nhất: </strong>
         @Html.DisplayFor(model => model.MaxWeight)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.MinVolume)
-    </div>
-    <div class="display-field">
+        <strong>Thể tích nhỏ nhất: </strong>
         @Html.DisplayFor(model => model.MinVolume)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.MaxVolume)
-    </div>
-    <div class="display-field">
+        <strong>Thể tích lớn nhất: </strong>
         @Html.DisplayFor(model => model.MaxVolume)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </p>

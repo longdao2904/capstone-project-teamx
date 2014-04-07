@@ -87,6 +87,7 @@
     else
     {
     <fieldset>
+        <legend></legend>
         <div class="panel panel-primary">
             <div class="panel-heading">
                 @ViewBag.Title
@@ -97,14 +98,14 @@
 
                 <strong>
                     @Html.LabelFor(model => model.Username)
-                </div>
+                </strong>
                 <div class="editor-field">
                     <p>@Html.DisplayFor(model => model.Username)</p>
                 </div>
 
                 <strong>
                     @Html.LabelFor(model => model.DeliveryStatusID)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.DropDownList("DeliveryStatusID", String.Empty)
                     @Html.ValidationMessageFor(model => model.DeliveryStatusID)
@@ -112,7 +113,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.FromLocation)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.DropDownList("FromLocation", String.Empty)
                     @Html.ValidationMessageFor(model => model.FromLocation)
@@ -120,7 +121,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.ToLocation)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.DropDownList("ToLocation", String.Empty)
                     @Html.ValidationMessageFor(model => model.ToLocation)
@@ -128,7 +129,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.SenderAddress)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.SenderAddress)
                     @Html.ValidationMessageFor(model => model.SenderAddress)
@@ -136,7 +137,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.ReceiverAddress)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverAddress)
                     @Html.ValidationMessageFor(model => model.ReceiverAddress)
@@ -144,7 +145,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.SenderPhone)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.SenderPhone)
                     @Html.ValidationMessageFor(model => model.SenderPhone)
@@ -152,7 +153,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.ReceiverName)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverName)
                     @Html.ValidationMessageFor(model => model.ReceiverName)
@@ -160,7 +161,7 @@
 
                 <strong>
                     @Html.LabelFor(model => model.ReceiverPhone)
-                </div>
+                </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverPhone)
                     @Html.ValidationMessageFor(model => model.ReceiverPhone)

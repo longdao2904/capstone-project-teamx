@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết</h2>
 
 <fieldset>
-    <legend>Schedule</legend>
+    <legend></legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.CoachArrangement.ArrangeID)
@@ -31,6 +31,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ScheduleID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id=Model.ScheduleID }) |
+    @Html.ActionLink("quay lại danh sách", "Index")
 </p>

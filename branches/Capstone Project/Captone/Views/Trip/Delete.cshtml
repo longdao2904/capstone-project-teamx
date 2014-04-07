@@ -17,58 +17,42 @@
 
                         <div style="display: none" id="tripID">@Model.TripID</div>
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.EstimateDepartureTime)
-                        </div>
-                        <div class="display-field">
+                            <strong>Thời gian ước tính xuất bến: </strong>
                             @Html.DisplayFor(model => model.EstimateDepartureTime)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.EstimateArrivalTime)
-                        </div>
-                        <div class="display-field">
+                            <strong>Thời gian ước tính đến: </strong>
                             @Html.DisplayFor(model => model.EstimateArrivalTime)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.RealDepartureTime)
-                        </div>
-                        <div class="display-field">
+                            <strong>Thời gian thực tế xuất bến: </strong>>
                             @Html.DisplayFor(model => model.RealDepartureTime)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.RealArrivalTime)
-                        </div>
-                        <div class="display-field">
+                            <strong>Thời gian thực tế đến: </strong>
                             @Html.DisplayFor(model => model.RealArrivalTime)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.AvailableVolume)
-                        </div>
-                        <div class="display-field">
+                            <strong>Thể tích khả dụng: </strong>
                             @Html.DisplayFor(model => model.AvailableVolume)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.Date)
-                        </div>
-                        <div class="display-field">
+                            <strong>Ngày</strong>
                             @Model.Date.ToShortDateString()
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.Schedule.CoachArrangement.Route.RouteName)
-                        </div>
-                        <div class="display-field">
+                           <strong>Tuyến</strong>
                             @Html.DisplayFor(model => model.Schedule.CoachArrangement.Route.RouteName)
                         </div>
 
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
-                        </div>
-                        <div class="display-field">
+                        <strong>Xe</strong>
                             @Html.DisplayFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
                         </div>
                     </fieldset>

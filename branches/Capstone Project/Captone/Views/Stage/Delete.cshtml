@@ -4,71 +4,55 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn muốn xoá chặng này?</h3>
 <fieldset>
-    <legend>Stage</legend>
+    <legend></legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.StageName)
-    </div>
-    <div class="display-field">
+        <strong>Chặng: </strong>
         @Html.DisplayFor(model => model.StageName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station1.StationName)
-    </div>
-    <div class="display-field">
+        <strong>Trạm đầu: </strong>
         @Html.DisplayFor(model => model.Station1.StationName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Station.StationName)
-    </div>
-    <div class="display-field">
+        <strong>Trạm cuối: </strong>
         @Html.DisplayFor(model => model.Station.StationName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.BreakTime)
-    </div>
-    <div class="display-field">
+        <strong>Thời gian nghỉ: </strong>
         @Html.DisplayFor(model => model.BreakTime)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Duration)
-    </div>
-    <div class="display-field">
+        <strong>Thời gian đi: </strong>
         @Html.DisplayFor(model => model.Duration)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Distance)
-    </div>
-    <div class="display-field">
+        <strong>Khoảng cách: </strong>
         @Html.DisplayFor(model => model.Distance)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Container)
-    </div>
-    <div class="display-field">
+        <strong>Sức chứa: </strong>
         @Html.DisplayFor(model => model.Container)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Price)
-    </div>
-    <div class="display-field">
+        <strong>Giá: </strong>
         @Html.DisplayFor(model => model.Price)
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Xoá" />
+        |
+        @Html.ActionLink("Quay lại danh sách", "Index")
     </p>
 }

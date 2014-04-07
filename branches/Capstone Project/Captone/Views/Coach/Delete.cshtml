@@ -15,23 +15,15 @@
                     <legend>Bạn có muốn xóa xe @Model.NumberPlate khỏi hệ thống ?</legend>
                     <blockquote>
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.NumberPlate)
-                        </div>
-                        <div class="display-field">
+                            <strong>Biển số xe: </strong>
                             @Html.DisplayFor(model => model.NumberPlate)
-                        </div>
-
+                        </div>      
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.CoachType.Seats)
-                        </div>
-                        <div class="display-field">
-                            @Html.DisplayFor(model => model.CoachType.Seats)
-                        </div>
-
+                           <strong>Loại xe: </strong>
+                            @Html.DisplayFor(model => model.CoachType.Seats) chỗ ngồi
+                        </div>         
                         <div class="display-label">
-                            @Html.DisplayNameFor(model => model.CoachType.Capacity)
-                        </div>
-                        <div class="display-field">
+                            <strong>Sức chứa: </strong>
                             @Html.DisplayFor(model => model.CoachType.Capacity)
                         </div>
                     </blockquote>

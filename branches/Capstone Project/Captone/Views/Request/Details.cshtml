@@ -14,30 +14,22 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <blockquote>
-                            <div class="display-label">
-                                @Html.DisplayNameFor(model => model.Account.Username)
-                            </div>
-                            <div class="display-field">
+                            < <div class="display-label">
+                            <strong>Khách hàng: </strong>
                                 @Html.DisplayFor(model => model.Account.Username)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.SenderAddress)
-                            </div>
-                            <div class="display-field">
+                            <strong>Địa chỉ người gửi: </strong>
                                 @Html.DisplayFor(model => model.SenderAddress)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.SenderPhone)
-                            </div>
-                            <div class="display-field">
+                            <strong>Điện thoại người gửi: </strong>
                                 @Html.DisplayFor(model => model.SenderPhone)
                             </div>
                             <br />
                             <br />
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.DeliveryStatu.StatusName)
-                            </div>
-                            <div class="display-field">
+                            <strong>Trạng thái vận chuyển</strong>
                                 @Html.DisplayFor(model => model.DeliveryStatu.StatusName)
                             </div>
                         </blockquote>
@@ -45,63 +37,43 @@
                     <div class="col-lg-6">
                         <blockquote>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.ReceiverName)
-                            </div>
-                            <div class="display-field">
+                            <strong>Tên người nhận: </strong>
                                 @Html.DisplayFor(model => model.ReceiverName)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.ReceiverAddress)
-                            </div>
-                            <div class="display-field">
+                            <strong>Địa chỉ người nhận: </strong>
                                 @Html.DisplayFor(model => model.ReceiverAddress)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.ReceiverPhone)
-                            </div>
-                            <div class="display-field">
+                            <strong>điện thoại người nhận: </strong>
                                 @Html.DisplayFor(model => model.ReceiverPhone)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.ManageFee.Fee)
-                            </div>
-                            <div class="display-field">
+                            <strong>Giá: </strong>
                                 @Html.DisplayFor(model => model.ManageFee.Fee)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.EstimateWeight)
-                            </div>
-                            <div class="display-field">
+                            <strong>Khối lượng ước tính: </strong>
                                 @Html.DisplayFor(model => model.EstimateWeight)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.EstimateVolume)
-                            </div>
-                            <div class="display-field">
+                            <strong>Thể tích ước tính: </strong>
                                 @Html.DisplayFor(model => model.EstimateVolume)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.DateRequest)
-                            </div>
-                            <div class="display-field">
+                            <strong>Ngày gửi yêu cầu: </strong>
                                 @Html.DisplayFor(model => model.DateRequest)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.Description)
-                            </div>
-                            <div class="display-field">
+                            <strong>Ghi chú: </strong>
                                 @Html.DisplayFor(model => model.Description)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.Station.StationName)
-                            </div>
-                            <div class="display-field">
+                            <strong>Trạm đầu: </strong>
                                 @Html.DisplayFor(model => model.Station.StationName)
                             </div>
                             <div class="display-label">
-                                @Html.DisplayNameFor(model => model.Station1.StationName)
-                            </div>
-                            <div class="display-field">
+                            <strong>Trạm cuối: </strong>
                                 @Html.DisplayFor(model => model.Station1.StationName)
                             </div>
                         </blockquote>

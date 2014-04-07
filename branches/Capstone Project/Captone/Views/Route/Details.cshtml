@@ -4,19 +4,15 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <fieldset>
-    <legend>Route</legend>
+    <legend>Chi tiết tuyến</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RouteName)
-    </div>
-    <div class="display-field">
+    <strong>Tuyến: </strong>
         @Html.DisplayFor(model => model.RouteName)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.RouteID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id=Model.RouteID }) |
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </p>

@@ -20,17 +20,13 @@
                     <table class="table display KeyTable dataTable" id="SchedulesTbl" aria-describedby="example_info">
                         <thead>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CoachArrangement.Route.RouteName)
+                                <th>Tuyến
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CoachArrangement.Coach.NumberPlate)
+                                <th>Biển số
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+                                <th>Thời gian ước tính xuất bến
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+                                <th>Thời gian ước tính đến
                                 </th>
                                 <th></th>
                             </tr>
@@ -121,7 +117,8 @@
         height: 100%;
         overflow: scroll;
     }
+
     .modal-title {
-        font-weight:bolder;
+        font-weight: bolder;
     }
 </style>

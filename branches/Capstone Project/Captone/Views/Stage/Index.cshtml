@@ -11,65 +11,50 @@
 </p>
 <table>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StageName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Station1.StationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Station.StationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BreakTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Duration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Container)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
+        <th>Chặng        </th>
+        <th>Trạm đầu        </th>
+        <th>Trạm cuối        </th>
+        <th>Thời gian nghỉ        </th>
+        <th>Thời gian đến        </th>
+        <th>Khoảng cách        </th>
+        <th>Sức chứa        </th>
+        <th>Giá        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StageName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Station1.StationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Station.StationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BreakTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Duration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Container)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StageID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StageID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StageID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Station1.StationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Station.StationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BreakTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Container)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.StageID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.StageID }) |
+            @Html.ActionLink("Xoá", "Delete", new { id = item.StageID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -4,22 +4,19 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có muốn xoá tuyến?</h3>
 <fieldset>
-    <legend>Route</legend>
+    <legend></legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.RouteName)
-    </div>
-    <div class="display-field">
+    <strong>Tuyến: </strong>
         @Html.DisplayFor(model => model.RouteName)
     </div>
 </fieldset>
+<br />
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Xoá" /> |
+        @Html.ActionLink("Quay lại danh sách", "Index")
     </p>
 }

@@ -21,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.RouteName)
+                                    <strong>Tuyến</strong>
                                 </th>
                                 <th></th>
                             </tr>
@@ -34,9 +34,9 @@
                                         @Html.DisplayFor(modelItem => item.RouteName)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.RouteID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.RouteID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.RouteID })
+                                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.RouteID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.RouteID }) |
+            @Html.ActionLink("Xoá", "Delete", new { id = item.RouteID })
                                     </td>
                                 </tr>
                             }

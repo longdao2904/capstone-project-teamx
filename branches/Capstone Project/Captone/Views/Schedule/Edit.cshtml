@@ -4,19 +4,17 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Schedule</legend>
+        <legend></legend>
 
         @Html.HiddenFor(model => model.ScheduleID)
 
         <strong>
             Tuyến
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.DropDownList("RouteID", String.Empty)
             @Html.ValidationMessageFor(model => model.CoachArrangement.RouteID)
@@ -24,7 +22,7 @@
 
         <strong>
             Xe
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.DropDownList("Coaches", new List<SelectListItem>())
             @Html.ValidationMessageFor(model => model.CoachArrangement.CoachID)
@@ -40,7 +38,7 @@
 
         <strong>
             @Html.LabelFor(model => model.EstimateDepartureTime)
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.EditorFor(model => model.EstimateDepartureTime)
             @Html.ValidationMessageFor(model => model.EstimateDepartureTime)
@@ -48,20 +46,20 @@
 
         <strong>
             @Html.LabelFor(model => model.EstimateArrivalTime)
-        </div>
+        </strong>
         <div class="editor-field">
             @Html.EditorFor(model => model.EstimateArrivalTime)
             @Html.ValidationMessageFor(model => model.EstimateArrivalTime)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Lưu" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </div>
 
 @section Scripts {
