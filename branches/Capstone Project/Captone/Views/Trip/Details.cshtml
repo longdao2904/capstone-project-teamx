@@ -3,6 +3,7 @@
 @{
     Layout = null;
 }
+@Model.TripID
 <div class="row">
     <div id="requests"></div>
 </div>
@@ -30,7 +31,6 @@
             <button type="button" class="btn btn-danger">Xóa chuyến này </button>
         </a>
     }
-    <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
 </p>
 <script>
     window.onload = loadRequest();
@@ -48,22 +48,24 @@
     }
 
     function arrived() {
-        var tripID = @Model.TripID.ToString()
+        var tripID = @Model.TripID.ToString();
+        var stationID = @int.Parse(Session["StationID"].ToString())
         $.ajax({
             url: "/Trip/ArrivedRequest",
             type: "Post",
-            data: { tripID: tripID },
+            data: { tripID: tripID, stationID: stationID },
             success: function (result) {
             }
         });
     }
 
     function departed() {
-        var tripID = @Model.TripID.ToString()
+        var tripID = @Model.TripID.ToString();
+        var stationID = @int.Parse(Session["StationID"].ToString())
         $.ajax({
             url: "/Trip/DepartedRequest",
             type: "Post",
-            data: { tripID: tripID },
+            data: { tripID: tripID, stationID: stationID },
             success: function (result) {
             }
         });

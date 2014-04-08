@@ -1,12 +1,9 @@
-﻿using System.Linq.Expressions;
-using System.Web.Services;
-using Captone.Models;
+﻿using Captone.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Objects.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 namespace Captone.Controllers
 {
     public class HomeController : Controller

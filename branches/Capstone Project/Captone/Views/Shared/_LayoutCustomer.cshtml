@@ -44,15 +44,16 @@
                 @if (Username != null)
                 {
                     string username = Username.ToUpper();
-                    <p class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
+                    <p class="nav navbar-top-links navbar-right" style="margin-top: 1%; color: white">
                         <i class="fa fa-user fa-fw"></i>@username
-                        <a href="/Account/LogOff">| <i class="fa fa-sign-out"></i>Đăng xuất</a>
+                        <br />
+                        <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                     </p>
                 }
                 else
                 {
                     <p class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
-                        <a data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()" style="color: white"><i class="fa fa-sign-in fa-fw" ></i>Đăng nhập</a>
+                        <a data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()" style="color: white"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
                     </p>
                 }
             </div>
@@ -239,7 +240,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <i class="fa fa-map-marker fa-fw"></i>Bản đồ trạm và hành trình
                         </div>

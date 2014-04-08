@@ -398,22 +398,23 @@ namespace Captone.Controllers
         // Update assigned requests of departed trip after click button 'Xe đã chạy'
         [HttpPost]
         [WebMethod]
-        public void DepartedRequest(int tripID)
+        public void DepartedRequest(int tripID, int stationID)
         {
             List<Assigning> _assignings = db.Assignings.ToList();
             List<Request> listRequest = new List<Request>();
+            var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
             // list of requestIDs which departed
             var tmpRequestIDs = new List<int>();
             foreach (var assigning in _assignings)
             {
-                if (assigning.TripID == tripID)
+                var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
+                if (trip.Route.RouteStages.First().Stage.StartPoint == stationID)
                 {
                     // get list of request id that related to departed trip
-                    tmpRequestIDs.Add(assigning.RequestID);
+                    tmpRequestIDs.Add(asg.RequestID);
                 }
             }
             // update real departed time and status of trip
-            var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
             trip.RealDepartureTime = DateTime.Now;
             trip.Status = "Đang chạy";
             db.Entry(trip).State = EntityState.Modified;
@@ -435,39 +436,51 @@ namespace Captone.Controllers
         // Update assigned requests of arrived trip after click button 'Xe đã đến trạm'
         [HttpPost]
         [WebMethod]
-        public void ArrivedRequest(int tripID)
+        public void ArrivedRequest(int tripID, int stationID)
         {
             List<Assigning> _assignings = db.Assignings.ToList();
             List<Request> listRequest = new List<Request>();
+            var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
             // list of requestIDs which arrived
             var tmpRequestIDs = new List<int>();
             foreach (var assigning in _assignings)
             {
-                if (assigning.TripID == tripID)
+                var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
+                // endpoint of stage = stationID : request arrived endstation
+                if (asg.StopStation == stationID && trip.Route.RouteStages.Last().Stage.EndPoint == stationID)
                 {
                     // get list of request id that related to arrived trip
-                    tmpRequestIDs.Add(assigning.RequestID);
+                    tmpRequestIDs.Add(asg.RequestID);
+                    //update the status of all request in the list
+                    foreach (var i in tmpRequestIDs)
+                    {
+                        Request request = db.Requests.Where(r => r.RequestID == i).FirstOrDefault();
+                        listRequest.Add(request);
+                        foreach (var rq in listRequest)
+                        {
+                            rq.ArrivedDate = DateTime.Now.Date;
+                            rq.DeliveryStatusID = 5;
+                            db.Entry(rq).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    // update real arrival time of trip
+                    trip.RealArrivalTime = DateTime.Now;
+                    trip.Status = "Đã đến đích";
+                    db.Entry(trip).State = EntityState.Modified;
+                    db.SaveChanges();  
                 }
-            }
-            // update real arrival time of trip
-            var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
-            trip.RealArrivalTime = DateTime.Now;
-            trip.Status = "Đã đến đích";
-            db.Entry(trip).State = EntityState.Modified;
-            db.SaveChanges();
-            //update the status of all request in the list
-            foreach (var i in tmpRequestIDs)
-            {
-                Request request = db.Requests.Where(r => r.RequestID == i).FirstOrDefault();
-                listRequest.Add(request);
-                foreach (var rq in listRequest)
+                // stop station from assigning = stationID : request arrived stop station
+                else if (asg.StopStation == stationID)
                 {
-                    rq.ArrivedDate = DateTime.Now.Date;
-                    rq.DeliveryStatusID = 5;
-                    db.Entry(rq).State = EntityState.Modified;
+                    // update real arrival time of trip
+                    trip.RealArrivalTime = DateTime.Now;
+                    trip.Status = "Đã đến đích";
+                    db.Entry(trip).State = EntityState.Modified;
                     db.SaveChanges();
-                }
+                } 
             }
+                      
         }
     }
 }
