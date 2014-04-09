@@ -22,9 +22,8 @@
                 <th>Ngày đến
                 </th>
                 <th>
-                    <input type="checkbox" id="selectall" value="Select All" />
                 </th>
-                <th></th>
+                <th style="display: none"></th>
             </tr>
         </thead>
         <tbody>
@@ -44,57 +43,69 @@
                         @item.Station.StationName
                     </td>
                     <td>
-                        @item.DateRequest
+                        @item.DateRequest.ToShortDateString()
                     </td>
                     <td>
                         @item.Station1.StationName
                     </td>
                     <td>
-                        @item.ArrivedDate
+                        @item.ArrivedDate.Value.ToShortDateString()
                     </td>
                     <td>
-                        <input type="checkbox" name="chk" class="case" />
+                        <a onclick="returnPackage(@item.RequestID)" class="btn btn-success" href="/Assigning/ExpiredRequest?stationID=@stationID">Trả hàng</a>
+                        <a onclick="cancelPackage(@item.RequestID)" class="btn btn-danger" href="/Assigning/ExpiredRequest?stationID=@stationID">Hủy bỏ</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
     <p>
-        <a onclick="returnPackage()" class="btn btn-success" href="/Assigning/ExpiredRequest?stationID=@stationID">Trả hàng</a>
+        
     </p>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#selectall').click(function (event) {  //on click 
-            if (this.checked) { // check select status
-                $('.case').each(function () { //loop through each checkbox
-                    this.checked = true;  //select all checkboxes with class "checkbox1"  
-                });
-            } else {
-                $('.case').each(function () { //loop through each checkbox
-                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
-                });
-            }
-        });
+    //$(document).ready(function () {
+    //    $('#selectall').click(function (event) {  //on click 
+    //        if (this.checked) { // check select status
+    //            $('.case').each(function () { //loop through each checkbox
+    //                this.checked = true;  //select all checkboxes with class "checkbox1"  
+    //            });
+    //        } else {
+    //            $('.case').each(function () { //loop through each checkbox
+    //                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+    //            });
+    //        }
+    //    });
 
-    });
+    //});
 
-    // get checked requests id
-    function getRequests() {
-        var request = [];
-        $('[name="chk"]:checked').each(function () {
-            var id = document.getElementById('rqID').innerText.trim();
-            request.push(id);
-        });
-        return request;
-    }
-
-    function returnPackage() {
-        var requests = getRequests();
+    //// get checked requests id
+    //function getRequests() {
+    //    var request = [];
+    //    $('[name="chk"]:checked').each(function () {
+    //        var id = document.getElementById('rqID').innerText.trim();
+    //        request.push(id);
+    //    });
+    //    return request;
+    //}
+    // to return package
+    function returnPackage(id) {
         $.ajax({
             url: "/Request/Return",
             type: "POST",
-            data: JSON.stringify({ listRequest: requests }),
+            data: JSON.stringify({ requestID: id }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+            }
+        });
+    }
+    // to cancel expired package
+    function cancelPackage(id) {
+        $.ajax({
+            url: "/Request/Cancel",
+            type: "POST",
+            data: JSON.stringify({ requestID: id }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {

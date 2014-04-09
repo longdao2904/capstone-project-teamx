@@ -50,12 +50,12 @@ namespace Captone.Controllers
             //}
             //else
             //{
-                Trip trip = db.Trips.Find(id);
-                if (trip == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(trip);
+            Trip trip = db.Trips.Find(id);
+            if (trip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(trip);
             //}
         }
 
@@ -70,7 +70,8 @@ namespace Captone.Controllers
             //{
 
             ViewData["RouteID"] = (from p
-                                       in db.RouteStages join l in db.Stages on p.StageID equals l.StageID
+                                       in db.RouteStages
+                                   join l in db.Stages on p.StageID equals l.StageID
                                    where p.StageIndex == 1 & p.Stage.StartPoint == stationID
                                    select new SelectListItem()
                                               {
@@ -78,7 +79,7 @@ namespace Captone.Controllers
                                                   Value = SqlFunctions.StringConvert((double)p.RouteID)
                                               }
                                   ).ToList();
-                return View();
+            return View();
             //}
             //else
             //{
@@ -113,7 +114,7 @@ namespace Captone.Controllers
                         t.CoachID = trip.CoachID;
                         t.ScheduleID = trip.ScheduleID;
                         // Estimate volume = Capacity of coach run this trip * max volume level of route where trip run
-                        
+
                         double capacity = schedule.CoachArrangement.Coach.CoachType.Capacity;
                         double container = schedule.CoachArrangement.Route.Container.Value;
                         t.EstimateVolume = capacity * container;
@@ -145,14 +146,14 @@ namespace Captone.Controllers
             //}
             //else
             //{
-                Trip trip = db.Trips.Find(id);
-                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-                if (trip == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(trip);
+            Trip trip = db.Trips.Find(id);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
+            if (trip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(trip);
             //}
         }
 
@@ -168,15 +169,15 @@ namespace Captone.Controllers
             //}
             //else
             //{
-                ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-                ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-                if (ModelState.IsValid)
-                {
-                    db.Entry(trip).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View(trip);
+            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
+            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
+            if (ModelState.IsValid)
+            {
+                db.Entry(trip).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(trip);
             //}
         }
 
@@ -191,12 +192,12 @@ namespace Captone.Controllers
             //}
             //else
             //{
-                Trip trip = db.Trips.Find(id);
-                if (trip == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(trip);
+            Trip trip = db.Trips.Find(id);
+            if (trip == null)
+            {
+                return HttpNotFound();
+            }
+            return View(trip);
             //}
         }
 
@@ -405,14 +406,11 @@ namespace Captone.Controllers
             var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
             // list of requestIDs which departed
             var tmpRequestIDs = new List<int>();
-            foreach (var assigning in _assignings)
+            var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
+            if (trip.Route.RouteStages.First().Stage.StartPoint == stationID)
             {
-                var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
-                if (trip.Route.RouteStages.First().Stage.StartPoint == stationID)
-                {
-                    // get list of request id that related to departed trip
-                    tmpRequestIDs.Add(asg.RequestID);
-                }
+                // get list of request id that related to departed trip
+                tmpRequestIDs.Add(asg.RequestID);
             }
             // update real departed time and status of trip
             trip.RealDepartureTime = DateTime.Now;
@@ -443,11 +441,19 @@ namespace Captone.Controllers
             var trip = db.Trips.Where(t => t.TripID == tripID).FirstOrDefault();
             // list of requestIDs which arrived
             var tmpRequestIDs = new List<int>();
-            foreach (var assigning in _assignings)
+            var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
+            var listRq = new List<int>();
+            listRq = (from a in db.Assignings where a.TripID == tripID select a.RequestID).ToList();
+            var listREQUEST = new List<Request>();
+            foreach (var id in listRq)
             {
-                var asg = _assignings.Where(a => a.TripID == tripID).FirstOrDefault();
-                // endpoint of stage = stationID : request arrived endstation
-                if (asg.StopStation == stationID && trip.Route.RouteStages.Last().Stage.EndPoint == stationID)
+                Request req = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
+                listREQUEST.Add(req);
+            }
+            // endpoint of stage = stationID : request arrived endstation
+            foreach (var item in listREQUEST)
+            {
+                if (asg.StopStation == stationID && item.ToLocation == stationID)
                 {
                     // get list of request id that related to arrived trip
                     tmpRequestIDs.Add(asg.RequestID);
@@ -468,7 +474,7 @@ namespace Captone.Controllers
                     trip.RealArrivalTime = DateTime.Now;
                     trip.Status = "Đã đến đích";
                     db.Entry(trip).State = EntityState.Modified;
-                    db.SaveChanges();  
+                    db.SaveChanges();
                 }
                 // stop station from assigning = stationID : request arrived stop station
                 else if (asg.StopStation == stationID)
@@ -478,9 +484,8 @@ namespace Captone.Controllers
                     trip.Status = "Đã đến đích";
                     db.Entry(trip).State = EntityState.Modified;
                     db.SaveChanges();
-                } 
+                }
             }
-                      
         }
     }
 }

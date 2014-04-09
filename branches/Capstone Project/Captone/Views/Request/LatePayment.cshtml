@@ -27,8 +27,8 @@
                     <td>@request.ReceiverName</td>
                     <td>@request.ReceiverAddress</td>
                     <td>@request.SenderPhone</td>
-                    <td>@request.DateRequest</td>
-                    <td>@request.DateRequest.AddDays(1)</td>
+                    <td>@request.DateRequest.ToShortDateString()</td>
+                    <td>@request.DateRequest.AddDays(1).ToShortDateString()</td>
                     <td>
                         <a href="/Request/LatePayment?stationID=@stationId">
                             <button onclick="Update()" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Gia hạn thanh toán"><i class="fa fa-link"></i></button>
