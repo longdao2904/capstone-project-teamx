@@ -70,13 +70,12 @@
                     </li>
                     <li>
                         <div class="dis">
-                            @if (Username == null)
-                            {
+                      
                                 <div class="rectangle">
-                                    <a data-toggle="modal" style="color: white" data-target="#loginModal" onclick="LoginModal()"><i class="fa fa-truck fa-2x">Chuyển phát</i></a>
+                                    <a style="color: white" href="/Home/SentRequestForm" ><i class="fa fa-truck fa-2x">Chuyển phát</i></a>
                                 </div>
                                 <div class="triangle-r"></div>
-                            }
+                            
                         </div>
                         @if (Username != null && UserRole == "Customer")
                         {

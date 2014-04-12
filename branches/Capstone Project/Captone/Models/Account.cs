@@ -17,7 +17,6 @@ namespace Captone.Models
         public Account()
         {
             this.Comments = new HashSet<Comment>();
-            this.Notifications = new HashSet<Notification>();
             this.Ratings = new HashSet<Rating>();
             this.Requests = new HashSet<Request>();
         }
@@ -27,11 +26,10 @@ namespace Captone.Models
         public string BackupPassword { get; set; }
         public string Role { get; set; }
         public string Email { get; set; }
-        public Nullable<bool> BannedStatus { get; set; }
-        public Nullable<int> StationID { get; set; }
+        public bool BannedStatus { get; set; }
+        public int StationID { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
         public virtual Station Station { get; set; }

@@ -48,11 +48,8 @@ namespace Captone.Controllers
                         }
                         else
                         {
-                            if ((string)Session["UserRole"] == "Customer")
-                            {
-                                return RedirectToAction("SentRequestForm", "Home");
-                            }
-                            else if ((string)Session["UserRole"] == "Staff")
+                           
+                             if ((string)Session["UserRole"] == "Staff")
                             {
                                 return RedirectToAction("Index", "Request");
                             }

@@ -22,7 +22,7 @@ namespace Capstone.Test
                 {
                     new Request{RequestID = 1,
                                 FromLocation = 1,
-                                ToLocation = 7,
+                                ToLocation = 6,
                                 DateRequest = now,
                                 DeliveryStatusID = 2},
                     new Request{RequestID = 2,
@@ -49,57 +49,51 @@ namespace Capstone.Test
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now,
-                             RouteID = 1,
+                             ScheduleID = 1,
                              IsActive = true,
                     },
                     new Trip{TripID = 2,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddHours(5),
+                             EstimateDepartureTime = departure.AddHours(5),
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now.AddHours(3),
-                             RouteID = 2,
+                             ScheduleID = 2,
                              IsActive = true,
                     },
                     new Trip{TripID = 3,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddHours(10),
+                             EstimateDepartureTime = departure.AddHours(10),
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now.AddHours(6),
-                             RouteID = 3,
+                             ScheduleID = 3,
                              IsActive = true,
                     },
                     new Trip{TripID = 4,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddHours(15),
+                             EstimateDepartureTime = departure.AddHours(15),
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now.AddHours(9),
-                             RouteID = 4,
+                             ScheduleID = 4,
                              IsActive = true,
                     },
                     new Trip{TripID = 5,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddHours(20),
+                             EstimateDepartureTime = departure.AddHours(20),
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now.AddHours(12),
-                             RouteID = 5,
+                             ScheduleID = 5,
                              IsActive = true,
                     },
                     new Trip{TripID = 6,
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddHours(25),
+                             EstimateDepartureTime = departure.AddHours(25),
                              EstimateVolume = 5.0,
                              AvailableVolume = 5.0,
-                             Date = now.AddHours(15),
-                             RouteID = 6,
+                             ScheduleID = 6,
                              IsActive = true,
                     },
                 };
@@ -246,10 +240,43 @@ namespace Capstone.Test
                                 Weight = 2,
                                 Price = 5.6},
                 };
-
+            var schedules = new List<Schedule>
+                {
+                    new Schedule()
+                        {
+                            ScheduleID = 1,
+                            RouteID = 1,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 2,
+                            RouteID = 2,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 3,
+                            RouteID = 3,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 4,
+                            RouteID = 4,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 5,
+                            RouteID = 5,
+                        },
+                        new Schedule()
+                        {
+                            ScheduleID = 6,
+                            RouteID = 6,
+                        },
+                };
             //setup system under test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object,
-                                           _request.Object, _assigning.Object, _stage.Object, _routeStage.Object);
+                                           _request.Object, _assigning.Object, _stage.Object, 
+                                           _routeStage.Object, _schedules.Object);
 
             _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
             _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
@@ -257,6 +284,7 @@ namespace Capstone.Test
             _stage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Stage>(stages));
             _trip.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Trip>(trips));
             _routeStage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<RouteStage>(routeStage));
+            _schedules.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Schedule>(schedules));
 
             //test it
             var result = sut.Assigning(requests);

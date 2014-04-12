@@ -21,9 +21,9 @@
             <br />
             <strong>Tuyến
             </strong>
-            <div class="editor-field">
+            <div class="editor-field" id="change">
                 @Html.DropDownList("RouteID", ViewData["RouteID"] as List<SelectListItem>)
-                @Html.ValidationMessageFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
+                @Html.ValidationMessageFor(model => model.Schedule.Coach.NumberPlate)
             </div>
             <br />
             <p>
@@ -49,6 +49,7 @@
     function initialize() {
         $("input").addClass("form-control");
         $("select").addClass("form-control");
+        document.getElementById("change").selectedIndex = -1;
         DatePicker();
     }
 
@@ -102,12 +103,12 @@
 
     // Sent schedule objects to controller
     function SentObject() {
-        var trips = getScheduleObject();
+        var schedules = getScheduleObject();
         var date = $('#datepicker').val();
         $.ajax({
             url: "/Trip/Create",
             type: "POST",
-            data: JSON.stringify({ trips: trips, date : date }),
+            data: JSON.stringify({ schedules: schedules, date: date }),
             contentType: "application/json",
             dataType: "json",
             success: function (result) {

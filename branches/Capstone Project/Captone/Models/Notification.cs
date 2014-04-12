@@ -14,12 +14,10 @@ namespace Captone.Models
     
     public partial class Notification
     {
-        public int ID { get; set; }
-        public string Username { get; set; }
+        public int NotificationID { get; set; }
         public int StationID { get; set; }
         public bool isView { get; set; }
     
-        public virtual Account Account { get; set; }
         public virtual Station Station { get; set; }
     }
 }

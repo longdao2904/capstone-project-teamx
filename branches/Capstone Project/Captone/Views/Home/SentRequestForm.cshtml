@@ -26,7 +26,9 @@
                         <div class="each-field">
                             Tên Người Gửi
                             <br />
-                            <input type="text" name="Username"  value="@username" class="form-control" autofocus/>
+                       
+                                <input type="text" name="Username"  value="@username" class="form-control" autofocus/>
+
                         </div>
 
                         <div class="each-field">
@@ -71,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7" style="margin-left: 50%;margin-top: -475px;">
+        <div class="col-md-7" style="margin-left: 50%; margin-top: -475px;">
             <div>
                 <!-- Only required for left/right tabs -->
                 <ul class="nav nav-tabs">
@@ -83,31 +85,36 @@
                         <div class="each-field">
                             Khối Lượng Ước Tính (kg)
                             <br />
-                            <select id="Weigh" class="form-control">
+                            <select id="Weigh" name="EstimateWeight"class="form-control">
                                 <option value="0"></option>
                                 @foreach (var item in Model)
                                 {   
-                                    <option value="@item.FeeID">@item.MinWeight - @item.MaxWeight</option>
+                                    <option value="@item.MinWeight - @item.MaxWeight">@item.MinWeight - @item.MaxWeight</option>
                         
                                 }
                             </select>
                             <input type="text" id="FeeID" name="FeeID" value="" style="display: none" />
-                            <input type="text" id="EstimateWeight" name="EstimateWeight" value="" style="display: none" />
-                            <input type="text" id="EstimateVolume" name="EstimateVolume" value="" style="display: none" />
+                          
                             <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
                             <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
                         </div>
                         <div class="each-field">
-                            Thể Tính Ước Tính
-                            <br />
-                            <select name="" id="Volume" class="form-control">
-                                <option></option>
-                                @foreach (var item in Model)
-                                {
-                                    <option value="@item.FeeID">@item.MinVolume - @item.MaxVolume </option>
-                         
-                                }
-                            </select>
+                            <p>Rộng (dcm)</p>
+                            <input type="text" name="Width" class="form-control" id="Width" style="width: 80px;" />
+                            <div class="heightClass">
+                                <p>Cao (dcm)</p>
+                                <input type="text" name="Height" class="form-control" id="Height" style="width: 80px;" />
+                            </div>
+                            <div class="lengthClass">
+                                <p>Dài (dcm)</p>
+                                <input type="text" name="Length" class="form-control" id="Length" onchange="checkPackage()" style="width: 80px;" />
+                            </div>
+                        </div>
+                        <div id="check"></div>
+                        <div class="each-field">
+                            Thể Tính Ước Tính (dcm3)
+                                <br />
+                            <input type="text" class="form-control" name="EstimateVolume" id="Volume" />
                         </div>
                         <div style="margin-top: 15px;">
                             <div id="SuggestFee">
@@ -115,7 +122,7 @@
                         </div>
                         <div class="each-field">
                             Phương thức thanh toán
-                            <br />
+                                <br />
                             <select name="TypeOfPayment" id="" class="form-control">
                                 <option></option>
                                 <option value="Tiền mặt">Tiền mặt</option>
@@ -128,7 +135,7 @@
         </div>
 
         <div class="button-location">
-            <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
+            <button type="submit" class="btn btn-lg btn-success"  id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
         </div>
 
     </form>
@@ -138,7 +145,39 @@
 
 <script type="text/javascript">
 
-
+    function checkPackage() {
+        var length = document.getElementById("Length").value;
+        var height = document.getElementById("Height").value;
+        var width = document.getElementById("Width").value;
+        var volume = length * height * width;
+        $.ajax({
+            url: "/Home/checkPackage",
+            type: "POST",
+            data: { length: length, height: height, width: width },
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                    getVolume(volume);
+                 
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
+    function getVolume(volume) {
+        $.ajax({
+            url: "/Home/getVolume",
+            type: "POST",
+            data: { volume: volume },
+            success: function (result) {
+                var disVolume = result.MinVolume + " - " + result.MaxVolume;
+                $("#Volume").val(disVolume);
+                CalculateFee();
+            }
+        });
+    }
     function feeChange() {
         var e = document.getElementById("Weigh");
         var v = document.getElementById("Volume");
@@ -160,19 +199,15 @@
         } else {
             document.getElementById("map").innerHTML = "";
         }
-
-
     }
 
     function showGoogleMap() {
         var bulb = document.getElementById("bulb2").checked;
         if (bulb) {
             showMap();
-
         } else {
             document.getElementById("hide").innerHTML = "";
         }
-
     }
     function showLocation() {
         var bulb = document.getElementById("bulb3").checked;
@@ -194,10 +229,9 @@
             $('.bub-container').show();
 
         } if (address == "") {
-            $('.bub-container').hide();
-            document.getElementById("bulb").checked = false;
-
-        }
+              $('.bub-container').hide();
+              document.getElementById("bulb").checked = false;
+          }
     }
 
     function SuggestToLocation() {
@@ -206,15 +240,15 @@
             ToLocationMaker();
             $('.bub-container3').show();
         } if (address == "") {
-            $('.bub-container3').hide();
-            document.getElementById("bulb3").checked = false;
+              $('.bub-container3').hide();
+              document.getElementById("bulb3").checked = false;
 
-        }
+          }
 
     }
-    $(function () {
-        SetWeigh();
-    });
+    //$(function () {
+    //    SetWeigh();
+    //});
     function showMap() {
         var sender = document.getElementById('AddressOfSender').value;
         var receiver = document.getElementById('AddressOfReceiver').value;
@@ -256,20 +290,20 @@
     function hid() {
         $('.pop').hide();
     }
-    function SetWeigh() {
-        var weigh = document.getElementById("Weigh");
-        weigh.onchange = function () {
-            SetVolume(this);
-            CalculateFee();
-            feeChange();
-         
+    //function SetWeigh() {
+    //    var weigh = document.getElementById("Weigh");
+    //    weigh.onchange = function () {
+    //        SetVolume(this);
+    //        CalculateFee();
+    //        feeChange();
 
-        };
-    }
-    function SetVolume(weigh) {
-        var volume = document.getElementById("Volume");
-        volume.value = weigh.value;
-    }
+
+    //    };
+    //}
+    //function SetVolume(weigh) {
+    //    var volume = document.getElementById("Volume");
+    //    volume.value = weigh.value;
+    //}
     function getPriceRoute() {
         var priceRoute;
         var Sender = document.getElementById("AddressOfSender").value;
@@ -298,7 +332,7 @@
             success: function (result) {
 
                 priceRoute = result[0].Price;
-            
+
             }
         });
         return priceRoute;
@@ -306,19 +340,20 @@
     function CalculateFee() {
         var select = document.getElementById("Weigh");
         var options = select.options[select.selectedIndex].text;
-        var select1 = document.getElementById("Volume");
-        var options1 = select1.options[select1.selectedIndex].text;
-        var weigh = options.split(" - ");
-        var volume = options1.split(" - ");
+        var select1 = document.getElementById("Volume").value;
       
+        var weigh = options.split(" - ");
+        var volume = select1.split(" - ");
+
         $.ajax({
             url: "/Home/CalculateFee",
             type: "Post",
-            data: { minWeight: weigh[0], maxWeight: weigh[1] },
+            data: { minVolume: volume[0], maxVolume: volume[1] },
             success: function (result) {
                 var fee = result.split(" = ");
-                var suggestprice =  +fee[1].substring(0, fee[1].length - 1);
+                var suggestprice = +fee[1].split(",")[0];
                 $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + suggestprice + "VND" + "</strong>" + "</p>" + "</div>");
+                $("#FeeID").val(fee[1][0]);
             }
         });
     }

@@ -1,5 +1,5 @@
-2014/04/03-23:40:42.672 10fc Recovering log #41
-2014/04/03-23:40:42.673 10fc Level-0 table #44: started
-2014/04/03-23:40:42.816 10fc Level-0 table #44: 69902 bytes OK
-2014/04/03-23:40:42.881 10fc Delete type=0 #41
-2014/04/03-23:40:42.882 10fc Delete type=3 #39
+2014/04/11-10:03:38.615 fc8 Recovering log #120
+2014/04/11-10:03:38.659 fc8 Level-0 table #122: started
+2014/04/11-10:03:38.857 fc8 Level-0 table #122: 71430 bytes OK
+2014/04/11-10:03:39.018 fc8 Delete type=0 #120
+2014/04/11-10:03:39.018 fc8 Delete type=3 #118

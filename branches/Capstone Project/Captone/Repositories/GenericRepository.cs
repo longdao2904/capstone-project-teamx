@@ -26,7 +26,7 @@ namespace Captone.Repositories
             get { return (iDeliverEntities)UnitOfWork; }
         }
 
-        public  IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return Context.Set<T>();
         }

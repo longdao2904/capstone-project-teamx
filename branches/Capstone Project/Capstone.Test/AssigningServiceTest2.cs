@@ -32,36 +32,17 @@ namespace Capstone.Test
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              AvailableVolume = 1.0,
-                             Date = now,
-                             RouteID = 1,
+                             ScheduleID = 1,
                              IsActive = true,
                     },
                     new Trip{TripID = 2, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival.AddDays(1),
+                             EstimateDepartureTime = departure.AddDays(1),
                              AvailableVolume = 1.0,
-                             Date = now,
-                             RouteID = 2,
-                             IsActive = true,
-                    },
-                    new Trip{TripID = 3, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
-                             AvailableVolume = 2.5,
-                             Date = now,
-                             RouteID = 3,
-                             IsActive = true,
-                    },
-                    new Trip{TripID = 4, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
-                             EstimateVolume = 1.1,
-                             AvailableVolume = 1.5,
-                             Date = now,
-                             RouteID = 4,
+                             ScheduleID = 2,
                              IsActive = true,
                     },
                 };
@@ -86,23 +67,54 @@ namespace Capstone.Test
                                 StartPoint = 2,
                                 EndPoint = 3,
                                 },
-                    //new Stage{StageID = 1,
-                    //            FromLocation = 1,
-                    //            ToLocation = 1,
-                    //            },
                 };
             var routeStage = new List<RouteStage>
                 {
-                    new RouteStage{StageID = 1,
-                                RouteID = 1,
-                                },
-                    new RouteStage{StageID = 2,
-                                RouteID = 2,
-                                },
-                    //new Stage{StageID = 1,
-                    //            FromLocation = 1,
-                    //            ToLocation = 1,
-                    //            },
+                    new RouteStage
+                        {
+                            StageID = 1,
+                            RouteID = 1,
+                            StageIndex = 1,
+                        },
+                    new RouteStage
+                        {
+                            StageID = 2,
+                            RouteID = 2,
+                            StageIndex = 1,
+                        },
+                };
+            var schedules = new List<Schedule>
+                {
+                    new Schedule()
+                        {
+                            ScheduleID = 1,
+                            RouteID = 1,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 2,
+                            RouteID = 2,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 3,
+                            RouteID = 3,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 4,
+                            RouteID = 4,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 5,
+                            RouteID = 5,
+                        },
+                        new Schedule()
+                        {
+                            ScheduleID = 6,
+                            RouteID = 6,
+                        },
                 };
             var stations = new List<Station>
                 {
@@ -143,7 +155,8 @@ namespace Capstone.Test
 
             //setup system under test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object,
-                                           _request.Object, _assigning.Object, _stage.Object, _routeStage.Object);
+                                           _request.Object, _assigning.Object, _stage.Object, 
+                                           _routeStage.Object, _schedules.Object);
 
             _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
             _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
@@ -151,6 +164,7 @@ namespace Capstone.Test
             _stage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Stage>(stages));
             _trip.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Trip>(trips));
             _routeStage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<RouteStage>(routeStage));
+            _schedules.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Schedule>(schedules));
 
             //test it
             var result = sut.Assigning(requests);

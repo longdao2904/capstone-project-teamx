@@ -33,10 +33,9 @@ namespace Captone.Models
             {
              count =   reader.Cast<IDataRecord>().Select(x => new Notification()
                 {
-                    ID = x.GetInt32(0),
-                    Username = x.GetDataTypeName(1),
-                    StationID = x.GetInt32(2),
-                    isView = x.GetBoolean(3)
+                    NotificationID = x.GetInt32(0),
+                    StationID = x.GetInt32(1),
+                    isView = x.GetBoolean(2)
                 }).Count();
                 connection.Close();
             }

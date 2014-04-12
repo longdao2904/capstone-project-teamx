@@ -21,7 +21,7 @@ namespace Captone.Controllers
             ArrayList array = new ArrayList();
             foreach (var item in RouteID)
             {
-                var countRoute = _db.Trips.Count(p => p.RouteID == item.RouteID);
+                var countRoute = _db.Trips.Count(p => p.Schedule.RouteID == item.RouteID);
                 var routeName = _db.Routes.Single(p => p.RouteID == item.RouteID);
                 array.Add(countRoute + " : " + routeName.RouteName);
             }

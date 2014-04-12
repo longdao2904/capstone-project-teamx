@@ -20,10 +20,12 @@ namespace Captone.Models
         }
     
         public int ScheduleID { get; set; }
-        public int ArrangeID { get; set; }
+        public int RouteID { get; set; }
+        public int CoachID { get; set; }
         public System.TimeSpan EstimateDepartureTime { get; set; }
     
-        public virtual CoachArrangement CoachArrangement { get; set; }
+        public virtual Coach Coach { get; set; }
+        public virtual Route Route { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
     }
 }

@@ -54,8 +54,8 @@ namespace Captone.Controllers
                 var get = (from p
                                in _db.Assignings
                            join l in _db.Trips on p.TripID equals l.TripID
-                           join c in _db.Coaches on l.CoachID equals c.CoachID
-                           join K in _db.Routes on l.RouteID equals K.RouteID
+                           join c in _db.Coaches on l.Schedule.CoachID equals c.CoachID
+                           join K in _db.Routes on l.Schedule.RouteID equals K.RouteID
                            join j in _db.Requests on p.RequestID equals j.RequestID
                            join m in _db.Stations on p.StopStation equals m.StationID
                            where p.TripID == item.TripID & p.RequestID == requestId
@@ -108,7 +108,7 @@ namespace Captone.Controllers
             {
                 if (trip.Status.Trim().Equals("Đang chạy"))
                 {
-                    if (trip.EstimateArrivalTime > DateTime.Now)
+                    if (trip.EstimateArrivalTime.TimeOfDay < DateTime.Now.TimeOfDay)
                     {
                         return Json(new { check = false }, JsonRequestBehavior.AllowGet);
                     }
@@ -162,7 +162,7 @@ namespace Captone.Controllers
                 var get = (from p
                                in _db.Assignings
                            join l in _db.Trips on p.TripID equals l.TripID
-                           join K in _db.Routes on l.RouteID equals K.RouteID
+                           join K in _db.Routes on l.Schedule.RouteID equals K.RouteID
                            join j in _db.Requests on p.RequestID equals j.RequestID
                            join m in _db.Stations on p.StopStation equals m.StationID
                            where p.TripID == item.TripID & p.RequestID == requestId

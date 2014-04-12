@@ -22,9 +22,10 @@ namespace Capstone.Test
         private readonly Mock<GenericRepository<Assigning>> _assigning = new Mock<GenericRepository<Assigning>>();
         private readonly Mock<GenericRepository<Stage>> _stage = new Mock<GenericRepository<Stage>>();
         private readonly Mock<GenericRepository<RouteStage>> _routeStage = new Mock<GenericRepository<RouteStage>>();
-
-        DateTime now = new DateTime(2014,04,02,15,30, 0);
-        TimeSpan datePost = new TimeSpan(05,0,0);
+        private readonly Mock<GenericRepository<Schedule>> _schedules = new Mock<GenericRepository<Schedule>>();
+        DateTime now = new DateTime(2014,04,11,12,30, 0);
+        DateTime arrival = new DateTime(2014, 04, 13, 11, 30, 0);
+        DateTime departure = new DateTime(2014, 04, 12, 08, 30, 0);
 
         [TestMethod]
         //[ExpectedException(typeof(NullReferenceException))]
@@ -52,39 +53,67 @@ namespace Capstone.Test
             var trips = new List<Trip>
                 {
                     new Trip{TripID = 1, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              AvailableVolume = 3.0,
-                             Date = now,
-                             RouteID = 1,
+                             ScheduleID = 1,
                              IsActive = true,
                     },
                     new Trip{TripID = 2, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              AvailableVolume = 5.0,
-                             Date = now,
-                             RouteID = 1,
+                             ScheduleID = 1,
                              IsActive = true,
                     },
                     new Trip{TripID = 4, 
-                             EstimateArrivalTime = datePost,
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              AvailableVolume = 1.5,
-                             Date = now,
-                             RouteID = 2,
+                             ScheduleID = 2,
                              IsActive = true,
                     },
                     new Trip{TripID = 3, 
-                             EstimateArrivalTime = datePost.Add(new TimeSpan(5,0,0)),
-                             EstimateDepartureTime = datePost,
+                             EstimateArrivalTime = arrival,
+                             EstimateDepartureTime = departure,
                              AvailableVolume = 1.5,
-                             Date = now,
-                             RouteID = 2,
+                             ScheduleID = 2,
                              IsActive = true,
                     },
                 };
-
+            var schedules = new List<Schedule>
+                {
+                    new Schedule()
+                        {
+                            ScheduleID = 1,
+                            RouteID = 1,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 2,
+                            RouteID = 2,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 3,
+                            RouteID = 3,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 4,
+                            RouteID = 4,
+                        },
+                    new Schedule()
+                        {
+                            ScheduleID = 5,
+                            RouteID = 5,
+                        },
+                        new Schedule()
+                        {
+                            ScheduleID = 6,
+                            RouteID = 6,
+                        },
+                };
             //data set into mock object
             var routes = new List<Route>
                 {
@@ -158,7 +187,8 @@ namespace Capstone.Test
 
             //setup system under test
             var sut = new AssigningService(_route.Object, _station.Object, _invoice.Object, _trip.Object,
-                                           _request.Object, _assigning.Object, _stage.Object, _routeStage.Object);
+                                           _request.Object, _assigning.Object, _stage.Object, 
+                                           _routeStage.Object, _schedules.Object);
 
             _route.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Route>(routes));
             _station.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Station>(stations));
@@ -166,7 +196,7 @@ namespace Capstone.Test
             _stage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Stage>(stages));
             _trip.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Trip>(trips));
             _routeStage.Setup(f => f.GetAll()).Returns(new EnumerableQuery<RouteStage>(routeStage));
-
+            _schedules.Setup(f => f.GetAll()).Returns(new EnumerableQuery<Schedule>(schedules));
             //test it
             var result = sut.Assigning(requests);
 

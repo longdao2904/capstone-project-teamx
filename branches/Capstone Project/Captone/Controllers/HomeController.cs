@@ -41,7 +41,7 @@ namespace Captone.Controllers
 
             if (Session["USERNAME"] == null)
             {
-                return RedirectToAction("LogOn", "Account");
+                return RedirectToAction("SentRequestForm2");
             }
             else
             {
@@ -49,14 +49,18 @@ namespace Captone.Controllers
                 return View(manageFee);
             }
         }
-
-        public string CalculateFee(double minWeight, double maxWeight)
+        public ActionResult SentRequestForm2()
+        {
+            var manageFee = _db.ManageFees.ToList();
+            return View(manageFee);
+        }
+        public string CalculateFee(float minVolume, float maxVolume)
         {
             var fee = (from m
                            in _db.ManageFees
-                       where minWeight == m.MinWeight &&
-                             maxWeight == m.MaxWeight
-                       select new { m.Fee }).Single();
+                       where m.MinVolume == minVolume &
+                             m.MaxVolume == maxVolume
+                       select new { m.Fee, m.FeeID }).Single();
 
             return fee.ToString();
         }
@@ -79,15 +83,23 @@ namespace Captone.Controllers
 
         public ActionResult PostRequest(FormCollection col)
         {
+            var username = Session["USERNAME"];
             var fromlocation = int.Parse(col["FromLocation"]);
             var getStationID = _db.Stations.Where(p => p.StationID == fromlocation).Single();
             Notification notification = new Notification();
-            notification.Username = col["Username"];
+
             notification.StationID = getStationID.StationID;
             notification.isView = false;
             _db.Notifications.Add(notification);
             Request request = new Request();
-            request.Username = col["Username"];
+            if (username != null)
+            {
+                request.Username = username.ToString();
+            }
+            else
+            {
+                request.Username = "guest";
+            }
             request.DeliveryStatusID = 1;
             request.FeeID = int.Parse(col["FeeID"]);
             request.EstimateWeight = col["EstimateWeight"];
@@ -95,6 +107,7 @@ namespace Captone.Controllers
             request.DateRequest = DateTime.Parse(col["DateRequest"]);
             request.FromLocation = int.Parse(col["FromLocation"]);
             request.ToLocation = int.Parse(col["ToLocation"]);
+            request.SenderName = col["Username"];
             request.SenderAddress = col["SenderAddress"];
             request.ReceiverAddress = col["ReceiverAddress"];
             request.SenderPhone = col["SenderPhone"];
@@ -105,12 +118,37 @@ namespace Captone.Controllers
             request.ArrivedDate = null;
             request.Payment = false;
             request.RequestCode = RandomString();
+            request.Length = float.Parse(col["Length"]);
+            request.Width = float.Parse(col["Width"]);
+            request.Height = float.Parse(col["Height"]);
             _db.Requests.Add(request);
             _db.SaveChanges();
             return RedirectToAction("Index");
 
         }
+        public JsonResult checkPackage(double length, double width, double height)
+        {
+            var coachType = _db.CoachTypes.ToList().Last();
+            if (length > coachType.Length)
+            {
+                return Json(new { check = false }, JsonRequestBehavior.AllowGet);
 
+            }
+            if (width > coachType.Width)
+            {
+                return Json(new { check = false }, JsonRequestBehavior.AllowGet);
+            }
+            if (height > coachType.Height)
+            {
+                return Json(new { check = false }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { check = true }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult getVolume(float volume)
+        {
+            var list = _db.ManageFees.Where(p => p.MinVolume <= volume & p.MaxVolume >= volume).Single();
+            return Json(new {MinVolume = list.MinVolume, MaxVolume = list.MaxVolume}, JsonRequestBehavior.AllowGet);
+        }
         protected string RandomString()
         {
             string allowedChars = "";
@@ -282,12 +320,12 @@ namespace Captone.Controllers
 
             IEnumerable<DetailStationModel> list = (from p
                               in _db.Stages
-                              where  p.StageName.StartsWith(provinceName)
-                              select new  DetailStationModel()
-                              {
-                                  RouteName = p.StageName,
-                                  duration = p.Duration
-                                                }
+                                                    where p.StageName.StartsWith(provinceName)
+                                                    select new DetailStationModel()
+                                                    {
+                                                        RouteName = p.StageName,
+                                                        duration = p.Duration
+                                                    }
                                  ).Distinct();
 
             return PartialView(list);

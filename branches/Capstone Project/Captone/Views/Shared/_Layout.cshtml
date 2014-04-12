@@ -30,13 +30,13 @@
         var stationName = (string)Session["StationName"];
     }
 </head>
-<body style="width: 100%; height: 100%">
+<body style="width: 99%; height: 100%">
     <input type="hidden" value="@UserRole" id="roleUser" />
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" style="background-color: #428bca; height: 70px;" role="navigation" style="margin-bottom: 0">
             <!-- /.navbar-header -->
-            <div class="col-lg-4" id="truck" style="right: 100px;">
-                <a class="navbar-brand" href="/Home/Index" style="color: white; font-size: 3.2em;"><i class="fa fa-truck" style="margin-left: 560px; color: white;">i-Deliver</i></a>
+            <div class="col-lg-4" id="truck" style="right: 250px;">
+                <a class="navbar-brand" href="/Home/Index" style="color: white; font-size: 3.2em;"><i class="fa fa-truck" style="margin-left: 600px; color: white;">i-Deliver</i></a>
             </div>
             <div class="col-lg-4" style="margin-top: 0.5%;">
             </div>
@@ -45,7 +45,8 @@
                 {
                     string username = Username.ToUpper();
                     <p class="nav navbar-top-links navbar-right" style="margin-top: 1%; color: white">
-                        <i class="fa fa-user fa-fw"></i>@username <br />
+                        <i class="fa fa-user fa-fw"></i>@username
+                        <br />
                         <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                     </p>
                 }
@@ -63,29 +64,28 @@
                 <ul class="nav" id="side-menu">
                     <li>
                         <div class="rectangle">
-                            <a href="/Home/Index" style="color: white"><i class="fa fa-home fa-2x">Trang chủ</i> </a>
+                            <a href="/Home/Index" style="color: white"><i class="fa fa-home fa-2x"> Trang chủ</i> </a>
                         </div>
                         <div class="triangle-r"></div>
                     </li>
                     <li>
                         <div class="dis">
-                            @if (Username == null)
-                            {
-                                <div class="rectangle">
-                                    <a data-toggle="modal" style="color: white" data-target="#loginModal" onclick="LoginModal()"><i class="fa fa-truck fa-2x">Chuyển phát</i></a>
-                                </div>
-                                <div class="triangle-r"></div>
-                            }
+
+                            <div class="rectangle">
+                                <a style="color: white" href="/Home/SentRequestForm"><i class="fa fa-truck fa-2x"> Chuyển phát</i></a>
+                            </div>
+                            <div class="triangle-r"></div>
+
                         </div>
                         @if (Username != null && UserRole == "Customer")
                         {
-                            <a href="/Home/SentRequestForm" class="devider"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>                        
+                            <a href="/Home/SentRequestForm" class="devider"><i class="fa fa-truck fa-fw"></i> Chuyển Phát</a>                        
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Home/ListStatusCustomer?Username=@Username" class="devider"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
+                                    <a href="/Home/ListStatusCustomer?Username=@Username" class="devider"><i class="fa fa-book fa-fw"></i >Quản lý yêu cầu</a>
                                 </li>
                                 <li>
-                                    <a href="/Customer/Index" class="devider"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
+                                    <a href="/Customer/Index" class="devider"><i class="fa fa-tag fa-fw"></i> Thanh toán</a>
                                 </li>
                             </ul>
                         }
@@ -180,7 +180,7 @@
                                     <li>
                                         <a href="/Request/ListRequest?stationId=@stationId">Xếp lịch vận chuyển</a>
                                     </li>
-                      
+
                                     <li>
                                         <a href="/Assigning/RequestPeding?stationId=@stationId">Hàng đang vận chuyển</a>
                                     </li>
@@ -222,12 +222,12 @@
                     {
                         <li class="active">
                             <div class="rectangle topstation">
-                                <i class="fa fa-building-o"></i> Trạm được đánh giá cao
+                                <i class="fa fa-building-o"></i>Trạm được đánh giá cao
                             </div>
                             <div class="triangle-r"></div>
-                                <ul class="nav nav-second-level">
-                                    <div id="topStation"></div>
-                                </ul>
+                            <ul class="nav nav-second-level">
+                                <div id="topStation"></div>
+                            </ul>
                         </li>
                     }
                 </ul>
@@ -337,7 +337,7 @@
     <div>
         <div style="clear: both;"></div>
 
- 
+
 
         <footer class="footer">
             <div class="container">
@@ -353,7 +353,7 @@
     <script type="text/javascript">
         var animateTruck = function () {
 
-            $('#truck').css('right', '100px')
+            $('#truck').css('right', '250px')
                        .animate({ 'right': $(window).width() },
                                 5000,
                                 'linear',
@@ -473,6 +473,7 @@
         .modal-title {
             font-weight: bolder;
         }
+
         .topstation {
             font-size: 1.62em;
             font-family: FontAwesome;

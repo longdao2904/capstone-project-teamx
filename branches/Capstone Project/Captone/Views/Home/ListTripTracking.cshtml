@@ -1,15 +1,38 @@
 ﻿@model IEnumerable<Captone.Models.Assigning>
+<table class="table table-bordered">
+    <thead>
+        <th></th>
+        <th>Dự kiến đến</th>
+        <th>Uớc tính</th>
+    </thead>
+    @foreach (var item in Model)
+    {
+   
+        <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Schedule.CoachArrangement.Route.RouteName - @item.Station.StationName - @item.Trip.Status"/>
 
-@foreach (var item in Model)
-{
-   
-    <input type="text" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Schedule.CoachArrangement.Route.RouteName - @item.Station.StationName - @item.Trip.EstimateArrivalTime"/>
-   
-}
+        <tbody>
+            <tr>
+                <td>@item.Trip.Route.RouteName</td>
+                <td>@item.Trip.EstimateArrivalTime</td>
+                @if (item.Trip.Status == "Đã đến trạm")
+                {
+                    <td>@item.Trip.Status</td>
+                }
+                else
+                {
+                    <td>@item.Trip.EstimateArrivalTime.TimeOfDay.Subtract(DateTime.Now.TimeOfDay).Hours h</td>
+                }
+            </tr>
+        </tbody>
+    }
+</table>
 <div id="map1" style="height: 440px;"></div>
 
-<input type="text" disabled="disabled" style="background-color: black; width: 40px"/> Đang trên chuyến
-<input type="text" disabled="disabled" style="background-color: red;width: 40px"/> Chưa đến chuyến
-<input type="text" disabled="disabled" style="background-color: DeepPink ;width: 40px"/> Đã qua chuyến
+<input type="text" disabled="disabled" style="background-color: black; width: 40px" />
+Đang trên chuyến
+<input type="text" disabled="disabled" style="background-color: red; width: 40px" />
+Chưa đến chuyến
+<input type="text" disabled="disabled" style="background-color: DeepPink; width: 40px" />
+Đã qua chuyến
 <script type="text/javascript">
 </script>

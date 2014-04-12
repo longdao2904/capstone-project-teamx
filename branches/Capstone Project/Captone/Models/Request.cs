@@ -29,6 +29,7 @@ namespace Captone.Models
         public System.DateTime DateRequest { get; set; }
         public int FromLocation { get; set; }
         public int ToLocation { get; set; }
+        public string SenderName { get; set; }
         public string SenderAddress { get; set; }
         public string ReceiverAddress { get; set; }
         public string SenderPhone { get; set; }
@@ -39,6 +40,9 @@ namespace Captone.Models
         public Nullable<System.DateTime> ArrivedDate { get; set; }
         public bool Payment { get; set; }
         public string RequestCode { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual ICollection<Assigning> Assignings { get; set; }

@@ -16,17 +16,15 @@ namespace Captone.Models
     {
         public Route()
         {
-            this.CoachArrangements = new HashSet<CoachArrangement>();
             this.RouteStages = new HashSet<RouteStage>();
-            this.Trips = new HashSet<Trip>();
+            this.Schedules = new HashSet<Schedule>();
         }
     
         public int RouteID { get; set; }
         public string RouteName { get; set; }
-        public Nullable<double> Container { get; set; }
+        public double Container { get; set; }
     
-        public virtual ICollection<CoachArrangement> CoachArrangements { get; set; }
         public virtual ICollection<RouteStage> RouteStages { get; set; }
-        public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

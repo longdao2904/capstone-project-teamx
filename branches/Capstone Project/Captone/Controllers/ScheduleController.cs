@@ -19,7 +19,7 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
-            var schedules = db.Schedules.Include(s => s.CoachArrangement);
+            var schedules = db.Schedules;
             return View(schedules.ToList());
         }
 
@@ -41,7 +41,7 @@ namespace Captone.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.ArrangeID = new SelectList(db.CoachArrangements, "ArrangeID", "RouteID");
+          
             ViewData["RouteID"] = new SelectList(db.Routes, "RouteID", "RouteName");
             return View();
         }
@@ -59,7 +59,7 @@ namespace Captone.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["RouteID"] = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.ArrangeID = new SelectList(db.CoachArrangements, "ArrangeID", "ArrangeID", schedule.ArrangeID);
+           
             return View(schedule);
         }
 
@@ -74,7 +74,7 @@ namespace Captone.Controllers
                 return HttpNotFound();
             }
             ViewData["RouteID"] = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.ArrangeID = new SelectList(db.CoachArrangements, "ArrangeID", "ArrangeID", schedule.ArrangeID);
+ 
             return View(schedule);
         }
 
@@ -91,7 +91,7 @@ namespace Captone.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["RouteID"] = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.ArrangeID = new SelectList(db.CoachArrangements, "ArrangeID", "ArrangeID", schedule.ArrangeID);
+            
             return View(schedule);
         }
 
@@ -134,11 +134,11 @@ namespace Captone.Controllers
             var schedules = new List<Schedule>();
             if (routeID != 0)
             {
-                schedules = db.Schedules.Include(s => s.CoachArrangement.Coach).Include(s => s.CoachArrangement.Route).Where(s => s.CoachArrangement.RouteID == routeID).ToList();
+                schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).Where(s => s.Route.RouteID == routeID).ToList();
             }
             else
             {
-                schedules = db.Schedules.Include(s => s.CoachArrangement.Coach).Include(s => s.CoachArrangement.Route).ToList();
+                schedules = db.Schedules.Include(s => s.Coach).Include(s => s.Route).ToList();
             }
             return View(schedules);
         }
@@ -147,7 +147,7 @@ namespace Captone.Controllers
         public ActionResult GetArrangedCoach(int routeID)
         {
             List<Coach> coaches = new List<Coach>();
-            var coachIDs = (from ca in db.CoachArrangements
+            var coachIDs = (from ca in db.Schedules
                             where ca.RouteID == routeID
                             select ca.CoachID).ToList();
             foreach (var id in coachIDs)
@@ -161,8 +161,8 @@ namespace Captone.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult GetArrangeID(int routeID, int coachID)
         {
-            var arranger = db.CoachArrangements.Where(ca => ca.CoachID == coachID && ca.RouteID == routeID).ToList();
-            return Json(arranger.Select(a => new { a.ArrangeID }), JsonRequestBehavior.AllowGet);
+            var arranger = db.Schedules.Where(ca => ca.CoachID == coachID && ca.RouteID == routeID).ToList();
+            return Json(arranger.Select(a => new { a.ScheduleID }), JsonRequestBehavior.AllowGet);
         }
     }
 }

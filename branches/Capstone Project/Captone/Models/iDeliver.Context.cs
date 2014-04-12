@@ -7,12 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Captone.Repositories.Interfaces;
+
 namespace Captone.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Captone.Repositories.Interfaces;
     
     public partial class iDeliverEntities : DbContext, IUnitOfWork
     {
@@ -29,7 +30,6 @@ namespace Captone.Models
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Assigning> Assignings { get; set; }
         public DbSet<Coach> Coaches { get; set; }
-        public DbSet<CoachArrangement> CoachArrangements { get; set; }
         public DbSet<CoachType> CoachTypes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<DeliveryStatu> DeliveryStatus { get; set; }
@@ -44,10 +44,8 @@ namespace Captone.Models
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Stage> Stages { get; set; }
         public DbSet<Station> Stations { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<UserInfo> UserInfoes { get; set; }
-
         public void SaveChanges()
         {
             base.SaveChanges();

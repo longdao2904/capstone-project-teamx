@@ -16,9 +16,8 @@
                 </th>
                 <th>Biển số
                 </th>
-                <th>Thời gian ước tính xuất bến
+                <th>Thời gian xuất bến
                 </th>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -35,22 +34,19 @@
                         @item.ScheduleID
                     </td>
                     <td style="display: none;">
-                        @item.CoachArrangement.Route.RouteID
+                        @item.Route.RouteID
                     </td>
                     <td style="display: none;">
-                        @item.CoachArrangement.Coach.CoachID
+                        @item.Coach.CoachID
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CoachArrangement.Route.RouteName)
+                        @Html.DisplayFor(modelItem => item.Route.RouteName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CoachArrangement.Coach.NumberPlate)
+                        @Html.DisplayFor(modelItem => item.Coach.NumberPlate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CoachArrangement.Coach.CoachType.Capacity)
                     </td>
                 </tr>
             }

@@ -1,0 +1,613 @@
+﻿@{
+    ViewBag.Title = "Yêu cầu chuyển phát";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+@model IEnumerable<Captone.Models.ManageFee>
+
+@using Captone.Models
+
+
+
+
+
+<div>
+    <form method="POST" action="/Home/PostRequest">
+        <div class="col-md-7">
+            <input type="text" value="@DateTime.Now" name="DateRequest" style="display: none"/>
+            <div style="margin-left: 3%;">
+                <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin cơ bản</a></li>
+                </ul>
+                <br />
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <div class="each-field">
+                            Tên Người Gửi
+                            <br />
+
+                            <input type="text" name="Username" class="form-control" autofocus />
+
+                        </div>
+
+                        <div class="each-field">
+                            Địa Chỉ Người Gửi
+                            <br />
+                            <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
+                            <input type="text" id="locaAddress" style="display: none" />
+                        </div>
+                        <div class="bub-container">
+                            <input type="checkbox" id="bulb" class="light" onclick="showPopUp()" />
+                            <label for="bulb" class="bulbs"></label>
+                        </div>
+
+                        <div class="each-field">
+                            Số Điện Thoại Người Gửi
+                            <br />
+                            <input type="text" name="SenderPhone" id="SenderPhone"class="form-control" />
+                        </div>
+
+                        <div class="each-field">
+                            Tên Người Nhận
+                            <br />
+                            <input type="text" name="ReceiverName" class="form-control" />
+                        </div>
+                        <div class="each-field">
+                            Địa Chỉ Người Nhận
+                            <br />
+                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
+                            <input type="text" id="ToAddress" style="display: none" />
+                        </div>
+                        <div class="bub-container3">
+                            <input type="checkbox" id="bulb3" class="light" onclick="showLocation()" />
+
+                            <label for="bulb3" class="bulbs"></label>
+                        </div>
+                        <div class="each-field">
+                            Số Điện Thoại Người Nhận
+                            <br />
+                            <input type="text" name="ReceiverPhone" id="" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7" style="margin-left: 50%; margin-top: -475px;">
+            <div>
+                <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin sản phẩm</a></li>
+                </ul>
+                <br />
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <div class="each-field">
+                            Khối Lượng Ước Tính (kg)
+                            <br />
+                            <select id="Weigh" name="EstimateWeight" class="form-control">
+                                <option value="0"></option>
+                                @foreach (var item in Model)
+                                {   
+                                    <option value="@item.MinWeight - @item.MaxWeight">@item.MinWeight - @item.MaxWeight</option>
+                        
+                                }
+                            </select>
+                            <input type="text" id="FeeID" name="FeeID" value="" style="display: none" />
+                           
+                            <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
+                            <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
+                        </div>
+                        <div class="each-field">
+                            <p>Rộng (dcm)</p>
+                            <input type="text" name="Width" class="form-control" id="Width" style="width: 80px;" />
+                            <div class="heightClass">
+                                <p>Cao (dcm)</p>
+                                <input type="text" name="Height" class="form-control" id="Height" style="width: 80px;" />
+                            </div>
+                            <div class="lengthClass">
+                                <p>Dài (dcm)</p>
+                                <input type="text" name="Length" class="form-control" id="Length" onchange="checkPackage();" style="width: 80px;" />
+                            </div>
+                        </div>
+                        <div id="check"></div>
+                        <div class="each-field">
+                            Thể Tính Ước Tính (dcm3)
+                                <br />
+                            <input type="text" class="form-control" name="EstimateVolume" id="Volume" />
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <div id="SuggestFee">
+                            </div>
+                        </div>
+                        <div class="each-field">
+                            Phương thức thanh toán
+                                <br />
+                            <select name="TypeOfPayment" id="" class="form-control">
+                                <option></option>
+                                <option value="Tiền mặt">Tiền mặt</option>
+                                <option value="Chuyển khoản">Chuyển khoản</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-location">
+            <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
+        </div>
+
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+   
+    function checkPackage() {
+        var length = document.getElementById("Length").value;
+        var height = document.getElementById("Height").value;
+        var width = document.getElementById("Width").value;
+        var volume = length * height * width;
+
+        $.ajax({
+            url: "/Home/checkPackage",
+            type: "POST",
+            data: { length: length, height: height, width: width },
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                    getVolume(volume);
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
+    function getVolume(volume) {
+        $.ajax({
+            url: "/Home/getVolume",
+            type: "POST",
+            data: { volume: volume },
+            success: function (result) {
+                var disVolume = result.MinVolume + " - " + result.MaxVolume;
+                $("#Volume").val(disVolume);
+                CalculateFee();
+            }
+        });
+    }
+    function feeChange() {
+        var e = document.getElementById("Weigh");
+        var v = document.getElementById("Volume");
+        var strUser = e.options[e.selectedIndex].value;
+        var textWeigh = e.options[e.selectedIndex].text;
+        var textVolume = v.options[e.selectedIndex].text;
+        document.getElementById("EstimateWeight").value = textWeigh;
+        document.getElementById("EstimateVolume").value = textVolume;
+        document.getElementById("FeeID").value = strUser;
+    }
+
+    function showPopUp() {
+        var bulb = document.getElementById("bulb").checked;
+        if (bulb) {
+            //when bulb turn on
+            GoogleMaker();
+            checkStation();
+            $("#hide").focus();
+        } else {
+            document.getElementById("map").innerHTML = "";
+        }
+    }
+
+    function showGoogleMap() {
+        var bulb = document.getElementById("bulb2").checked;
+        if (bulb) {
+            showMap();
+        } else {
+            document.getElementById("hide").innerHTML = "";
+        }
+    }
+    function showLocation() {
+        var bulb = document.getElementById("bulb3").checked;
+        if (bulb) {
+            MakerLocation();
+            ToLocation();
+            $("#hide").focus();
+            $('.bub-container2').show();
+        } else {
+            document.getElementById("map").innerHTML = "";
+        }
+
+    }
+    function SuggestAddress() {
+
+        var address = document.getElementById("AddressOfSender").value;
+        if (address != null) {
+            StationMaker();
+            $('.bub-container').show();
+
+        } if (address == "") {
+              $('.bub-container').hide();
+              document.getElementById("bulb").checked = false;
+          }
+    }
+
+    function SuggestToLocation() {
+        var address = document.getElementById("AddressOfReceiver").value;
+        if (address != null) {
+            ToLocationMaker();
+            $('.bub-container3').show();
+        } if (address == "") {
+              $('.bub-container3').hide();
+              document.getElementById("bulb3").checked = false;
+
+          }
+
+    }
+    //$(function () {
+    //    SetWeigh();
+    //});
+    function showMap() {
+        var sender = document.getElementById('AddressOfSender').value;
+        var receiver = document.getElementById('AddressOfReceiver').value;
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        $("#description").hide();
+        $("#shortest").hide();
+        var myOptions = {
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        directionsDisplay.setMap(map);
+
+        var request = {
+            origin: sender + '',
+            destination: receiver + '',
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+
+                // Display the distance:
+                document.getElementById('distance').innerHTML = "Khoảng cách: " +
+                    Math.round((response.routes[0].legs[0].distance.value) * 1.609344 / 1000) + " km";
+
+                // Display the duration:
+                document.getElementById('duration').innerHTML = "Thời gian: " +
+                    Math.round((response.routes[0].legs[0].duration.value) / 3600) + " giờ";
+                directionsDisplay.setDirections(response);
+            }
+        });
+    }
+    function showPop() {
+        $('.pop').show();
+    }
+    function hid() {
+        $('.pop').hide();
+    }
+    //function SetWeigh() {
+    //    var weigh = document.getElementById("Weigh");
+    //    weigh.onchange = function () {
+    //        SetVolume(this);
+    //        CalculateFee();
+    //        feeChange();
+
+
+    //    };
+    //}
+    //function SetVolume(weigh) {
+    //    var volume = document.getElementById("Volume");
+    //    volume.value = weigh.value;
+    //}
+    function getPriceRoute() {
+        var priceRoute;
+        var Sender = document.getElementById("AddressOfSender").value;
+        var getCountry = Sender.split(",");
+        var countrySender = getCountry[getCountry.length - 1];
+
+        if (countrySender.trim() == "TP Hồ Chí Minh" || countrySender.trim() == "Hồ Chí Minh" || countrySender.trim() == "hồ chí minh") {
+            countrySender = "Sài Gòn";
+        }
+
+        var Receiver = document.getElementById("AddressOfReceiver").value;
+        var getCountry2 = Receiver.split(",");
+        var countryReceiver = getCountry2[getCountry2.length - 1];
+
+        if (countryReceiver.trim() == "TP Hồ Chí Minh" || countryReceiver.trim() == "Hồ Chí Minh" || countryReceiver.trim() == "hồ chí minh") {
+            countryReceiver = "Sài Gòn";
+        }
+
+        var routename = countrySender + " -" + countryReceiver;
+
+        $.ajax({
+            url: "/Home/GetRoutePrice",
+            type: "Post",
+            async: false,
+            data: { RouteName: routename },
+            success: function (result) {
+
+                priceRoute = result[0].Price;
+
+            }
+        });
+        return priceRoute;
+    }
+    function CalculateFee() {
+        var select = document.getElementById("Weigh");
+        var options = select.options[select.selectedIndex].text;
+        var select1 = document.getElementById("Volume").value;
+
+        var weigh = options.split(" - ");
+        var volume = select1.split(" - ");
+     
+        
+        $.ajax({
+            url: "/Home/CalculateFee",
+            type: "Post",
+            data: { minVolume: parseFloat(volume[0]), maxVolume: parseFloat(volume[1]) },
+            success: function (result) {
+                var fee = result.split(" = ");
+                var suggestprice = +fee[1].split(",")[0];
+                $("#SuggestFee").html("<div class='alert-message warning'>" + "<p>" + "Giá ước tính: " + "<strong>" + suggestprice + "VND" + "</strong>" + "</p>" + "</div>");
+                $("#FeeID").val(fee[1][0]);
+            }
+        });
+    }
+
+
+    function checkStation() {
+        var index = 0;
+
+        var dis = [];
+        var str = document.getElementById('AddressOfSender').value;
+        var sender = str.split(",");
+
+        $.ajax({
+            url: "/Home/GetAddressStation",
+            contentType: "application/json",
+            dataType: "json",
+            data: { stationLocation: sender[sender.length - 1] },
+            success: function (result) {
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                for (var i in result) {
+                    var request = {
+                        origin: sender + '',
+                        destination: result[i].StationLocation + '',
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+
+                    (function (record) {
+                        directionsService.route(request, function (response, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                                // Display the distance:
+                                if (index < result.length) {
+                                    for (var m = 0; m < response.routes[0].legs.length; m++) {
+                                        var d = result[index].StationID + ". " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
+                                        index++;
+                                        dis.push(d);
+                                    }
+                                    directionsDisplay.setDirections(response);
+                                    if (record == result.length - 1) {
+                                        ShortestDistance(dis);
+                                    }
+                                }
+                            }
+                        });
+                    })(i);
+                }
+            }
+        });
+    }
+    function ShortestDistance(dis) {
+        var first = dis[0];
+        var test = first.split(":");
+        var location = test[test.length - 1].split("km")[0];
+        var index = 0;
+        for (var i = 1; i < dis.length; i++) {
+            var station = dis[i].split(":");
+            var stationLast = station[station.length - 1].split("km")[0];
+            if (parseInt(stationLast, 10) < parseInt(location, 10)) {
+                first = dis[i];
+                index = i;
+            }
+        }
+        //code here
+        $("#shortest").show();
+        document.getElementById('shortest').innerHTML = "Trạm gần với vị trí của bạn nhất: <br/>" + first;
+        var id = first.split(".")[0];
+        document.getElementById("FromLocation").value = id;
+
+    }
+    function ToLocation() {
+        var index = 0;
+        var dis = [];
+        var str = document.getElementById('AddressOfReceiver').value;
+        var sender = str.split(",");
+
+        $.ajax({
+            url: "/Home/GetAddressStation",
+            contentType: "application/json",
+            dataType: "json",
+            data: { stationLocation: sender[sender.length - 1] },
+            success: function (result) {
+
+                var directionsService = new google.maps.DirectionsService();
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                for (var i in result) {
+                    var request = {
+                        origin: sender + '',
+                        destination: result[i].StationLocation + '',
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+
+                    (function (record) {
+                        directionsService.route(request, function (response, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                                // Display the distance:
+                                if (index < result.length) {
+                                    for (var m = 0; m < response.routes[0].legs.length; m++) {
+                                        var d = result[index].StationID + " . " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
+
+                                        index++;
+                                        dis.push(d);
+                                    }
+                                    directionsDisplay.setDirections(response);
+                                    if (record == result.length - 1) {
+                                        ShortestToLocation(dis);
+                                    }
+                                }
+                            }
+                        });
+                    })(i);
+                }
+            }
+        });
+    }
+    function ShortestToLocation(dis) {
+        var first = dis[0];
+        var test = first.split(":");
+        var location = test[test.length - 1].split("km")[0];
+        var index = 0;
+        for (var i = 1; i < dis.length; i++) {
+            var station = dis[i].split(":");
+            var stationLast = station[station.length - 1].split("km")[0];
+            if (parseInt(stationLast, 10) < parseInt(location, 10)) {
+                first = dis[i];
+                index = i;
+            }
+        }
+        //code here
+        $("#shortest").show();
+        document.getElementById('shortest').innerHTML = "Trạm gần với vị trí của bạn nhất: <br/>" + first;
+        var id = first.split(".")[0];
+        document.getElementById("ToLocation").value = id;
+    }
+    function StationMaker() {
+        var address = document.getElementById("AddressOfSender").value;
+        $.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+            type: "POST",
+            success: function (res) {
+                document.getElementById("locaAddress").value = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+            }
+        });
+    }
+    function ToLocationMaker() {
+        var address = document.getElementById("AddressOfReceiver").value;
+        $.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+            type: "POST",
+            success: function (res) {
+                document.getElementById("ToAddress").value = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+            }
+        });
+    }
+    function GoogleMaker() {
+        var str = document.getElementById('AddressOfSender').value;
+        var sender = str.split(",");
+        var val = document.getElementById("locaAddress").value;
+        var commaPos = val.indexOf(',');
+        var coordinatesLat = parseFloat(val.substring(0, commaPos));
+        var coordinatesLong = parseFloat(val.substring(commaPos + 1, val.length));
+        $.ajax({
+            url: "/Home/GetAddressStation",
+            contentType: "application/json",
+            dataType: "json",
+            data: { stationLocation: sender[sender.length - 1] },
+            success: function (result) {
+
+                $("#description").html("<b>Vị trí các trạm: </b>");
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: new google.maps.LatLng(coordinatesLat, coordinatesLong),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var current = new google.maps.Marker({
+                    position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
+                    map: map,
+                    animation: google.maps.Animation.BOUNCE
+                });
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
+                for (i in result) {
+
+                    var images = '@Url.Content("~/Content/Images/station.png")';
+                    var re = result[i].Coordinate.indexOf(',');
+                    var Lat = parseFloat(result[i].Coordinate.substring(0, re));
+                    var Long = parseFloat(result[i].Coordinate.substring(re + 1, result[i].Coordinate.length));
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(Lat, Long),
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: images
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent(result[i].StationID + " : " + result[i].StationName + ' : ' + result[i].StationLocation);
+                            infowindow.open(map, marker);
+                        };
+                    })(marker, i));
+                }
+            }
+        });
+    }
+    function MakerLocation() {
+        var str = document.getElementById('AddressOfReceiver').value;
+        var sender = str.split(",");
+        var val = document.getElementById("ToAddress").value;
+        var commaPos = val.indexOf(',');
+        var coordinatesLat = parseFloat(val.substring(0, commaPos));
+        var coordinatesLong = parseFloat(val.substring(commaPos + 1, val.length));
+        $.ajax({
+            url: "/Home/GetAddressStation",
+            contentType: "application/json",
+            dataType: "json",
+            data: { stationLocation: sender[sender.length - 1] },
+            success: function (result) {
+                $("#description").html("<b>Vị trí các trạm: </b>");
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: new google.maps.LatLng(coordinatesLat, coordinatesLong),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var current = new google.maps.Marker({
+                    position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
+                    map: map,
+                    animation: google.maps.Animation.BOUNCE
+                });
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
+                for (i in result) {
+                    var images = '@Url.Content("~/Content/Images/station.png")';
+                    var re = result[i].Coordinate.indexOf(',');
+                    var Lat = parseFloat(result[i].Coordinate.substring(0, re));
+                    var Long = parseFloat(result[i].Coordinate.substring(re + 1, result[i].Coordinate.length));
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(Lat, Long),
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: images
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent(result[i].StationID + " : " + result[i].StationName + ' : ' + result[i].StationLocation);
+                            infowindow.open(map, marker);
+                        };
+                    })(marker, i));
+                }
+            }
+        });
+    }
+
+</script>
+

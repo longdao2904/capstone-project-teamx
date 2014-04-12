@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Captone.Models.Trip>
-<script src="~/Content/TableJS/jquery.dataTables.js"></script>
-<script src="~/Content/TableJS/KeyTable.js"></script>
+
 @{
     ViewBag.Title = "Quản lý chuyến";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
@@ -33,6 +32,7 @@
                                 <table class="table display KeyTable dataTable" id="TableTrips" aria-describedby="example_info">
                                     <thead>
                                         <tr>
+                                            <th style="display: none"></th>
                                             <th>Ngày đi 
                                             </th>
                                             <th>Tuyến                                            
@@ -50,14 +50,17 @@
                                         @foreach (var item in Model)
                                         {
                                             <tr>
+                                                <td style="display: none">
+                                                    @item.TripID
+                                                </td>
                                                 <td>
                                                     <a data-toggle="modal" id="" data-target="#modalDetail" onclick="Detail(@item.TripID)">@item.EstimateDepartureTime.ToShortDateString()</a>
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Route.RouteName)
+                                                    @Html.DisplayFor(modelItem => item.Schedule.Route.RouteName)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Coach.NumberPlate)
+                                                    @Html.DisplayFor(modelItem => item.Schedule.Coach.NumberPlate)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.EstimateDepartureTime)

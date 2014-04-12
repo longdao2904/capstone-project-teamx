@@ -28,6 +28,8 @@ namespace Captone.Services
             new GenericRepository<Stage>(new iDeliverEntities());
         private readonly GenericRepository<RouteStage> _routeStageRepository =
             new GenericRepository<RouteStage>(new iDeliverEntities());
+        private readonly GenericRepository<Schedule> _scheduleRepository =
+            new GenericRepository<Schedule>(new iDeliverEntities());
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
@@ -36,11 +38,12 @@ namespace Captone.Services
         private List<Assigning> _assignings = new List<Assigning>();
         private List<Stage> _stages = new List<Stage>();
         private List<RouteStage> _routeStages = new List<RouteStage>();
+        private List<Schedule> _schedules = new List<Schedule>();
         private Dictionary<Route, List<Stage>> _stageOfRoute = new Dictionary<Route, List<Stage>>();
         //declare const
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
         private const int MaxWay = 10;
-        private readonly TimeSpan _deltaTime = new TimeSpan(0, 0, 0);
+        private readonly TimeSpan _deltaTime = new TimeSpan(0, 45, 0);
         private const double MaxAngle = 135*Math.PI/180;
         //result of route
         List<Dictionary<Request, List<Stage>>> _foundWays = new List<Dictionary<Request, List<Stage>>>();
@@ -59,7 +62,8 @@ namespace Captone.Services
             , GenericRepository<Request> requestRepository
             , GenericRepository<Assigning> assigningRepository
             , GenericRepository<Stage> stageRepository
-            , GenericRepository<RouteStage> routeStageRepository)
+            , GenericRepository<RouteStage> routeStageRepository
+            , GenericRepository<Schedule> scheduleRepository)
         {
             _routeRepository = routeRepository;
             _stationRepository = stationRepository;
@@ -69,6 +73,7 @@ namespace Captone.Services
             _assigningRepository = assigningRepository;
             _stageRepository = stageRepository;
             _routeStageRepository = routeStageRepository;
+            _scheduleRepository = scheduleRepository;
         }
         #endregion
 
@@ -82,6 +87,7 @@ namespace Captone.Services
             _assignings = _assigningRepository.GetAll().ToList();
             _trips = _tripRepository.GetAll().ToList();
             _routeStages = _routeStageRepository.GetAll().ToList();
+            _schedules = _scheduleRepository.GetAll().ToList();
             //add the list of stages for each route
             MakePairRouteStage();
             //right after list all trips from database, filter them to receive the availabel trip
@@ -212,21 +218,11 @@ namespace Captone.Services
         //list all trips travel on the route
         public List<Trip> FindTripFromRoute(int routeID)
         {
-            var trips = new List<Trip>();
-            foreach (var trip in _trips)
-            {
-                if (trip.RouteID == routeID)
-                {
-                    trips.Add(trip);
-                }
-            }
-            if (trips.Count  == 0) return null;
-            trips.Sort(delegate(Trip a, Trip b)
-                {
-                    if (a.RealDepartureTime > b.RealDepartureTime) return 1;
-                    if (a.RealDepartureTime == b.RealDepartureTime) return 0;
-                    return -1;
-                });
+            var trips = (from trip in _trips from schedule in _schedules 
+                         where schedule.ScheduleID == trip.ScheduleID && schedule.RouteID == routeID 
+                         select trip).ToList();
+            if (!CheckNotNull(trips)) return null;
+            trips.Sort((a, b) => (a.EstimateDepartureTime).CompareTo(b.EstimateDepartureTime));
             return trips;
         }
         //sort base on departure time and then, arrival time
@@ -567,8 +563,19 @@ namespace Captone.Services
         }
         public List<Stage> FindListStageOfTrip(Trip trip)
         {
-            return _routes.Where(route => trip.RouteID == route.RouteID).
-                Select(route => (_stageOfRoute.FirstOrDefault(i => i.Key == route).Value)).FirstOrDefault();
+            int routeID = 0;
+            foreach (var schedule in _schedules)
+            {
+                if (schedule.ScheduleID == trip.ScheduleID)
+                {
+                    routeID = schedule.RouteID;
+                }
+            }
+            foreach (var stage in _stageOfRoute)
+            {
+                if (stage.Key.RouteID == routeID) return stage.Value;
+            }
+            return null;
         }
         public List<Request> FindListRequestAssignToTrip(Trip trip)
         {

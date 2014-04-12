@@ -33,3 +33,38 @@ D:\Capstone Projects\trunk\Capstone Project\Capstone.Test\bin\Debug\System.Net.H
 D:\Capstone Projects\trunk\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.csprojResolveAssemblyReference.cache
 D:\Capstone Projects\trunk\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.dll
 D:\Capstone Projects\trunk\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.pdb
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Capstone.Test.dll.config
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Capstone.Test.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Capstone.Test.pdb
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Captone.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\EntityFramework.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Moq.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Web.Optimization.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.Web.Common.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Web.Http.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Owin.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Microsoft.Owin.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\itextsharp.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\WebGrease.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Antlr3.Runtime.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Captone.pdb
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\EntityFramework.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Moq.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.Web.Common.pdb
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.Web.Common.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.pdb
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Ninject.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Web.Http.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Microsoft.Owin.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.csprojResolveAssemblyReference.cache
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.dll
+C:\Users\Le Phuc Lu\Desktop\Capstone Project\Capstone.Test\obj\Debug\Capstone.Test.pdb

@@ -1,19 +1,15 @@
-﻿using System.Web.Services;
-using Captone.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using Captone.Repositories;
-using Captone.Repositories.Interfaces;
-using Captone.Services;
-using Captone.Services.Interfaces;
-using System.IO;
+using System.Web.Services;
+using Captone.Models;
 using iTextSharp.text;
-using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace Captone.Controllers
 {
@@ -114,8 +110,7 @@ namespace Captone.Controllers
         }
         #endregion
 
-        #region Manage requests
-
+        #region Update request status and prepare for return
         // Change status from 1 to 2 - Wating to Approved
         public Boolean ChangeStatus(int requestID)
         {
@@ -154,7 +149,7 @@ namespace Captone.Controllers
             }
             return false;
         }
-        // Set payment status to true after checkout via paypal
+        //
         [HttpPost]
         public Boolean UpdateStatusAfterCheckOut(int requestId)
         {
@@ -194,48 +189,30 @@ namespace Captone.Controllers
             return false;
         }
         // Prepare late delivery request for returning
-        [HttpPost]
-        [WebMethod]
-        public Boolean Return(int requestID)
+        public Boolean Return(List<int> listRequest)
         {
-            Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == requestID);
-            Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == requestID);
-            if (rq != null && rq.Type == true)
+            if (listRequest != null)
             {
-                if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
-                var oldStation = rq.FromLocation;
-                rq.FromLocation = rq.ToLocation;
-                rq.ToLocation = oldStation;
-                rq.DeliveryStatusID = 2;
-                rq.DateRequest = DateTime.Now.Date;
-                rq.ArrivedDate = null;
-                rq.Type = false;
-                rq.Payment = true;
-                _db.Entry(rq).State = EntityState.Modified;
-                _db.SaveChanges();
-                return true;
+                foreach (var id in listRequest)
+                {
+                    Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
+                    Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == id);
+                    if (rq != null && rq.Type == false)
+                    {
+                        if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
+                        var oldStation = rq.FromLocation;
+                        rq.FromLocation = rq.ToLocation;
+                        rq.ToLocation = oldStation;
+                        rq.DeliveryStatusID = 2;
+                        rq.DateRequest = DateTime.Now.Date;
+                        rq.ArrivedDate = null;
+                    }
+                    _db.SaveChanges();
+                    return true;
+                }
             }
             return false;
         }
-        // Cancel package
-        [HttpPost]
-        [WebMethod]
-        public Boolean Cancel(int requestID)
-        {
-            Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == requestID);
-            Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == requestID);
-            if (rq != null && rq.Type == true)
-            {
-                rq.DeliveryStatusID = 7;
-                rq.Type = false;
-                _db.Entry(rq).State = EntityState.Modified;
-                if (inv != null) _db.Invoices.Remove(inv);
-                _db.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-
         #endregion
         //
         public ActionResult AcceptRequest(int stationID)
@@ -266,7 +243,7 @@ namespace Captone.Controllers
             invoice.Price = Price;
             var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
             request.DeliveryStatusID = 2;
-            if (request.TypeOfPayment == "Tiền mặt")
+            if(request.TypeOfPayment == "Tiền mặt")
             {
                 request.Payment = true;
             }
@@ -347,7 +324,7 @@ namespace Captone.Controllers
         public double CalculatePrice(float weight, float volume, int FromLocation, int ToLocation)
         {
 
-            //    var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
+        //    var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
 
             var getPrice = _db.ManageFees.ToList();
             double priceVolume = 0;

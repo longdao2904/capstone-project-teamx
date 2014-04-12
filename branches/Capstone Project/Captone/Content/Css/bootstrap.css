@@ -5,15 +5,27 @@
  */
 
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
-.fullBg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
+.heightClass {
+    margin-left: 110px;
+    margin-top: -64.5px;
 }
+
+.lengthClass {
+    margin-left: 220px;
+    margin-top: -64px;
+}
+
+.fullBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
 .devider {
     border-bottom-style: double;
 }
+
 #content {
     position: absolute;
     top: 20px;
@@ -27,18 +39,21 @@
     background-color: #111;
     width: 390px;
 }
+
 #maincontent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 50;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
 }
+
 .fullBg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
+
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
@@ -378,13 +393,11 @@ html {
 }
 
 body {
-    background-image: url('../img/bck.jpg'); 
+    background-image: url('../img/bck.jpg');
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
     color: #333;
-   
-   
 }
 
 input,
@@ -1411,7 +1424,6 @@ pre {
     }
 
     .col-md-7 {
-     
     }
 
     .col-md-6 {
@@ -4886,14 +4898,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 
 .navbar-default {
     background: #fff;
--moz-border-radius: 10px;
--khtml-border-radius: 10px;
--webkit-border-radius: 10px;
--moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
--khtml-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
--webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
-
-z-index: 90;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    -khtml-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    z-index: 90;
     border-color: #e7e7e7;
 }
 

@@ -42,18 +42,13 @@
                         </div>
 
                         <div class="display-label">
-                            <strong>Ngày</strong>
-                            @Model.Date.ToShortDateString()
-                        </div>
-
-                        <div class="display-label">
                            <strong>Tuyến</strong>
-                            @Html.DisplayFor(model => model.Schedule.CoachArrangement.Route.RouteName)
+                            @Html.DisplayFor(model => model.Schedule.Route.RouteName)
                         </div>
 
                         <div class="display-label">
                         <strong>Xe</strong>
-                            @Html.DisplayFor(model => model.Schedule.CoachArrangement.Coach.NumberPlate)
+                            @Html.DisplayFor(model => model.Schedule.Coach.NumberPlate)
                         </div>
                     </fieldset>
                     <br />

@@ -12,8 +12,6 @@
     <table class="table display KeyTable dataTable" id="TableArrivedTrip" aria-describedby="example_info">
         <thead>
             <tr>
-                <th>Ngày đi 
-                </th>
                 <th>Tuyến
                 </th>
                 <th>Xe
@@ -23,7 +21,7 @@
                 <th>Giờ đến 
                 </th>
                 <th></th>
-                <th></th>
+               
             </tr>
         </thead>
         <tbody>
@@ -33,14 +31,12 @@
                     <td style="display: none">
                         @item.TripID
                     </td>
+       
                     <td>
-                        @item.Date.ToShortDateString()
+                        @Html.DisplayFor(modelItem => item.Schedule.Route.RouteName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Route.RouteName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Schedule.CoachArrangement.Coach.NumberPlate)
+                        @Html.DisplayFor(modelItem => item.Schedule.Coach.NumberPlate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RealDepartureTime)

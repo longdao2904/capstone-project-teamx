@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Captone.Models.Request>
 <script src="~/Content/js/demo/demo.js"></script>
-<div class="table-responsive" id="requestList">
-    <table class="table">
+<div class="table-responsive" id="requestList" style="width: 103%;">
+    <table class="table table-bordered">
         <tr>
             <th>Địa chỉ người gửi
             </th>
@@ -14,8 +14,6 @@
             <th>
                 Mã
             </th>
-            <th>Trạng thái
-            </th>
             <th></th>
             <th></th>
         </tr>
@@ -24,7 +22,7 @@
         {
             
             <tr id="requestCustomer-@item.RequestID">
-                <td>
+                <td style="width: 250px;">
                     @item.SenderAddress
                 </td>
                 <td>
@@ -39,9 +37,7 @@
                 <td>
                     @item.RequestCode
                 </td>
-                <td>
-                    @item.DeliveryStatu.StatusName
-                </td>
+
                 @if (item.DeliveryStatusID == 1)
                 {
                     <td>

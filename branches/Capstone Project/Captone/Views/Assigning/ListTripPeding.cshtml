@@ -42,26 +42,11 @@
                     </td>
                    
                     <td>@item.StopStationName</td>
-                     <td></td>
+                    <td></td>
                     <td>
                         <input type="checkbox" name="CheckTrip" class="case1" style="display: none" />
                     </td>
-                    @if (item.StopStation == Convert.ToInt32(Session["StationID"]) & item.Status == "Đang chạy" & item.ToLocation != Convert.ToInt32(Session["StationID"]))
-                    { <td>
-                        <a class="btn btn-success" href="/Assigning/UpdateStatus?tripId=@item.TripID&requestId=@item.RequestID">Cập nhật</a>
-                    </td>
-                      
-                    }
-                    @if (item.Status == "Chưa chạy")
-                    {<td>
-                        <a class="btn btn-success" href="/Assigning/NextStage?tripId=@item.TripID&IndicaterOrder=@item.IndicateOrder">Chuyển hàng</a>
-                    </td>
-                    }
                 </tr>
-                    if (item.IndicateOrder == Model.Count())
-                    {
-                <a class="btn btn-success" href="/Assigning/UpdateArrive?requestId=@item.RequestID">Hàng đã đến trạm</a>
-                    }
             }
         </tbody>
     </table>

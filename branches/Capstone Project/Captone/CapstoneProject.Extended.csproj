@@ -205,9 +205,6 @@
     <Compile Include="Models\Coach.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CoachArrangement.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CoachType.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -270,9 +267,6 @@
     <Compile Include="Models\Station.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>iDeliver.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Trip.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -282,14 +276,12 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Repositories\BaseRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAccountRepository.cs" />
     <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -300,18 +292,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AccountService.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AssigningService.cs" />
     <Compile Include="Services\EncodingPassword.cs" />
     <Compile Include="Services\ExpiredRequestService.cs" />
-    <Compile Include="Services\Interfaces\IAccountService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Interfaces\IAssigningService.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IAssigningService.cs" />
     <Compile Include="Services\Interfaces\IExpiredRequestService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -956,6 +942,7 @@
     <Content Include="Views\Home\DetailStationRequest.cshtml" />
     <Content Include="Views\Home\DetailStationRoute.cshtml" />
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
+    <Content Include="Views\Home\SentRequestForm2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

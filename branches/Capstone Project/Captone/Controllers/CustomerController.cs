@@ -17,7 +17,7 @@ namespace Captone.Controllers
         public ActionResult Index()
         {
             var username = Session["USERNAME"];
-            var list = _db.Requests.Where(p => p.TypeOfPayment == "Thanh toán online" & p.Payment == false & p.Username == username).ToList();
+            var list = _db.Requests.Where(p => p.TypeOfPayment == "Chuyển khoản" & p.Payment == false & p.Username == username).ToList();
             return View(list);
         }
         public ActionResult InputPayment(int RequestID)
