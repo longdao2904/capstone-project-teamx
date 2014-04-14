@@ -1,0 +1,144 @@
+﻿@model IEnumerable<Captone.Models.Coach>
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
+@{
+    ViewBag.Title = "Danh sách các xe";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    @ViewBag.Title
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <a data-toggle="modal" id="" data-target="#coachModal" class="btn btn-outline btn-primary" onclick="Create()">Thêm xe mới</a>
+                        <a class="btn btn-outline btn-primary" href="/CoachType/Index">Loại xe</a>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table display KeyTable dataTable" id="CoachesTbl" aria-describedby="example_info">
+                            <thead>
+                                <tr>
+                                    <th>Biển số xe
+                                    </th>
+                                    <th>Số ghế ngồi
+                                    </th>
+                              
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a data-toggle="modal" id="" data-target="#coachDetail" onclick="Detail(@item.CoachID)">@Html.DisplayFor(modelItem => item.NumberPlate)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CoachType.Seats)
+                                        </td>
+                                
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="coachModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin xe mới</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="modal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="coachDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin xe</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="coachDetails">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    window.onload = loadTable();
+
+    function init() {
+        loadTable();
+        coachTypeTable();
+    }
+
+    function loadTable() {
+        var oTable = $('#CoachesTbl').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('CoachesTbl'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+
+    function Create() {
+        $.ajax({
+            url: "/Coach/Create",
+            type: "Get",
+            success: function (result) {
+                $("#modal").html(result);
+            }
+        });
+    }
+
+    function Detail(coachID) {
+        $.ajax({
+            url: "/Coach/Details/" + coachID,
+            type: "Get",
+            success: function (result) {
+                $("#coachDetails").html(result);
+            }
+        });
+    }
+</script>
+<style type="text/css">
+    .bodyFix {
+        height: 100%;
+        overflow: scroll;
+    }
+    .modal-title {
+        font-weight:bolder;
+    }
+</style>
+

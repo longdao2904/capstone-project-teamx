@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Thời gian ước tính xuất bến</th>
+                <th>Thời gian ước tính đến</th>
+                <th>Ngày</th>
+                <th>Tuyến</th>
+                <th>Xe</th>
+                <th>Loại xe</th>
+                    <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="display: none;">
+                        @item.TripID
+                    </td>
+                    <td>
+                        @item.EstimateDepartureTime
+                    </td>
+                    <td>
+                        @item.EstimateArrivalTime
+                    </td>
+                    <td>
+                        @item.Date
+                    </td>
+                    <td style="display: none;">
+                        @item.RouteID
+                    </td>
+                    <td style="display: none;">
+                        @item.AvailableVolume
+                    </td>
+                    <td>
+                        @item.Schedule.CoachArrangement.Route.RouteName
+                    </td>
+                    <td>
+                        @item.Schedule.CoachArrangement.Coach.NumberPlate
+                    </td>
+                    <td>
+                        @item.Schedule.CoachArrangement.Coach.CoachType.Seats
+                    </td>
+                    <td>
+                        <input type="checkbox" name="Trip"/>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script type="text/javascript">
+    
+    function getTripMul() {
+        var trip = [];
+        $('[name="Trip"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var emp = {
+                // we start at 2 because the first one is the checkbox
+                // also it would be easier if you have an id for each of the column
+                // and do this row.find('#idCol') / row.find('#nameCol')
+                TripID: row.find('td:nth-child(1)').text(),
+                EstimateDepartureTime: row.find('td:nth-child(2)').text(),
+                EstimateArrivalTime: row.find('td:nth-child(3)').text(),
+                Date: row.find('td:nth-child(4)').text(),
+                RouteID: row.find('td:nth-child(5)').text(),
+                AvailableVolume: row.find('td:nth-child(6)').text()
+            };
+            trip.push(emp);
+            // SentObject(request);
+        });
+        return trip;
+    }
+
+</script>
