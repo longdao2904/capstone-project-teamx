@@ -1,0 +1,28 @@
+﻿@model Captone.Models.PayPalModel
+
+@{
+    ViewBag.Title = "Chuyển trang";
+}
+
+<body>
+    <form id="hiddenform" action=@Model.actionURL>
+    @Html.HiddenFor(model => model.cmd)
+    @Html.HiddenFor(model => model.business)
+    @Html.HiddenFor(model => model.no_shipping)
+    @Html.HiddenFor(model => model.@return)
+    @Html.HiddenFor(model => model.cancel_return)
+    @Html.HiddenFor(model => model.notify_url)
+    @Html.HiddenFor(model => model.item_name)
+    @Html.HiddenFor(model => model.amount)
+    </form>
+    <h4 style="color: green">Đang chuyển đến trang thanh toán Paypal, vui lòng chờ...</h4>
+    <p align="center"><img src="~/Content/img/LoadingProgressBar.gif"/></p>
+</body>
+ @Scripts.Render("~/bundles/jquery")
+
+<script>
+    $(this.document).ready(function () {
+        var form = $("form");
+        form.submit();
+    });   
+</script>

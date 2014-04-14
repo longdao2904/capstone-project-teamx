@@ -1,0 +1,74 @@
+﻿<div class="tabbable">
+    <ul id="myTab" class="nav nav-tabs">
+
+        @foreach (var item in ViewBag.Province)
+        {
+             
+            <li><a href="#@item.Value" data-toggle="tab" id="@item.Value" onclick="listStation(this.id)">@item.Text</a></li>
+
+           }
+    </ul>
+    <br />
+       
+    <div id="station">
+        
+    </div>
+</div>
+<script type="text/javascript">
+    function addActive() {
+        listStation(1);
+        $('#1').addClass("active");
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: new google.maps.LatLng(12.9305901, 101.9925574),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
+    function listStation(id) {
+        
+        //     var id = document.getElementById("province").value;
+        $.ajax({
+            url: "/Home/ListStation",
+            type: "Post",
+            data: { province: id },
+            success: function(result) {
+                $("#station").html(result);
+                StationGoogleMaker(id);
+            }
+        });
+    }
+    function StationGoogleMaker(id) {
+        $.ajax({
+            url: "/Home/ListCoordinate",
+            contentType: "application/json",
+            dataType: "json",
+            data: { ProvinceID: id },
+            success: function (result) {
+                var first = result[0].Coordinate.indexOf(',');
+                var firstLat = parseFloat(result[0].Coordinate.substring(0, first));
+                var firstLong = parseFloat(result[0].Coordinate.substring(first + 1, result[0].Coordinate.length));
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: new google.maps.LatLng(firstLat, firstLong),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+                var infowindow = new google.maps.InfoWindow();
+                var marker, i;
+                for (i in result) {
+                  
+                    var re = result[i].Coordinate.indexOf(',');
+                    var Lat = parseFloat(result[i].Coordinate.substring(0, re));
+                    var Long = parseFloat(result[i].Coordinate.substring(re + 1, result[i].Coordinate.length));
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(Lat, Long),
+                        map: map,
+                        animation: google.maps.Animation.DROP
+                  
+                    });
+                }
+            }
+        });
+    }
+
+    window.onload = addActive();
+</script>

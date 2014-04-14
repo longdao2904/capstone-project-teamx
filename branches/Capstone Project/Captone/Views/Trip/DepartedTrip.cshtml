@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+@{
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Tuyến
+                </th>
+                <th>Xe
+                </th>
+                <th>Giờ đi       
+                </th>
+                <th>Giờ đến dự kiến
+                </th>
+                <th></th>
+                <th></th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="display: none">
+                        @item.TripID
+                    </td>
+                    <td>
+                        @item.Schedule.Route.RouteName
+                    </td>
+                    <td>
+                      @item.Schedule.Coach.NumberPlate
+                    </td>
+                    <td>
+                        
+                        @item.RealDepartureTime
+                    </td>
+                    <td>
+                        @item.EstimateArrivalTime
+                    </td>
+                    <td>
+                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="AssignedRequest(@item.TripID)">Hàng trên chuyến</a>
+                    </td>
+              
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content detailPopup">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="requests">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script>
+    $(function() {
+        var oTable = $('#TableDepartedTrip').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bSort": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('TableDepartedTrip'),
+            "datatable": oTable,
+            "bSort": true,
+            "sPaginationType": "full_numbers"
+        });
+    });
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                 
+                });
+            }
+        });
+
+    });
+    // change request status when checkbox 'arrived' checked
+    function getRequests() {
+        var listRq = [];
+        $('[name="chk"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var rq = document.getElementById("rqID").innerText;
+            // Push request object to collection
+            listRq.push(rq);
+        });
+        return listRq;
+    }
+    // Sent request collection to controller
+    function SentObject() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/UpdateStatus",
+            type: "POST",
+            data: JSON.stringify({ requestIDs: requests }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                window.location = "/Request/Index";
+                window.addActive(5);
+            }
+        });
+    }
+    // Click on button 'Đã đến trạm'
+    $('#sttSet').click(function () {
+        SentObject();
+    });
+    // Get requests assigned to selected trip
+    function AssignedRequest(tripID) {
+        $.ajax({
+            url: "/Trip/AssignedRequest",
+            type: "Post",
+            data: { tripID: tripID },
+            success: function (result) {
+                $("#requests").html(result);
+            }
+        });
+    }
+</script>
+<style type="text/css">
+    .bodyFix {
+        width: 768px;
+        height: 380px;
+        overflow: scroll;
+        margin: auto;
+    }
+
+    .detailPopup {
+        width: 768px;
+        margin: auto;
+    }
+
+    .modal-title {
+        font-weight: bolder;
+        color: blue;
+    }
+</style>

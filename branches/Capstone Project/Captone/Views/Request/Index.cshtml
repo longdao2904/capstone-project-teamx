@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Captone.Models.Request>
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
+@{
+    ViewBag.Title = "Danh sách yêu cầu chuyển phát";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    int stationId = Convert.ToInt32(Session["StationID"]);
+    var Username = (string)Session["USERNAME"];
+}
+
+<div class="col-lg-12">
+    @if (Username != null)
+    {
+        <p>
+            <a href="/Request/AcceptRequest?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Tiếp nhận yêu cầu</a>
+        </p>
+        <p>
+            <a href="/Request/ListRequest" class="btn btn-outline btn-primary btn-lg btn-block">Xếp lịch vận chuyển</a>
+        </p>
+        <p>
+            <a href="/Assigning/ListAssign?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Xác nhận chuyển hàng</a>
+        </p>
+        <p>
+            <a href="/Assigning/RequestPeding" class="btn btn-outline btn-primary btn-lg btn-block">Hàng đang vận chuyển</a>
+        </p>
+        <p>
+            <a href="/Assigning/ArrivedRequest?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Hàng đã đến trạm</a>
+        </p>
+        <p>
+            <a href="/Assigning/DeliveredRequest?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Hàng đã được giao</a>
+        </p>
+        <p>
+            <a href="/Assigning/ExpiredRequest?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Hàng đã hết hạn giao & chờ trả</a>
+        </p>
+        <p>
+            <a href="/Request/LatePayment?stationID=@stationId" class="btn btn-outline btn-primary btn-lg btn-block">Trễ hạn thanh toán</a>
+        </p>
+    }
+</div>
+<script type="text/javascript">
+</script>

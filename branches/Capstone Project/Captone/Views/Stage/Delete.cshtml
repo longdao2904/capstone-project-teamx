@@ -1,0 +1,53 @@
+﻿@model Captone.Models.Stage
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Bạn muốn xoá chặng này?</h3>
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+        <strong>Chặng: </strong>
+        @Html.DisplayFor(model => model.StageName)
+    </div>
+
+    <div class="display-label">
+        <strong>Trạm đầu: </strong>
+        @Html.DisplayFor(model => model.Station1.StationName)
+    </div>
+
+    <div class="display-label">
+        <strong>Trạm cuối: </strong>
+        @Html.DisplayFor(model => model.Station.StationName)
+    </div>
+
+    <div class="display-label">
+        <strong>Thời gian nghỉ: </strong>
+        @Html.DisplayFor(model => model.BreakTime)
+    </div>
+
+    <div class="display-label">
+        <strong>Thời gian đi: </strong>
+        @Html.DisplayFor(model => model.Duration)
+    </div>
+
+    <div class="display-label">
+        <strong>Khoảng cách: </strong>
+        @Html.DisplayFor(model => model.Distance)
+    </div>
+
+    <div class="display-label">
+        <strong>Giá: </strong>
+        @Html.DisplayFor(model => model.Price)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Xoá" />
+        |
+        @Html.ActionLink("Quay lại danh sách", "Index")
+    </p>
+}
