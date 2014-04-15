@@ -203,7 +203,10 @@
                     @if (UserRole == "Admin")
                     {
                         <li>
-                            <a href="#"><i class="fa fa-gears fa-fw"></i>Quản trị hệ thống<span class="fa arrow"></span></a>
+                            <div class="rectangle">
+                                <a href="#" style="color: white"><i class="fa fa-gears fa-2x"></i> Quản trị hệ thống</a>
+                            </div>
+                            <div class="triangle-r"></div>                          
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/Staff/Index">Nhân viên</a>
@@ -212,7 +215,7 @@
                                     <a href="/Fee">Biểu giá vận chuyển</a>
                                 </li>
                                 <li>
-                                    <a href="/Schedule/Index">Lịch trình xe và tuyến</a>
+                                    <a href="/Admin/Index">Thống kê</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -220,9 +223,9 @@
                     }
                     @if (UserRole == "Customer" || UserRole == null)
                     {
-                        <li class="active">
+                        <li>
                             <div class="rectangle topstation">
-                                <i class="fa fa-building-o"></i>Trạm được đánh giá cao
+                                <i class="fa fa-building-o"> Trạm được đánh giá cao</i>
                             </div>
                             <div class="triangle-r"></div>
                             <ul class="nav nav-second-level">
