@@ -12,11 +12,10 @@
         x.style.backgroundColor = "white";
     }
 </script>
-
-<h2>Quản lý chi phí</h2>
 <div class="row">
     <div class="col-lg-8">
         <div class="panel panel-primary">
+            <div class="panel-title">Mức phí vận chuyển</div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table style="border: 2px; font-size: 14px" class="table">
@@ -32,9 +31,10 @@
                             <th>Đến</th>
                             <th>Từ</th>
                             <th>Đến</th>
-                        </tr>   
+                        </tr>
 
-                        @foreach (var item in Model) {
+                        @foreach (var item in Model)
+                        {
                             <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
                                 <td style="width: 120px">
                                     @Html.DisplayFor(modelItem => item.FeeID)
@@ -55,9 +55,11 @@
                                     @Html.DisplayFor(modelItem => item.MaxVolume)
                                 </td>
                                 <td style="width: 120px">
-                                    <a href="/Fee/Edit/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
+                                    <a href="/Fee/Edit/@item.FeeID">
+                                        <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
                                     <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>|
-                                    <a href="/Fee/Delete/@item.FeeID"><input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Trash"></a>
+                                    <a href="/Fee/Delete/@item.FeeID">
+                                        <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Trash"></a>
                                 </td>
                             </tr>
                         }
