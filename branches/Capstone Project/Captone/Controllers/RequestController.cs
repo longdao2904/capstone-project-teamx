@@ -153,8 +153,8 @@ namespace Captone.Controllers
         [HttpPost]
         public Boolean UpdateStatusAfterCheckOut(int requestId)
         {
-            Request request = _db.Requests.Where(r => r.RequestID == requestId).FirstOrDefault();
-            request.Payment = true;
+            var request = _db.Requests.FirstOrDefault(r => r.RequestID == requestId);
+            if (request != null) request.Payment = true;
             _db.SaveChanges();
             return true;
         }
