@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Captone.Models.Request>
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    Layout = "~/Views/Shared/_LayoutNoMap.cshtml";
 }
 <b><p class="pContent">Danh sách yêu cầu</p></b>
 <div class="col-lg-8">
     <div class="container">
+        @if (Model == null || !Model.Any())
+        {
+            <p style="padding-left: 350px">Không có yêu cầu nào để thanh toán.</p><br/>
+        }
         @foreach (var item in Model)
         {
             <img src="~/Content/img/images.jpg" style="height: 150px;" />
-
             <div class="infor-request" style="height: 150px" title="Bấm vào để tiến hành thanh toán">
                 <a class="btn btn-default" href="/Customer/InputPayment?RequestID=@item.RequestID"><i class="fa fa-user fa-3x"></i>  @item.Username <br />
                     Tuyến đường: @item.Station.StationName -----> @item.Station1.StationName <br/>
