@@ -9,7 +9,7 @@ namespace Captone.Controllers
     public class AccountController : Controller
     {
         private iDeliverEntities _db = new iDeliverEntities();
-
+        private int _defaultStationID = 11;
         #region For popup modal
         public ActionResult LogOn()
         {
@@ -44,7 +44,7 @@ namespace Captone.Controllers
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
-                            return RedirectToAction("LogOn", "Home");
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
@@ -60,7 +60,7 @@ namespace Captone.Controllers
                     {
                         TempData["ERROR"] = "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại";
                         ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
-                        return RedirectToAction("LogOn", "Account");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
@@ -90,9 +90,11 @@ namespace Captone.Controllers
                 Account tmp = new Account();
                 tmp.Username = model.Username;
                 tmp.Password = model.Password;
+                tmp.BackupPassword = model.BackupPassword;
                 tmp.Email = model.Email;
                 tmp.Role = "Customer";
                 tmp.BannedStatus = false;
+                tmp.StationID = _defaultStationID;
                 // Attempt to register the user
                 _db.Accounts.Add(tmp);
                 try
@@ -145,7 +147,7 @@ namespace Captone.Controllers
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
-                            return RedirectToAction("LogOn", "Home");
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
@@ -215,14 +217,15 @@ namespace Captone.Controllers
         //Update user information after register
         public ActionResult AddUserInfo(FormCollection col)
         {
-            UserInfo info = new UserInfo();
+            var info = new UserInfo();
+            if (Session["USERNAME"] == null) return RedirectToAction("Index", "Home");
             info.Username = Session["USERNAME"].ToString();
             info.Firstname = col["Firstname"];
             info.Lastname = col["Lastname"];
             info.Address = col["Address"];
             _db.UserInfoes.Add(info);
             _db.SaveChanges();
-            return RedirectToAction("SentRequestForm", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
