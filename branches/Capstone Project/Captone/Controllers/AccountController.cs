@@ -23,12 +23,12 @@ namespace Captone.Controllers
             {
                 if (model.Username == null | model.Password == null)
                 {
-                    ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                    ModelState.AddModelError("LoginFailed", @"Tên đăng nhập hoặc mật khẩu không đúng.");
                     return RedirectToAction("LogOn", "Account");
                 }
                 else
                 {
-                    var check = _db.Accounts.Where(r => r.Username == model.Username && r.Password == model.Password).SingleOrDefault();
+                    var check = _db.Accounts.SingleOrDefault(r => r.Username == model.Username && r.Password == model.Password);
                     if (check != null)
                     {
                         Session.Timeout = 60;
@@ -36,10 +36,12 @@ namespace Captone.Controllers
                         Session["StationID"] = check.StationID;
                         if (check.StationID != 0)
                         {
-                            var getStation = _db.Stations.Where(p => p.StationID == check.StationID).Single();
+                            var getStation = _db.Stations.Single(p => p.StationID == check.StationID);
                             Session["StationName"] = getStation.StationName;
                         }
-                        Session["UserRole"] = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault().Role;
+                        var firstOrDefault = _db.Accounts.FirstOrDefault(u => u.Username == model.Username);
+                        if (firstOrDefault != null)
+                            Session["UserRole"] = firstOrDefault.Role;
                         FormsAuthentication.SetAuthCookie(model.Username, false);
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -59,7 +61,7 @@ namespace Captone.Controllers
                     else
                     {
                         TempData["ERROR"] = "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại";
-                        ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                        ModelState.AddModelError("LoginFailed", @"Tên đăng nhập hoặc mật khẩu không đúng.");
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -87,7 +89,7 @@ namespace Captone.Controllers
         {
             if (ModelState.IsValid)
             {
-                Account tmp = new Account();
+                var tmp = new Account();
                 tmp.Username = model.Username;
                 tmp.Password = model.Password;
                 tmp.BackupPassword = model.BackupPassword;
@@ -103,7 +105,7 @@ namespace Captone.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Register error");
+                    ModelState.AddModelError("", @"Register error");
                 }
                 Session["USERNAME"] = tmp.Username;
                 return RedirectToAction("SuccessRegister", "Account");
@@ -126,12 +128,12 @@ namespace Captone.Controllers
             {
                 if (model.Username == null | model.Password == null)
                 {
-                    ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                    ModelState.AddModelError("LoginFailed", @"Tên đăng nhập hoặc mật khẩu không đúng.");
                     return RedirectToAction("LogOn", "Account");
                 }
                 else
                 {
-                    var check = _db.Accounts.Where(r => r.Username == model.Username && r.Password == model.Password).Single();
+                    var check = _db.Accounts.Single(r => r.Username == model.Username && r.Password == model.Password);
                     if (check != null)
                     {
                         Session.Timeout = 60;
@@ -139,10 +141,12 @@ namespace Captone.Controllers
                         Session["StationID"] = check.StationID;
                         if (check.StationID != 0)
                         {
-                            var getStation = _db.Stations.Where(p => p.StationID == check.StationID).Single();
+                            var getStation = _db.Stations.Single(p => p.StationID == check.StationID);
                             Session["StationName"] = getStation.StationName;
                         }
-                        Session["UserRole"] = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault().Role;
+                        var firstOrDefault = _db.Accounts.Where(u => u.Username == model.Username).FirstOrDefault();
+                        if (firstOrDefault != null)
+                            Session["UserRole"] = firstOrDefault.Role;
                         FormsAuthentication.SetAuthCookie(model.Username, false);
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -165,7 +169,7 @@ namespace Captone.Controllers
                     else
                     {
                         TempData["ERROR"] = "Tên đăng nhập hoặc mật khẩu không đúng. Vui lòng thử lại";
-                        ModelState.AddModelError("LoginFailed", "Tên đăng nhập hoặc mật khẩu không đúng.");
+                        ModelState.AddModelError("LoginFailed", @"Tên đăng nhập hoặc mật khẩu không đúng.");
                         return RedirectToAction("LogOn", "Account");
                     }
                 }
@@ -199,7 +203,7 @@ namespace Captone.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Register error");
+                    ModelState.AddModelError("", @"Register error");
                 }
                 Session["USERNAME"] = tmp.Username;
                 return RedirectToAction("SuccessRegister", "Account");
