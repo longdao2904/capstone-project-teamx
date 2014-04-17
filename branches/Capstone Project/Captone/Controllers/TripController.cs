@@ -1,4 +1,5 @@
 ﻿using System.Data.Objects.SqlClient;
+using System.IO;
 using Captone.Models;
 using Captone.Services;
 using System;
@@ -55,7 +56,7 @@ namespace Captone.Controllers
                     {
                         if (stage.EndPoint == stationID && trip.Status == "Đang chạy") flag = true;
                     }
-                    if(flag) listTrips.Add(trip);
+                    if (flag) listTrips.Add(trip);
                 }
             }
             return listTrips;
@@ -144,7 +145,7 @@ namespace Captone.Controllers
                         t.Status = "Chưa chạy";
                         var tmpTime = GetNextTime(schedule) > date ? GetNextTime(schedule) : date;
                         tmpTime = tmpTime.Add(schedule.EstimateDepartureTime);
-                        if (GetTime(schedule.RouteID) < (24 - _deltaTime)/2)
+                        if (GetTime(schedule.RouteID) < (24 - _deltaTime) / 2)
                         {
                             for (int i = 0; i < 7; i++)
                             {
@@ -158,11 +159,11 @@ namespace Captone.Controllers
                         {
                             for (int i = 0; i < 7; i++)
                             {
-                                t.EstimateDepartureTime = tmpTime.AddDays(2*i);
-                                t.EstimateArrivalTime = tmpTime.AddDays(2*i).AddHours(GetTime(schedule.RouteID));
+                                t.EstimateDepartureTime = tmpTime.AddDays(2 * i);
+                                t.EstimateArrivalTime = tmpTime.AddDays(2 * i).AddHours(GetTime(schedule.RouteID));
                                 db.Trips.Add(t);
                                 db.SaveChanges();
-                            }   
+                            }
                         }
                     }
                 }
@@ -184,7 +185,7 @@ namespace Captone.Controllers
                     {
                         if (type.CoachTypeID == coach.CoachTypeID)
                         {
-                            volume = type.Height*type.Length*type.Width;
+                            volume = type.Height * type.Length * type.Width;
                         }
                     }
                 }
@@ -193,7 +194,7 @@ namespace Captone.Controllers
             {
                 if (route.RouteID == schedule.RouteID) container = route.Container;
             }
-            return volume*container;
+            return volume * container;
         }
         //get the earliest day for create new trip comparing to the list trip from database
         public DateTime GetNextTime(Schedule schedule)
@@ -207,11 +208,11 @@ namespace Captone.Controllers
             if (resTrip.Count == 0) return (DateTime.Now).Date;
             resTrip.Sort((trip1, trip2) => (trip1.EstimateArrivalTime).CompareTo(trip2.EstimateArrivalTime));
             var res = resTrip.Last().EstimateDepartureTime;
-            res = res.AddHours(GetTime(schedule.RouteID)*2 + _deltaTime * 2);
+            res = res.AddHours(GetTime(schedule.RouteID) * 2 + _deltaTime * 2);
             if (res.Hour > schedule.EstimateDepartureTime.Hours) return res.Date;
             return res.Date.AddDays(1);
         }
-       
+
         //find the list stage of route
         public List<Stage> FindStageFromRoute(int routeID)
         {
@@ -364,7 +365,20 @@ namespace Captone.Controllers
                     db.SaveChanges();
                 }
             }
-            return View(failedReason);
+            var stringView = RenderRazorViewToString("Assigning", failedReason);
+            return Json(stringView, JsonRequestBehavior.AllowGet);
+        }
+        public string RenderRazorViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
         }
 
         //Pass estimated time to real time of trip when depart/arrive
@@ -392,7 +406,7 @@ namespace Captone.Controllers
         }
 
         //For view assigned request of selected trip
-  
+
         public ActionResult AssignedRequest(int tripID)
         {
             var listRequests = new List<Request>();
@@ -496,11 +510,12 @@ namespace Captone.Controllers
             {
                 tmpRequestIDs.Add(assigning.RequestID);
             }
-            return (from tmpRequestID in tmpRequestIDs 
-                    from request in requests 
-                    where request.RequestID == tmpRequestID select request).ToList();
+            return (from tmpRequestID in tmpRequestIDs
+                    from request in requests
+                    where request.RequestID == tmpRequestID
+                    select request).ToList();
         }
-        
+
         // Update assigned requests of departed trip after click button 'Xe đã chạy'
         [HttpPost]
         [WebMethod]
@@ -517,7 +532,7 @@ namespace Captone.Controllers
             //update the status of all request in the list
             foreach (var request in listRequest)
             {
-                if(request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
+                if (request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
             }

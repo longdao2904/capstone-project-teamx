@@ -6,14 +6,17 @@
 @{
     int stationId = Convert.ToInt32(Session["StationID"]);
 }
+@if (Model == null || Model.Count() == 0)
+{
+    <h4 style="color: orange">Tất cả yêu cầu gửi hàng đều đã được xếp lịch.</h4>   
+}
+else{
 <h4 style="color: orange">Nguyên nhân: </h4>
-
 <table class="table">
     <thead>
         <th>Code</th>
         <th>Từ - đến</th>
         <th>Số đường đã tìm được</th>
-        <th>Bao gồm</th>
         <th>Một tuyến</th>
         <th>Nhiều tuyến</th>
         <th>Giữa tuyến</th>
@@ -25,7 +28,6 @@
                 <td>@r.RequestCode</td>
                 <td>@r.FromTo</td>
                 <td>@r.NumberOfWay</td>
-                <td>@r.WayList</td>
                 <td>@r.OneTrip</td>
                 <td>@r.MultipleTrip</td>
                 <td>@r.MiddleTrip</td>
@@ -33,3 +35,4 @@
         }
     </tbody>
 </table>
+}
