@@ -1,0 +1,1016 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C032DB0F-0B9A-49DA-99D3-0816243081B8}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Captone</RootNamespace>
+    <AssemblyName>Captone</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\..\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\..\..\..\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra">
+      <HintPath>..\..\..\..\itextsharp.xtra.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AssigningController.cs" />
+    <Compile Include="Controllers\CoachController.cs" />
+    <Compile Include="Controllers\CoachTypeController.cs" />
+    <Compile Include="Controllers\CustomerController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FeeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FeedBackController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\RouteController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SMSController.cs" />
+    <Compile Include="Controllers\StaffController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\StageController.cs" />
+    <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Controllers\TripController.cs" />
+    <Compile Include="Extensions\Constants.cs" />
+    <Compile Include="Hubs\ChatHub.cs" />
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Assigning.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssigningModel.cs" />
+    <Compile Include="Models\Coach.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CoachType.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryStatu.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetailStationModel.cs" />
+    <Compile Include="Models\iDeliver.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iDeliver.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\iDeliver.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\ListTripModel.cs" />
+    <Compile Include="Models\ManageFee.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationRepository.cs" />
+    <Compile Include="Models\PayPalModel.cs" />
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rating.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reason.cs" />
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Route.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RouteStage.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Schedule.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stage.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Station.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trip.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserInfo.cs">
+      <DependentUpon>iDeliver.tt</DependentUpon>
+    </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAccountRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IGenericRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\AssigningService.cs" />
+    <Compile Include="Services\EncodingPassword.cs" />
+    <Compile Include="Services\ExpiredRequestService.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
+    <Compile Include="Services\Interfaces\IAssigningService.cs" />
+    <Compile Include="Services\Interfaces\IExpiredRequestService.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Captone.dll" />
+    <Content Include="bin\Captone.pdb" />
+    <Content Include="Content\Css\admin.css" />
+    <Content Include="Content\Css\admin\animate.css" />
+    <Content Include="Content\Css\admin\reset.css" />
+    <Content Include="Content\Css\admin\styles.css" />
+    <Content Include="Content\Css\bootstrap.css" />
+    <Content Include="Content\Css\bootstrap.min.css" />
+    <Content Include="Content\Css\ie.css" />
+    <Content Include="Content\Css\Index.css" />
+    <Content Include="Content\Css\jstarbox.css" />
+    <Content Include="Content\Css\layout.css" />
+    <Content Include="Content\Css\Login.css" />
+    <Content Include="Content\Css\plugins\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Content\Css\plugins\morris\morris-0.4.3.min.css" />
+    <Content Include="Content\Css\plugins\social-buttons\social-buttons.css" />
+    <Content Include="Content\Css\plugins\timeline\timeline.css" />
+    <Content Include="Content\Css\Register.css" />
+    <Content Include="Content\Css\Ribbon.css" />
+    <Content Include="Content\Css\sb-admin.css" />
+    <Content Include="Content\Css\SentRequest.css" />
+    <Content Include="Content\Css\tooltip.css" />
+    <Content Include="Content\Css\validate.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Images\Admin\breadcrumb_divider.png" />
+    <Content Include="Content\Images\Admin\btn_submit.png" />
+    <Content Include="Content\Images\Admin\btn_submit_2.png" />
+    <Content Include="Content\Images\Admin\btn_view_site.png" />
+    <Content Include="Content\Images\Admin\header_bg.png" />
+    <Content Include="Content\Images\Admin\header_shadow.png" />
+    <Content Include="Content\Images\Admin\icn_add_user.png" />
+    <Content Include="Content\Images\Admin\icn_alert_error.png" />
+    <Content Include="Content\Images\Admin\icn_alert_info.png" />
+    <Content Include="Content\Images\Admin\icn_alert_success.png" />
+    <Content Include="Content\Images\Admin\icn_alert_warning.png" />
+    <Content Include="Content\Images\Admin\icn_audio.png" />
+    <Content Include="Content\Images\Admin\icn_categories.png" />
+    <Content Include="Content\Images\Admin\icn_edit.png" />
+    <Content Include="Content\Images\Admin\icn_edit_article.png" />
+    <Content Include="Content\Images\Admin\icn_folder.png" />
+    <Content Include="Content\Images\Admin\icn_jump_back.png" />
+    <Content Include="Content\Images\Admin\icn_logout.png" />
+    <Content Include="Content\Images\Admin\icn_new_article.png" />
+    <Content Include="Content\Images\Admin\icn_photo.png" />
+    <Content Include="Content\Images\Admin\icn_profile.png" />
+    <Content Include="Content\Images\Admin\icn_search.png" />
+    <Content Include="Content\Images\Admin\icn_security.png" />
+    <Content Include="Content\Images\Admin\icn_settings.png" />
+    <Content Include="Content\Images\Admin\icn_tags.png" />
+    <Content Include="Content\Images\Admin\icn_trash.png" />
+    <Content Include="Content\Images\Admin\icn_user.png" />
+    <Content Include="Content\Images\Admin\icn_video.png" />
+    <Content Include="Content\Images\Admin\icn_view_users.png" />
+    <Content Include="Content\Images\Admin\module_footer_bg.png" />
+    <Content Include="Content\Images\Admin\post_message.png" />
+    <Content Include="Content\Images\Admin\secondary_bar.png" />
+    <Content Include="Content\Images\Admin\secondary_bar_shadow.png" />
+    <Content Include="Content\Images\Admin\sidebar.png" />
+    <Content Include="Content\Images\Admin\sidebar_divider.png" />
+    <Content Include="Content\Images\Admin\sidebar_shadow.png" />
+    <Content Include="Content\Images\Admin\table_sorter_header.png" />
+    <Content Include="Content\Images\Bus Station.png" />
+    <Content Include="Content\Images\folder_blue_favourites.png" />
+    <Content Include="Content\Images\forms\bg_related_act.gif" />
+    <Content Include="Content\Images\forms\bubble_inner.gif" />
+    <Content Include="Content\Images\forms\bubble_left.gif" />
+    <Content Include="Content\Images\forms\bubble_right.gif" />
+    <Content Include="Content\Images\forms\choose-file.gif" />
+    <Content Include="Content\Images\forms\error_left.gif" />
+    <Content Include="Content\Images\forms\error_right.gif" />
+    <Content Include="Content\Images\forms\form_inp.gif" />
+    <Content Include="Content\Images\forms\form_inp_error.gif" />
+    <Content Include="Content\Images\forms\form_reset.gif" />
+    <Content Include="Content\Images\forms\form_select.gif" />
+    <Content Include="Content\Images\forms\form_select_small.gif" />
+    <Content Include="Content\Images\forms\form_submit.gif" />
+    <Content Include="Content\Images\forms\form_textarea.gif" />
+    <Content Include="Content\Images\forms\header_related_act.gif" />
+    <Content Include="Content\Images\forms\icon_calendar.jpg" />
+    <Content Include="Content\Images\forms\icon_edit.gif" />
+    <Content Include="Content\Images\forms\icon_list_arrow.gif" />
+    <Content Include="Content\Images\forms\icon_minus.gif" />
+    <Content Include="Content\Images\forms\icon_plus.gif" />
+    <Content Include="Content\Images\forms\lines_dotted_short.gif" />
+    <Content Include="Content\Images\forms\step_1.gif" />
+    <Content Include="Content\Images\forms\step_dark_left.gif" />
+    <Content Include="Content\Images\forms\step_dark_right.gif" />
+    <Content Include="Content\Images\forms\step_dark_round.gif" />
+    <Content Include="Content\Images\forms\step_light_left.gif" />
+    <Content Include="Content\Images\forms\step_light_right.gif" />
+    <Content Include="Content\Images\forms\step_light_round.gif" />
+    <Content Include="Content\Images\forms\upload_file.gif" />
+    <Content Include="Content\Images\icon512x512.png" />
+    <Content Include="Content\Images\lightbulb.png" />
+    <Content Include="Content\Images\lightbulb_off.png" />
+    <Content Include="Content\Images\message-already-read-icon.png" />
+    <Content Include="Content\Images\shared\blank.gif" />
+    <Content Include="Content\Images\shared\border_bit.jpg" />
+    <Content Include="Content\Images\shared\cal_th_repeat.jpg" />
+    <Content Include="Content\Images\shared\cal_top_bg.jpg" />
+    <Content Include="Content\Images\shared\cal_top_repeat.jpg" />
+    <Content Include="Content\Images\shared\checkbox.gif" />
+    <Content Include="Content\Images\shared\content_repeat.jpg" />
+    <Content Include="Content\Images\shared\corner_bottom_left.jpg" />
+    <Content Include="Content\Images\shared\corner_bottom_right.jpg" />
+    <Content Include="Content\Images\shared\corner_top_left.jpg" />
+    <Content Include="Content\Images\shared\corner_top_right.jpg" />
+    <Content Include="Content\Images\shared\icon_idlogo.jpg" />
+    <Content Include="Content\Images\shared\logo.png" />
+    <Content Include="Content\Images\shared\side_shadowleft.jpg" />
+    <Content Include="Content\Images\shared\side_shadowright.jpg" />
+    <Content Include="Content\Images\shared\top_bg.jpg" />
+    <Content Include="Content\Images\shared\top_search_btn.gif" />
+    <Content Include="Content\Images\shared\top_search_inp.gif" />
+    <Content Include="Content\Images\shared\top_search_select.gif" />
+    <Content Include="Content\Images\shared\year_next.gif" />
+    <Content Include="Content\Images\shared\year_prev.gif" />
+    <Content Include="Content\Images\Slider\ACB.jpg" />
+    <Content Include="Content\Images\Slider\tq2.jpg" />
+    <Content Include="Content\Images\Slider\viet-1.jpg" />
+    <Content Include="Content\Images\station.png" />
+    <Content Include="Content\Images\station2.png" />
+    <Content Include="Content\Images\step-first.png" />
+    <Content Include="Content\Images\step-second.png" />
+    <Content Include="Content\Images\step-third.png" />
+    <Content Include="Content\Images\warning-icon.png" />
+    <Content Include="Content\img\Administrator-icon.png" />
+    <Content Include="Content\img\bck.jpg" />
+    <Content Include="Content\img\cancelled.png" />
+    <Content Include="Content\img\checked.gif" />
+    <Content Include="Content\img\curved-road-on-white.jpg" />
+    <Content Include="Content\img\error.png" />
+    <Content Include="Content\img\icon_tick_on.gif" />
+    <Content Include="Content\img\images.jpg" />
+    <Content Include="Content\img\loader.gif" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\LoadingProgressBar.gif" />
+    <Content Include="Content\img\paypal.png" />
+    <Content Include="Content\img\valid.png" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\demo\dashboard-demo.js" />
+    <Content Include="Content\js\demo\demo.js" />
+    <Content Include="Content\js\demo\flot-demo.js" />
+    <Content Include="Content\js\demo\morris-demo.js" />
+    <Content Include="Content\js\hideshow.js" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
+    <Content Include="Content\js\jquery.bpopup.min.js" />
+    <Content Include="Content\js\jquery.cookie.js" />
+    <Content Include="Content\js\PieChart\exporting.js" />
+    <Content Include="Content\js\PieChart\highcharts.js" />
+    <Content Include="Content\js\plugins\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Content\js\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="Content\js\plugins\flot\excanvas.min.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Content\js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Content\js\plugins\metisMenu\jquery.metisMenu.js" />
+    <Content Include="Content\js\plugins\morris\morris.js" />
+    <Content Include="Content\js\plugins\morris\raphael-2.1.0.min.js" />
+    <Content Include="Content\js\sb-admin.js" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\TableJS\jquery.dataTables.js" />
+    <Content Include="Content\TableJS\KeyTable.js" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\ui\.jshintrc" />
+    <Content Include="Content\ui\i18n\jquery-ui-i18n.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-af.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ar.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-az.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-be.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-bg.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-bs.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ca.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-cs.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-cy-GB.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-da.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-de.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-el.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-en-AU.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-en-GB.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-en-NZ.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-eo.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-es.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-et.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-eu.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fa.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fi.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fo.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fr-CA.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fr-CH.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-fr.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-gl.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-he.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-hi.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-hr.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-hu.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-hy.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-id.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-is.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-it.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ja.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ka.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-kk.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-km.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ko.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ky.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-lb.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-lt.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-lv.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-mk.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ml.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ms.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-nb.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-nl-BE.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-nl.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-nn.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-no.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-pl.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-pt-BR.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-pt.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-rm.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ro.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ru.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sk.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sl.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sq.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sr-SR.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sr.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-sv.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-ta.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-th.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-tj.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-tr.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-uk.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-vi.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-zh-CN.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-zh-HK.js" />
+    <Content Include="Content\ui\i18n\jquery.ui.datepicker-zh-TW.js" />
+    <Content Include="Content\ui\jquery-ui.js" />
+    <Content Include="Content\ui\jquery.ui.accordion.js" />
+    <Content Include="Content\ui\jquery.ui.autocomplete.js" />
+    <Content Include="Content\ui\jquery.ui.button.js" />
+    <Content Include="Content\ui\jquery.ui.core.js" />
+    <Content Include="Content\ui\jquery.ui.datepicker.js" />
+    <Content Include="Content\ui\jquery.ui.dialog.js" />
+    <Content Include="Content\ui\jquery.ui.draggable.js" />
+    <Content Include="Content\ui\jquery.ui.droppable.js" />
+    <Content Include="Content\ui\jquery.ui.effect-blind.js" />
+    <Content Include="Content\ui\jquery.ui.effect-bounce.js" />
+    <Content Include="Content\ui\jquery.ui.effect-clip.js" />
+    <Content Include="Content\ui\jquery.ui.effect-drop.js" />
+    <Content Include="Content\ui\jquery.ui.effect-explode.js" />
+    <Content Include="Content\ui\jquery.ui.effect-fade.js" />
+    <Content Include="Content\ui\jquery.ui.effect-fold.js" />
+    <Content Include="Content\ui\jquery.ui.effect-highlight.js" />
+    <Content Include="Content\ui\jquery.ui.effect-pulsate.js" />
+    <Content Include="Content\ui\jquery.ui.effect-scale.js" />
+    <Content Include="Content\ui\jquery.ui.effect-shake.js" />
+    <Content Include="Content\ui\jquery.ui.effect-slide.js" />
+    <Content Include="Content\ui\jquery.ui.effect-transfer.js" />
+    <Content Include="Content\ui\jquery.ui.effect.js" />
+    <Content Include="Content\ui\jquery.ui.menu.js" />
+    <Content Include="Content\ui\jquery.ui.mouse.js" />
+    <Content Include="Content\ui\jquery.ui.position.js" />
+    <Content Include="Content\ui\jquery.ui.progressbar.js" />
+    <Content Include="Content\ui\jquery.ui.resizable.js" />
+    <Content Include="Content\ui\jquery.ui.selectable.js" />
+    <Content Include="Content\ui\jquery.ui.slider.js" />
+    <Content Include="Content\ui\jquery.ui.sortable.js" />
+    <Content Include="Content\ui\jquery.ui.spinner.js" />
+    <Content Include="Content\ui\jquery.ui.tabs.js" />
+    <Content Include="Content\ui\jquery.ui.tooltip.js" />
+    <Content Include="Content\ui\jquery.ui.widget.js" />
+    <Content Include="Content\ui\minified\i18n\jquery-ui-i18n.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-af.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ar-DZ.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ar.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-az.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-be.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-bg.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-bs.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ca.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-cs.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-cy-GB.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-da.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-de.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-el.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-en-AU.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-en-GB.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-en-NZ.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-eo.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-es.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-et.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-eu.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fa.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fi.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fo.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fr-CA.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fr-CH.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-fr.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-gl.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-he.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-hi.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-hr.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-hu.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-hy.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-id.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-is.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-it.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ja.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ka.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-kk.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-km.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ko.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ky.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-lb.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-lt.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-lv.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-mk.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ml.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ms.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-nb.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-nl-BE.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-nl.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-nn.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-no.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-pl.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-pt-BR.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-pt.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-rm.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ro.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ru.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sk.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sl.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sq.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sr-SR.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sr.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-sv.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-ta.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-th.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-tj.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-tr.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-uk.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-vi.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-zh-CN.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-zh-HK.min.js" />
+    <Content Include="Content\ui\minified\i18n\jquery.ui.datepicker-zh-TW.min.js" />
+    <Content Include="Content\ui\minified\jquery-ui.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.accordion.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.autocomplete.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.button.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.core.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.datepicker.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.dialog.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.draggable.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.droppable.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-blind.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-bounce.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-clip.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-drop.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-explode.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-fade.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-fold.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-highlight.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-pulsate.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-scale.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-shake.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-slide.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect-transfer.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.effect.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.menu.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.mouse.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.position.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.progressbar.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.resizable.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.selectable.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.slider.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.sortable.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.spinner.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.tabs.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.tooltip.min.js" />
+    <Content Include="Content\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Images\forms\Thumbs.db" />
+    <Content Include="ImageRating\5-large.png" />
+    <Content Include="ImageRating\5-small.png" />
+    <Content Include="ImageRating\6-large.png" />
+    <Content Include="ImageRating\6-small.png" />
+    <Content Include="ImageRating\curved-small.png" />
+    <Content Include="ImageRating\golden.png" />
+    <Content Include="ImageRating\ribbon-small.png" />
+    <Content Include="ImageRating\ribbon.png" />
+    <Content Include="Scripts\jqBootstrapValidation.js" />
+    <EntityDeploy Include="Models\iDeliver.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iDeliver.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\iDeliver.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\iDeliver.edmx.diagram">
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\iDeliver.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iDeliver.edmx</DependentUpon>
+      <LastGenOutput>iDeliver.cs</LastGenOutput>
+    </Content>
+    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.3.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jstarbox.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\ValidateForm.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Admin\LogIn.cshtml" />
+    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\SuccessRegister.cshtml" />
+    <Content Include="Views\Assigning\GetFromToLocation.cshtml" />
+    <Content Include="Views\Assigning\ListAssign.cshtml" />
+    <Content Include="Views\Assigning\ListTrip.cshtml" />
+    <Content Include="Views\CoachType\Create.cshtml" />
+    <Content Include="Views\CoachType\Delete.cshtml" />
+    <Content Include="Views\CoachType\Details.cshtml" />
+    <Content Include="Views\CoachType\Edit.cshtml" />
+    <Content Include="Views\CoachType\Index.cshtml" />
+    <Content Include="Views\Coach\Create.cshtml" />
+    <Content Include="Views\Coach\Delete.cshtml" />
+    <Content Include="Views\Coach\Details.cshtml" />
+    <Content Include="Views\Coach\Edit.cshtml" />
+    <Content Include="Views\Coach\Index.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\InputPayment.cshtml" />
+    <Content Include="Views\Customer\ReviewInfor.cshtml" />
+    <Content Include="Views\FeedBack\Index.cshtml" />
+    <Content Include="Views\FeedBack\ListComment.cshtml" />
+    <Content Include="Views\FeedBack\ListProvince.cshtml" />
+    <Content Include="Views\FeedBack\ListStation.cshtml" />
+    <Content Include="Views\Fee\Create.cshtml" />
+    <Content Include="Views\Fee\Delete.cshtml" />
+    <Content Include="Views\Fee\Details.cshtml" />
+    <Content Include="Views\Fee\Edit.cshtml" />
+    <Content Include="Views\Fee\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ListProvince.cshtml" />
+    <Content Include="Views\Home\ListRequestCustomer.cshtml" />
+    <Content Include="Views\Home\ListStation.cshtml" />
+    <Content Include="Views\Home\ListStatusCustomer.cshtml" />
+    <Content Include="Views\Home\ListTripTracking.cshtml" />
+    <Content Include="Views\Home\LoadRequest.cshtml" />
+    <Content Include="Views\Home\SentRequestForm.cshtml" />
+    <Content Include="Views\PayPal\CancelFromPaypal.cshtml" />
+    <Content Include="Views\PayPal\NotifyFromPaypal.cshtml" />
+    <Content Include="Views\PayPal\RedirectFromPaypal.cshtml" />
+    <Content Include="Views\PayPal\ValidateCommand.cshtml" />
+    <Content Include="Views\Request\Assigning.cshtml" />
+    <Content Include="Views\Request\CreatePayment.cshtml" />
+    <Content Include="Views\Request\Delete.cshtml" />
+    <Content Include="Views\Request\Details.cshtml" />
+    <Content Include="Views\Request\Edit.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Schedule\SchedulePartialView.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Staff\Edit.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Station\Create.cshtml" />
+    <Content Include="Views\Station\Delete.cshtml" />
+    <Content Include="Views\Station\Details.cshtml" />
+    <Content Include="Views\Station\Edit.cshtml" />
+    <Content Include="Views\Station\Index.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutStaff.cshtml" />
+    <Content Include="Views\Request\AcceptRequest.cshtml" />
+    <Content Include="Views\Request\InputInvoice.cshtml" />
+    <Content Include="Views\Request\LatePayment.cshtml" />
+    <Content Include="Views\CoachType\CoachTypePartial.cshtml" />
+    <Content Include="Views\Assigning\ListRequestForTrip.cshtml" />
+    <Content Include="Views\Assigning\ListTripPeding.cshtml" />
+    <Content Include="Views\Assigning\RequestPeding.cshtml" />
+    <Content Include="Views\Request\DisplayPDF.cshtml" />
+    <Content Include="Views\Request\CreatePdf.cshtml" />
+    <Content Include="Views\Assigning\DeliveredRequest.cshtml" />
+    <Content Include="Views\Assigning\ExpiredRequest.cshtml" />
+    <Content Include="Views\Assigning\ArrivedRequest.cshtml" />
+    <Content Include="Views\FeedBack\ClearRating.cshtml" />
+    <Content Include="Views\FeedBack\DeleteComment.cshtml" />
+    <Content Include="Views\FeedBack\ManageCommentList.cshtml" />
+    <Content Include="Views\FeedBack\ManageRatingList.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Assigning\getRequestAssign.cshtml" />
+    <Content Include="Views\Request\ListRequest.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Schedule\Details.cshtml" />
+    <Content Include="Views\Schedule\Create.cshtml" />
+    <Content Include="Views\Schedule\Edit.cshtml" />
+    <Content Include="Views\Schedule\Delete.cshtml" />
+    <Content Include="Views\Trip\ArrivedTrip.cshtml" />
+    <Content Include="Views\Trip\AssignedRequest.cshtml" />
+    <Content Include="Views\Trip\Create.cshtml" />
+    <Content Include="Views\Trip\Delete.cshtml" />
+    <Content Include="Views\Trip\DepartedTrip.cshtml" />
+    <Content Include="Views\Trip\Details.cshtml" />
+    <Content Include="Views\Trip\Edit.cshtml" />
+    <Content Include="Views\Trip\Index.cshtml" />
+    <Content Include="Views\Trip\ListTrip.cshtml" />
+    <Content Include="Views\Trip\ListTripForRequest.cshtml" />
+    <Content Include="Views\Trip\RelatedRequests.cshtml" />
+    <Content Include="Views\Home\AcceptInvoice.cshtml" />
+    <Content Include="Views\Customer\TablePrice.cshtml" />
+    <Content Include="Views\Customer\TablePrice2.cshtml" />
+    <Content Include="Views\Stage\Index.cshtml" />
+    <Content Include="Views\Stage\Details.cshtml" />
+    <Content Include="Views\Stage\Create.cshtml" />
+    <Content Include="Views\Stage\Edit.cshtml" />
+    <Content Include="Views\Stage\Delete.cshtml" />
+    <Content Include="Views\Route\Index.cshtml" />
+    <Content Include="Views\Route\Details.cshtml" />
+    <Content Include="Views\Route\Create.cshtml" />
+    <Content Include="Views\Route\Edit.cshtml" />
+    <Content Include="Views\Route\Delete.cshtml" />
+    <Content Include="Views\Station\TopStation.cshtml" />
+    <Content Include="Views\Home\DetailsStation.cshtml" />
+    <Content Include="Views\Home\DetailStationRequest.cshtml" />
+    <Content Include="Views\Home\DetailStationRoute.cshtml" />
+    <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
+    <Content Include="Views\Home\SentRequestForm2.cshtml" />
+    <Content Include="Views\Shared\_LayoutFeedback.cshtml" />
+    <Content Include="Views\Trip\Assigning.cshtml" />
+    <Content Include="Views\Trip\NewTrip.cshtml" />
+    <Content Include="Views\Trip\OtherTrip.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Account\RegAcc.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoMap.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\login\" />
+    <Folder Include="Content\Images\shared\nav\" />
+    <Folder Include="Content\Images\table\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5434/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

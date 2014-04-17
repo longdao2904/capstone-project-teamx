@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Captone.Models.Reason>
+@{
+    ViewBag.Title = "Các yêu cầu không xếp lịch được";
+    Layout = null;
+}
+@{
+    int stationId = Convert.ToInt32(Session["StationID"]);
+}
+<h4 style="color: orange">Nguyên nhân: </h4>
+
+<table class="table">
+    <thead>
+        <th>Code</th>
+        <th>Từ - đến</th>
+        <th>Số đường đã tìm được</th>
+        <th>Bao gồm</th>
+        <th>Một tuyến</th>
+        <th>Nhiều tuyến</th>
+        <th>Giữa tuyến</th>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.RequestCode</td>
+                <td>@r.FromTo</td>
+                <td>@r.NumberOfWay</td>
+                <td>@r.WayList</td>
+                <td>@r.OneTrip</td>
+                <td>@r.MultipleTrip</td>
+                <td>@r.MiddleTrip</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,18 @@
+﻿@model Captone.Models.Route
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<fieldset>
+    <legend>Chi tiết tuyến</legend>
+
+    <div class="display-label">
+    <strong>Tuyến: </strong>
+        @Html.DisplayFor(model => model.RouteName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id=Model.RouteID }) |
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</p>

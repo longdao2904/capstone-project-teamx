@@ -1,0 +1,36 @@
+﻿@model Captone.Models.Schedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Chi tiết</h2>
+
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CoachArrangement.ArrangeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CoachArrangement.ArrangeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateDepartureTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateDepartureTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstimateArrivalTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstimateArrivalTime)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id=Model.ScheduleID }) |
+    @Html.ActionLink("quay lại danh sách", "Index")
+</p>

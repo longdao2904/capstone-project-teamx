@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "Gói hàng đã hết hạn";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    var stationID = Convert.ToInt32(Session["StationID"]);
+}
+<h3 style="color: orange">Các gói hàng đã hết hạn chờ giao</h3>
+<div class="table-responsive" id="requestList" style="width: 103%">
+    <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Người gửi 
+                </th>
+                <th>Người nhận
+                </th>
+                <th>Trạm gửi
+                </th>
+                <th>Ngày gửi
+                </th>
+                <th>Trạm nhận
+                </th>
+                <th>Ngày đến
+                </th>
+                <th>Mã hàng
+                </th>
+                <th>Trả hàng
+                </th>
+                <th>Huỷ hàng</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {            
+                <tr id="request-@item.RequestID">
+                    <td style="display: none;" id="rqID">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.SenderName
+                    </td>
+                    <td>
+                        @item.ReceiverName
+                    </td>
+                    <td>
+                        @item.Station.StationName
+                    </td>
+                    <td>
+                        @item.DateRequest
+                    </td>
+                    <td>
+                        @item.Station1.StationName
+                    </td>
+                    <td>
+                        @item.ArrivedDate
+                    </td>
+                    <td>
+                        @item.RequestCode
+                    </td>
+                    <td>
+                        <input type="radio" name="chk" id="return" />
+                    </td>
+                    <td>
+                        <input type="radio" name="chk" id="cancer" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a id="xacnhan" class="btn btn-success" href="/Assigning/ExpiredRequest?stationID=@stationID">Xác nhận</a>
+    </p>
+</div>
+<script type="text/javascript">
+    if ($("#cancer").click(function () {
+                      $("#xacnhan").click(function () {
+                      removeRequest();
+    });
+
+    }))
+        if ($("#return").click(function () {
+                  $("#xacnhan").click(function () {
+
+                      returnPackage();
+        });
+        }))
+
+            $(document).ready(function () {
+                $('#selectall').click(function (event) {  //on click 
+                    if (this.checked) { // check select status
+                        $('.case').each(function () { //loop through each checkbox
+                            this.checked = true;  //select all checkboxes with class "checkbox1"  
+                        });
+                    } else {
+                        $('.case').each(function () { //loop through each checkbox
+                            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                        });
+                    }
+                });
+
+            });
+
+    // get checked requests id
+    function getRequests() {
+        var request = [];
+        $('[name="chk"]:checked').each(function () {
+            var id = document.getElementById('rqID').innerText.trim();
+            request.push(id);
+        });
+        return request;
+    }
+    function removeRequest() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/CancerRequest",
+            type: "POST",
+            data: { requestId: parseInt(requests) },
+            success: function (result) {
+
+            }
+        });
+    }
+    function returnPackage() {
+        var requests = getRequests();
+        $.ajax({
+            url: "/Request/Return",
+            type: "POST",
+            data: { listRequest: parseInt(requests) },
+            success: function (result) {
+            }
+        });
+    }
+</script>
