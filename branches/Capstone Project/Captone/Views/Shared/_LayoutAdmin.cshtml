@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Quản lý phí";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" type="text/css" media="screen" />
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <script src="~/Content/js/PieChart/highcharts.js"></script>
+
+    <script src="~/Content/js/bootstrap.js"></script>
+    <!-- Core CSS - Include with every page -->
+    <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //When page loads...
+            $(".tab_content").hide(); //Hide all content
+            $("ul.tabs li:first").addClass("active").show(); //Activate first tab
+            $(".tab_content:first").show(); //Show first tab content
+
+            //On Click Event
+            $("ul.tabs li").click(function () {
+
+                $("ul.tabs li").removeClass("active"); //Remove any "active" class
+                $(this).addClass("active"); //Add "active" class to selected tab
+                $(".tab_content").hide(); //Hide all tab content
+
+                var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+                $(activeTab).fadeIn(); //Fade in the active ID content
+                return false;
+            });
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var array = [];
+            $.ajax({
+                url: "/Admin/PieChart",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        var get = result[i].split(":");
+                        array.push([get[get.length - 1], parseInt(get[0])]
+                        );
+                    }
+                    $('#container').highcharts({
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: 'Thống kê doanh thu'
+                        },
+                        tooltip: {
+                            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    connectorColor: '#000000',
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                }
+                            }
+                        },
+
+                        series: [{
+                            type: 'pie',
+                            name: 'Browser share',
+                            data: array
+                        }]
+                    });
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+
+    <header id="header">
+        <hgroup>
+            <h1 class="site_title"><a href="index.html">iDeliver</a></h1>
+            <h2 class="section_title">Hệ thống vận chuyển hàng hóa bằng xe khách đường dài</h2>
+            <div class="btn_view_site"><a href="/Home">Trang chủ</a></div>
+        </hgroup>
+    </header>
+    <!-- end of header bar -->
+
+    <section id="secondary_bar">
+        <div class="breadcrumbs_container">
+            <article class="breadcrumbs">
+                <a href="/Admin/Index">Dashboard</a>
+                <div class="breadcrumb_divider"></div>
+                <a class="current">@ViewBag.Title</a>
+            </article>
+        </div>
+    </section>
+    <!-- end of secondary bar -->
+
+    <aside id="sidebar" class="column">
+        <a href="/Admin/Index"><h3>Thống kê</h3></a>
+        <h3>Quản lý mức phí</h3>
+        <ul class="toggle">
+            <li class="icn_categories"><a href="~/Fee/Index">Danh sách các mức phí</a></li>
+            <li class="icn_new_article"><a href="~/Fee/Create">Tạo mới phí mới</a></li>            
+        </ul>
+        <h3>Quản lý nhân viên</h3>
+        <ul class="toggle">
+            <li class="icn_add_user"><a href="#">Tạo tài khoản mới</a></li>
+            <li class="icn_view_users"><a href="#">Danh sách nhân viên</a></li>
+        </ul>
+        <h3>Quản lý tài khoản khách hàng</h3>
+        <ul class="toggle">
+            <li class="icn_view_users"><a href="#">Các tài khoản hoạt động</a></li>
+            <li class="icn_view_users"><a href="#">Các tài khoản bị cấm</a></li>
+        </ul>
+        <h3>Quản lý bình luận/ đánh giá</h3>
+        <ul class="toggle">
+            <li class="icn_categories"><a href="~/FeedBack/ManageCommentList">Bình luận cho trạm</a></li>
+            <li class="icn_categories"><a href="~/FeedBack/ManageRatingList">Đánh giá cho trạm</a></li>
+        </ul>
+        <footer>
+            <hr />
+            <p><strong>Copyright &copy; iDeliver 2014</strong></p>
+        </footer>
+    </aside>
+    <!-- end of sidebar -->
+
+    <section id="main" class="column">
+        <article class="module width_full" style="height: auto">
+            <div class="module_content">
+                <div class="stats_graph" style="margin-left: 0px;">
+                    <div>@RenderBody()</div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </article>
+        <!-- end of stats article -->
+        <div class="clear"></div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Edit.cshtml" caret="1962" fromTop="15" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:Edit.cshtml" caret="1012" fromTop="29" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:Details.cshtml" caret="789" fromTop="26" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Shared/f:_Layout.cshtml" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/f:_ViewStart.cshtml" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:Index.cshtml" caret="0" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:SchedulePartialView.cshtml" caret="521" fromTop="11" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Create.cshtml" caret="3697" fromTop="10" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListProvince.cshtml" caret="453" fromTop="18" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListStation.cshtml" caret="1902" fromTop="48" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Index.cshtml" caret="2188" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:DepartedTrip.cshtml" caret="854" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:ListTripForRequest.cshtml" caret="489" fromTop="0" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:AcceptInvoice.cshtml" caret="608" fromTop="15" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:AcceptRequest.cshtml" caret="946" fromTop="21" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:Create.cshtml" caret="1156" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:CustomerController.cs" caret="556" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:TripController.cs" caret="17467" fromTop="26" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:AssigningController.cs" caret="12943" fromTop="42" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ExpiredRequest.cshtml" caret="4325" fromTop="24" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:RequestController.cs" caret="7853" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:ListRequest.cshtml" caret="2187" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:HomeController.cs" caret="3147" fromTop="17" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:bootstrap.css" caret="250" fromTop="7" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:SentRequestForm2.cshtml" caret="343" fromTop="10" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Account/f:LogOn.cshtml" caret="914" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Scripts/f:ValidateForm.js" caret="1188" fromTop="20" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:SentRequestForm.cshtml" caret="2640" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Scripts/f:jquery.validate.js" caret="6260" fromTop="12" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Account/f:LogIn.cshtml" caret="2659" fromTop="15" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Create.cshtml" caret="1915" fromTop="22" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Delete.cshtml" caret="986" fromTop="18" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Details.cshtml" caret="974" fromTop="19" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Edit.cshtml" caret="1962" fromTop="15" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Stage/f:Index.cshtml" caret="1133" fromTop="16" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:ArrivedTrip.cshtml" caret="1272" fromTop="23" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Delete.cshtml" caret="2358" fromTop="25" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Edit.cshtml" caret="3359" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:ListTrip.cshtml" caret="1105" fromTop="30" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:ListTripForRequest.cshtml" caret="1463" fromTop="22" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Schedule/f:Edit.cshtml" caret="1012" fromTop="15" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Content/d:Css/f:bootstrap.css" caret="14882" fromTop="20" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Request/f:AcceptRequest.cshtml" caret="946" fromTop="21" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:AcceptInvoice.cshtml" caret="775" fromTop="21" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:DepartedTrip.cshtml" caret="531" fromTop="4" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Index.cshtml" caret="1699" fromTop="10" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Trip/f:Create.cshtml" caret="3697" fromTop="10" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListProvince.cshtml" caret="453" fromTop="9" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:ListStation.cshtml" caret="1691" fromTop="11" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:TripController.cs" caret="17467" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:CustomerController.cs" caret="556" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:AssigningController.cs" caret="12943" fromTop="15" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Assigning/f:ExpiredRequest.cshtml" caret="4325" fromTop="24" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Controllers/f:RequestController.cs" caret="7621" fromTop="12" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:SentRequestForm2.cshtml" caret="287" fromTop="8" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Home/f:SentRequestForm.cshtml" caret="316" fromTop="7" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Account/f:LogIn.cshtml" caret="1902" fromTop="14" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Views/d:Account/f:LogOn.cshtml" caret="318" fromTop="13" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Scripts/f:ValidateForm.js" caret="1188" fromTop="20" />
+    <File id="C032DB0F-0B9A-49DA-99D3-0816243081B8/d:Scripts/f:jquery.validate.js" caret="6078" fromTop="5" />
+  </RecentEdits>
+</RecentFiles>

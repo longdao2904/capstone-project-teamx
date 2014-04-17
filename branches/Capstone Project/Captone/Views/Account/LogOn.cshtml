@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+@{
+    var error = "";
+    if (TempData["ERROR"] != null)
+    {
+        error = TempData["ERROR"].ToString();
+    }
+}
+<link href="~/Content/Css/validate.css" rel="stylesheet" />
+<script src="~/Scripts/ValidateForm.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<form id="LoginForm">
+    <div>
+        <h4 style="color: red">@Html.ValidationMessage("LoginFailed")</h4>
+        <div class="form-control-group">
+            <label class="control-label" for="Username"></label>
+            <input class="form-control" placeholder="tên đăng nhập" id="Username" name="Username" type="text" autofocus="">
+        </div>
+
+        <div class="form-control-group">
+            <label class="control-label" for="Password"></label>
+            <input class="form-control" placeholder="mật khẩu" id="Password" name="Password" type="password">
+        </div>
+        <!-- Change this to a button or input when using this as a form -->
+        <input type="submit" value="Đăng nhập" class="btn btn-lg btn-success" onclick="CheckLogin()" />
+        <input type="button" value="Đăng ký" class="btn btn-lg btn-info" onclick="window.location.href = '/Account/Register'" />
+    </div>
+</form>
+
+<script type="text/javascript">
+    function CheckLogin() {
+        var username = document.getElementById('Username').value;
+        var password = document.getElementById('Password').value;
+        $.ajax({
+            url: "/Account/LogOn",
+            type: "POST",
+            data: { Username: username, Password: password },
+            success: function (result) {
+                if (result) {
+                    location.href = "/Home/Index";
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,43 @@
+﻿@model Captone.Models.Account
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-lg-7">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+            <form role="form">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Tên đăng nhập" type="text" autofocus="" name="Username">
+                    @*@Html.TextBoxFor(m => m.Username)*@
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Mật khẩu" type="password" autofocus="" name="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Nhập lại mật khẩu" type="password" autofocus="" name="BackupPassword">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Địa chỉ email" type="email" autofocus="" name="Email">
+                </div>
+                <br />
+                <!-- Change this to a button or input when using this as a form -->
+                <input type="submit" value="Đăng ký" class="btn btn-lg btn-success" />
+                <input type="reset" value="Xóa tất cả" class="btn btn-lg btn-warning" />
+            </form>
+        }
+    </div>
+    <div class="col-lg-5">
+        <div style="margin-left: 7%; margin-top: 3%;">
+            <h2 class="text-primary">Tạo tài khoản để </h2>
+            <br />
+            <ul class="list-unstyled">
+                <li class="alert alert-info">gửi yêu cầu vận chuyển món hàng</li>
+                <li class="alert alert-info">theo dõi xem món hàng của mình</li>
+                <li class="alert alert-info">đóng góp ý kiến cá nhân và đánh giá chất lượng dịch vụ</li>
+            </ul>
+        </div>
+    </div>
+</div>
+

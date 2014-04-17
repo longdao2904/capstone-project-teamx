@@ -1,0 +1,150 @@
+﻿@model IEnumerable<Captone.Models.Comment>
+<link href="~/Content/Css/jstarbox.css" rel="stylesheet" />
+<script src="~/Scripts/jstarbox.js"></script>
+@{
+    string username = (string)Session["USERNAME"];
+}
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery('.starbox').each(function () {
+            var starbox = jQuery(this);
+            var avg = document.getElementById("AvgRatingLevel").value;
+
+            starbox.starbox({
+                average: avg,
+                changeable: starbox.hasClass('unchangeable') ? false : starbox.hasClass('clickonce') ? 'once' : true,
+                ghosting: true,
+                autoUpdateAverage: starbox.hasClass('autoupdate'),
+                buttons: starbox.hasClass('smooth') ? false : starbox.attr('data-button-count') || 5,
+                stars: starbox.attr('data-star-count') || 5
+
+            })
+                .bind('starbox-value-moved', function (event, value) {
+                    //starbox.next().text("Rated to: " + Math.round(value*100) + "%");
+                    document.getElementById("ratingLevel").value = Math.round(value * 100) / 100;
+                })
+        });
+    });
+</script>
+<div>
+    <h3 style="color: #3498db">Trạm: @ViewBag.StationSelect.StationName.ToString()</h3>
+    <div class="block">
+        <div class="starbox smooth autoupdate ghosting">
+            <div class="positioner">
+                <div class="stars">
+                    <div class="colorbar" style="width: 82.5px;"></div>
+                    <div class="star_holder">
+                        <div class="star star-0"></div>
+                        <div class="star star-1"></div>
+                        <div class="star star-2"></div>
+                        <div class="star star-3"></div>
+                        <div class="star star-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        <input type="hidden" id="ratingLevel" />
+    </div>
+
+    <input type="hidden" id="sID" value="@ViewBag.StationSelect.StationID"/>
+    <input type="hidden" id="AvgRatingLevel" value="@ViewBag.StationSelect.AvgRatingLevel"/>
+    <input type="hidden" id="username" value="@username" />
+
+    @foreach (var item in Model)
+    {      
+        <input type="hidden" value="@item.CommentID"/>        
+        <div id="myTabContent" class="tab-content">
+            <div class="list-group">
+                <div class="list-group-item" style="height: 100%">
+                    <div class="fa fa-user fa-fw" style="color: #27ae60; font-weight: bold">@item.Username</div>
+                    <br />
+                    <div id="detail" style="padding-left: 30px">
+                        @item.CommentContent
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @{if (username != null)
+      {
+        <div class="form-group">
+            Ý kiến của bạn:
+        <textarea class="form-control" row="3" id="comment" name="Comment" style="height: 100px; width: 500px"></textarea>
+            <br />
+            <input id="CommentID" type="button" value="Bình luận" class="btn" />
+        </div>
+      }
+      else
+      {
+        <h3>Vui lòng <a data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()">đăng nhập</a> để bình luận</h3>
+      }
+    }
+</div>
+<div id="loginModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content loginbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <div id="accountModal">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+
+    $('#CommentID').bind('click', function () {
+        ratingStation();
+        commentStation();
+    });
+
+    function LoginModal() {
+        $.ajax({
+            url: "/Account/LogOn",
+            type: "Get",
+            success: function (result) {
+                $("#accountModal").html(result);
+            }
+        });
+    }
+
+    function ratingStation() {
+        var user = document.getElementById("username").value;
+        var ratingLevel = document.getElementById("ratingLevel").value;
+        var stationID = document.getElementById("sID").value;
+        $.ajax({
+            url: "/FeedBack/Rating",
+            type: "POST",
+            data: { Username: user, Rating: ratingLevel, StationID: stationID },
+            success: function (result) {
+                if (result) {
+                    location.href = "/FeedBack/Index";
+                }
+            }
+        });
+    }
+
+    function commentStation() {
+        var user = document.getElementById("username").value;
+        var comment = document.getElementById("comment").value;
+        var stationID = document.getElementById("sID").value;
+        $.ajax({
+            url: "/FeedBack/Comment",
+            type: "POST",
+            data: { Username: user, Comment: comment, StationID: stationID },
+            success: function (result) {
+                if (result) {
+                    location.href = "/FeedBack/Index";
+                }
+            }
+        });
+    }
+</script>
+

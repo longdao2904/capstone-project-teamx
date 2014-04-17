@@ -1,0 +1,31 @@
+﻿@model Captone.Models.Schedule
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Bạn có muốn xoá lịch trình này?</h3>
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+         <strong>Sắp xếp xe: </strong>
+        @Html.DisplayFor(model => model.CoachArrangement.ArrangeID)
+    </div>
+
+    <div class="display-label">
+    <strong>Thới gian ước tính xuất bến: </strong>
+        @Html.DisplayFor(model => model.EstimateDepartureTime)
+    </div>
+
+    <div class="display-label">
+    <strong>Thời gian ước tính đến: </strong>
+        @Html.DisplayFor(model => model.EstimateArrivalTime)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Quay lại danh sách", "Index")
+    </p>
+}

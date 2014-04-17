@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Captone.Models.Request>
+@{
+    ViewBag.Title = "ListRequestForTrip";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+@{
+    int stationId = Convert.ToInt32(Session["StationID"]);
+}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <th>
+                Tên đăng nhập
+            </th>
+            <th>
+                Ngày gửi
+            </th>
+            <th>
+                Trạm gửi
+            </th>
+            <th>
+                Trạm đến
+            </th>
+            <th><input type="checkbox" id="selectallTrip" value="Select All"/></th>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td style="display: none">
+                        @item.RequestID
+                    </td>
+                    <td>
+                        @item.Username
+                    </td>
+                    <td>
+                        @item.DateRequest
+                    </td>
+                    <td>
+                        @item.Station.StationName
+                    </td>
+                    <td>
+                        @item.Station1.StationName
+                    </td>
+                    <td>
+                        <input type="checkbox" name="CheckTrip" class="case1"/>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/Assigning/RequestPeding?stationId=@stationId" class="btn btn-success" onclick="UpdateRequestLate()">Cập nhật</a>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#selectallTrip').click(function (event) {  //on click 
+            if (this.checked) { // check select status
+                $('.case1').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                });
+            } else {
+                $('.case1').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });
+            }
+        });
+
+    });
+    function getCheckTrip() {
+        var request = [];
+        $('[name="CheckTrip"]:checked').each(function () {
+            var row = $(this).closest('tr');
+            var emp = {
+                // we start at 2 because the first one is the checkbox
+                // also it would be easier if you have an id for each of the column
+                // and do this row.find('#idCol') / row.find('#nameCol')
+                RequestID: row.find('td:nth-child(1)').text()
+            };
+            request.push(emp);
+            // SentObject(request);
+        });
+  
+        return request;
+    }
+    function UpdateRequestLate() {
+        var id = getCheckTrip();
+        $.ajax({
+            url: "/Assigning/UpdateRequestLate",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({ requestId: id }),
+            success : function (result) {
+                
+            }
+        });
+    }
+</script>
