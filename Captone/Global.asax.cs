@@ -21,8 +21,26 @@ namespace Captone
 
     public class MvcApplication : System.Web.HttpApplication
     {
+
         public static readonly Timer Timer = new Timer(30000); // This will raise the event every one minute.
         public static IKernel Kernel;
+
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
+        }
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Account", action = "CheckLogin", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+        }
 
         protected void Application_Start()
         {
@@ -41,4 +59,4 @@ namespace Captone
             SqlDependency.Stop(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         }
     }
-}
+}      

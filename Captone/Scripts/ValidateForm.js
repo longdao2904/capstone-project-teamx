@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#LoginForm').validate({
+    $('#123456').validate({
 
         rules: {
             Username: {
