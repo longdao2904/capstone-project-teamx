@@ -6,30 +6,35 @@
 @{
     int stationId = Convert.ToInt32(Session["StationID"]);
 }
-<h4 style="color: orange">Nguyên nhân: </h4>
 
-<table class="table">
-    <thead>
-        <th>Code</th>
-        <th>Từ - đến</th>
-        <th>Số đường đã tìm được</th>
-        <th>Bao gồm</th>
-        <th>Một tuyến</th>
-        <th>Nhiều tuyến</th>
-        <th>Giữa tuyến</th>
-    </thead>
-    <tbody>
-        @foreach (var r in Model)
-        {
-            <tr>
-                <td>@r.RequestCode</td>
-                <td>@r.FromTo</td>
-                <td>@r.NumberOfWay</td>
-                <td>@r.WayList</td>
-                <td>@r.OneTrip</td>
-                <td>@r.MultipleTrip</td>
-                <td>@r.MiddleTrip</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Model == null || !Model.Any())
+{
+    <h4 style="color: blue">Bạn chưa chọn yêu cầu nào để xếp lịch.</h4>
+}
+else
+{
+    <h3 style="color: orange">Nguyên nhân: </h3>
+    <table class="table" style="width: 800px">  
+        <thead>
+            <th style="width: 50px">Mã hàng</th>
+            <th style="width: 150px">Trạm đầu cuối</th>
+            <th style="width: 50px">Số đường tìm được</th>
+            <th style="width: 200px">Trường hợp gửi một tuyến xe</th>
+            <th style="width: 200px">Trường hợp gửi nhiều tuyến xe</th>
+            <th style="width: 200px">Trường hợp gửi giữa tuyến xe</th>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td style="width: 100px">@r.RequestCode</td>
+                    <td style="width: 100px">@r.FromTo</td>
+                    <td style="width: 100px">@r.NumberOfWay</td>
+                    <td style="width: 100px">@r.OneTrip</td>
+                    <td style="width: 100px">@r.MultipleTrip</td>
+                    <td style="width: 100px">@r.MiddleTrip</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\..\itextsharp.dll</HintPath>
+      <HintPath>..\..\..\trunk\References DLL\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.pdfa">
-      <HintPath>..\..\..\..\itextsharp.pdfa.dll</HintPath>
+      <HintPath>..\..\..\trunk\References DLL\itextsharp.pdfa.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.xtra">
-      <HintPath>..\..\..\..\itextsharp.xtra.dll</HintPath>
+      <HintPath>..\..\..\trunk\References DLL\itextsharp.xtra.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>

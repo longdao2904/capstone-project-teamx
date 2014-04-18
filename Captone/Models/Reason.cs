@@ -10,7 +10,6 @@ namespace Captone.Models
         public string RequestCode { get; set; }
         public string FromTo { get; set; }
         public int NumberOfWay { get; set; }
-        public string WayList { get; set; }
         public string OneTrip { get; set; }
         public string MultipleTrip { get; set; }
         public string MiddleTrip { get; set; }
