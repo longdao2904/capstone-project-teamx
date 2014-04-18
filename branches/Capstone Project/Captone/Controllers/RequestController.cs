@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Services;
 using Captone.Models;
@@ -262,24 +263,15 @@ namespace Captone.Controllers
         {
             var invoice = _db.Invoices.Where(i => i.InvoiceID == invoiceID).Single();
 
-            List<string> str = new List<string>();
-            string htmlText1 = "<div> HOÁ ĐƠN KHÁCH HÀNG </div>";
-            string htmlText2 = "Mã hàng: " + invoice.Request.RequestCode;
-            string htmlText3 = "Tên khách hàng: " + invoice.Request.Username;
-            string htmlText4 = "Gửi từ: " + invoice.Request.SenderAddress;
-            string htmlText5 = "Đến: " + invoice.Request.ReceiverAddress;
-            string htmlText6 = "Khối lượng hàng hoá:" + invoice.Weight;
-            string htmlText7 = "Thể tích hàng hoá: " + invoice.Volume;
-            string htmlText8 = "Thành tiền: " + invoice.Price;
-            str.Add(htmlText1);
-            str.Add(htmlText2);
-            str.Add(htmlText3);
-            str.Add(htmlText4);
-            str.Add(htmlText5);
-            str.Add(htmlText6);
-            str.Add(htmlText7);
-            str.Add(htmlText8);
-            HTMLToPdf(str, "PDFfile.pdf");
+      
+            StringBuilder htmlText1 =new StringBuilder();
+            htmlText1.Append("<table class='table table-bordered'> " +
+                             "<th>" +
+                             "HOÁ ĐƠN KHÁCH HÀNG " +
+                             "</th>" +
+                             "</table>");
+
+            HTMLToPdf(htmlText1, "PDFfile.pdf");
             return true;
         }
         //extend the time for payment of request, means updating the date request to current day
@@ -291,8 +283,10 @@ namespace Captone.Controllers
             _db.SaveChanges();
         }
         //
-        public void HTMLToPdf(List<string> HTML, string FilePath)
+        public void HTMLToPdf(StringBuilder HTML, string FilePath)
         {
+            Response.ContentType = "application/pdf";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
             string FONT = "c:/windows/fonts/arialbd.ttf";
             using (Document document = new Document())
             {
@@ -302,15 +296,11 @@ namespace Captone.Controllers
                 BaseFont bf = BaseFont.CreateFont(
                     FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED
                     );
-
+               
                 StyleSheet styles = new StyleSheet();
-                HTMLWorker hw = new HTMLWorker(document);
-                for (var i = 0; i < HTML.Count; i++)
-                {
-
-                    document.Add(new Paragraph(HTML[i], new Font(bf, 12)));
-                }
-
+          
+                iTextSharp.text.html.simpleparser.HTMLWorker hw = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
+                hw.Parse(new StringReader(HTML.ToString()));
                 document.Close();
             }
         }
