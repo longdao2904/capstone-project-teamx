@@ -40,13 +40,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\trunk\References DLL\itextsharp.dll</HintPath>
+      <HintPath>..\packages\iTextSharp.5.5.0\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.pdfa">
-      <HintPath>..\..\..\trunk\References DLL\itextsharp.pdfa.dll</HintPath>
+      <HintPath>..\packages\itextsharp.pdfa.5.5.0\lib\itextsharp.pdfa.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp.xtra">
-      <HintPath>..\..\..\trunk\References DLL\itextsharp.xtra.dll</HintPath>
+      <HintPath>..\packages\itextsharp.xtra.5.5.0\lib\itextsharp.xtra.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -878,6 +878,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\trip-management.js" />
     <Content Include="Scripts\ValidateForm.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">

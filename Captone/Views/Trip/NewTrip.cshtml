@@ -4,7 +4,7 @@
 }
 
 <div class="table-responsive">
-    <table class="table display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
+    <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
             <tr>
                 <th>Tuyến
@@ -16,10 +16,7 @@
                 <th>Giờ đến dự kiến
                 </th>
                 <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-         </tr>
+            </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
@@ -29,10 +26,10 @@
                         @item.TripID
                     </td>
                     <td>
-                        @item.Schedule.Route.RouteName
+                       @item.Schedule.Route.RouteName
                     </td>
                     <td>
-                        @item.Schedule.Coach.NumberPlate
+                        <a data-toggle="modal" id="" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
                     </td>
                     <td>
                         @item.RealDepartureTime
@@ -40,46 +37,39 @@
                     <td>
                         @item.EstimateArrivalTime
                     </td>
-                    <td>
-                        <a data-toggle="modal" id="" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)">Quản lý</a>
-                    </td>
-                    <td>
-                        <a href="/Trip/Index">
-                <button type="button" class="btn btn-success" onclick="departed(@item.TripID)" id="btnDeparted">Xác nhận chuyển đi</button></a>
-                    </td>
-                    <td>
-                        <a href="/Trip/Delete/@item.TripID">
-                            <button type="button" class="btn btn-danger">Xóa chuyến này </button>
-                        </a>
-                    </td>
                 </tr>
+                
+                <div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content detailPopup">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="requests">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/Trip/Index">
+                                    <button type="button" class="btn btn-success" onclick="departed(@item.TripID)" id="btnDeparted">Xác nhận chuyển đi</button></a>
+                                <a href="/Trip/Delete/@item.TripID">
+                                    <button type="button" class="btn btn-danger">Xóa chuyến này </button>
+                                </a>
+                            </div>
+
+
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
             }
         </tbody>
     </table>
 </div>
-<div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content detailPopup">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="requests">
-                </div>
-            </div>
-            <div class="modal-footer'">
-  
 
-            </div>
-          
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 <script>
     $(function () {
         var oTable = $('#TableDepartedTrip').dataTable();
@@ -152,16 +142,16 @@
         });
     }
     function departed(tripID) {
-    
-           var stationID = @int.Parse(Session["StationID"].ToString())
-           $.ajax({
-               url: "/Trip/DepartedRequest",
-               type: "Post",
-               data: { tripID: tripID, stationID: stationID },
-               success: function (result) {
-               }
-           });
-       }
+
+        var stationID = @int.Parse(Session["StationID"].ToString())
+        $.ajax({
+            url: "/Trip/DepartedRequest",
+            type: "Post",
+            data: { tripID: tripID, stationID: stationID },
+            success: function (result) {
+            }
+        });
+    }
 </script>
 <style type="text/css">
     .bodyFix {

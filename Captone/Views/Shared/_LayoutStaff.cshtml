@@ -37,10 +37,10 @@
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #428bca; height: 70px;" style="margin-bottom: 0">
             <!-- /.navbar-header -->
-            <div class="col-lg-4" id="truck" style="right: -380px;">
+            <div class="col-lg-4" id="truck">
                 <a class="navbar-brand" href="/Home/Index" style="color: white"><i class="fa fa-truck fa-3x">i-Deliver</i></a>
             </div>
-            <div class="col-lg-4"></div>
+            <div class="col-lg-4" style="margin-top: 0.5%"></div>
             <div class="col-lg-4">
                 @if (Username != null)
                 {
@@ -213,18 +213,7 @@
     </footer>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
-        var animateTruck = function () {
-
-            $('#truck').css('right', '-380px')
-                .animate({ 'right': $(window).width() },
-                    5000,
-                    'linear',
-                    function () {
-                        animateTruck();
-                    });
-        };
-
-        animateTruck();
+      
         var oTable = $('#TableRequest').dataTable();
 
         $.extend($.fn.dataTable.defaults, {

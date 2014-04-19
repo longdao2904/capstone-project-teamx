@@ -91,7 +91,7 @@ namespace Captone.Controllers
         }
 
         //
-        // GET: /Trip/Create
+         //GET: /Trip/Create
         [HttpGet]
         public ActionResult Create(int stationID)
         {
@@ -118,8 +118,8 @@ namespace Captone.Controllers
             //}
         }
 
-        //
-        // POST: /Trip/Create
+        
+         //POST: /Trip/Create
 
         [HttpPost]
         [WebMethod]

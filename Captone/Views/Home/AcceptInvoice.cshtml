@@ -8,6 +8,7 @@
     <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
         <thead>
             <th>Tên</th>
+            <th>Mã</th>
             <th>Trạm gửi</th>
             <th>Trạm nhận</th>
             <th>Ngày gửi</th>
@@ -20,6 +21,7 @@
                 <tr>
                    
                     <td>@item.Request.SenderName</td>
+                    <td>@item.Request.RequestCode</td>
                     <td>@item.Request.Station.StationName</td>
                     <td>@item.Request.Station1.StationName</td>
                     <td>@item.Request.DateRequest.ToShortDateString()</td>

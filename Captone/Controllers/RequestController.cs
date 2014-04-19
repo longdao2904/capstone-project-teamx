@@ -197,20 +197,20 @@ namespace Captone.Controllers
 
                 Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == listRequest);
                 Invoice inv = _db.Invoices.FirstOrDefault(i => i.RequestID == listRequest);
-                    if (rq != null)
-                    {
-                        if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
-                        var oldStation = rq.FromLocation;
-                        rq.FromLocation = rq.ToLocation;
-                        rq.ToLocation = oldStation;
-                        rq.DeliveryStatusID = 2;
-                        rq.Type = false;
-                        rq.DateRequest = DateTime.Now.Date;
-                        rq.ArrivedDate = null;
-                    }
-                    _db.SaveChanges();
-                    return true;
-                
+                if (rq != null)
+                {
+                    if (inv != null) inv.Price = rq.ManageFee.Fee * 0.8;
+                    var oldStation = rq.FromLocation;
+                    rq.FromLocation = rq.ToLocation;
+                    rq.ToLocation = oldStation;
+                    rq.DeliveryStatusID = 2;
+                    rq.Type = false;
+                    rq.DateRequest = DateTime.Now.Date;
+                    rq.ArrivedDate = null;
+                }
+                _db.SaveChanges();
+                return true;
+
             }
             return false;
         }
@@ -244,7 +244,7 @@ namespace Captone.Controllers
             invoice.Price = Price;
             var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
             request.DeliveryStatusID = 2;
-            if(request.TypeOfPayment == "Tiền mặt")
+            if (request.TypeOfPayment == "Tiền mặt")
             {
                 request.Payment = true;
             }
@@ -257,20 +257,141 @@ namespace Captone.Controllers
             var request = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 9).ToList();
             return View(request);
         }
+        private string ReadGroup3(string G3)
+        {
+            string[] ReadDigit = new string[10] { " Không", " Một", " Hai", " Ba", " Bốn", " Năm", " Sáu", " Bảy", " Tám", " Chín" };
+            string temp = "";
+            if (G3 == "000") return "";
+
+            //Đọc số hàng trăm
+            temp = ReadDigit[int.Parse(G3[0].ToString())] + " Trăm";
+            //Đọc số hàng chục
+            if (G3[1].ToString() == "0")
+                if (G3[2].ToString() == "0") return temp;
+                else
+                {
+                    temp += " Lẻ" + ReadDigit[int.Parse(G3[2].ToString())];
+                    return temp;
+                }
+            else
+                temp += ReadDigit[int.Parse(G3[1].ToString())] + " Mươi";
+            //--------------Đọc hàng đơn vị
+
+            if (G3[2].ToString() == "5") temp += " Lăm";
+            else if (G3[2].ToString() != "0") temp += ReadDigit[int.Parse(G3[2].ToString())];
+            return temp;
+
+
+        }
+        public string ReadMoney(string Money)
+        {
+            string temp = "";
+            // Cho đủ 12 số
+            while (Money.Length < 12)
+            {
+                Money = "0" + Money;
+            }
+            string g1 = Money.Substring(0, 3);
+            string g2 = Money.Substring(3, 3);
+            string g3 = Money.Substring(6, 3);
+            string g4 = Money.Substring(9, 3);
+
+            //Đọc nhóm 1 ---------------------
+            if (g1 != "000")
+            {
+                temp = ReadGroup3(g1);
+                temp += " Tỷ";
+            }
+            //Đọc nhóm 2-----------------------
+            if (g2 != "000")
+            {
+                temp += ReadGroup3(g2);
+                temp += " Triệu";
+            }
+            //---------------------------------
+            if (g3 != "000")
+            {
+                temp += ReadGroup3(g3);
+                temp += " Ngàn";
+            }
+            //-----------------------------------
+            //Chỗ này ko biết có nên ko ?
+            //temp =temp + ReadGroup3(g4).Replace("Không Trăm Lẻ","Lẻ"); // Đọc 1000001 là Một Triệu Lẻ Một thay vì Một Triệu Không Trăm Lẻ 1;
+            temp = temp + ReadGroup3(g4);
+            //---------------------------------
+            // Tinh chỉnh
+            temp = temp.Replace("Một Mươi", "Mười");
+            temp = temp.Trim();
+            if (temp.IndexOf("Không Trăm") == 0)
+                temp = temp.Remove(0, 10);
+            temp = temp.Trim();
+            if (temp.IndexOf("Lẻ") == 0)
+                temp = temp.Remove(0, 2);
+            temp = temp.Trim();
+            temp = temp.Replace("Mươi Một", "Mươi Mốt");
+            temp = temp.Trim();
+            //Change Case
+            var result = temp.Substring(0, 1).ToUpper() + temp.Substring(1).ToLower();
+            return result;
+        }
         //Create PDF
         [HttpPost]
         public Boolean CreatePdf(int invoiceID)
         {
-            var invoice = _db.Invoices.Where(i => i.InvoiceID == invoiceID).Single();
+              var stationId =  Convert.ToInt32(Session["StationID"]);
+            var person = _db.Accounts.Where(p => p.StationID == stationId).FirstOrDefault();
+            var get = _db.Invoices.Where(p => p.InvoiceID == invoiceID).FirstOrDefault();
+            var textMoney = ReadMoney(get.Price.ToString());
+            string htmlText1 = "<font face='arial unicode ms'>" +
+                               "<div style='font: bold'>" +
+                               "CÔNG TY XE KHÁCH I-DELIVER" +
+                               "</div>" +
+                               "----------------------------------------------------------------------------------------------------------------------------------" +
+                               "<br/>" +
+                               "<div style='font: bold; text-align: center; font-size: 20px'>" +
+                               "HOÁ ĐƠN KHÁCH HÀNG" +
+                               "</div>" +
+                               "<br/>" +
+                               "<div style='text-align: center;font-style: italic'>" +
+                               "Ngày lập phiếu: " + DateTime.Now +
+                               "</div>" +
+                               "<br/>" +
+                               "<div style='float: left'>" +
+                               "Θ Tên khách hàng: " + get.Request.SenderName +
+                               "<br/>" +
+                               "Θ Địa chỉ người gửi: " + get.Request.SenderAddress +
+                                  "<br/>" +
+                               "Θ Địa chỉ người nhận: " + get.Request.ReceiverAddress +
+                                  "<br/>" +
+                               "Θ Mã hàng: " + get.Request.RequestCode +
+                               "<br/>" +
 
-      
-            StringBuilder htmlText1 =new StringBuilder();
-            htmlText1.Append("<table class='table table-bordered'> " +
-                             "<th>" +
-                             "HOÁ ĐƠN KHÁCH HÀNG " +
-                             "</th>" +
-                             "</table>");
+                               "</div>" +
+                               "<br/>" +
+                               "<div style='font:bold;text-align: center;font-size: 13px'>" +
+                               "THÔNG TIN HÀNG HOÁ" +
+                               "<br/>" +
+                               "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈" +
+                               "</div>" +
 
+                               "<div style='text-align: center'>" +
+                               "Khối lượng: " + get.Weight + " " +"kg" + "<p>-------------------------------------</p>" +
+                               "Thể tích: " + get.Volume + " " + "dm3" + "<p>-------------------------------------</p>" +
+                               "Thành tiền: " + get.Price + " " + "VND" + "<p>-------------------------------------</p>" +
+                            
+                               "</div>" +
+                                "<div style='text-align: center;font-style: italic'>" +
+                               "Tiền thành chữ: " + textMoney +
+                               "</div>"+
+                              
+                               "<br/>" +
+                               "<div style='text-align: left'>" +
+                               "Người lập phiếu: " + person.UserInfo.Firstname + " " + person.UserInfo.Lastname +
+                                "</div>" +
+                                 "<div style='text-align: right'>" +
+                                "Trạm lập phiếu: " + person.Station.StationName +
+                                "</div>" + 
+                               "</font>";
             HTMLToPdf(htmlText1, "PDFfile.pdf");
             return true;
         }
@@ -283,24 +404,31 @@ namespace Captone.Controllers
             _db.SaveChanges();
         }
         //
-        public void HTMLToPdf(StringBuilder HTML, string FilePath)
+        public void HTMLToPdf(string HTML, string FilePath)
         {
-            Response.ContentType = "application/pdf";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            string FONT = "c:/windows/fonts/arialbd.ttf";
-            using (Document document = new Document())
+            TextReader reader = new StringReader(HTML);
+            string FONT = "c:/windows/fonts/arialuni.ttf";
+            using (Document document = new Document(PageSize.LETTER))
             {
                 string path = Server.MapPath("~/");
                 PdfWriter.GetInstance(document, new FileStream(path + "/Invoice.pdf", FileMode.Create));
+                HTMLWorker worker = new HTMLWorker(document);
                 document.Open();
-                BaseFont bf = BaseFont.CreateFont(
-                    FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED
-                    );
-               
-                StyleSheet styles = new StyleSheet();
-          
-                iTextSharp.text.html.simpleparser.HTMLWorker hw = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
-                hw.Parse(new StringReader(HTML.ToString()));
+                FontFactory.Register(FONT, "arial unicode ms");
+                // step 4.2: create a style sheet and set the encoding to Identity-H
+                StyleSheet ST = new StyleSheet();
+                ST.LoadTagStyle("body", "encoding", "Identity-H");
+
+                // step 4.3: assign the style sheet to the html parser
+                worker.SetStyleSheet(ST);
+
+                worker.StartDocument();
+
+                // step 5: parse the html into the document
+
+                worker.Parse(reader);
+                worker.EndDocument();
+                worker.Close();
                 document.Close();
             }
         }
@@ -308,13 +436,13 @@ namespace Captone.Controllers
         public FileResult DisplayPDF()
         {
             string path = Server.MapPath("~/");
-            return File(path + "\\Invoice.pdf", "application/pdf");
+            return File(path + "\\Invoice.pdf", "application/pdf; charset=utf-8");
         }
         //
         public double CalculatePrice(float weight, float volume, int FromLocation, int ToLocation)
         {
 
-        //    var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
+            //    var list = _db.Stages.Where(p => p.StartPoint == FromLocation && p.EndPoint == ToLocation).Single();
 
             var getPrice = _db.ManageFees.ToList();
             double priceVolume = 0;
