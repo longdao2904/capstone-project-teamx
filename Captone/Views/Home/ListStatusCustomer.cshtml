@@ -29,7 +29,7 @@
       
     }
     var DrivePath = [];
-    var color = ['#FF1493', '#000000', 'red', '#FF1493', '#000000', 'red'];
+    var color = ['#000000', '#FF1493', 'red', '#FF1493', '#000000', 'red'];
     var color2 = ['#FF1493', 'red', '#000000', '#FF1493', 'red', '#000000'];
     function Tracking(id) {
         var idT = document.getElementsByName("" + id);
@@ -105,7 +105,7 @@
             directionsService.route(request, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     if (record == DrivePath.length - 1) {
-                    
+                        
                         if (DrivePath.length == 2) {
                             if (timeEndPoint == "Đã đến trạm") {
                                 var PathStyle0 = new google.maps.Polyline({
@@ -117,7 +117,7 @@
                                 });
                                 PathStyle0.setMap(map);
                             }
-                            if (timeEndPoint=="Đang chạy") {
+                            if (timeEndPoint== "Đang chạy") {
                                 var PathStyle8 = new google.maps.Polyline({
                                     path: [DrivePath[0], DrivePath[1]],
                                     map: map,
@@ -132,23 +132,32 @@
                             for (var y = 0; y < DrivePath.length; y++) {
                              
                                 if (timeWaypoints[check + 1]=="Đang chạy") {
-
+                                 
                                     var PathStyle = new google.maps.Polyline({
                                         path: [DrivePath[y], DrivePath[y + 1]],
                                         map: map,
-                                        strokeColor: color[y],
+                                        strokeColor: "#000000",
                                         strokeOpacity: 1.0,
                                         strokeWeight: 2
                                     });
                                     PathStyle.setMap(map);
-
+                                 
                                 }
-
+                                if (timeWaypoints[check + 1] == "Chưa chạy") {
+                                    var PathStyle1 = new google.maps.Polyline({
+                                        path: [DrivePath[y], DrivePath[y + 1]],
+                                        map: map,
+                                        strokeColor: "red",
+                                        strokeOpacity: 1.0,
+                                        strokeWeight: 2
+                                    });
+                                    PathStyle1.setMap(map);
+                                }
                                 if (timeWaypoints[check + 1] == "Đã đến trạm") {
                                     var PathStyle1 = new google.maps.Polyline({
                                         path: [DrivePath[y], DrivePath[y + 1]],
                                         map: map,
-                                        strokeColor: color2[y],
+                                        strokeColor: "#FF1493",
                                         strokeOpacity: 1.0,
                                         strokeWeight: 2
                                     });

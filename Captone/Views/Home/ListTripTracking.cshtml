@@ -18,13 +18,15 @@
                 {
                     <td>@item.Trip.Status</td>
                 }
-                @if (@item.Trip.EstimateArrivalTime.Subtract(DateTime.Now).Hours > 0)
+                @if(item.Trip.Status == "Chưa chạy")
+                {
+                    <td>@item.Trip.Status</td>
+                }
+                @if (item.Trip.Status == "Đang chạy")
                 {
                     <td>@item.Trip.EstimateArrivalTime.Subtract(DateTime.Now).Hours h</td>
                 }
-                else{
-                    <td style="color:red">Trễ chuyến</td>
-                }
+           
             </tr>
         </tbody>
     }
