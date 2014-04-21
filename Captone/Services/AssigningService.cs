@@ -158,15 +158,34 @@ namespace Captone.Services
         {
             return _invoices.FirstOrDefault(invoice => request.RequestID == invoice.RequestID);
         }
+
         public Reason Init(Reason reason)
         {
             reason.RequestCode = "";
             reason.FromTo = "";
             reason.NumberOfWay = 0;
+            reason.WayList = new List<string>();
             reason.OneTrip = "";
             reason.MultipleTrip = "";
             reason.MiddleTrip = "";
             return reason;
+        }
+
+        public List<String> AddWayList(Request request)
+        {
+            if (!CheckNotNull(_foundWays)) return null;
+            var result = new List<String>();
+            foreach (var foundWay in _foundWays)
+            {
+                var tmpList = foundWay.First(i => i.Key == request).Value;
+                if (CheckNotNull(tmpList))
+                {
+                    string tmp = tmpList.Aggregate("", (current, stage) => current + (stage.StartPoint + " - "));
+                    tmp += tmpList.Last().EndPoint;
+                    result.Add(tmp);
+                }
+            }
+            return result;
         }
 
         public string FindName(int stationID)
@@ -226,14 +245,15 @@ namespace Captone.Services
                     //if the request can't be assigned to the one trip of one route, try processing multiple trips
                     flag = ProcessingMultipleTrip(request);
                     tmpReason.NumberOfWay = _foundWays.Count;
+                    tmpReason.WayList = AddWayList(request);
                 }
                 //if request hadn't been assigned, add to a temp list
                 if (_finalResult.Count == tmpSize)
                 {
                     if (flag == 1) tmpReason.MultipleTrip = @"Tìm được tuyến đường nhưng không có xe chạy";
                     else if (flag == 2)
-                        tmpReason.MultipleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn";
-                    else tmpReason.MultipleTrip = @"Không tìm được các tuyến đường chung các điểm đầu cuối";
+                        tmpReason.MultipleTrip = @"Tìm được tuyến đường, chuyến xe chạy nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
+                    else tmpReason.MultipleTrip = @"Không tìm được các tuyến xe để gửi hàng chỉ tại trạm đầu, trạm cuối chứ không gửi giữa đường";
                     remainRequest.Add(request);
                 }
                 reasons.Add(request, tmpReason);
@@ -246,8 +266,8 @@ namespace Captone.Services
                 var tmpReason = tmp.Value;
                 reasons.Remove(tmp.Key);
                 if (flag == 1) tmpReason.MiddleTrip = @"Tìm được tuyến đường nhưng không chưa có xe chạy";
-                else if (flag == 2) tmpReason.MiddleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn";
-                else tmpReason.MiddleTrip = @"Hoàn toàn không tìm được tuyến đường nào thỏa mãn";
+                else if (flag == 2) tmpReason.MiddleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
+                else tmpReason.MiddleTrip = @"Hoàn toàn không tìm được tuyến đường nào cho yêu cầu vận chuyển này";
                 reasons.Add(tmp.Key, tmpReason);
             }
             foreach (var reason in reasons)

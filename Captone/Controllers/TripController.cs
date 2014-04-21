@@ -521,10 +521,13 @@ namespace Captone.Controllers
         {
             var trip = db.Trips.Single(t => t.TripID == tripID);
             // update real arrival time of trip
-            trip.RealArrivalTime = DateTime.Now;
-            trip.Status = "Đã đến đích";
-            db.Entry(trip).State = EntityState.Modified;
-            db.SaveChanges();
+            if (FindStageFromRoute(trip.Schedule.RouteID).Last().EndPoint == stationID)
+            {
+                trip.RealArrivalTime = DateTime.Now;
+                trip.Status = "Đã đến đích";
+                db.Entry(trip).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             //update for each request
             var listRequest = FindRequestAssignToTrip(tripID);
             if (listRequest == null) return;
