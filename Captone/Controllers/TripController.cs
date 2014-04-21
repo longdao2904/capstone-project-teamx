@@ -1,4 +1,5 @@
 ﻿using System.Data.Objects.SqlClient;
+using System.IO;
 using Captone.Models;
 using Captone.Services;
 using System;
@@ -55,7 +56,7 @@ namespace Captone.Controllers
                     {
                         if (stage.EndPoint == stationID && trip.Status == "Đang chạy") flag = true;
                     }
-                    if(flag) listTrips.Add(trip);
+                    if (flag) listTrips.Add(trip);
                 }
             }
             return listTrips;
@@ -91,7 +92,7 @@ namespace Captone.Controllers
         }
 
         //
-         //GET: /Trip/Create
+        // GET: /Trip/Create
         [HttpGet]
         public ActionResult Create(int stationID)
         {
@@ -105,10 +106,10 @@ namespace Captone.Controllers
                                    join l in db.Stages on p.StageID equals l.StageID
                                    where p.StageIndex == 1 & p.Stage.StartPoint == stationID
                                    select new SelectListItem()
-                                              {
-                                                  Text = p.Route.RouteName,
-                                                  Value = SqlFunctions.StringConvert((double)p.RouteID)
-                                              }
+                                   {
+                                       Text = p.Route.RouteName,
+                                       Value = SqlFunctions.StringConvert((double)p.RouteID)
+                                   }
                                   ).ToList();
             return PartialView();
             //}
@@ -118,8 +119,8 @@ namespace Captone.Controllers
             //}
         }
 
-        
-         //POST: /Trip/Create
+        //
+        // POST: /Trip/Create
 
         [HttpPost]
         [WebMethod]
@@ -144,7 +145,7 @@ namespace Captone.Controllers
                         t.Status = "Chưa chạy";
                         var tmpTime = GetNextTime(schedule) > date ? GetNextTime(schedule) : date;
                         tmpTime = tmpTime.Add(schedule.EstimateDepartureTime);
-                        if (GetTime(schedule.RouteID) < (24 - _deltaTime)/2)
+                        if (GetTime(schedule.RouteID) < (24 - _deltaTime) / 2)
                         {
                             for (int i = 0; i < 7; i++)
                             {
@@ -158,11 +159,11 @@ namespace Captone.Controllers
                         {
                             for (int i = 0; i < 7; i++)
                             {
-                                t.EstimateDepartureTime = tmpTime.AddDays(2*i);
-                                t.EstimateArrivalTime = tmpTime.AddDays(2*i).AddHours(GetTime(schedule.RouteID));
+                                t.EstimateDepartureTime = tmpTime.AddDays(2 * i);
+                                t.EstimateArrivalTime = tmpTime.AddDays(2 * i).AddHours(GetTime(schedule.RouteID));
                                 db.Trips.Add(t);
                                 db.SaveChanges();
-                            }   
+                            }
                         }
                     }
                 }
@@ -184,7 +185,7 @@ namespace Captone.Controllers
                     {
                         if (type.CoachTypeID == coach.CoachTypeID)
                         {
-                            volume = type.Height*type.Length*type.Width;
+                            volume = type.Height * type.Length * type.Width;
                         }
                     }
                 }
@@ -193,7 +194,7 @@ namespace Captone.Controllers
             {
                 if (route.RouteID == schedule.RouteID) container = route.Container;
             }
-            return volume*container;
+            return volume * container;
         }
         //get the earliest day for create new trip comparing to the list trip from database
         public DateTime GetNextTime(Schedule schedule)
@@ -207,11 +208,11 @@ namespace Captone.Controllers
             if (resTrip.Count == 0) return (DateTime.Now).Date;
             resTrip.Sort((trip1, trip2) => (trip1.EstimateArrivalTime).CompareTo(trip2.EstimateArrivalTime));
             var res = resTrip.Last().EstimateDepartureTime;
-            res = res.AddHours(GetTime(schedule.RouteID)*2 + _deltaTime * 2);
+            res = res.AddHours(GetTime(schedule.RouteID) * 2 + _deltaTime * 2);
             if (res.Hour > schedule.EstimateDepartureTime.Hours) return res.Date;
             return res.Date.AddDays(1);
         }
-       
+
         //find the list stage of route
         public List<Stage> FindStageFromRoute(int routeID)
         {
@@ -341,7 +342,7 @@ namespace Captone.Controllers
         [WebMethod]
         public ActionResult Assigning(List<Request> request)
         {
-            AssigningService assign = new AssigningService();
+            var assign = new AssigningService();
             var failedReason = new List<Reason>();
             var result = assign.Assigning(request, out failedReason);
 
@@ -349,7 +350,7 @@ namespace Captone.Controllers
             {
                 for (var i = 0; i < item.Value.Count; i++)
                 {
-                    Assigning ass = new Assigning();
+                    var ass = new Assigning();
                     var requestId = item.Key.RequestID;
                     ass.RequestID = requestId;
                     var tripId = item.Value.Keys.ToList();
@@ -358,41 +359,30 @@ namespace Captone.Controllers
                     ass.StopStation = stop[i];
                     ass.IndicateOrder = i + 1;
                     ass.AssignedDate = DateTime.Now;
-                    var req = db.Requests.Where(p => p.RequestID == requestId).Single();
+                    var req = db.Requests.Single(p => p.RequestID == requestId);
                     req.DeliveryStatusID = 3;
                     db.Assignings.Add(ass);
                     db.SaveChanges();
                 }
             }
-            return View(failedReason);
+            var stringView = RenderRazorViewToString("Assigning", failedReason);
+            return Json(stringView, JsonRequestBehavior.AllowGet);
         }
-
-        //Pass estimated time to real time of trip when depart/arrive
-        [HttpPost]
-        [WebMethod]
-        public ActionResult TimePassing(List<Trip> trips)
+        public string RenderRazorViewToString(string viewName, object model)
         {
-            if (trips != null)
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
             {
-                foreach (var trip in trips)
-                {
-                    DateTime current = DateTime.Now;
-                    if (trip.EstimateDepartureTime.ToShortDateString() == current.ToShortDateString())
-                    {
-                        Trip t = db.Trips.FirstOrDefault(tr => tr.TripID == trip.TripID);
-                        t.RealDepartureTime = trip.EstimateDepartureTime;
-                        t.RealArrivalTime = trip.EstimateArrivalTime;
-                        db.Entry(t).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("Index", "Request");
-                    }
-                }
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
             }
-            return View();
         }
 
         //For view assigned request of selected trip
-  
+
         public ActionResult AssignedRequest(int tripID)
         {
             var listRequests = new List<Request>();
@@ -496,11 +486,12 @@ namespace Captone.Controllers
             {
                 tmpRequestIDs.Add(assigning.RequestID);
             }
-            return (from tmpRequestID in tmpRequestIDs 
-                    from request in requests 
-                    where request.RequestID == tmpRequestID select request).ToList();
+            return (from tmpRequestID in tmpRequestIDs
+                    from request in requests
+                    where request.RequestID == tmpRequestID
+                    select request).ToList();
         }
-        
+
         // Update assigned requests of departed trip after click button 'Xe đã chạy'
         [HttpPost]
         [WebMethod]
@@ -517,7 +508,7 @@ namespace Captone.Controllers
             //update the status of all request in the list
             foreach (var request in listRequest)
             {
-                if(request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
+                if (request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
             }
