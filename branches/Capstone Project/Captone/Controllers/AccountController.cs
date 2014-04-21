@@ -39,11 +39,7 @@ namespace Captone.Controllers
             // If we got this far, something failed, redisplay form
             return false;
         }
-        public ActionResult RequestCode(string requestCode)
-        {
-            var request = _db.Requests.Where(p => p.RequestCode == requestCode).FirstOrDefault();
-            return View(request);
-        }
+        
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();

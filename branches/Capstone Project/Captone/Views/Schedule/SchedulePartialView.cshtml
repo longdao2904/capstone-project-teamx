@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<Captone.Models.Schedule>
-<script src="~/Content/TableJS/jquery.dataTables.js"></script>
-<script src="~/Content/TableJS/KeyTable.js"></script>
+
 @{
     Layout = null;
 }
 
 <div class="table-responsive">
-    <table class="table display KeyTable dataTable" id="TableSchedules" aria-describedby="example_info">
+    <table class="table table-bordered" id="TableSchedules" >
         <thead>
             <tr>
                 <th>
@@ -16,7 +15,7 @@
                 </th>
                 <th>Biển số
                 </th>
-                <th>Thời gian ước tính xuất bến
+                <th>Ước tính xuất bến
                 </th>
                 <th></th>
                 <th></th>
@@ -74,25 +73,7 @@
         });
     });
 
-    window.onload = loadTable();
-
-    function loadTable() {
-        var oTable = $('#TableSchedules').dataTable();
-
-        $.extend($.fn.dataTable.defaults, {
-            "bSort": true,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "sPaginationType": "full_numbers"
-        });
-
-        var keys = new KeyTable({
-            "table": document.getElementById('TableSchedules'),
-            "datatable": oTable,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "sPaginationType": "full_numbers"
-        });
-    }
+   
+    
 </script>
 

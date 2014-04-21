@@ -8,9 +8,6 @@
         error = TempData["ERROR"].ToString();
     }
 }
-<script src="~/Scripts/jquery.validate.js"></script>
-<link href="~/Content/Css/validate.css" rel="stylesheet" />
-<script src="~/Scripts/ValidateForm.js"></script>
 
 <style>
     ul ul {
@@ -41,7 +38,7 @@
             </li>
         </ul>
     </div>
-    <input type="button" value="Xác nhận" class="btn btn-lg btn-success" onclick="requestCode();" />
+    <button class="btn btn-lg btn-success" onclick="acceptCode();">Xác nhận</button>
     <input type="button" value="Đăng ký" class="btn btn-lg btn-info" onclick="window.location.href = '/Account/Register'" />
     <!-- Change this to a button or input when using this as a form -->
 </div>
@@ -71,26 +68,25 @@
         });
     }
     function requestCode() {
-        var code = $('#RequestCode').val();
+        var code = document.getElementById('RequestCode').value;
+        $.ajax({
+            url: "/Request/RequestCode",
+            type: "POST",
+            data: { requestCode: code },
+            success: function (result) {
+                window.location.href = "/Request/RequestCode?requestCode=" + code + "";
+            }
+        });
+    }
+    function acceptCode() {
+        var code = document.getElementById('RequestCode').value;
         var username = document.getElementById('Username').value;
         var password = document.getElementById('Password').value;
-        if(username!="" & password!="" & code=="") {
+        if (username != "" & password != "" & code == "") {
             CheckLogin();
         }
         else {
-            var userName = "guest";
-            var userRole = "Customer";
-            '<%Session["USERNAME"] = "' + userName + '"; %>';
-            '<%Session["UserRole"] = "' + userRole + '"; %>';
-            alert('<%=Session["USERNAME"] %>');
-            $.ajax({
-                url: "/Account/RequestCode",
-                type: "POST",
-                data: { requestCode: code },
-                success: function (result) {
-                    
-                }
-            });
+            requestCode();
         }
     }
 </script>

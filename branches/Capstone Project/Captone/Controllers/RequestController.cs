@@ -35,7 +35,14 @@ namespace Captone.Controllers
             var request = _db.Requests.Where(r => r.DeliveryStatusID == 2 & r.Station.StationID == stationId);
             return View(request.ToList());
         }
+        public ActionResult RequestCode(string requestCode)
+        {
 
+            var request = _db.Requests.Where(p => p.RequestCode == requestCode).FirstOrDefault();
+            Session["USERNAME"] = request.Account.Username;
+            Session["UserRole"] = request.Account.Role;
+            return View(request);
+        }
         public ActionResult Details(int id = 0)
         {
             Request request = _db.Requests.Find(id);

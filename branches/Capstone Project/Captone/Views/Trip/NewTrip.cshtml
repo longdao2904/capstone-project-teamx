@@ -73,16 +73,14 @@
         var oTable = $('#TableDepartedTrip').dataTable();
 
         $.extend($.fn.dataTable.defaults, {
+            "datatable": oTable,
             "bSort": true,
+            "bPaginate": false,
+            "bLengthChange": false,
             "sPaginationType": "full_numbers"
         });
 
-        var keys = new KeyTable({
-            "table": document.getElementById('TableDepartedTrip'),
-            "datatable": oTable,
-            "bSort": true,
-            "sPaginationType": "full_numbers"
-        });
+
     });
     $(document).ready(function () {
         $('#selectall').click(function (event) {  //on click 
