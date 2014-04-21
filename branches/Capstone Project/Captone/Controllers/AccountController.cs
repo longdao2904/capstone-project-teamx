@@ -15,7 +15,7 @@ namespace Captone.Controllers
         {
             return View();
         }
-        public ActionResult CheckLogin(string username, string password, string returnUrl)
+        public bool CheckLogin(string username, string password, string returnUrl)
         {
             
             var check = _db.Accounts.Where(p => p.Username == username & p.Password == password).FirstOrDefault();
@@ -31,22 +31,19 @@ namespace Captone.Controllers
                 }
                 Session["UserRole"] = check.Role;
                 FormsAuthentication.SetAuthCookie(check.Username, false);
-        
-                if ((string)Session["UserRole"] == "Customer")
-                {
-                    return RedirectToAction("SentRequestForm", "Home");
-                }
-                else if ((string)Session["UserRole"] == "Staff")
-                {
-                    return RedirectToAction("Index", "Request");
-                }
-                return RedirectToAction("Index", "Home");
+
+                return true;
+
             }
 
             // If we got this far, something failed, redisplay form
-            return RedirectToAction("LogOn");
+            return false;
         }
-
+        public ActionResult RequestCode(string requestCode)
+        {
+            var request = _db.Requests.Where(p => p.RequestCode == requestCode).FirstOrDefault();
+            return View(request);
+        }
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();

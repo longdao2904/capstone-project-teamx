@@ -12,30 +12,50 @@
 <link href="~/Content/Css/validate.css" rel="stylesheet" />
 <script src="~/Scripts/ValidateForm.js"></script>
 
+<style>
+    ul ul {
+        display: none;
+    }
+</style>
 
-<form id="123456" method="POST">
-    <div>
-        <h4 style="color: red">@Html.ValidationMessage("LoginFailed")</h4>
-        <div class="form-control-group">
-            <label class="control-label" for="Username"></label>
-            <input class="form-control" style="display: inline" placeholder="tên đăng nhập" id="Username" name="Username" type="text" autofocus="">
-        </div>
-        <br/>
-
-        <div class="form-control-group">
-            <label class="control-label" for="Password"></label>
-            <input class="form-control" style="display: inline" placeholder="mật khẩu" id="Password" name="Password" type="password">
-        
-        </div>
-            <br/>
-    
-        <!-- Change this to a button or input when using this as a form -->
-        <input type="submit" value="Đăng nhập" class="btn btn-lg btn-success" onclick="CheckLogin();" />
-        <input type="button" value="Đăng ký" class="btn btn-lg btn-info" onclick="window.location.href = '/Account/Register'" />
+<div>
+    <h4 style="color: red">@Html.ValidationMessage("LoginFailed")</h4>
+    <div class="form-control-group">
+        <label class="control-label" for="Username"></label>
+        <input class="form-control" style="display: inline" placeholder="tên đăng nhập" id="Username" name="Username" type="text" autofocus="">
     </div>
-</form>
+    <br />
+
+    <div class="form-control-group">
+        <label class="control-label" for="Password"></label>
+        <input class="form-control" style="display: inline" placeholder="mật khẩu" id="Password" name="Password" type="password">
+    </div>
+    <br />
+    <div style="margin-left: -50px;">
+        <ul id="menu-top-menu">
+            <li>
+                <a href="#">Chưa có tài khoản</a>
+                <ul style="display: none;">
+                    <input class="form-control" id="RequestCode" name="RequestCode" placeholder="Mã món hàng" autofocus />
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <input type="button" value="Xác nhận" class="btn btn-lg btn-success" onclick="requestCode();" />
+    <input type="button" value="Đăng ký" class="btn btn-lg btn-info" onclick="window.location.href = '/Account/Register'" />
+    <!-- Change this to a button or input when using this as a form -->
+</div>
+
+
 
 <script type="text/javascript">
+    $('#menu-top-menu li').click(function (event) {
+        if ($(this).children('ul').is(':visible')) return true;
+        if ($(this).children().is('a:last-child')) return true;
+        if ($(this).siblings().is(":visible")) $(this).siblings().children("ul").hide("fast");
+        $(this).children('ul').toggle("slow");
+        return false;
+    });
     function CheckLogin() {
         var username = document.getElementById('Username').value;
         var password = document.getElementById('Password').value;
@@ -44,7 +64,33 @@
             type: "POST",
             data: { username: username, password: password },
             success: function (result) {
+                if (result) {
+                    window.location.href = "/Home/Index";
+                }
             }
         });
+    }
+    function requestCode() {
+        var code = $('#RequestCode').val();
+        var username = document.getElementById('Username').value;
+        var password = document.getElementById('Password').value;
+        if(username!="" & password!="" & code=="") {
+            CheckLogin();
+        }
+        else {
+            var userName = "guest";
+            var userRole = "Customer";
+            '<%Session["USERNAME"] = "' + userName + '"; %>';
+            '<%Session["UserRole"] = "' + userRole + '"; %>';
+            alert('<%=Session["USERNAME"] %>');
+            $.ajax({
+                url: "/Account/RequestCode",
+                type: "POST",
+                data: { requestCode: code },
+                success: function (result) {
+                    
+                }
+            });
+        }
     }
 </script>
