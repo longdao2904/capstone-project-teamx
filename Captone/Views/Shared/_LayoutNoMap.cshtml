@@ -43,11 +43,18 @@
                 @if (Username != null)
                 {
                     string username = Username.ToUpper();
-                    <p class="nav navbar-top-links navbar-right" style="margin-top: 1%; color: white">
-                        <i class="fa fa-user fa-fw"></i>@username
-                        <br />
-                        <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
-                    </p>
+                    if (Username != "guest")
+                    {
+                        <p class="nav navbar-top-links navbar-right" style="margin-top: 1%; color: white">
+                            <i class="fa fa-user fa-fw"></i>@username
+                            <br />
+                            <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                        </p>
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 else
                 {

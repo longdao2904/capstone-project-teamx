@@ -418,8 +418,8 @@
 		_fnCompatMap( init, 'orderCellsTop', 'bSortCellsTop' );
 		_fnCompatMap( init, 'order',         'aaSorting' );
 		_fnCompatMap( init, 'orderFixed',    'aaSortingFixed' );
-		_fnCompatMap( init, 'paging',        'bPaginate' );
-		_fnCompatMap( init, 'pagingType',    'sPaginationType' );
+		_fnCompatMap( init, '',        '' );
+		_fnCompatMap( init, '',    '' );
 		_fnCompatMap( init, 'pageLength',    'iDisplayLength' );
 		_fnCompatMap( init, 'searching',     'bFilter' );
 	}
@@ -3182,7 +3182,7 @@
 		/* Add a draw callback for the pagination on first instance, to update the paging display */
 		if ( ! features.p )
 		{
-			node.id = settings.sTableId+'_paginate';
+			node.id = settings.sTableId+'';
 	
 			settings.aoDrawCallback.push( {
 				"fn": function( settings ) {
@@ -3207,7 +3207,7 @@
 						plugin.fnUpdate( settings, redraw );
 					}
 				},
-				"sName": "pagination"
+				"sName": ""
 			} );
 		}
 	

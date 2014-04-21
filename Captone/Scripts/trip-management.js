@@ -3,18 +3,11 @@
 
     $.extend($.fn.dataTable.defaults, {
         "bSort": true,
-        "bPaginate": true,
-        "bLengthChange": true,
+        "bPaginate": false,
+        "bLengthChange": false,
         "sPaginationType": "full_numbers"
     });
 
-    var keys = new KeyTable({
-        "table": document.getElementById('TableTrips'),
-        "datatable": oTable,
-        "bPaginate": true,
-        "bLengthChange": true,
-        "sPaginationType": "full_numbers"
-    });
 });
 
 function newTrip(stationID) {
