@@ -1,0 +1,247 @@
+﻿@model Captone.Models.Request
+@{
+    ViewBag.Title = "RequestCode";
+    Layout = "~/Views/Shared/_LayoutNoMap.cshtml";
+}
+<script src="~/Content/js/demo/demo.js"></script>
+<div class="table-responsive" id="requestList" style="width: 103%; margin-left:0.3%;">
+    <table class="table table-bordered">
+        <tr>
+            <th>Địa chỉ người gửi
+            </th>
+            <th>Tên người nhận
+            </th>
+            <th>Địa chỉ người nhận
+            </th>
+            <th>Ngày gửi
+            </th>
+            <th>
+                Mã
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody> 
+        <tr id="requestCustomer-@Model.RequestID">
+            <td style="width: 250px;">
+                @Model.SenderAddress
+            </td>
+            <td>
+                @Model.ReceiverName
+            </td>
+            <td>
+                @Model.ReceiverAddress
+            </td>
+            <td>
+                @Model.DateRequest.ToShortDateString()
+            </td>
+            <td>
+                @Model.RequestCode
+            </td>
+      
+              
+            <td>
+             
+                <a data-toggle="modal" data-target="#myModal" id="@Model.RequestID" class="btn btn-primary" onclick="ListTripTracking(this.id);">Theo dõi</a>
+            </td>    
+                
+
+        </tr>
+  </tbody>
+       
+
+    </table>
+    <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 900px;margin-left: -150px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body bodyFix">
+                <div id="list-trip">
+                </div>
+            </div>
+           
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+</div>
+<script type="text/javascript">
+
+    function ListTripTracking(id) {
+       
+        $.ajax({
+            url: "/Home/ListTripTracking",
+            type:"POST",
+            data: { requestId: id },
+            success: function (result) {
+                $("#list-trip").html(result);
+                Tracking(id);
+            }
+        });
+    }
+    var DrivePath = [];
+    var color = ['#000000', '#FF1493', 'red', '#FF1493', '#000000', 'red'];
+    var color2 = ['#FF1493', 'red', '#000000', '#FF1493', 'red', '#000000'];
+    function Tracking(id) {
+        var idT = document.getElementsByName("" + id);
+        var waypoints = [];
+        var route = [];
+        var startPoint;
+        var endPoint;
+        var timeWaypoints = [];
+        var check = 0;
+        var timeEndPoint;
+
+        for (var i = 0; i < idT.length; i++) {
+            var item = idT[i].value.split(" - ");
+            route.push({
+                Start: item[0],
+                WayPoint: item[3],
+                Time: item[4]
+            });
+        }
+
+        if (route.length > 1) {
+            endPoint = route[route.length - 1].WayPoint;
+
+            startPoint = route[0].Start;
+            for (var j = 0; j < route.length - 1; j++) {
+                waypoints.push({
+                    location: route[j].WayPoint,
+                    stopover: true
+                });
+            }
+
+            var firstTime = "00:00:00";
+            timeWaypoints.push(firstTime);
+            for (var p = 0; p < route.length - 1; p++) {
+                var time = route[p].Time;
+                timeWaypoints.push(time);
+            }
+            timeEndPoint = route[route.length - 1].Time;
+            timeWaypoints.push(timeEndPoint);
+        }
+        if (route.length == 1) {
+            startPoint = route[0].Start;
+            endPoint = route[0].WayPoint;
+            timeEndPoint = route[0].Time;
+        }
+        var myOptions = {
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map1"), myOptions);
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+        var d = new Date();
+
+        var current = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+        var request = {
+            origin: startPoint + "",
+            destination: endPoint + "",
+            waypoints: waypoints,
+            optimizeWaypoints: true,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        getLong(startPoint);
+        for (var u = 0; u < waypoints.length; u++) {
+            getLong(waypoints[u].location);
+        }
+        getLong(endPoint);
+        for (var index in DrivePath) {
+            (function (record) {
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        if (record == DrivePath.length - 1) {
+
+                            if (DrivePath.length == 2) {
+                                if (timeEndPoint == "Đã đến trạm") {
+                                    var PathStyle0 = new google.maps.Polyline({
+                                        path: [DrivePath[0], DrivePath[1]],
+                                        map: map,
+                                        strokeColor: '#000000',
+                                        strokeOpacity: 1.0,
+                                        strokeWeight: 2
+                                    });
+                                    PathStyle0.setMap(map);
+                                }
+                                if (timeEndPoint == "Đang chạy") {
+                                    var PathStyle8 = new google.maps.Polyline({
+                                        path: [DrivePath[0], DrivePath[1]],
+                                        map: map,
+                                        strokeColor: '#000000',
+                                        strokeOpacity: 1.0,
+                                        strokeWeight: 2
+                                    });
+                                    PathStyle8.setMap(map);
+                                }
+                            }
+                            else if (check < timeWaypoints.length) {
+                                for (var y = 0; y < DrivePath.length; y++) {
+
+                                    if (timeWaypoints[check + 1] == "Đang chạy") {
+
+                                        var PathStyle = new google.maps.Polyline({
+                                            path: [DrivePath[y], DrivePath[y + 1]],
+                                            map: map,
+                                            strokeColor: "#000000",
+                                            strokeOpacity: 1.0,
+                                            strokeWeight: 2
+                                        });
+                                        PathStyle.setMap(map);
+
+                                    }
+                                    if (timeWaypoints[check + 1] == "Chưa chạy") {
+                                        var PathStyle1 = new google.maps.Polyline({
+                                            path: [DrivePath[y], DrivePath[y + 1]],
+                                            map: map,
+                                            strokeColor: "red",
+                                            strokeOpacity: 1.0,
+                                            strokeWeight: 2
+                                        });
+                                        PathStyle1.setMap(map);
+                                    }
+                                    if (timeWaypoints[check + 1] == "Đã đến trạm") {
+                                        var PathStyle1 = new google.maps.Polyline({
+                                            path: [DrivePath[y], DrivePath[y + 1]],
+                                            map: map,
+                                            strokeColor: "#FF1493",
+                                            strokeOpacity: 1.0,
+                                            strokeWeight: 2
+                                        });
+                                        PathStyle1.setMap(map);
+                                    }
+                                    check++;
+                                }
+                            }
+                            directionsDisplay.setDirections(response);
+                        }
+                    }
+                });
+            })(index);
+        }
+    }
+
+    function getLong(address) {
+        $.ajax({
+            url: "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false",
+            type: "POST",
+            async: false,
+            success: function (res) {
+                var render = res.results[0].geometry.location.lat + ', ' + res.results[0].geometry.location.lng;
+                var commaPos = render.indexOf(',');
+                var coordinatesLat = parseFloat(render.substring(0, commaPos));
+                var coordinatesLong = parseFloat(render.substring(commaPos + 1, render.length));
+                DrivePath.push(new google.maps.LatLng(coordinatesLat, coordinatesLong));
+            }
+        });
+    }
+
+</script>
