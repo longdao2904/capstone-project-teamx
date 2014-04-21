@@ -36,7 +36,7 @@ text-decoration: underline;
 header#header {
 height: 55px;
 width: 100%;
-background: #222222 url(../Images/Admin/header_bg.png) repeat-x;
+background: #222222 url(../Images/Admin/oxygen-header.png) repeat-x;
 }
 
 header#header h1.site_title, header#header h2.section_title {
@@ -46,12 +46,12 @@ font-size: 22px;
 display: block;
 width: 23%;
 height: 55px;
-font-weight: normal;
+font-weight: bold;
 text-align: left;
 text-indent: 1.8%;
 line-height: 55px;
-color: #fff;
-text-shadow: 0 -1px 0 #000;
+color: cyan;
+text-shadow: 0 -1px 0 blue;
 }
 
 header#header h1.site_title a {

@@ -44,7 +44,7 @@ namespace Captone.Services
         private readonly TimeSpan _maxTime = new TimeSpan(5, 0, 0, 0);
         private const int MaxWay = 10;
         private readonly TimeSpan _deltaTime = new TimeSpan(0, 45, 0);
-        private const double MaxAngle = 135 * Math.PI / 180;
+        private const double MaxAngle = 90 * Math.PI / 180;
         //result of route
         List<Dictionary<Request, List<Stage>>> _foundWays = new List<Dictionary<Request, List<Stage>>>();
         //result of trip
@@ -158,7 +158,12 @@ namespace Captone.Services
         {
             return _invoices.FirstOrDefault(invoice => request.RequestID == invoice.RequestID);
         }
-
+        //check if a request has been scheduled
+        public bool CheckExist(Request request)
+        {
+            return _assignings.Any(assigning => assigning.RequestID == request.RequestID);
+        }
+        //init the paramater of reason
         public Reason Init(Reason reason)
         {
             reason.RequestCode = "";
@@ -170,7 +175,7 @@ namespace Captone.Services
             reason.MiddleTrip = "";
             return reason;
         }
-
+        //create the way list for request
         public List<String> AddWayList(Request request)
         {
             if (!CheckNotNull(_foundWays)) return null;
@@ -180,14 +185,14 @@ namespace Captone.Services
                 var tmpList = foundWay.First(i => i.Key == request).Value;
                 if (CheckNotNull(tmpList))
                 {
-                    string tmp = tmpList.Aggregate("", (current, stage) => current + (stage.StartPoint + " - "));
-                    tmp += tmpList.Last().EndPoint;
+                    string tmp = tmpList.Aggregate("", (current, stage) => current + (FindName(stage.StartPoint) + " => "));
+                    tmp += FindName(tmpList.Last().EndPoint);
                     result.Add(tmp);
                 }
             }
             return result;
         }
-
+        //find name of station base on its id
         public string FindName(int stationID)
         {
             foreach (var station in _stations.Where(station => station.StationID == stationID))
@@ -221,10 +226,11 @@ namespace Captone.Services
             var remainRequest = new List<Request>();
             foreach (var request in requests)
             {
+                if (CheckExist(request)) continue;
                 var tmpReason = new Reason();
                 tmpReason = Init(tmpReason);
                 tmpReason.RequestCode = request.RequestCode;
-                tmpReason.FromTo = FindName(request.FromLocation) + " - " + FindName(request.ToLocation);
+                tmpReason.FromTo = FindName(request.FromLocation) + " => " + FindName(request.ToLocation);
                 //mark the current size to compare
                 int tmpSize = _finalResult.Count();
                 int flag = 0;
