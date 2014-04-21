@@ -442,6 +442,7 @@
     <Content Include="Content\Images\Admin\icn_video.png" />
     <Content Include="Content\Images\Admin\icn_view_users.png" />
     <Content Include="Content\Images\Admin\module_footer_bg.png" />
+    <Content Include="Content\Images\Admin\oxygen-header.png" />
     <Content Include="Content\Images\Admin\post_message.png" />
     <Content Include="Content\Images\Admin\secondary_bar.png" />
     <Content Include="Content\Images\Admin\secondary_bar_shadow.png" />
@@ -1007,6 +1008,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\RegAcc.cshtml" />
     <Content Include="Views\Shared\_LayoutNoMap.cshtml" />
+    <Content Include="Views\Request\RequestCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
