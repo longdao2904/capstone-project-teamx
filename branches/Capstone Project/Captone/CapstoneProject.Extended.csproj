@@ -515,6 +515,7 @@
     <Content Include="Content\Images\step-third.png" />
     <Content Include="Content\Images\warning-icon.png" />
     <Content Include="Content\img\Administrator-icon.png" />
+    <Content Include="Content\img\attention.png" />
     <Content Include="Content\img\bck.jpg" />
     <Content Include="Content\img\cancelled.png" />
     <Content Include="Content\img\checked.gif" />

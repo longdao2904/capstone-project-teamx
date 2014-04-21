@@ -29,7 +29,7 @@
                        @item.Schedule.Route.RouteName
                     </td>
                     <td>
-                        <a data-toggle="modal" id="" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
+                        <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
                     </td>
                     <td>
                         @item.RealDepartureTime
@@ -38,8 +38,11 @@
                         @item.EstimateArrivalTime
                     </td>
                 </tr>
-                
-                <div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+            }
+        </tbody>
+    </table>
+</div>
+ <div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
                     <div class="modal-dialog">
                         <div class="modal-content detailPopup">
                             <div class="modal-header">
@@ -52,8 +55,8 @@
                             </div>
                             <div class="modal-footer">
                                 <a href="/Trip/Index">
-                                    <button type="button" class="btn btn-success" onclick="departed(@item.TripID)" id="btnDeparted">Xác nhận chuyển đi</button></a>
-                                <a href="/Trip/Delete/@item.TripID">
+                                    <button type="button" class="btn btn-success" onclick="departed()" id="btnDeparted">Xác nhận chuyển đi</button></a>
+                                <a href="/Trip/Delete/">
                                     <button type="button" class="btn btn-danger">Xóa chuyến này </button>
                                 </a>
                             </div>
@@ -65,11 +68,6 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
-            }
-        </tbody>
-    </table>
-</div>
-
 <script>
     $(function () {
         var oTable = $('#TableDepartedTrip').dataTable();
@@ -130,6 +128,15 @@
     $('#sttSet').click(function () {
         SentObject();
     });
+    var id;
+    $("a").click(function (event) {
+       id=event.target.id;
+    });
+
+    // I assume this is just for testing, otherwise leaving the page 
+    // immediately on click renders getting the id completely moot.
+    //window.location.href = "http://imes.********.com/app/userpanel.html#sfpp_page";
+
     // Get requests assigned to selected trip
     function AssignedRequest(tripID) {
         $.ajax({
@@ -140,10 +147,12 @@
                 $("#requests").html(result);
             }
         });
+    
     }
-    function departed(tripID) {
-
+    function departed() {
+        var tripID = id;
         var stationID = @int.Parse(Session["StationID"].ToString())
+        alert(id);
         $.ajax({
             url: "/Trip/DepartedRequest",
             type: "Post",
