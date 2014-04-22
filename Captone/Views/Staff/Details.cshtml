@@ -1,0 +1,62 @@
+﻿@model Captone.Models.StaffModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chi tiết</h2>
+
+<fieldset>
+    <legend></legend>
+
+    <div class="display-label">
+        <strong>Tên tài khoản</strong>
+        @Html.DisplayFor(model => model.Username)
+    </div>
+    
+    <div class="display-label">
+        <strong>Mật khẩu</strong>
+        @Html.DisplayFor(model => model.Password)
+    </div>
+    
+    <div class="display-label">
+        <strong>Xác nhận mật khẩu</strong>
+        @Html.DisplayFor(model => model.BackupPassword)
+    </div>
+
+    <div class="display-label">
+        <strong>Họ</strong>
+        @Html.DisplayFor(model => model.Firstname)
+    </div>
+
+    <div class="display-label">
+        <strong>Tên </strong>
+        @Html.DisplayFor(model => model.Lastname)
+    </div>
+    
+    <div class="display-label">
+        <strong>Điện thoại </strong>
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+    
+    <div class="display-label">
+        <strong>Email</strong>
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+        <strong>Mã trạm</strong>
+        @Html.DisplayFor(model => model.StationID)
+    </div>
+    
+    <div class="display-label">
+        <strong>Địa chỉ</strong>
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id=Model.Username }) |
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</p>

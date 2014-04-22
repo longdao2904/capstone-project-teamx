@@ -1,0 +1,44 @@
+﻿@model Captone.Models.StaffModel
+
+@{
+    ViewBag.Title = "Xóa nhân viên";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                <fieldset>
+                    <legend>Bạn có muốn xóa nhân viên @Model.Username khỏi hệ thống ?</legend>
+                    <blockquote>
+                        <div class="display-label">
+                            <strong>Tài khoản</strong>
+                            @Model.Username
+                        </div>      
+                        <div class="display-label">
+                           <strong>Họ</strong>
+                            @Model.Firstname
+                        </div>         
+                        <div class="display-label">
+                            <strong>Tên</strong>
+                            @Model.Lastname
+                        </div> 
+                    </blockquote>
+                </fieldset>
+                <br />
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <button type="submit" class="btn btn-danger">Xóa nhân viên</button>
+                        <button type="button" class="btn btn-info" onclick="window.location.href='/Staff/Index'"> Quay lại danh sách</button>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
