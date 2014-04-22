@@ -97,7 +97,7 @@
 
     <header id="header" style="color: blue">
         <hgroup>
-            <h1 class="site_title"><a href="index.html">iDeliver</a></h1>
+            <h1 class="site_title">iDeliver</h1>
             <h2 class="section_title">Hệ thống vận chuyển hàng hóa bằng xe khách đường dài</h2>
             <div class="btn_view_site"><a href="/Home">Trang chủ</a></div>
         </hgroup>
@@ -124,8 +124,8 @@
         </ul>
         <h3>Quản lý nhân viên</h3>
         <ul class="toggle">
-            <li class="icn_add_user"><a href="#">Tạo tài khoản mới</a></li>
-            <li class="icn_view_users"><a href="#">Danh sách nhân viên</a></li>
+            <li class="icn_view_users"><a href="~/Staff/Index">Danh sách nhân viên</a></li>
+            <li class="icn_add_user"><a href="~/Staff/Create">Tạo tài khoản mới</a></li>
         </ul>
         <h3>Quản lý tài khoản khách hàng</h3>
         <ul class="toggle">
@@ -148,7 +148,7 @@
         <article class="module width_full" style="height: auto">
             <div class="module_content">
                 <div class="stats_graph" style="margin-left: 0px;">
-                    <div>@RenderBody()</div>
+                    <div style="width: 500px">@RenderBody()</div>
                 </div>
                 <div class="clear"></div>
             </div>

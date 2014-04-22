@@ -36,7 +36,7 @@ text-decoration: underline;
 header#header {
 height: 55px;
 width: 100%;
-background: #222222 url(../Images/Admin/oxygen-header.png) repeat-x;
+background: #222222 url(../Images/Admin/header.png) repeat-x;
 }
 
 header#header h1.site_title, header#header h2.section_title {
@@ -44,14 +44,14 @@ float: left;
 margin: 0;
 font-size: 22px;
 display: block;
-width: 23%;
+width: 19%;
 height: 55px;
 font-weight: bold;
 text-align: left;
 text-indent: 1.8%;
 line-height: 55px;
-color: cyan;
-text-shadow: 0 -1px 0 blue;
+color: white;
+text-shadow: 0 -1px 0 lightblue;
 }
 
 header#header h1.site_title a {
@@ -193,10 +193,10 @@ margin: 0 5px;
 /* Sidebar */
 
 aside#sidebar {
-width: 23%;
-background: #E0E0E3 url(../Images/Admin/sidebar.png) repeat;
+width: 20%;
+background: #E0E0E3 url(../Images/Admin/sidebar.png) repeat-y;
 float: left;
-min-height: 500px;
+min-height: 100%;
 margin-top: -4px;
 }
 
@@ -363,7 +363,7 @@ margin-top: 20%;
 
 section#main {
 width: 77%;
-min-height: 500px;
+min-height: 100%;
 background: url(../Images/Admin/sidebar_shadow.png) repeat-y left top;
 float: left;
 margin-top: -2px;

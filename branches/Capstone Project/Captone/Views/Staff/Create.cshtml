@@ -1,45 +1,50 @@
-﻿@model Captone.Models.ManageFee
+﻿@model Captone.Models.StaffModel
 
 @{
-    ViewBag.Title = "Chỉnh sửa";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h2 style="color: blue">Chỉnh sửa mức phí</h2><br/>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <div class="editor-label">Giá</div>
+        <legend style="font-size: 18px; color: blue">Tạo mức phí mới</legend>
+        <div class="editor-label">
+            Mức phí
+        </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Fee)
             @Html.ValidationMessageFor(model => model.Fee)
         </div><br/>
-
-        <div class="editor-label">Khối lượng chặn dưới</div>
+        <div class="editor-label">
+           Khối lượng chặn dưới
+        </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.MinWeight)
             @Html.ValidationMessageFor(model => model.MinWeight)
         </div><br/>
-
-        <div class="editor-label">Khối lượng chặn dưới</div>
+        <div class="editor-label">
+           Khối lượng chặn trên
+        </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.MaxWeight)
             @Html.ValidationMessageFor(model => model.MaxWeight)
         </div><br/>
-
-        <div class="editor-label">Thể tích chặn dưới</div>
+        <div class="editor-label">
+            Thể tích chặn dưới
+        </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.MinVolume)
             @Html.ValidationMessageFor(model => model.MinVolume)
         </div><br/>
-
-        <div class="editor-label">Thể tích chặn trên</div>
+        <div class="editor-label">
+            Thể tích chặn trên
+        </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.MaxVolume)
             @Html.ValidationMessageFor(model => model.MaxVolume)
         </div><br/>
-    </fieldset><br/>
+    </fieldset>
+<br/>
 }
-<input type="submit" value="Lưu" />  @Html.ActionLink("Quay lại danh sách", "Index")
+<input type="submit" value="Tạo mới" />   @Html.ActionLink("Quay lại danh sách", "Index")

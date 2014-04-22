@@ -260,6 +260,7 @@
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StaffModel.cs" />
     <Compile Include="Models\Stage.cs">
       <DependentUpon>iDeliver.tt</DependentUpon>
     </Compile>
@@ -442,7 +443,7 @@
     <Content Include="Content\Images\Admin\icn_video.png" />
     <Content Include="Content\Images\Admin\icn_view_users.png" />
     <Content Include="Content\Images\Admin\module_footer_bg.png" />
-    <Content Include="Content\Images\Admin\oxygen-header.png" />
+    <Content Include="Content\Images\Admin\header.png" />
     <Content Include="Content\Images\Admin\post_message.png" />
     <Content Include="Content\Images\Admin\secondary_bar.png" />
     <Content Include="Content\Images\Admin\secondary_bar_shadow.png" />
@@ -911,7 +912,6 @@
     <Content Include="Views\FeedBack\ListProvince.cshtml" />
     <Content Include="Views\FeedBack\ListStation.cshtml" />
     <Content Include="Views\Fee\Create.cshtml" />
-    <Content Include="Views\Fee\Delete.cshtml" />
     <Content Include="Views\Fee\Details.cshtml" />
     <Content Include="Views\Fee\Edit.cshtml" />
     <Content Include="Views\Fee\Index.cshtml" />
@@ -1009,6 +1009,9 @@
     <Content Include="Views\Account\RegAcc.cshtml" />
     <Content Include="Views\Shared\_LayoutNoMap.cshtml" />
     <Content Include="Views\Request\RequestCode.cshtml" />
+    <Content Include="Views\Staff\Details.cshtml" />
+    <Content Include="Views\Staff\Create.cshtml" />
+    <Content Include="Views\Staff\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
