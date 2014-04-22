@@ -160,6 +160,7 @@ namespace Captone.Controllers
                                                       a.Key.RequestID,
                                                       a.Key.DeliveryStatusID,
                                                       a.Key.ToLocation,
+                                                     
                                                       a.Key.SenderPhone,
                                                       a.Key.StopStation,
                                                       a.Key.RequestCode,
@@ -181,7 +182,18 @@ namespace Captone.Controllers
             ViewBag.Assign = item;
             return View();
         }
-        //
+        public ActionResult ListRequestPending(int stationId)
+        {
+            var getRequest = _db.Requests.Where(p => p.FromLocation == stationId & p.DeliveryStatusID == 4).ToList();
+            List<Assigning> hehe = new List<Assigning>();
+            foreach (var request in getRequest)
+            {
+                var getTrip = _db.Assignings.Where(p => p.RequestID == request.RequestID).FirstOrDefault();
+                hehe.Add(getTrip);
+            }
+
+            return View(hehe);
+        }
         public ActionResult ListTripPending(int requestId)
         {
             var list = _db.Assignings.Where(p => p.RequestID == requestId).ToList();

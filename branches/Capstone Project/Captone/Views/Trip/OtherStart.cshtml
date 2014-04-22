@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Captone.Models.Trip>
+@{
+    ViewBag.Title = "OtherStart";
+    int stationId = Convert.ToInt32(Session["StationID"]);
+    Layout = null;
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="TableOtherStart" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>Tuyến
+                </th>
+                <th>Xe
+                </th>
+                <th>Giờ đến dự kiến
+                </th>
+                <th>Trạng thái</th>
+                <th style="display: none"></th>
+              
+             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="display: none">
+                        @item.TripID
+                    </td>
+                    <td>
+                        @item.Schedule.Route.RouteName
+                    </td>
+                    <td>
+                   <a data-toggle="modal" id="@item.TripID" data-target="#myModalOther" onclick="AssignedRequest2(@item.TripID)">@item.Schedule.Coach.NumberPlate</a>
+                    </td>
+                    <td>
+                        @item.EstimateArrivalTime
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="myModalOther" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content detailPopup">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
+            </div>
+            <div class="modal-body">
+                <div id="otherstart">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" href="/Assigning/ListRequestPending?stationId=@stationId" onclick="departed()">Khởi hành</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    function AssignedRequest2(tripID) {
+        $.ajax({
+            url: "/Trip/AssignedRequest2",
+            type: "Post",
+            data: { tripID: tripID },
+            success: function (result) {
+                $("#otherstart").html(result);
+            }
+        });
+    }
+    var id;
+    $("a").click(function (event) {
+        id = event.target.id;
+    });
+    function departed() {
+        var tripID = id;
+        var stationID = @int.Parse(Session["StationID"].ToString())
+        $.ajax({
+            url: "/Trip/DepartedRequest",
+            type: "Post",
+            data: { tripID: tripID, stationID: stationID },
+            success: function (result) {
+                window.location.href = "/Trip/Index";
+            }
+        });
+    }
+    </script>

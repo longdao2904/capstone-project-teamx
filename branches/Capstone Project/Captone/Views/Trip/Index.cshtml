@@ -17,95 +17,66 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             @ViewBag.Title
+            <a data-toggle="modal" class="btn btn-default" data-target="createTripModal" onclick="CreateTrip(@stationID)">Tạo chuyến mới</a>
         </div>
         <div class="panel-body">
-            <ul class="nav nav-pills">
-                <li class="active"><a href="#list-pills" data-toggle="tab">Danh sách chuyến</a>
-                </li>
-                <li class=""><a href="#new-pills" data-toggle="tab" onclick="newTrip(@stationID)">Chuyến xe vừa tạo</a>
-                </li>
-                <li class=""><a href="#depart-pills" data-toggle="tab" onclick="departureTrip(@stationID)">Chuyến đã khởi hành</a>
-                </li>
-                <li class=""><a href="#arrive-pills" data-toggle="tab" onclick="arriveTrip()">Chuyến đã đến trạm</a>
-                </li>
-                <li class=""><a href="#other-pills" data-toggle="tab" onclick="otherTrip(@stationID)">Xe đến từ trạm khác</a>
-                </li>
-                <li class="">
-                    <a data-toggle="modal" data-target="createTripModal" onclick="CreateTrip(@stationID)">Tạo chuyến mới</a>
-                </li>
+            <ul class="nav nav-tabs">
+                <li class="active" id="hihi"><a href="#company" data-toggle="tab">Xe trực thuộc trạm</a></li>
+                <li id="hehe"><a href="#pressroom" data-toggle="tab">Xe từ trạm khác</a></li>
+
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane fade active in" id="list-pills">
-                    <br />
-                    <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered display KeyTable dataTable" id="TableTrips" aria-describedby="example_info">
-                                <thead>
-                                    <tr>
-                                        <th style="display: none"></th>
-                                        <th>Ngày đi 
-                                        </th>
-                                        <th>Tuyến                                            
-                                        </th>
-                                        <th>Xe chạy
-                                        </th>
-                                        <th>Giờ đi dự kiến
-                                        </th>
-                                        <th>Giờ đến dự kiến
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td style="display: none">
-                                                @item.TripID
-                                            </td>
-                                            <td>
-                                                <a data-toggle="modal" id="" data-target="modalDetail" onclick="Detail(@item.TripID)">@item.EstimateDepartureTime.ToShortDateString()</a>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Schedule.Route.RouteName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Schedule.Coach.NumberPlate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EstimateDepartureTime)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EstimateArrivalTime)
-                                            </td>
-                                            <td>
-                                                @*<a href="/Trip/Edit/@item.TripID"><i class="fa fa-edit fa-fw"></i></a>|
-                            <a href="/Trip/Details/@item.TripID"><i class="fa fa-info fa-fw"></i></a>|
-                            <a href="/Trip/Delete/@item.TripID"><i class="fa fa-minus-square fa-fw"></i></a>*@
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                <div id="company" class="tab-pane fade in active">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="#new-pills" data-toggle="tab" onclick="newTrip(@stationID)">Chuyến xe vừa tạo</a>
+                            </li>
+                            <li>
+                                <a href="#depart-pills" data-toggle="tab" onclick="departureTrip(@stationID)">Chuyến đã khởi hành</a>
+                            </li>
+                            <li>
+                                <a href="#arrive-pills" data-toggle="tab" onclick="arriveTrip()">Chuyến đã đến trạm</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="new-pills">
+                            <br />
+                            <div id="newTrip"></div>
+                        </div>
+                        <div class="tab-pane fade" id="depart-pills">
+                            <br />
+                            <div id="departureTrip"></div>
+                        </div>
+                        <div class="tab-pane fade" id="arrive-pills">
+                            <br />
+                            <div id="arrivalTrip"></div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="new-pills">
-                    <br />
-                    <div id="newTrip"></div>
-                </div>
-                <div class="tab-pane fade" id="depart-pills">
-                    <br />
-                    <div id="departureTrip"></div>
-                </div>
-                <div class="tab-pane fade" id="arrive-pills">
-                    <br />
-                    <div id="arrivalTrip"></div>
-                </div>
-                <div class="tab-pane fade" id="other-pills">
-                    <br />
-                    <div id="otherTrip"></div>
+                <div id="pressroom" class="tab-pane">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills">
+                            <li id="huhu">
+                                <a href="#other-pills" data-toggle="tab" onclick="otherTrip(@stationID)">Xe đến từ trạm khác</a>
+                            </li>
+                             <li>
+                                <a href="#other-pills-start" data-toggle="tab" onclick="otherStart(@stationID)">Xác nhận khởi hành</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="other-pills">
+                            <br />
+                            <div id="otherTrip"></div>
+                        </div>
+                        <div class="tab-pane fade" id="other-pills-start">
+                            <br />
+                            <div id="otherStart"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

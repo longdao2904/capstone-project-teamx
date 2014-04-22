@@ -20,7 +20,16 @@ function newTrip(stationID) {
         }
     });
 }
-
+function otherStart(stationId) {
+    $.ajax({
+        url: "/Trip/OtherStart",
+        data: { stationId: stationId },
+        type: "Post",
+        success: function (result) {
+            $("#otherStart").html(result);
+        }
+    });
+}
 function otherTrip(stationID) {
     $.ajax({
         url: "/Trip/OtherTrip",

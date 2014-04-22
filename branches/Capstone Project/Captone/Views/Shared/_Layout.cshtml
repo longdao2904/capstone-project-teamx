@@ -1,35 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Core CSS - Include with every page -->
-        <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
+    <!-- Core CSS - Include with every page -->
+    <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
-        <!-- SB Admin CSS - Include with every page -->
-        <link href="~/Content/css/sb-admin.css" rel="stylesheet">
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet">
 
-        <!-- Sent Request Form CSS -->
-        <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
-        <link href="~/Content/Css/Ribbon.css" rel="stylesheet" />
-        <script src="~/Content/js/jquery-1.10.2.js"></script>
-        <script src="~/Content/js/bootstrap.js"></script>
-        <script src="~/Content/js/jquery.bpopup.min.js"></script>
-        <script src="~/Content/js/sb-admin.js"></script>
-        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <!-- Sent Request Form CSS -->
+    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
+    <link href="~/Content/Css/Ribbon.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <script src="~/Content/js/bootstrap.js"></script>
+    <script src="~/Content/js/jquery.bpopup.min.js"></script>
+    <script src="~/Content/js/sb-admin.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
-        <title>@ViewBag.Title</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @{
-            var Username = (string)Session["USERNAME"];
-            var UserRole = (string)Session["UserRole"];
-            int stationId = Convert.ToInt32(Session["StationID"]);
-            var stationName = (string)Session["StationName"];
-        }
-    </head>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var Username = (string)Session["USERNAME"];
+        var UserRole = (string)Session["UserRole"];
+        int stationId = Convert.ToInt32(Session["StationID"]);
+        var stationName = (string)Session["StationName"];
+    }
+</head>
 
 <body style="height: 100%">
     <input type="hidden" value="@UserRole" id="roleUser" />
@@ -65,7 +65,7 @@
                 <ul class="nav" id="side-menu">
                     <li>
                         <div class="rectangle">
-                            <a href="/Home/Index" style="color: white"><i class="fa fa-home fa-2x"> Trang chủ</i> </a>
+                            <a href="/Home/Index" style="color: white"><i class="fa fa-home fa-2x">Trang chủ</i> </a>
                         </div>
                         <div class="triangle-r"></div>
                     </li>
@@ -73,20 +73,20 @@
                         <div class="dis">
 
                             <div class="rectangle">
-                                <a style="color: white" href="/Home/SentRequestForm"><i class="fa fa-truck fa-2x"> Chuyển phát</i></a>
+                                <a style="color: white" href="/Home/SentRequestForm"><i class="fa fa-truck fa-2x">Chuyển phát</i></a>
                             </div>
                             <div class="triangle-r"></div>
 
                         </div>
                         @if (Username != null & UserRole == "Customer")
                         {
-                            <a href="/Home/SentRequestForm" class="devider"><i class="fa fa-truck fa-fw"></i> Chuyển Phát</a>                        
+                            <a href="/Home/SentRequestForm" class="devider"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>                        
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Home/ListStatusCustomer?Username=@Username" class="devider"><i class="fa fa-book fa-fw"></i >Quản lý yêu cầu</a>
+                                    <a href="/Home/ListStatusCustomer?Username=@Username" class="devider"><i class="fa fa-book fa-fw"></i>Quản lý yêu cầu</a>
                                 </li>
                                 <li>
-                                    <a href="/Customer/Index" class="devider"><i class="fa fa-tag fa-fw"></i> Thanh toán</a>
+                                    <a href="/Customer/Index" class="devider"><i class="fa fa-tag fa-fw"></i>Thanh toán</a>
                                 </li>
                             </ul>
                         }
@@ -94,7 +94,7 @@
                     <div class="dis">
                         <li>
                             <div class="rectangle">
-                                <a href="/Customer/TablePrice" style="color: white"><i class="fa fa-money fa-2x"> Bảng giá</i></a>
+                                <a href="/Customer/TablePrice" style="color: white"><i class="fa fa-money fa-2x">Bảng giá</i></a>
                             </div>
                             <div class="triangle-r"></div>
                         </li>
@@ -102,7 +102,7 @@
                     <div class="dis">
                         <li class="active">
                             <div class="rectangle">
-                                <a href="#" style="color: white"><i class="fa fa-users fa-2x"> Người dùng</i></a>
+                                <a href="#" style="color: white"><i class="fa fa-users fa-2x">Người dùng</i></a>
                             </div>
                             <div class="triangle-r"></div>
                             @if (Username == null)
@@ -181,9 +181,11 @@
                                     <li>
                                         <a href="/Request/ListRequest?stationId=@stationId">Xếp lịch vận chuyển</a>
                                     </li>
-
                                     <li>
-                                        <a href="/Assigning/RequestPeding?stationId=@stationId">Hàng đang vận chuyển</a>
+                                        <a href="/Assigning/ListRequestPending?stationId=@stationId">Hàng đang vận chuyển</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Assigning/RequestPeding?stationId=@stationId">Hàng đang đến trạm</a>
                                     </li>
                                     <li>
                                         <a href="/Assigning/ArrivedRequest?stationID=@stationId">Hàng đã đến trạm</a>
@@ -205,9 +207,9 @@
                     {
                         <li>
                             <div class="rectangle">
-                                <a href="#" style="color: white"><i class="fa fa-gears fa-2x"></i> Quản trị hệ thống</a>
+                                <a href="#" style="color: white"><i class="fa fa-gears fa-2x"></i>Quản trị hệ thống</a>
                             </div>
-                            <div class="triangle-r"></div>                          
+                            <div class="triangle-r"></div>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/Staff/Index">Nhân viên</a>
@@ -226,7 +228,7 @@
                     {
                         <li>
                             <div class="rectangle topstation">
-                                <i class="fa fa-building-o"> Trạm được đánh giá cao</i>
+                                <i class="fa fa-building-o">Trạm được đánh giá cao</i>
                             </div>
                             <div class="triangle-r"></div>
                             <ul class="nav nav-second-level">

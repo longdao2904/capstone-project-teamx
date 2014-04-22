@@ -54,14 +54,33 @@ namespace Captone.Controllers
                     var flag = false;
                     foreach (var stage in stages)
                     {
-                        if (stage.EndPoint == stationID && trip.Status == "Đang chạy") flag = true;
+                        if (stage.EndPoint == stationID && (trip.Status == "Đang chạy" || trip.Status == "Đã đến trạm")) flag = true;
                     }
                     if (flag) listTrips.Add(trip);
                 }
             }
             return listTrips;
         }
-
+        public List<Trip> Filter2(List<Trip> trips, int stationID, bool type)
+        {
+            var listTrips = new List<Trip>();
+            foreach (var trip in trips)
+            {
+                int routeID = trip.Schedule.Route.RouteID;
+                var stages = FindStageFromRoute(routeID);
+                if (type && stages.First().StartPoint == stationID) listTrips.Add(trip);
+                if (!type)
+                {
+                    var flag = false;
+                    foreach (var stage in stages)
+                    {
+                        if (stage.EndPoint == stationID &&  trip.Status == "Đã đến trạm") flag = true;
+                    }
+                    if (flag) listTrips.Add(trip);
+                }
+            }
+            return listTrips;
+        }
         //
         // POST: /Trip/ListTrip
         [HttpPost]
@@ -385,17 +404,20 @@ namespace Captone.Controllers
 
         public ActionResult AssignedRequest(int tripID)
         {
-            var listRequests = new List<Request>();
-            var rqID = new List<int>();
-            rqID = (from a in db.Assignings where a.TripID == tripID select a.RequestID).ToList();
-            foreach (var id in rqID)
-            {
-                Request rq = db.Requests.Where(r => r.RequestID == id).FirstOrDefault();
-                listRequests.Add(rq);
-            }
-            return View(listRequests);
-        }
+           
+           
+           var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
 
+           return View(rqID);
+        }
+        public ActionResult AssignedRequest2(int tripID)
+        {
+
+
+            var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
+
+            return View(rqID);
+        }
         #region load and re-assigned requests of selected trip to be deleted
 
         // Retrieve requests assigned to selected trip, find by TripID
@@ -524,8 +546,13 @@ namespace Captone.Controllers
             if (FindStageFromRoute(trip.Schedule.RouteID).Last().EndPoint == stationID)
             {
                 trip.RealArrivalTime = DateTime.Now;
-                trip.Status = "Đã đến đích";
+                trip.Status = "Đã đến trạm";
                 db.Entry(trip).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                trip.Status = "Đã đến trạm";
                 db.SaveChanges();
             }
             //update for each request
@@ -536,10 +563,26 @@ namespace Captone.Controllers
                 if (request.ToLocation == stationID)
                 {
                     request.DeliveryStatusID = 5;
+                    request.ArrivedDate = DateTime.Now;
+                    db.Entry(request).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                if (request.FromLocation == stationID)
+                {
+                    request.DeliveryStatusID = 4;
                     db.Entry(request).State = EntityState.Modified;
                     db.SaveChanges();
                 }
             }
+
         }
+        public ActionResult OtherStart(int stationId)
+        {
+            var trips = db.Trips.ToList();
+            trips = Filter2(trips, stationId, false);
+   
+            return PartialView(trips);
+        }
+      
     }
 }

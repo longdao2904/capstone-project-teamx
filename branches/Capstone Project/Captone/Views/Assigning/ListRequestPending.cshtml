@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Captone.Models.Assigning>
+@{
+    ViewBag.Title = "ListRequestPending";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+<div class="table-responsive">
+    <table class="table table-bordered" id="TableOtherStart" aria-describedby="example_info">
+        <thead>
+            <tr>
+                <th>
+                    Mã hàng
+                </th>
+                <th>
+                    Người gửi
+                </th>
+                <th>
+                    Trạm đến
+                </th>
+                <th>
+                    Thời gian khởi hành
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Request.RequestCode
+                    </td>
+                    <td>
+                        @item.Request.SenderName
+                    </td>
+
+                    <td>
+                        @item.Request.Station1.StationName
+
+                    </td>
+                    <td>
+                        @item.Trip.RealDepartureTime
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

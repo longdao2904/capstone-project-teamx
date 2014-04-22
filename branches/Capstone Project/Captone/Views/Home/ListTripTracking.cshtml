@@ -2,8 +2,9 @@
 <table class="table table-bordered">
     <thead>
         <th></th>
+        <th>Trạng thái</th>
         <th>Dự kiến đến</th>
-        <th>Uớc tính</th>
+
     </thead>
     @foreach (var item in Model)
     {
@@ -13,12 +14,11 @@
         <tbody>
             <tr>
                 <td>@item.Trip.Schedule.Route.RouteName</td>
-                <td>@item.Trip.EstimateArrivalTime</td>
                 @if (item.Trip.Status == "Đã đến trạm")
                 {
                     <td>@item.Trip.Status</td>
                 }
-                @if(item.Trip.Status == "Chưa chạy")
+                @if (item.Trip.Status == "Chưa chạy")
                 {
                     <td>@item.Trip.Status</td>
                 }
@@ -26,7 +26,7 @@
                 {
                     <td>@item.Trip.EstimateArrivalTime.Subtract(DateTime.Now).Hours h</td>
                 }
-           
+                <td>@item.Trip.EstimateArrivalTime</td>
             </tr>
         </tbody>
     }
