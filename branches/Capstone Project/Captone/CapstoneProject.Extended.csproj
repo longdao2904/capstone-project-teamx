@@ -1006,7 +1006,6 @@
     <Content Include="Views\Trip\NewTrip.cshtml" />
     <Content Include="Views\Trip\OtherTrip.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
-    <Content Include="Views\Account\RegAcc.cshtml" />
     <Content Include="Views\Shared\_LayoutNoMap.cshtml" />
     <Content Include="Views\Request\RequestCode.cshtml" />
     <Content Include="Views\Staff\Details.cshtml" />
