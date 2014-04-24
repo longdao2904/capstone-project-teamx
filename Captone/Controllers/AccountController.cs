@@ -63,25 +63,12 @@ namespace Captone.Controllers
             return View();
         }
 
-        public void Modify()
-        {
-            MD5 md5Hash = MD5.Create();
-            var accounts = _db.Accounts.ToList();
-            foreach (var account in accounts)
-            {
-                string hash = GetMd5Hash(md5Hash, account.Password);
-                account.Password = hash;
-            }
-            _db.SaveChanges();
-        }
-
         [HttpPost]
         public ActionResult Register(Account model)
         {
             MD5 md5Hash = MD5.Create();
             if (ModelState.IsValid)
             {
-                Modify();
                 var tmp = new Account();
                 tmp.Username = model.Username;
                 string hash = GetMd5Hash(md5Hash, model.Password);
