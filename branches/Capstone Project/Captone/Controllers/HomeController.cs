@@ -125,7 +125,12 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
 
         }
-        public JsonResult checkPackage(double length, double width, double height)
+        public JsonResult getUserInfo(string username)
+        {
+            var userInfo = _db.UserInfoes.Where(p => p.Username == username).FirstOrDefault();
+            return Json(new {FirstName = userInfo.Firstname, Lastname = userInfo.Lastname, Address = userInfo.Address, PhoneNumber = userInfo.PhoneNumber}, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult checkLength(double length)
         {
             var coachType = _db.CoachTypes.ToList().Last();
             if (length > coachType.Length)
@@ -133,14 +138,27 @@ namespace Captone.Controllers
                 return Json(new { check = false }, JsonRequestBehavior.AllowGet);
 
             }
+            return Json(new { check = true }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult checkHeight(double height)
+        {
+            var coachType = _db.CoachTypes.ToList().Last();
+            if (height > coachType.Height)
+            {
+                return Json(new { check = false }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { check = true }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult checkPackage(double width)
+        {
+            var coachType = _db.CoachTypes.ToList().Last();
+ 
             if (width > coachType.Width)
             {
                 return Json(new { check = false }, JsonRequestBehavior.AllowGet);
             }
-            if (height > coachType.Height)
-            {
-                return Json(new { check = false }, JsonRequestBehavior.AllowGet);
-            }
+         
             return Json(new { check = true }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getVolume(float volume)
