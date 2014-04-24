@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "ListWay";
+}
+
+<h4 style="color: orange">Các đường đã tìm được:</h4>
+
+<table class="table" style="width: auto">  
+    <tbody>
+        @foreach(var item in ViewBag.WayList){
+            <tr>
+                <td style="width: 100px">@item</td>
+            </tr>
+        }
+    </tbody>
+</table>

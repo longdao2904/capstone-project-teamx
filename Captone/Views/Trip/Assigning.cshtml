@@ -35,7 +35,7 @@ else
                     <td style="width: 100px">@r.RequestCode</td>
                     <td style="width: 100px">@r.FromTo</td>
                     <td style="width: 100px">@r.NumberOfWay</td>
-                    <td><a data-toggle="modal" id="" data-target="#ModalWayList" class="" onclick="AssignedRequest(@r.WayList)">Xem chi tiết</a></td>
+                    <td><a data-toggle="modal" id="" data-target="#ModalWayList" class="" onclick="FoundWay(@Html.Raw(Json.Encode(r.WayList)));">Xem chi tiết</a></td>
                     <td style="width: 100px">@r.OneTrip</td>
                     <td style="width: 100px">@r.MultipleTrip</td>
                     <td style="width: 100px">@r.MiddleTrip</td>
@@ -43,21 +43,18 @@ else
             }
         </tbody>
     </table>
-    <div id="ModalWayList" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content detailPopup">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Danh sách các tuyến đường tìm được</h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="requests">
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-    </div>
 }
+<script type="text/javascript">
 
+    function FoundWay(ways) {
+        $.ajax({
+            url: "/Trip/ListWay",
+            type: "Post",
+            data: { ways: ways.toString() },
+            success: function (result) {
+                $('#close').click();
+                $('#ListWays').html(result);
+            }
+        });
+    }
+</script>

@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Services;
+using Newtonsoft.Json;
 
 namespace Captone.Controllers
 {
@@ -15,7 +16,6 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
         double _deltaTime = 2.0;  //the time between two times the trip run
-        #region CRUD
 
         //list all trip of the system
         public ActionResult Index()
@@ -95,19 +95,12 @@ namespace Captone.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            //if (Session["USERNAME"] == null)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else
-            //{
             Trip trip = db.Trips.Find(id);
             if (trip == null)
             {
                 return HttpNotFound();
             }
             return View(trip);
-            //}
         }
 
         //
@@ -115,11 +108,6 @@ namespace Captone.Controllers
         [HttpGet]
         public ActionResult Create(int stationID)
         {
-            //string username = (string)Session["USERNAME"];
-            //string role = (string)Session["UserRole"];
-            //if (username != null && role == "Staff")
-            //{
-
             ViewData["RouteID"] = (from p
                                        in db.RouteStages
                                    join l in db.Stages on p.StageID equals l.StageID
@@ -131,11 +119,6 @@ namespace Captone.Controllers
                                    }
                                   ).ToList();
             return PartialView();
-            //}
-            //else
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
         }
 
         //
@@ -343,8 +326,6 @@ namespace Captone.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
-
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
@@ -384,9 +365,18 @@ namespace Captone.Controllers
                     db.SaveChanges();
                 }
             }
-            var stringView = RenderRazorViewToString("Assigning", failedReason);
+            var stringView = RenderRazorViewToString("Assigning",failedReason);
             return Json(stringView, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ListWay(string ways)
+        {
+            string[] separator = {","};
+            var tmpList = ways.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
+            ViewBag.WayList = tmpList;
+            return PartialView("ListWay", tmpList);
+        }
+
         public string RenderRazorViewToString(string viewName, object model)
         {
             ViewData.Model = model;
@@ -404,8 +394,6 @@ namespace Captone.Controllers
 
         public ActionResult AssignedRequest(int tripID)
         {
-           
-           
            var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
 
            return View(rqID);

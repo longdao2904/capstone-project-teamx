@@ -68,7 +68,7 @@
     </table>
     <a data-toggle="modal" data-target="#myModal" class="btn btn-success" onclick="Assign();">Xếp Lịch</a>
     
-        <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-dialog">
             <div class="modal-content" style="width: 850px;">
                 <div class="modal-header">
@@ -80,13 +80,32 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Đóng</button>
+                    <button type="button" id="close" class="btn btn-default closeModal" data-dismiss="modal">Đóng</button>
                     <a href="/Assigning/ListAssign?stationID=@stationId" class="btn btn-success" onclick="">Xác nhận</a>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+    
+    <div id="ModalWayList" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content detailPopup">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Danh sách các tuyến đường tìm được</h4>
+            </div>
+            <div class="modal-body">
+                <div id="ListWays">
+                </div>
+            </div>
+             <div class="modal-footer">
+                    <button type="button" onclick="showAgain();" class="btn btn-default closeModal" data-dismiss="modal">Đóng</button>
+                
+                </div>
+        </div>
+    </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -104,6 +123,12 @@
         });
 
     });
+    function showAgain() {
+        $('#myModal').modal({
+            show: true,
+         
+        });
+    }
     function getRequestSingle() {
         var request = [];
         $('[name="Requests"]:checked').each(function () {
