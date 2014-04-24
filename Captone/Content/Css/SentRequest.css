@@ -177,9 +177,10 @@ input:checked + label {
 }
 
 .bub-container {
+    position: initial;
     display: none;
-    margin-left: 310px;
-    margin-top: -47px;
+    margin-left: 330px;
+    margin-top: -50px;
 }
 
 .bub-container2 {
@@ -189,9 +190,10 @@ input:checked + label {
 }
 
 .bub-container3 {
-    display: none;
-    margin-left: 310px;
-    margin-top: -47px;
+  position: initial;
+   display: none;
+    margin-left: 330px;
+    margin-top: -50px;
 }
 
 .suggestAddress {

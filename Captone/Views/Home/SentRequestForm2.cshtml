@@ -25,14 +25,18 @@
                         <div class="form-control-group">
                             <label class="control-label" for="username">Tên Người Gửi</label>
                             <br />
-                            <input type="text" name="username" value="" class="form-control" id="username" autofocus/>
+                            <input type="text" name="username" value="" style="position: absolute" class="form-control" id="username" autofocus />
+                            <br/>
+                              <br/>
                         </div>
 
                         <div class="form-control-group">
                             <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi</label>
                             <br />
-                            <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
+                            <input type="text" name="SenderAddress" style="position: absolute" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
                             <input type="text" id="locaAddress" style="display: none" />
+                              <br/>
+                              <br/>
                         </div>
                         <div class="bub-container">
                             <input type="checkbox" id="bulb" class="light" onclick="showPopUp()" />
@@ -40,21 +44,27 @@
                         </div>
 
                         <div class="form-control-group">
-                            <label class="control-label" for="SenderPhone">Số Điện Thoại Người Gửi</label>
+                            <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi</label>
                             <br />
-                            <input type="text" name="SenderPhone" class="form-control" id="SenderPhone" />
+                            <input type="text" name="SenderPhone" style="position: absolute"  class="form-control" id="SenderPhone" />
+                              <br/>
+                              <br/>
                         </div>
 
                         <div class="form-control-group">
                             <label class="control-label" for="ReceiverName">Tên Người Nhận</label>
                             <br />
-                            <input type="text" name="ReceiverName" class="form-control" id="ReceiverName" />
+                            <input type="text" name="ReceiverName" style="position: absolute"  class="form-control" id="ReceiverName" />
+                            <br/>
+                            <br/>
                         </div>
                         <div class="form-control-group">
                             <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận</label>
                             <br />
-                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
+                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" style="position: absolute" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
+                            <br/>
+                            <br />
                         </div>
                         <div class="bub-container3">
                             <input type="checkbox" id="bulb3" class="light" onclick="showLocation()" />
@@ -62,15 +72,17 @@
                             <label for="bulb3" class="bulbs"></label>
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="ReceiverPhone">Số Điện Thoại Người Nhận</label>
-                            <br />
-                            <input type="text" name="ReceiverPhone" id="" class="form-control" />
+                            <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận</label>
+                           
+                            <input type="text" name="ReceiverPhone" style="position: absolute" id=""class="form-control" />
+                            <br/>
+                            <br/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
         <div class="col-md-7" id="right" style="margin-left: 53%; position: absolute;">
             <div>
@@ -83,8 +95,8 @@
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
                             <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg)</label>
-                            <br />
-                            <select id="Weigh" name="EstimateWeight" class="form-control">
+                            <br/>
+                            <select id="Weigh" name="EstimateWeight" style="position: absolute" class="form-control">
                                 <option></option>
                                 @foreach (var item in Model)
                                 {   
@@ -93,63 +105,105 @@
                                 }
                             </select>
                             <input type="text" id="FeeID" name="FeeID" value="" style="display: none" />
-                           
+
                             <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
                             <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
+                            <br/>
+                            <br/>
+                        </div>
+                        <div class="form-control-group">
+                            <label class="control-label" for="Height">Cao (dcm)</label>
+                           <br/>
+                            <input type="text" name="Height" style="position: absolute" class="form-control" id="Height" onchange="checkHeight();"/>
+                        <br/>
+                            <br/>
+                         </div>
+                        <div class="form-control-group">
+                            <label class="control-label" for="Length">Dài (dcm)</label>
+                            <br/>
+                            <input type="text" style="position: absolute" name="Length"class="form-control" id="Length" onchange="checkLength();" />
+                            <br/>
+                            <br/>
                         </div>
                         <div class="form-control-group">
                             <label class="control-label" for="Width">Rộng (dcm)</label>
-                            <input type="text" name="Width" class="form-control" id="Width" style="width: 80px;" />
-                            <div class="heightClass">
-                                <label class="control-label" for="Height">Cao (dcm)</label>
-                                <input type="text" name="Height" class="form-control" id="Height" style="width: 80px;" />
-                            </div>
-                            <div class="lengthClass">
-                                <label class="control-label" for="Length">Dài (dcm)</label>
-                                <input type="text" name="Length" class="form-control" id="Length" onchange="checkPackage();" style="width: 80px;" />
-                            </div>
+                            <br/>
+                            <input type="text" name="Width" class="form-control" style="position: absolute" id="Width" onchange="checkPackage();"/>
+                            <br/>
+                            <br/>
                         </div>
-                        <div id="check"></div>
-                        <div class="form-control-group">
-                            <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dcm3)</label>
-                            <br />
-                            <input type="text" class="form-control" name="EstimateVolume" id="Volume" />
+                    </div>
+                    <div id="check"></div>
+                    <div class="form-control-group">
+                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dcm3)</label>
+                        <br />
+                        <input type="text"  class="form-control" name="EstimateVolume" id="Volume" disabled="disabled"/>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <div id="SuggestFee">
                         </div>
-                        <div style="margin-top: 15px;">
-                            <div id="SuggestFee">
-                            </div>
-                        </div>
-                        <div  class="form-control-group">
-                            <label class="control-label" for="TypeOfPayment">Phương thức thanh toán</label> 
-                                <br />
-                            <select name="TypeOfPayment" id="" class="form-control">
-                                <option></option>
-                                <option value="Tiền mặt">Tiền mặt</option>
-                                <option value="Chuyển khoản">Chuyển khoản</option>
-                            </select>
-                        </div>
+                    </div>
+                    <div class="form-control-group">
+                        <label class="control-label" for="TypeOfPayment">Phương thức thanh toán</label>
+                        <br />
+                        <select name="TypeOfPayment" style="position: absolute" id="" class="form-control">
+                            <option></option>
+                            <option value="Tiền mặt">Tiền mặt</option>
+                            <option value="Chuyển khoản">Chuyển khoản</option>
+                        </select>
+                        <br/>
+                        <br/>
                     </div>
                 </div>
             </div>
         </div>
+<div class="button-location">
+    <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
+</div>
 
-        <div class="button-location">
-            <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
-        </div>
-
-    </form>
+</form>
 </div>
 
 
 
 <script type="text/javascript">
-   
+    function checkLength() {
+        var length = document.getElementById("Length").value;
+        $.ajax({
+            url: "/Home/checkLength",
+            type: "POST",
+            data: { length: length},
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Kích thước món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
+    function checkHeight() {
+        var height = document.getElementById("Height").value;
+        $.ajax({
+            url: "/Home/checkHeight",
+            type: "POST",
+            data: { height: height },
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Kích thước món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
     function checkPackage() {
         var length = document.getElementById("Length").value;
-        var height = document.getElementById("Height").value;
         var width = document.getElementById("Width").value;
-        var volume = length * height * width;
-
+        var height = document.getElementById("Height").value;
+   
         $.ajax({
             url: "/Home/checkPackage",
             type: "POST",
@@ -157,10 +211,11 @@
             success: function (result) {
                 if (result.check) {
                     $("#check").html("");
+                    var volume = length * height * width;
                     getVolume(volume);
                 }
                 else {
-                    $("#check").html("<div class='alert-message error'>Món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                    $("#check").html("<div class='alert-message error'>Kích thước món hàng của bạn vượt quá sức chứa của xe !!</div>");
                 }
             }
         });
@@ -228,9 +283,9 @@
             $('.bub-container').show();
 
         } if (address == "") {
-              $('.bub-container').hide();
-              document.getElementById("bulb").checked = false;
-          }
+            $('.bub-container').hide();
+            document.getElementById("bulb").checked = false;
+        }
     }
 
     function SuggestToLocation() {
@@ -239,10 +294,10 @@
             ToLocationMaker();
             $('.bub-container3').show();
         } if (address == "") {
-              $('.bub-container3').hide();
-              document.getElementById("bulb3").checked = false;
+            $('.bub-container3').hide();
+            document.getElementById("bulb3").checked = false;
 
-          }
+        }
 
     }
     //$(function () {
@@ -343,8 +398,8 @@
 
         var weigh = options.split(" - ");
         var volume = select1.split(" - ");
-     
-        
+
+
         $.ajax({
             url: "/Home/CalculateFee",
             type: "Post",
