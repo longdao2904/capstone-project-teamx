@@ -242,7 +242,10 @@ namespace Captone.Services
                     ProcessingOneTrip(tmp, request);
                     if (tmpSize == _finalResult.Count)
                     {
-                        tmpReason.OneTrip = @"Có chuyến trực tiếp nhưng không có xe phù hợp";
+                        tmpReason.OneTrip = @"Có tuyến trực tiếp nhưng không có chuyến xe phù hợp";
+                        flag = ProcessingMultipleTrip(request);
+                        tmpReason.NumberOfWay = _foundWays.Count;
+                        tmpReason.WayList = AddWayList(request);
                     }
                 }
                 else
