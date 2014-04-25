@@ -88,25 +88,22 @@ namespace Captone.Controllers
             return View(request);
         }
 
-
-        //
         // GET: /Request/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            Request request = _db.Requests.Find(id);
-            if (request == null)
-            {
-                return HttpNotFound();
-            }
-            return View(request);
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    Request request = _db.Requests.Find(id);
+        //    if (request == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(request);
+        //}
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteRequest(int id)
         {
             Request request = _db.Requests.Find(id);
-            _db.Requests.Remove(request);
+            request.DeliveryStatusID = 7;
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

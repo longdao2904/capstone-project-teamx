@@ -34,7 +34,7 @@
                             <button onclick="Update()" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Gia hạn thanh toán"><i class="fa fa-link"></i></button>
                         </a>
                         <a href="/Request/LatePayment?stationID=@stationId">
-                            <button onclick="Delete()" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="top" title="Xóa yêu cầu"><i class="fa fa-times"></i></button>
+                            <button onclick="DeleteRequest(@request.RequestID)" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="top" title="Xóa yêu cầu"><i class="fa fa-times"></i></button>
                         </a>
                         <input id="requestID" value="@request.RequestID" hidden=""/>
                 </tr>
@@ -43,12 +43,11 @@
     </table>
 </div>
 <script>
-    function Delete() {
-        var id = document.getElementById("requestID").value;
+    function DeleteRequest(id) {
         $.ajax({
-            url: "/Request/Delete",
+            url: "/Request/DeleteRequest",
             type: "POST",
-            data: { RequestID: parseInt(id) },
+            data: { id: parseInt(id) },
             success: function () {
                 $('.closeModal').click();
                 $("#RequestList").fadeOut(200, function () {

@@ -1014,6 +1014,7 @@
     <Content Include="Views\Trip\AssignedRequest2.cshtml" />
     <Content Include="Views\Trip\OtherStart.cshtml" />
     <Content Include="Views\Trip\ListWay.cshtml" />
+    <Content Include="Views\Assigning\ListRequestPending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

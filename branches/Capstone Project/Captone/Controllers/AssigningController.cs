@@ -325,14 +325,10 @@ namespace Captone.Controllers
         {
             if (stationID != 0)
             {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 5 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 5 && r.ToLocation == stationID).ToList();
                 return View(list);
             }
-            else
-            {
-                return View();
-            }
-
+            return View();
         }
     }
 }
