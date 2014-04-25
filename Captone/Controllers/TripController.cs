@@ -394,7 +394,7 @@ namespace Captone.Controllers
 
         public ActionResult AssignedRequest(int tripID)
         {
-           var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
+           var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 3).ToList();
 
            return View(rqID);
         }
