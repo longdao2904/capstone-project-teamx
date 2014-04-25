@@ -10,6 +10,7 @@
             <tr>
                 <th>Tên 
                 </th>
+                <th>Mã hàng</th>
                 <th>Ngày gửi
                 </th>
                 <th>Trạm gửi
@@ -26,6 +27,7 @@
             {
                 <tr id="Request-@item.RequestID">
                     <td>@item.SenderName</td>
+                    <td>@item.RequestCode</td>
                     <td>@item.DateRequest.ToShortDateString()</td>
                     <td>@item.Station.StationName</td>
                     <td style="display: none" class="nr2">@item.Station.StationID</td>

@@ -29,10 +29,10 @@ namespace Captone.Models
         public bool BannedStatus { get; set; }
         public int StationID { get; set; }
     
+        public virtual Station Station { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
-        public virtual Station Station { get; set; }
         public virtual UserInfo UserInfo { get; set; }
     }
 }
