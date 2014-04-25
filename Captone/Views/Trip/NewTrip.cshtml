@@ -145,12 +145,10 @@
                 $("#requests").html(result);
             }
         });
-    
     }
     function departed() {
         var tripID = id;
         var stationID = @int.Parse(Session["StationID"].ToString())
-        alert(id);
         $.ajax({
             url: "/Trip/DepartedRequest",
             type: "Post",
