@@ -20,13 +20,7 @@ namespace Captone.Controllers
             var list = _db.Requests.Where(p => p.TypeOfPayment == "Chuyển khoản" & p.Payment == false & p.Username == username).ToList();
             return View(list);
         }
-        public ActionResult InputPayment(int RequestID)
-        {
-            var single = _db.Invoices.SingleOrDefault(p => p.RequestID == RequestID);
-            return View(single);
-        }
-        [HttpGet]
-        public ActionResult ReviewInfor(int requestID)
+        public ActionResult InputPayment(int requestID)
         {
             var cookie = new HttpCookie("requestId");
             cookie.Value = requestID.ToString();
@@ -34,12 +28,27 @@ namespace Captone.Controllers
             var single = _db.Invoices.SingleOrDefault(p => p.RequestID == requestID);
             var req = _db.Requests.SingleOrDefault(p => p.RequestID == requestID);
             var ret = new InvoiceModel
-                {
-                    Invoice = single,
-                    Request = req
-                };
+            {
+                Invoice = single,
+                Request = req
+            };
             return View(ret);
         }
+        //[HttpGet]
+        //public ActionResult ReviewInfor(int requestID)
+        //{
+        //    var cookie = new HttpCookie("requestId");
+        //    cookie.Value = requestID.ToString();
+        //    Response.Cookies.Add(cookie);
+        //    var single = _db.Invoices.SingleOrDefault(p => p.RequestID == requestID);
+        //    var req = _db.Requests.SingleOrDefault(p => p.RequestID == requestID);
+        //    var ret = new InvoiceModel
+        //        {
+        //            Invoice = single,
+        //            Request = req
+        //        };
+        //    return View(ret);
+        //}
         public ActionResult TablePrice()
         {
             var list = _db.ManageFees.ToList();

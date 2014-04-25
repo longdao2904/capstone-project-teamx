@@ -163,6 +163,7 @@ namespace Captone.Controllers
         }
         public JsonResult getVolume(float volume)
         {
+            volume /= 1000;
             var list = _db.ManageFees.Single(p => p.MinVolume <= volume & p.MaxVolume >= volume);
             return Json(new {MinVolume = list.MinVolume, MaxVolume = list.MaxVolume}, JsonRequestBehavior.AllowGet);
         }

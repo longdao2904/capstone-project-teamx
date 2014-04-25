@@ -1,4 +1,4 @@
-﻿@model Captone.Models.Invoice
+﻿@model Captone.Models.InvoiceModel
 
 @{
     ViewBag.Title = "InputPayment";
@@ -26,23 +26,23 @@
                 <div class="each-field">
                     Khối lượng món hàng (kg)
                     <br />
-                    <input type="text" name="weight" id="Weight" class="form-control" value="@Model.Weight" readonly="readonly"/>
+                    <input type="text" name="weight" id="Weight" class="form-control" value="@Model.Invoice.Weight" readonly="readonly"/>
                 </div>
                 <div class="each-field">
                     Thể tích món hàng
                     <br />
-                    <input type="text" name="volume" id="Volume"  class="form-control" value="@Model.Volume" readonly="readonly"/>
+                    <input type="text" name="volume" id="Volume"  class="form-control" value="@Model.Invoice.Volume" readonly="readonly"/>
                 </div>
                 <div class="each-field">
                     Giá món hàng (VNĐ)
-                    <input type="text" name="amount" id="Price" class="form-control" value="@Model.Price" readonly="readonly"/>
+                    <input type="text" name="amount" id="Price" class="form-control" value="@Model.Invoice.Price" readonly="readonly"/>
                 </div>
                 <div class="each-field">
                     Ngày thanh toán
                     <input type="text" name="date" id="Day" class="form-control" value="@DateTime.Now.Date" readonly="readonly"/>
                 </div>
                 <div style="margin-left: 70px" >
-                    <button type="submit" id="@Model.Request.RequestID" style="border: none; background: transparent" title="Bấm vào để chuyến đến trang Paypal" onclick="Process()"><img src="~/Content/img/paypal.png"/></button>
+                    <button type="submit" id="@Model.Request.RequestID" style="border: none; background: transparent" title="Bấm vào để chuyến đến trang Paypal" onclick="Process(@Model.Invoice.RequestID)"><img src="~/Content/img/paypal.png"/></button>
                     @*<button class="btn btn-success" id="@Model.Request.RequestID" onclick=" window.location.href = '/Customer/ReviewInfor?RequestID=@Model.Request.RequestID' " title="Bấm vào để tiến hành thanh toán">Hoàn tất</button>*@
                     <button class="btn btn-success" style="margin-left: 10px" onclick=" window.location.href = '/Customer/Index' " title="Bấm vào để quay lại danh sách yêu cầu">Hủy bỏ</button>
                 </div>
@@ -54,6 +54,22 @@
     function Review(id) {
         $.ajax({
             url: "/Customer/ReviewInfor",
+            type: "POST",
+            data: {RequestID : id},
+            success: function (result) {
+                $('#review').html(result);
+                document.getElementById("RequestCode").value = "";
+                document.getElementById("Username").value = "";
+                document.getElementById("Weight").value = "";
+                document.getElementById("Volume").value = "";
+                document.getElementById("Price").value = "";
+                document.getElementById("Day").value = "";
+            }
+        });
+    }
+    function Process(id) {
+        $.ajax({
+            url: "/Request/PaymentInProcess",
             type: "POST",
             data: {RequestID : id},
             success: function (result) {

@@ -113,32 +113,32 @@
                             <br/>
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Width">Rộng (dcm)</label>
+                            <label class="control-label" for="Height">Cao (cm)</label>
+                           <br/>
+                            <input type="text" name="Height" style="position: absolute" class="form-control" id="Height" onchange="checkHeight();"/>
+                        <br/>
+                            <br/>
+                         </div>
+                        <div class="form-control-group">
+                            <label class="control-label" for="Length">Dài (cm)</label>
+                            <br/>
+                            <input type="text" style="position: absolute" name="Length"class="form-control" id="Length" onchange="checkLength();" />
+                            <br/>
+                            <br/>
+                        </div>
+                        <div class="form-control-group">
+                            <label class="control-label" for="Width">Rộng (cm)</label>
                             <br/>
                             <input type="text" name="Width" class="form-control" style="position: absolute" id="Width" onchange="checkPackage();"/>
                             <br/>
                             <br/>
                         </div>
-                        <div class="form-control-group">
-                            <label class="control-label" for="Height">Cao (dcm)</label>
-                           <br/>
-                            <input type="text" name="Height" style="position: absolute" class="form-control" id="Height" onchange="checkPackage();"/>
-                        <br/>
-                            <br/>
-                         </div>
-                        <div class="form-control-group">
-                            <label class="control-label" for="Length">Dài (dcm)</label>
-                            <br/>
-                            <input type="text" style="position: absolute" name="Length"class="form-control" id="Length" onchange="checkPackage();" />
-                             <br/>
-                            <br/>
-                        </div>
                     </div>
                     <div id="check"></div>
                     <div class="form-control-group">
-                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dcm3)</label>
+                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dm3)</label>
                         <br />
-                        <input type="text"  class="form-control" name="EstimateVolume" id="Volume" disabled="disabled"/>
+                        <input type="text"  class="form-control" name="EstimateVolume" id="Volume" readonly="readonly"/>
                     </div>
                     <div style="margin-top: 5px;">
                         <div id="SuggestFee">
@@ -159,7 +159,7 @@
             </div>
         </div>
 <div class="button-location">
-    <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 500px;">Hoàn Tất</button>
+    <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 600px;">Hoàn Tất</button>
 </div>
 
 </form>
@@ -182,11 +182,43 @@
             }
         });
     }
+    function checkLength() {
+        var length = document.getElementById("Length").value;
+        $.ajax({
+            url: "/Home/checkLength",
+            type: "POST",
+            data: { length: length },
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Kích thước món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
+    function checkHeight() {
+        var height = document.getElementById("Height").value;
+        $.ajax({
+            url: "/Home/checkHeight",
+            type: "POST",
+            data: { height: height },
+            success: function (result) {
+                if (result.check) {
+                    $("#check").html("");
+                }
+                else {
+                    $("#check").html("<div class='alert-message error'>Kích thước món hàng của bạn vượt quá sức chứa của xe !!</div>");
+                }
+            }
+        });
+    }
     function checkPackage() {
         var length = document.getElementById("Length").value;
         var height = document.getElementById("Height").value;
         var width = document.getElementById("Width").value;
-        var volume = length * height * width;
+        var volume = (length * height * width);
         
         $.ajax({
             url: "/Home/checkPackage",
