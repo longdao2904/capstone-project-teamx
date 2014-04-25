@@ -26,9 +26,9 @@
                     <td>@item.Request.Station1.StationName</td>
                     <td>@item.Request.DateRequest.ToShortDateString()</td>
                     <td>@item.Request.TypeOfPayment</td>
-                    @if(item.Request.TypeOfPayment=="Chuyển khoản")
+                    @if (item.Request.TypeOfPayment == "Chuyển khoản" && !item.Request.Payment)
                     {
-                        <td><a href="#" class="btn btn-success">Xác nhận</a></td>
+                        <td><a href="#" class="btn btn-success">Chưa thanh toán</a></td>
                     }
                     else
                     {

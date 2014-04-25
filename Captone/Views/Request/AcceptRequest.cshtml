@@ -2,15 +2,16 @@
 @{
     ViewBag.Title = "Tiếp nhận yêu cầu chuyển phát";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    int stationId = Convert.ToInt32(Session["StationID"]);
 }
 <h3 style="color: orange">Các yêu cầu chuyển phát mới</h3>
 <div class="table-responsive" id="RequestList" style="width: 110%">
     <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
         <thead>
-            <tr>
-                <th>Tên 
+            <tr><th>Mã hàng
                 </th>
-                <th>Mã hàng</th>
+                <th>Tên người gửi
+                </th>
                 <th>Ngày gửi
                 </th>
                 <th>Trạm gửi
@@ -18,23 +19,26 @@
                 <th>Trạm nhận
                 </th>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th style="display: none"></th>
+                <th style="display: none"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null && Model.Any())
             {
-                <tr id="Request-@item.RequestID">
-                    <td>@item.SenderName</td>
-                    <td>@item.RequestCode</td>
-                    <td>@item.DateRequest.ToShortDateString()</td>
-                    <td>@item.Station.StationName</td>
-                    <td style="display: none" class="nr2">@item.Station.StationID</td>
-                    <td>@item.Station1.StationName</td>
-                    <td style="display: none" class="nr">@item.Station1.StationID</td>
-                    <td><a data-toggle="modal" id="@item.RequestID" data-target="#myModal" class="btn btn-primary btn-large price" onclick="invoice(this.id)">Nhập hoá đơn</a></td>
-                </tr>
+                foreach (var item in Model)
+                {
+                    <tr id="Request-@item.RequestID">
+                        <td>@item.RequestCode</td>
+                        <td>@item.SenderName</td>
+                        <td>@item.DateRequest.ToShortDateString()</td>
+                        <td>@item.Station.StationName</td>
+                        <td style="display: none" class="nr2">@item.Station.StationID</td>
+                        <td>@item.Station1.StationName</td>
+                        <td style="display: none" class="nr">@item.Station1.StationID</td>
+                        <td><a data-toggle="modal" id="@item.RequestID" data-target="#myModal" class="btn btn-primary btn-large price" onclick=" invoice(this.id) ">Nhập hoá đơn</a></td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
@@ -51,7 +55,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Đóng</button>
-                    <a class="btn btn-success" onclick="InputInvoice()">Xác nhận</a>
+                    <a class="btn btn-success" onclick="InputInvoice()" href="/Request/AcceptRequest?stationID=@stationId">Xác nhận</a>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -88,11 +92,7 @@
             type: "POST",
             data: { RequestID: parseInt(id), Weight: parseFloat(weight), Volume: parseFloat(volume), Price: parseFloat(price) },
             success: function () {
-                $('.closeModal').click();
-                $("#RequestList").fadeOut(200, function () {
-                    $("#Request-" + id).remove();
-                    $("#RequestList").fadeIn(200);
-                });
+  
             }
         });
     }

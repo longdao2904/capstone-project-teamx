@@ -157,12 +157,16 @@ namespace Captone.Controllers
             }
             return false;
         }
-        //
+        //update status for request after successfull payment
         [HttpPost]
         public Boolean UpdateStatusAfterCheckOut(int requestId)
         {
             var request = _db.Requests.FirstOrDefault(r => r.RequestID == requestId);
-            if (request != null) request.Payment = true;
+            if (request != null)
+            {
+                request.Payment = true;
+                request.DeliveryStatusID = 2;
+            }
             _db.SaveChanges();
             return true;
         }
@@ -249,7 +253,7 @@ namespace Captone.Controllers
             invoice.Weight = Weight;
             invoice.Volume = Volume;
             invoice.Price = Price;
-            var request = _db.Requests.Where(p => p.RequestID == RequestID).Single();
+            var request = _db.Requests.Single(p => p.RequestID == RequestID);
             request.DeliveryStatusID = 2;
             if (request.TypeOfPayment == "Tiền mặt")
             {
