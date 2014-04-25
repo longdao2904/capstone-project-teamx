@@ -14,22 +14,25 @@ namespace Captone.Controllers
     {
         private iDeliverEntities _db = new iDeliverEntities();
         public int SpecialStationID = 11;
+
         #region For popup modal
+
         public ActionResult LogOn()
         {
             return View();
         }
-        public bool CheckLogin(string username, string password, string returnUrl)
+
+        public int CheckLogin(string username, string password, string returnUrl)
         {
             MD5 md5Hash = MD5.Create();
             var users = _db.Accounts.ToList();
             Account check = null;
             foreach (var account in users)
             {
-                if(account.Username == username && VerifyMd5Hash(md5Hash, password, account.Password)) check = account;
+                if (account.Username == username && VerifyMd5Hash(md5Hash, password, account.Password)) check = account;
             }
-       
-            if(check != null)
+
+            if (check != null)
             {
                 Session.Timeout = 60;
                 Session["USERNAME"] = check.Username;
@@ -41,15 +44,25 @@ namespace Captone.Controllers
                 }
                 Session["UserRole"] = check.Role;
                 FormsAuthentication.SetAuthCookie(check.Username, false);
-
-                return true;
+                string roles = Session["UserRole"].ToString();
+                if (roles == "Staff")
+                {
+                    return 1;
+                }
+                else if (roles == "Customer")
+                {
+                    return 2;
+                }
+                else if (roles == "Admin")
+                {
+                    return 3;
+                }
 
             }
-
             // If we got this far, something failed, redisplay form
-            return false;
+            return 0;
         }
-        
+
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -95,8 +108,9 @@ namespace Captone.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         #endregion
-       
+
         public ActionResult SuccessRegister()
         {
             return View();
@@ -118,6 +132,7 @@ namespace Captone.Controllers
         //}
 
         //Update user information after register
+
         public ActionResult AddUserInfo(FormCollection col)
         {
             UserInfo info = new UserInfo();
@@ -137,7 +152,7 @@ namespace Captone.Controllers
             base.Dispose(disposing);
         }
 
-    static string GetMd5Hash(MD5 md5Hash, string input)
+        static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
             // Convert the input string to a byte array and compute the hash. 
@@ -176,6 +191,5 @@ namespace Captone.Controllers
                 return false;
             }
         }
-
     }
 }
