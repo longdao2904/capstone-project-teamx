@@ -9,7 +9,7 @@
 <ul id="myTab" class="nav nav-pills">
     @foreach (var stt in ViewBag.Status)
     {
-        <li><a href="#pills" id="@stt.Value" data-toggle="tab" onclick="LoadRequestCustomer(this.id, '@username')">@stt.Text</a></li>
+        <li class="active"><a href="#pills" id="@stt.Value" data-toggle="tab" onclick="LoadRequestCustomer(this.id, '@username')">@stt.Text</a></li>
     }
 </ul>
 <br />
