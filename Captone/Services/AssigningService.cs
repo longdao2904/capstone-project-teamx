@@ -942,7 +942,7 @@ namespace Captone.Services
         public void BreadthFirstSearch(Request request, Station toStation, List<Station> visited)
         {
             Station currNode = visited.Last();
-            List<Station> nodes = adj.FirstOrDefault(x => x.Key == currNode).Value.ToList();
+            var nodes = adj.FirstOrDefault(x => x.Key == currNode).Value.ToList();
             foreach (var station in nodes)
             {
                 if (visited.Contains(station)) continue;

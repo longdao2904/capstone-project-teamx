@@ -315,7 +315,7 @@ namespace Captone.Controllers
 
         public ActionResult AcceptInvoice(int StationID)
         {
-            var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID).ToList();
+            var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID & p.Request.DeliveryStatusID == 2).ToList();
             return View(list);
         }
         //Details Station
