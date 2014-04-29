@@ -1,13 +1,13 @@
 ﻿@model Captone.Models.Request
 <input type="hidden" value="@Model.RequestID" id="RequestID" name="RequestID"/>
 <div class="each-field">
-    Khối lượng thực
+    Khối lượng thực (kg)
                             <br />
     <input type="text" name="Weight" id="Weight" value="@Model.EstimateWeight" class="form-control" />
 </div>
 
 <div class="each-field">
-    Thể tích thực
+    Thể tích thực (dm^3)
                             <br />
     <input type="text" name="Volume" id="Volume" value="@Model.EstimateVolume" class="form-control" onchange="CalculatePrice()" />
 
