@@ -106,8 +106,7 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/Request/AcceptRequest?stationID=@stationId">Tiếp nhận yêu cầu
-                                            <div style="color: white; text-decoration-color: white; text-align: center; margin-left: 130px; margin-top: -20px; background-color: red; border-radius: 30px; width: 30px;" id="count">0</div>
-
+                                        <div style="color: white; text-decoration-color: white; text-align: center; margin-left: 130px; margin-top: -20px; background-color: red; border-radius: 30px; width: 30px;" id="count">0</div>
                                     </a>
                                 </li>
                                 <li>
@@ -118,26 +117,27 @@
                                 </li>
                                 <li>
                                     <a href="/Assigning/ListAssign?stationID=@stationId">Hàng đã xếp lịch</a>
-
                                 </li>
                                 <li>
                                     <a href="/Assigning/ListRequestPending?stationId=@stationId">Hàng đang vận chuyển</a>
                                 </li>
                                 <li>
-                                    <a href="/Assigning/RequestPeding?stationId=@stationId">Hàng đang đến trạm</a>
-                                </li>
-                                <li>
-                                    <a href="/Assigning/ArrivedRequest?stationID=@stationId">Hàng đã đến trạm</a>
-                                </li>
-                                <li>
                                     <a href="/Assigning/DeliveredRequest?stationID=@stationId">Hàng đã được giao</a>
-                                </li>
-                                <li>
-                                    <a href="/Assigning/ExpiredRequest?stationID=@stationId">Hàng đã hết hạn giao & chờ trả</a>
                                 </li>
                                 <li>
                                     <a href="/Request/LatePayment?stationID=@stationId">Trễ hạn thanh toán</a>
                                 </li>
+                                <li>
+                                    <a href="/Request/LatePayment?stationID=@stationId">Yêu cầu đã hủy</a>
+                                </li>
+                                <li><img src="~/Content/img/line.png"/></li>
+                                <li>
+                                    <a href="/Assigning/ArrivedRequest?stationID=@stationId">Hàng đã đến đích</a>
+                                </li>
+                                <li>
+                                    <a href="/Assigning/ExpiredRequest?stationID=@stationId">Hàng đã hết hạn giao & chờ trả</a>
+                                </li>
+                                
                             </ul>
                         </li>
                     }
@@ -210,8 +210,8 @@
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+            <p class="pull-right"><a href="">Back to top</a></p>
+            <p>© 2014 Company, Inc. · <a href="">Privacy</a> · <a href="">Terms</a></p>
         </div>
     </footer>
     @RenderSection("scripts", required: false)
