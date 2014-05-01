@@ -11,7 +11,6 @@ Visit twitterbootstrap.org for more tut
 label.valid {
 	width: 24px;
 	height: 24px;
-    margin-left: 305px;
 	background: url(/Content/img/valid.png) center center no-repeat;
 	display: inline-block;
 	text-indent: -9999px;
