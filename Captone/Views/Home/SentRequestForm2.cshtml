@@ -25,18 +25,15 @@
                         <div class="form-control-group">
                             <label class="control-label" for="username">Tên Người Gửi</label>
                             <br />
-                            <input type="text" name="username" value="" style="position: absolute" class="form-control" id="username" autofocus />
-                            <br/>
-                              <br/>
+                            <input type="text" name="username" value="" class="form-control" id="username" autofocus />
                         </div>
 
                         <div class="form-control-group">
                             <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi</label>
                             <br />
-                            <input type="text" name="SenderAddress" style="position: absolute" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
+                            <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
                             <input type="text" id="locaAddress" style="display: none" />
-                              <br/>
-                              <br/>
+                          
                         </div>
                         <div class="bub-container">
                             <input type="checkbox" id="bulb" class="light" onclick="showPopUp()" />
@@ -44,27 +41,25 @@
                         </div>
 
                         <div class="form-control-group">
+                            <br/>
                             <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi</label>
                             <br />
-                            <input type="text" name="SenderPhone" style="position: absolute"  class="form-control" id="SenderPhone" />
-                              <br/>
-                              <br/>
+                            <input type="text" name="SenderPhone"class="form-control" id="SenderPhone" />
+                            
                         </div>
 
                         <div class="form-control-group">
                             <label class="control-label" for="ReceiverName">Tên Người Nhận</label>
                             <br />
-                            <input type="text" name="ReceiverName" style="position: absolute"  class="form-control" id="ReceiverName" />
-                            <br/>
-                            <br/>
+                            <input type="text" name="ReceiverName"  class="form-control" id="ReceiverName" />
+                        
                         </div>
                         <div class="form-control-group">
                             <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận</label>
                             <br />
-                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" style="position: absolute" id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
+                            <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành"  id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
-                            <br/>
-                            <br />
+                         
                         </div>
                         <div class="bub-container3">
                             <input type="checkbox" id="bulb3" class="light" onclick="showLocation()" />
@@ -72,11 +67,11 @@
                             <label for="bulb3" class="bulbs"></label>
                         </div>
                         <div class="form-control-group">
+                            <br/>
                             <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận</label>
                            
-                            <input type="text" name="ReceiverPhone" style="position: absolute" id=""class="form-control" />
-                            <br/>
-                            <br/>
+                            <input type="text" name="ReceiverPhone" id=""class="form-control" />
+                      
                         </div>
                     </div>
                 </div>
@@ -96,7 +91,7 @@
                         <div class="form-control-group">
                             <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg)</label>
                             <br/>
-                            <select id="Weigh" name="EstimateWeight" style="position: absolute" class="form-control">
+                            <select id="Weigh" name="EstimateWeight" class="form-control">
                                 <option></option>
                                 @foreach (var item in Model)
                                 {   
@@ -108,29 +103,25 @@
 
                             <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
                             <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
-                            <br/>
-                            <br/>
+                        
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Height">Cao (cm)</label>
+                            <label class="control-label" for="Height">Cao (dm)</label>
                            <br/>
-                            <input type="text" name="Height" style="position: absolute" class="form-control" id="Height" onchange="checkHeight();"/>
-                        <br/>
-                            <br/>
+                            <input type="text" name="Height" class="form-control" id="Height" onchange="checkHeight();"/>
+
                          </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Length">Dài (cm)</label>
+                            <label class="control-label" for="Length">Dài (dm)</label>
                             <br/>
-                            <input type="text" style="position: absolute" name="Length"class="form-control" id="Length" onchange="checkLength();" />
-                            <br/>
-                            <br/>
+                            <input type="text" name="Length"class="form-control" id="Length" onchange="checkLength();" />
+                       
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Width">Rộng (cm)</label>
+                            <label class="control-label" for="Width">Rộng (dm)</label>
                             <br/>
-                            <input type="text" name="Width" class="form-control" style="position: absolute" id="Width" onchange="checkPackage();"/>
-                            <br/>
-                            <br/>
+                            <input type="text" name="Width" class="form-control" id="Width" onchange="checkPackage();"/>
+                  
                         </div>
                     </div>
                     <div id="check"></div>
@@ -146,19 +137,18 @@
                     <div class="form-control-group">
                         <label class="control-label" for="TypeOfPayment">Phương thức thanh toán</label>
                         <br />
-                        <select name="TypeOfPayment" style="position: absolute" id="" class="form-control">
+                        <select name="TypeOfPayment" id="" class="form-control">
                             <option></option>
                             <option value="Tiền mặt">Tiền mặt</option>
                             <option value="Chuyển khoản">Chuyển khoản</option>
                         </select>
-                        <br/>
-                        <br/>
+              
                     </div>
                 </div>
             </div>
         </div>
 <div class="button-location">
-    <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 600px;">Hoàn Tất</button>
+    <button type="submit" class="btn btn-lg btn-success" id="sendmessage" style="margin-top: 650px;margin-left: -70px;">Hoàn Tất</button>
 </div>
 
 </form>
@@ -283,9 +273,9 @@
             $('.bub-container').show();
 
         } if (address == "") {
-            $('.bub-container').hide();
-            document.getElementById("bulb").checked = false;
-        }
+              $('.bub-container').hide();
+              document.getElementById("bulb").checked = false;
+          }
     }
 
     function SuggestToLocation() {
@@ -294,10 +284,10 @@
             ToLocationMaker();
             $('.bub-container3').show();
         } if (address == "") {
-            $('.bub-container3').hide();
-            document.getElementById("bulb3").checked = false;
+              $('.bub-container3').hide();
+              document.getElementById("bulb3").checked = false;
 
-        }
+          }
 
     }
     //$(function () {
@@ -466,8 +456,10 @@
         for (var i = 1; i < dis.length; i++) {
             var station = dis[i].split(":");
             var stationLast = station[station.length - 1].split("km")[0];
+   
             if (parseInt(stationLast, 10) < parseInt(location, 10)) {
                 first = dis[i];
+        
                 index = i;
             }
         }
@@ -587,7 +579,8 @@
                 var current = new google.maps.Marker({
                     position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
                     map: map,
-                    animation: google.maps.Animation.BOUNCE
+                    animation: google.maps.Animation.BOUNCE,
+                    zoom : 8
                 });
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;
@@ -599,9 +592,9 @@
                     var Long = parseFloat(result[i].Coordinate.substring(re + 1, result[i].Coordinate.length));
                     marker = new google.maps.Marker({
                         position: new google.maps.LatLng(Lat, Long),
-                        map: map,
                         animation: google.maps.Animation.DROP,
-                        icon: images
+                        icon: images,
+                        map: map
                     });
 
                     google.maps.event.addListener(marker, 'click', (function (marker, i) {

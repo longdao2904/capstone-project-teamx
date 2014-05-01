@@ -1,4 +1,6 @@
-﻿using Captone.Models;
+﻿using System.Net;
+using System.Xml;
+using Captone.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Objects.SqlClient;
@@ -122,7 +124,36 @@ namespace Captone.Controllers
             request.Height = float.Parse(col["Height"]);
             _db.Requests.Add(request);
             _db.SaveChanges();
+            SendRequestCode();
             return RedirectToAction("Index");
+
+        }
+        private const string APIKey = "9AFF0A9D07A3B94E2F6409A45D7194"; //Dang ky tai khoan tai esms.vn de lay key
+        private const string SecretKey = "6DB23219CD5A1D7F61013989AD764F";
+        public void SendRequestCode()
+        {
+            var item = _db.Requests.ToList().LastOrDefault();
+
+            string message = "Yêu cầu gửi món hàng của bạn đã được gửi đi và món hàng của bạn có mã là: " + item.RequestCode;
+            var url = "http://api.esms.vn/MainService.svc/xml/SendMultipleSMS/" + item.SenderPhone + "/" + message + "/" +
+                      APIKey + "/" + SecretKey;
+            var req = (HttpWebRequest)WebRequest.Create(url);
+            var res = req.GetResponse();
+
+            XmlTextReader reader = new XmlTextReader(url);
+
+            // Skip non-significant whitespace  
+            reader.WhitespaceHandling = WhitespaceHandling.Significant;
+
+            // Read nodes one at a time  
+            //while (reader.Read())
+            //{                
+            //    System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", reader.NodeType.ToString(), reader.Name,reader.Value);                
+            //}
+            using (var reader1 = new System.IO.StreamReader(res.GetResponseStream(), System.Text.Encoding.UTF8))
+            {
+                string responseText = reader1.ReadToEnd();
+            }
 
         }
         public JsonResult getUserInfo(string username)
@@ -163,7 +194,6 @@ namespace Captone.Controllers
         }
         public JsonResult getVolume(float volume)
         {
-            volume /= 1000;
             var list = _db.ManageFees.Single(p => p.MinVolume <= volume & p.MaxVolume >= volume);
             return Json(new {MinVolume = list.MinVolume, MaxVolume = list.MaxVolume}, JsonRequestBehavior.AllowGet);
         }
@@ -315,7 +345,7 @@ namespace Captone.Controllers
 
         public ActionResult AcceptInvoice(int StationID)
         {
-            var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID & p.Request.DeliveryStatusID == 2).ToList();
+            var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID).ToList();
             return View(list);
         }
         //Details Station
