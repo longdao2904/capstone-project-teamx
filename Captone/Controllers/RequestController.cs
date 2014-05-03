@@ -88,18 +88,6 @@ namespace Captone.Controllers
             return View(request);
         }
 
-        // GET: /Request/Delete/5
-
-        //public ActionResult Delete(int id)
-        //{
-        //    Request request = _db.Requests.Find(id);
-        //    if (request == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(request);
-        //}
-
         public ActionResult DeleteRequest(int id)
         {
             Request request = _db.Requests.Find(id);
@@ -226,7 +214,14 @@ namespace Captone.Controllers
         //
         public ActionResult AcceptRequest(int stationID)
         {
-            var list = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 1).ToList();
+            var list = new List<Request>();
+            var listRequest = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 1).ToList();
+            //only show new requests without input invoice
+            foreach (var request in listRequest)
+            {
+                int flag = Enumerable.Count(_db.Invoices, invoice => invoice.RequestID == request.RequestID);
+                if(flag == 0) list.Add(request);
+            }
             return View(list);
         }
         //
@@ -251,7 +246,7 @@ namespace Captone.Controllers
             invoice.Volume = Volume;
             invoice.Price = Price;
             var request = _db.Requests.Single(p => p.RequestID == RequestID);
-            request.DeliveryStatusID = 2;
+            //request.DeliveryStatusID = 2;
             if (request.TypeOfPayment == "Tiền mặt")
             {
                 request.Payment = true;
@@ -259,12 +254,21 @@ namespace Captone.Controllers
             _db.Invoices.Add(invoice);
             _db.SaveChanges();
         }
-        //
+
+        //list request late to pay
         public ActionResult LatePayment(int stationID)
         {
             var request = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 9).ToList();
             return View(request);
         }
+
+        //list requests that have been cancelled by user
+        public ActionResult CancelRequest(int stationID)
+        {
+            var request = _db.Requests.Where(p => p.FromLocation == stationID & p.DeliveryStatusID == 7).ToList();
+            return View(request);
+        }
+
         private string ReadGroup3(string G3)
         {
             string[] ReadDigit = new string[10] { " Không", " Một", " Hai", " Ba", " Bốn", " Năm", " Sáu", " Bảy", " Tám", " Chín" };
@@ -320,10 +324,9 @@ namespace Captone.Controllers
             if (g3 != "000")
             {
                 temp += ReadGroup3(g3);
-                temp += " Ngàn";
+                temp += " Nghìn Đồng";
             }
             //-----------------------------------
-            //Chỗ này ko biết có nên ko ?
             //temp =temp + ReadGroup3(g4).Replace("Không Trăm Lẻ","Lẻ"); // Đọc 1000001 là Một Triệu Lẻ Một thay vì Một Triệu Không Trăm Lẻ 1;
             temp = temp + ReadGroup3(g4);
             //---------------------------------
@@ -401,7 +404,27 @@ namespace Captone.Controllers
                                 "</div>" + 
                                "</font>";
             HTMLToPdf(htmlText1, "PDFfile.pdf");
+            //only update status to 2 after print PDF
+            UpdateRequest(invoiceID);
             return true;
+        }
+
+        public void UpdateRequest(int invoiceID)
+        {
+            var requests = _db.Requests;
+            var invoices = _db.Invoices;
+            var tmp = new Invoice();
+            foreach (var invoice in invoices.Where(invoice => invoice.InvoiceID == invoiceID))
+            {
+                tmp = invoice;
+                break;
+            }
+            foreach (var request in requests.Where(request => request.RequestID == tmp.RequestID))
+            {
+                request.DeliveryStatusID = 2;
+                break;
+            }
+            _db.SaveChanges();
         }
         //extend the time for payment of request, means updating the date request to current day
         public void UpdateDatePostForRequest(int requestID)
@@ -472,12 +495,12 @@ namespace Captone.Controllers
             return (priceVolume);
         }
 
-        public void CancerRequest(int requestId)
-        {
-            var get = _db.Requests.Where(p => p.RequestID == requestId).FirstOrDefault();
-            get.DeliveryStatusID = 7;
-            _db.SaveChanges();
+        //public void CancerRequest(int requestId)
+        //{
+        //    var get = _db.Requests.Where(p => p.RequestID == requestId).FirstOrDefault();
+        //    get.DeliveryStatusID = 7;
+        //    _db.SaveChanges();
 
-        }
+        //}
     }
 }
