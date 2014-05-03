@@ -244,52 +244,6 @@ namespace Captone.Controllers
             return res;
         }
         //
-        // GET: /Trip/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            //if (Session["USERNAME"] == null)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else
-            //{
-            Trip trip = db.Trips.Find(id);
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            if (trip == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trip);
-            //}
-        }
-
-        //
-        // POST: /Trip/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(Trip trip)
-        {
-            //if (Session["USERNAME"] == null)
-            //{
-            //    return RedirectToAction("LogIn", "Account");
-            //}
-            //else
-            //{
-            ViewBag.RouteID = new SelectList(db.Routes, "RouteID", "RouteName");
-            ViewBag.CoachID = new SelectList(db.Coaches, "CoachID", "NumberPlate");
-            if (ModelState.IsValid)
-            {
-                db.Entry(trip).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(trip);
-            //}
-        }
-
-        //
         // GET: /Trip/Delete/5
 
         public ActionResult Delete(int id = 0)
@@ -329,13 +283,8 @@ namespace Captone.Controllers
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
+            db.Dispose();
             base.Dispose(disposing);
-        }
-
-        public ActionResult ListTripForRequest()
-        {
-            var listTrip = db.Trips.ToList();
-            return PartialView("ListTripForRequest", listTrip);
         }
 
         [HttpPost]

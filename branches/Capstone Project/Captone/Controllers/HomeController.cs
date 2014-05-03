@@ -124,7 +124,7 @@ namespace Captone.Controllers
             request.Height = float.Parse(col["Height"]);
             _db.Requests.Add(request);
             _db.SaveChanges();
-            SendRequestCode();
+           // SendRequestCode();
             return RedirectToAction("Index");
 
         }

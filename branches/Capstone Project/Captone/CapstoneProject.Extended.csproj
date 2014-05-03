@@ -978,10 +978,8 @@
     <Content Include="Views\Trip\Delete.cshtml" />
     <Content Include="Views\Trip\DepartedTrip.cshtml" />
     <Content Include="Views\Trip\Details.cshtml" />
-    <Content Include="Views\Trip\Edit.cshtml" />
     <Content Include="Views\Trip\Index.cshtml" />
     <Content Include="Views\Trip\ListTrip.cshtml" />
-    <Content Include="Views\Trip\ListTripForRequest.cshtml" />
     <Content Include="Views\Trip\RelatedRequests.cshtml" />
     <Content Include="Views\Home\AcceptInvoice.cshtml" />
     <Content Include="Views\Customer\TablePrice.cshtml" />
