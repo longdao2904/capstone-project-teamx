@@ -950,7 +950,7 @@
     <Content Include="Views\Shared\_LayoutStaff.cshtml" />
     <Content Include="Views\Request\AcceptRequest.cshtml" />
     <Content Include="Views\Request\InputInvoice.cshtml" />
-    <Content Include="Views\Request\LatePayment.cshtml" />
+    <Content Include="Views\Request\CancelRequest.cshtml" />
     <Content Include="Views\CoachType\CoachTypePartial.cshtml" />
     <Content Include="Views\Assigning\ListRequestForTrip.cshtml" />
     <Content Include="Views\Assigning\ListTripPeding.cshtml" />
@@ -1016,6 +1016,7 @@
     <Content Include="Views\Trip\OtherStart.cshtml" />
     <Content Include="Views\Trip\ListWay.cshtml" />
     <Content Include="Views\Assigning\ListRequestPending.cshtml" />
+    <Content Include="Views\Request\LatePayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

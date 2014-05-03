@@ -327,8 +327,6 @@ namespace Captone.Controllers
             //return count;
             var getdata = obj.GetData(username);
             return getdata;
-
-
         }
 
         public void DeleteNotification(int StationID)
@@ -340,12 +338,16 @@ namespace Captone.Controllers
                 _db.Notifications.Remove(notification);
                 _db.SaveChanges();
             }
-
         }
 
         public ActionResult AcceptInvoice(int StationID)
         {
-            var list = _db.Invoices.Where(p => p.Request.FromLocation == StationID).ToList();
+            var listInvoice = _db.Invoices.ToList();
+            var list = new List<Invoice>();
+            foreach (var invoice in listInvoice)
+            {
+                if (invoice.Request.FromLocation == StationID && invoice.Request.DeliveryStatusID == 1) list.Add(invoice);
+            }
             return View(list);
         }
         //Details Station
