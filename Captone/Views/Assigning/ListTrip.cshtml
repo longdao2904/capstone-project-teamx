@@ -3,7 +3,8 @@
 <table class="table" id="tripTbl">
     <thead>
         <tr>
-            <th>Chuyến
+            <th>Mã số</th>
+            <th>Tuyến
             </th>
             <th>Xe 
             </th>
@@ -11,8 +12,8 @@
             </th>
             <th>Dự kiến đến trạm
             </th>
-            <th></th>
             <th>Trạm</th>
+            <th></th>
         </tr>
 
     </thead>
@@ -20,6 +21,9 @@
         @foreach (var item in Model)
         {          
             <tr>
+                <td id="tripID">
+                    @item.TripID
+                </td>
                 <td>
                     @item.RouteName
                 </td>
@@ -32,15 +36,12 @@
                 <td id="est2">
                     @item.TimeToMiddleStation
                 </td>
-                <td style="display: none" id="tripID">
-                    @item.TripID
-                </td>
+                
                 <td style="display: none" id="date">
                     @item.Date.ToShortDateString()
                 </td>
                 <td style="display: none;">
                     <input type="button" value="Cập nhật lịch chạy" id="updateSchedule" /></td>
-                <td></td>
                 <td>@item.StopStationName</td>
             </tr>            
         }

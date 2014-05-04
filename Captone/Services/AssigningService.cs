@@ -86,7 +86,7 @@ namespace Captone.Services
             _invoices = _invoiceRepository.GetAll().ToList();
             _stages = _stageRepository.GetAll().ToList();
             _assignings = _assigningRepository.GetAll().ToList();
-            _trips = _tripRepository.GetAll().ToList();
+            _trips = _tripRepository.GetByQuery(i => i.Status == "Chưa chạy").ToList();
             _routeStages = _routeStageRepository.GetAll().ToList();
             _schedules = _scheduleRepository.GetAll().ToList();
             //add the list of stages for each route
