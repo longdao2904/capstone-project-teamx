@@ -35,7 +35,7 @@
                         @item.Schedule.Route.RouteName
                     </td>
                     <td>
-                   <a data-toggle="modal" id="@item.TripID" data-target="#myModal" onclick="AssignedRequest(@item.TripID)">@item.Schedule.Coach.NumberPlate</a>
+                   <a data-toggle="modal" id="@item.TripID" data-target="#myModal" onclick="AssignedRequest2(@item.TripID)">@item.Schedule.Coach.NumberPlate</a>
                     </td>
                     <td>
                         @item.RealDepartureTime
@@ -139,9 +139,9 @@
         SentObject();
     });
     // Get requests assigned to selected trip
-    function AssignedRequest(tripID) {
+    function AssignedRequest2(tripID) {
         $.ajax({
-            url: "/Trip/AssignedRequest",
+            url: "/Trip/AssignedRequest2",
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {

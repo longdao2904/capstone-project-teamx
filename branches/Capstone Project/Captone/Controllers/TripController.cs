@@ -54,7 +54,7 @@ namespace Captone.Controllers
                     var flag = false;
                     foreach (var stage in stages)
                     {
-                        if (stage.EndPoint == stationID && (trip.Status == "Đang chạy" || trip.Status == "Đã đến trạm")) flag = true;
+                        if (stage.EndPoint == stationID && (trip.Status == "Đang chạy")) flag = true;
                     }
                     if (flag) listTrips.Add(trip);
                 }
@@ -74,7 +74,8 @@ namespace Captone.Controllers
                     var flag = false;
                     foreach (var stage in stages)
                     {
-                        if (stage.EndPoint == stationID &&  trip.Status == "Đã đến trạm") flag = true;
+                        if (stage.EndPoint == stationID &&  trip.Status == "Đã đến trạm"
+                            && trip.RealArrivalTime == null) flag = true;
                     }
                     if (flag) listTrips.Add(trip);
                 }
@@ -406,19 +407,15 @@ namespace Captone.Controllers
 
         // Load trips arrived destination
         [WebMethod]
-        public ActionResult ArrivedTrip()
+        public ActionResult ArrivedTrip(int stationID)
         {
-            List<Trip> trips = new List<Trip>();
-            int stationID = int.Parse(Session["StationID"].ToString());
-            trips = (from t in db.Trips
-                     where t.TripID ==
-                           ((from a in db.Assignings
-                             where a.RequestID ==
-                                   ((from r in db.Requests
-                                     where r.DeliveryStatusID == 5 && r.ToLocation == stationID
-                                     select new { r.RequestID }).FirstOrDefault().RequestID)
-                             select new { a.TripID }).FirstOrDefault().TripID)
-                     select t).ToList();
+            var trips = new List<Trip>();
+            var listTrip = db.Trips.ToList();
+            foreach (var trip in listTrip)
+            {
+                if(FindStageFromRoute(trip.Schedule.RouteID).First().StartPoint == stationID 
+                    && trip.RealArrivalTime != null) trips.Add(trip);
+            }
             return View(trips);
         }
 

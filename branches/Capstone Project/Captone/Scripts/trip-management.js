@@ -41,9 +41,10 @@ function otherTrip(stationID) {
     });
 }
 
-function arriveTrip() {
+function arriveTrip(stationID) {
     $.ajax({
         url: "/Trip/ArrivedTrip",
+        data: {stationID: stationID},
         type: "Post",
         success: function (result) {
             $("#arrivalTrip").html(result);
