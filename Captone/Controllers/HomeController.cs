@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
+using System.Text;
 using System.Xml;
 using Captone.Models;
 using System;
@@ -124,36 +126,70 @@ namespace Captone.Controllers
             request.Height = float.Parse(col["Height"]);
             _db.Requests.Add(request);
             _db.SaveChanges();
-           // SendRequestCode();
+             Send();
             return RedirectToAction("Index");
 
         }
-        private const string APIKey = "9AFF0A9D07A3B94E2F6409A45D7194"; //Dang ky tai khoan tai esms.vn de lay key
-        private const string SecretKey = "6DB23219CD5A1D7F61013989AD764F";
-        public void SendRequestCode()
+        private const string APIKey = "DE5C19CFB8888A5799AC714ADA7A6E"; //Dang ky tai khoan tai esms.vn de lay key
+        private const string SecretKey = "D463CA2D47F215FBB49736577B976A";
+        public void Send()
         {
-            var item = _db.Requests.ToList().LastOrDefault();
+            var request = _db.Requests.ToList().Last();
+            var message = "Yeu cau van chuyen goi hang cua ban da duoc gui. Day la ma mon hang: " + request.RequestCode;
+            string url = "http://api.esms.vn/MainService.svc/xml/SendMultipleMessage_V2/";
+            // declare ascii encoding
+            UTF8Encoding encoding = new UTF8Encoding();
 
-            string message = "Yêu cầu gửi món hàng của bạn đã được gửi đi và món hàng của bạn có mã là: " + item.RequestCode;
-            var url = "http://api.esms.vn/MainService.svc/xml/SendMultipleSMS/" + item.SenderPhone + "/" + message + "/" +
-                      APIKey + "/" + SecretKey;
-            var req = (HttpWebRequest)WebRequest.Create(url);
-            var res = req.GetResponse();
+            string strResult = string.Empty;
 
-            XmlTextReader reader = new XmlTextReader(url);
+            string customers = "";
 
-            // Skip non-significant whitespace  
-            reader.WhitespaceHandling = WhitespaceHandling.Significant;
+                customers = customers + @"<CUSTOMER>"
+                                + "<PHONE>" + request.SenderPhone + "</PHONE>"
+                                + "</CUSTOMER>";
+            
+            string SampleXml = @"<RQST>"
+                               + "<APIKEY>" + APIKey + "</APIKEY>"
+                               + "<SECRETKEY>" + SecretKey + "</SECRETKEY>"
+                               + "<ISFLASH>0</ISFLASH>"
+                               + "<UNICODE>1</UNICODE>"//=1 nếu muốn gửi có dấu, có dấu: 70 ký tự 1 tin, không dấu: 160 ký tự 1 tin
+                               + "<CONTENT>" + message + "</CONTENT>"
+                               + "<CONTACTS>" + customers + "</CONTACTS>"
 
-            // Read nodes one at a time  
-            //while (reader.Read())
-            //{                
-            //    System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", reader.NodeType.ToString(), reader.Name,reader.Value);                
-            //}
-            using (var reader1 = new System.IO.StreamReader(res.GetResponseStream(), System.Text.Encoding.UTF8))
-            {
-                string responseText = reader1.ReadToEnd();
-            }
+
+           + "</RQST>";
+            string postData = SampleXml.Trim().ToString();
+            // convert xmlstring to byte using ascii encoding
+            byte[] data = encoding.GetBytes(postData);
+            // declare httpwebrequet wrt url defined above
+            HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
+            // set method as post
+            webrequest.Method = "POST";
+            webrequest.Timeout = 500000;
+            // set content type
+            webrequest.ContentType = "application/x-www-form-urlencoded";
+            // set content length
+            webrequest.ContentLength = data.Length;
+            // get stream data out of webrequest object
+            Stream newStream = webrequest.GetRequestStream();
+            newStream.Write(data, 0, data.Length);
+            newStream.Close();
+            // declare & read response from service
+            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
+
+            // set utf8 encoding
+            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
+            // read response stream from response object
+            StreamReader loResponseStream =
+                new StreamReader(webresponse.GetResponseStream(), enc);
+            // read string from stream data
+            strResult = loResponseStream.ReadToEnd();
+            // close the stream object
+            loResponseStream.Close();
+            // close the response object
+            webresponse.Close();
+            // below steps remove unwanted data from response string
+            strResult = strResult.Replace("</string>", "");
 
         }
         public JsonResult getUserInfo(string username)
