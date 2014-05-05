@@ -580,7 +580,9 @@
                     position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
                     map: map,
                     animation: google.maps.Animation.BOUNCE,
-                    zoom : 8
+                    zoom: 8
+         
+                     
                 });
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;
@@ -624,13 +626,15 @@
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 10,
                     center: new google.maps.LatLng(coordinatesLat, coordinatesLong),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    
                 });
 
                 var current = new google.maps.Marker({
                     position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
                     map: map,
-                    animation: google.maps.Animation.BOUNCE
+                    animation: google.maps.Animation.BOUNCE,
+                    map: map.setZoom(14)
                 });
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;

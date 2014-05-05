@@ -559,7 +559,6 @@
                     var Long = parseFloat(result[i].Coordinate.substring(re + 1, result[i].Coordinate.length));
                     marker = new google.maps.Marker({
                         position: new google.maps.LatLng(Lat, Long),
-                        map: map.setZoom(14),
                         map: map,
                         animation: google.maps.Animation.DROP,
                         icon: images

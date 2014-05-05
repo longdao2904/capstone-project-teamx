@@ -105,7 +105,7 @@
                             <div class="triangle-r"></div>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/Request/AcceptRequest?stationID=@stationId">Tiếp nhận yêu cầu
+                                    <a href="/Request/AcceptRequest?stationID=@stationId" onclick="DeleteNotification(@stationId)">Tiếp nhận yêu cầu
                                         <div style="color: white; text-decoration-color: white; text-align: center; margin-left: 130px; margin-top: -20px; background-color: red; border-radius: 30px; width: 30px;" id="count">0</div>
                                     </a>
                                 </li>
@@ -215,8 +215,34 @@
         </div>
     </footer>
     @RenderSection("scripts", required: false)
+       <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
+    <script src="/signalr/hubs"></script>
     <script type="text/javascript">
-      
+        $(function () {
+            // Proxy created on the fly
+            var job = $.connection.chatHub;
+            var chat = $.connection.chatHub;
+            var message = "Một yêu cầu mới vừa được gửi đến !";
+            // Create a function that the hub can call back to display messages.
+            chat.client.send = function (message) {
+                // Add the message to the page. 
+                alert(message);
+            };
+            // Declare a function on the job hub so the server can invoke it
+            job.client.displayStatus = function () {
+                getNotification();
+            };
+
+            // Start the connection
+            $.connection.hub.start();
+            getNotification();
+
+            $('#sendmessage').click(function () {
+                // Call the Send method on the hub. 
+                chat.server.send(message);
+
+            });
+        });
         var oTable = $('#TableRequest').dataTable();
 
         $.extend($.fn.dataTable.defaults, {
@@ -241,9 +267,10 @@
                 }
             });
         }
-        function DeleteNotification() {
+        function DeleteNotification(stationId) {
             $.ajax({
                 url: "/Home/DeleteNotification",
+                data: {StationID : stationId},
                 type: "POST",
                 success: function (result) {
                 }
