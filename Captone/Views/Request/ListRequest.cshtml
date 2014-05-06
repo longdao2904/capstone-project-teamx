@@ -11,21 +11,22 @@
     <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
         <thead>
             <tr>
+                <th style="display: none"></th>
                 <th>Mã hàng
                 </th>
-                <th>Ngày gửi1
+                <th>Ngày gửi
                 </th>
                 <th>Khối lượng (kg)
                 </th>
+                <th style="display: none"></th>
+                <th style="display: none"></th>
                 <th>Thể tích (dm3)
                 </th>
                 <th>Trạm nhận
                 </th>
                 <th>
-                    <input type="checkbox" id="selectall" value="Select All" /></th>
-                <th style="display: none"></th>
-                <th style="display: none"></th>
-                <th style="display: none"></th>
+                    <input type="checkbox" id="selectall" value="Select All" />
+                </th>
                 <th style="display: none"></th>
                 <th style="display: none"></th>
             </tr>
@@ -46,23 +47,23 @@
                 <td>
                     @item.Invoices.First().Weight
                 </td>
-                <td>
-                    @item.Invoices.First().Volume
-                </td>
                 <td style="display: none">
                     @item.FromLocation
                 </td>
                 <td style="display: none">
                     @item.ToLocation
                 </td>
+                <td>
+                    @item.Invoices.First().Volume
+                </td>
+                <td>
+                    @item.Station1.StationName
+                </td>
                 <td style="display: none;">
                     @item.DeliveryStatusID
                 </td>
                 <td style="display: none;">
                     @item.FeeID;
-                </td>
-                <td>
-                    @item.Station1.StationName
                 </td>
                 <td>
                     <input type="checkbox" name="Requests" class="case" />
