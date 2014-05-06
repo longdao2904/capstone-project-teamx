@@ -23,13 +23,13 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
-                            <label class="control-label" for="username">Tên Người Gửi</label>
+                            <label class="control-label" for="username">Tên Người Gửi *</label>
                             <br />
                             <input type="text" name="username" value="" class="form-control" id="username" autofocus />
                         </div>
 
                         <div class="form-control-group">
-                            <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi</label>
+                            <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi *</label>
                             <br />
                             <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
                             <input type="text" id="locaAddress" style="display: none" />
@@ -42,20 +42,20 @@
 
                         <div class="form-control-group">
                             <br/>
-                            <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi</label>
+                            <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi *</label>
                             <br />
                             <input type="text" name="SenderPhone"class="form-control" id="SenderPhone" />
                             
                         </div>
 
                         <div class="form-control-group">
-                            <label class="control-label" for="ReceiverName">Tên Người Nhận</label>
+                            <label class="control-label" for="ReceiverName">Tên Người Nhận *</label>
                             <br />
                             <input type="text" name="ReceiverName"  class="form-control" id="ReceiverName" />
                         
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận</label>
+                            <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận *</label>
                             <br />
                             <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành"  id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-control-group">
                             <br/>
-                            <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận</label>
+                            <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận *</label>
                            
                             <input type="text" name="ReceiverPhone" id=""class="form-control" />
                       
@@ -89,7 +89,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
-                            <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg)</label>
+                            <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg) *</label>
                             <br/>
                             <select id="Weigh" name="EstimateWeight" class="form-control">
                                 <option></option>
@@ -106,19 +106,19 @@
                         
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Height">Cao (dm)</label>
+                            <label class="control-label" for="Height">Cao (cm) *</label>
                            <br/>
                             <input type="text" name="Height" class="form-control" id="Height" onchange="checkHeight();"/>
 
                          </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Length">Dài (dm)</label>
+                            <label class="control-label" for="Length">Dài (cm) *</label>
                             <br/>
                             <input type="text" name="Length"class="form-control" id="Length" onchange="checkLength();" />
                        
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Width">Rộng (dm)</label>
+                            <label class="control-label" for="Width">Rộng (cm) *</label>
                             <br/>
                             <input type="text" name="Width" class="form-control" id="Width" onchange="checkPackage();"/>
                   
@@ -126,7 +126,7 @@
                     </div>
                     <div id="check"></div>
                     <div class="form-control-group">
-                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dm3)</label>
+                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(cm3)</label>
                         <br />
                         <input type="text"  class="form-control" name="EstimateVolume" id="Volume" readonly="readonly"/>
                     </div>
@@ -135,7 +135,7 @@
                         </div>
                     </div>
                     <div class="form-control-group">
-                        <label class="control-label" for="TypeOfPayment">Phương thức thanh toán</label>
+                        <label class="control-label" for="TypeOfPayment">Phương thức thanh toán *</label>
                         <br />
                         <select name="TypeOfPayment" id="" class="form-control">
                             <option></option>
@@ -633,8 +633,8 @@
                 var current = new google.maps.Marker({
                     position: new google.maps.LatLng(coordinatesLat, coordinatesLong),
                     map: map,
-                    animation: google.maps.Animation.BOUNCE,
-                    map: map.setZoom(14)
+                    animation: google.maps.Animation.BOUNCE
+               
                 });
                 var infowindow = new google.maps.InfoWindow();
                 var marker, i;

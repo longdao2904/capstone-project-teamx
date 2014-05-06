@@ -84,7 +84,7 @@
                     <a class="btn btn-primary" href="Edit/@Model.RequestID">Chỉnh sửa</a>
                     if (Model.TypeOfPayment == "Chuyển khoản")
                     {
-                        <a class="btn btn-primary" href="Edit/@Model.RequestID">Thanh toán</a>
+                        <a class="btn btn-primary" href="/Customer/InputPayment?RequestID=@Model.RequestID">Thanh toán</a>
                     }
                 }  
                 @if (Model.DeliveryStatusID == 4)
