@@ -27,7 +27,7 @@ namespace Captone.Controllers
         //list all new trip of the current station
         public ActionResult NewTrip(int stationID)
         {
-            var trips = db.Trips.ToList();
+            var trips = db.Trips.Where(i => i.Status == "Chưa chạy").ToList();
             trips = Filter(trips, stationID, true);
             return View(trips);
         }

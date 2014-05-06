@@ -26,6 +26,7 @@ namespace Captone.Controllers
             cookie.Value = requestID.ToString();
             Response.Cookies.Add(cookie);
             var single = _db.Invoices.SingleOrDefault(p => p.RequestID == requestID);
+            if (single != null) single.Price = Math.Ceiling(single.Price/20000);
             var req = _db.Requests.SingleOrDefault(p => p.RequestID == requestID);
             var ret = new InvoiceModel
             {

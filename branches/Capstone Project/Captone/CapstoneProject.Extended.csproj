@@ -486,6 +486,14 @@
     <Content Include="Content\Images\lightbulb.png" />
     <Content Include="Content\Images\lightbulb_off.png" />
     <Content Include="Content\Images\message-already-read-icon.png" />
+    <Content Include="Content\Images\requests\Approved.png" />
+    <Content Include="Content\Images\requests\Arrived.png" />
+    <Content Include="Content\Images\requests\Delivered.png" />
+    <Content Include="Content\Images\requests\Departed.png" />
+    <Content Include="Content\Images\requests\In-transit.png" />
+    <Content Include="Content\Images\requests\Latepayment.png" />
+    <Content Include="Content\Images\requests\Schedule.png" />
+    <Content Include="Content\Images\requests\Timeout.png" />
     <Content Include="Content\Images\shared\blank.gif" />
     <Content Include="Content\Images\shared\border_bit.jpg" />
     <Content Include="Content\Images\shared\cal_th_repeat.jpg" />
@@ -520,6 +528,7 @@
     <Content Include="Content\img\attention.png" />
     <Content Include="Content\img\bck.jpg" />
     <Content Include="Content\img\cancelled.png" />
+    <Content Include="Content\img\circle-loading-icon.gif" />
     <Content Include="Content\img\line.png" />
     <Content Include="Content\img\checked.gif" />
     <Content Include="Content\img\error.png" />
@@ -528,6 +537,7 @@
     <Content Include="Content\img\loader.gif" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\LoadingProgressBar.gif" />
+    <Content Include="Content\img\loading_animation.gif" />
     <Content Include="Content\img\paypal.png" />
     <Content Include="Content\img\valid.png" />
     <Content Include="Content\js\bootstrap.js" />

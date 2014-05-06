@@ -51,10 +51,6 @@
                             <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                         </p>
                     }
-                    else
-                    {
-                        
-                    }
                 }
                 else
                 {
@@ -83,7 +79,7 @@
                                 <div class="triangle-r"></div>
                             
                         </div>
-                        @if (Username != null && UserRole == "Customer")
+                        @if (Username != null && UserRole == "Customer" && Username != "guest")
                         {
                             <a href="/Home/SentRequestForm" class="devider"><i class="fa fa-truck fa-fw"></i>Chuyển Phát</a>                        
                             <ul class="nav nav-second-level">
@@ -110,7 +106,7 @@
                                 <a href="#" style="color: white"><i class="fa fa-users fa-2x">Người dùng</i></a>
                             </div>
                             <div class="triangle-r"></div>
-                            @if (Username == null)
+                            @if (Username == null || Username == "GUEST" || Username == "guest")
                             {
                                 <ul class="nav nav-second-level">
                                     <li>

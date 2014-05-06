@@ -1,6 +1,7 @@
 ﻿@model Captone.Models.Request
 
 @{
+    Layout = "~/Views/Shared/_LayoutNoMap.cshtml";
     ViewBag.Title = "Chỉnh sửa thông tin yêu cầu vận chuyển";
 }
 
@@ -13,65 +14,85 @@
         <legend>Chỉnh sửa thông tin yêu cầu vận chuyển</legend>
 
         @Html.HiddenFor(model => model.RequestID)
-        <strong>
-            @Html.LabelFor(model => model.FromLocation)
-        </strong>
-        <div class="editor-field">
-            @Html.DropDownList("FromLocation", String.Empty)
-            @Html.ValidationMessageFor(model => model.FromLocation)
-        </div>
+        @Html.HiddenFor(model => model.Account)
+        @Html.HiddenFor(model => model.DeliveryStatusID)
+        @Html.HiddenFor(model => model.Length)
+        @Html.HiddenFor(model => model.Width)
+        @Html.HiddenFor(model => model.Height)
+        @Html.HiddenFor(model => model.RequestCode)
+        @Html.HiddenFor(model => model.Payment)
+        @Html.HiddenFor(model => model.Type)
+        @Html.HiddenFor(model => model.TypeOfPayment)
+        @Html.HiddenFor(model => model.DateRequest)
+        @Html.HiddenFor(model => model.FeeID)
 
-        <strong>
-            @Html.LabelFor(model => model.ToLocation)
-        </strong>
-        <div class="editor-field">
-            @Html.DropDownList("ToLocation", String.Empty)
-            @Html.ValidationMessageFor(model => model.ToLocation)
-        </div>
+                <strong>
+                    Tên người gửi
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SenderName)
+                    @Html.ValidationMessageFor(model => model.SenderName)
+                </div>
 
-        <strong>
-            @Html.LabelFor(model => model.SenderAddress)
-        </strong>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SenderAddress)
-            @Html.ValidationMessageFor(model => model.SenderAddress)
-        </div>
+                <strong>
+                    Địa chỉ người gửi
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SenderAddress)
+                    @Html.ValidationMessageFor(model => model.SenderAddress)
+                </div>
 
-        <strong>
-            @Html.LabelFor(model => model.ReceiverAddress)
-        </strong>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReceiverAddress)
-            @Html.ValidationMessageFor(model => model.ReceiverAddress)
-        </div>
+                <strong>
+                    Địa chỉ người nhận
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverAddress)
+                    @Html.ValidationMessageFor(model => model.ReceiverAddress)
+                </div>
 
-        <strong>
-            @Html.LabelFor(model => model.SenderPhone)
-        </strong>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SenderPhone)
-            @Html.ValidationMessageFor(model => model.SenderPhone)
-        </div>
+                <strong>
+                    Số điện thoại người gửi
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SenderPhone)
+                    @Html.ValidationMessageFor(model => model.SenderPhone)
+                </div>
 
-        <strong>
-            @Html.LabelFor(model => model.ReceiverName)
-        </strong>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReceiverName)
-            @Html.ValidationMessageFor(model => model.ReceiverName)
-        </div>
+                <strong>
+                    Tên người nhận
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverName)
+                    @Html.ValidationMessageFor(model => model.ReceiverName)
+                </div>
 
-        <strong>
-            @Html.LabelFor(model => model.ReceiverPhone)
-        </strong>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReceiverPhone)
-            @Html.ValidationMessageFor(model => model.ReceiverPhone)
-        </div>
+                <strong>
+                    Số điện thoại người nhận
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReceiverPhone)
+                    @Html.ValidationMessageFor(model => model.ReceiverPhone)
+                </div>
+                <strong>
+                Thể tích ước tính
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EstimateVolume)
+                    @Html.ValidationMessageFor(model => model.EstimateVolume)
+                </div>
+        
+                <strong>
+                    Khối lượng ước tính
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EstimateWeight)
+                    @Html.ValidationMessageFor(model => model.EstimateWeight)
+                </div>
+
         <br />
         <p>
             <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
-            <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Home/LoadRequest'" />
+            <input type="button" value="Trở lại" class="btn btn-info" onclick="window.location.href = '/Home/LoadRequest'" />
         </p>
     </fieldset>
     }
@@ -86,40 +107,28 @@
             <div class="panel-body">
 
                 @Html.HiddenFor(model => model.RequestID)
+                @Html.HiddenFor(model => model.Account)
+                @Html.HiddenFor(model => model.DeliveryStatusID)
+                @Html.HiddenFor(model => model.Length)
+                @Html.HiddenFor(model => model.Width)
+                @Html.HiddenFor(model => model.Height)
+                @Html.HiddenFor(model => model.RequestCode)
+                @Html.HiddenFor(model => model.Payment)
+                @Html.HiddenFor(model => model.Type)
+                @Html.HiddenFor(model => model.TypeOfPayment)
+                @Html.HiddenFor(model => model.DateRequest)
+                @Html.HiddenFor(model => model.FeeID)
 
                 <strong>
-                    @Html.LabelFor(model => model.Username)
+                    Tên người gửi
                 </strong>
                 <div class="editor-field">
-                    <p>@Html.DisplayFor(model => model.Username)</p>
+                    @Html.EditorFor(model => model.SenderName)
+                    @Html.ValidationMessageFor(model => model.SenderName)
                 </div>
 
                 <strong>
-                    @Html.LabelFor(model => model.DeliveryStatusID)
-                </strong>
-                <div class="editor-field">
-                    @Html.DropDownList("DeliveryStatusID", String.Empty)
-                    @Html.ValidationMessageFor(model => model.DeliveryStatusID)
-                </div>
-
-                <strong>
-                    @Html.LabelFor(model => model.FromLocation)
-                </strong>
-                <div class="editor-field">
-                    @Html.DropDownList("FromLocation", String.Empty)
-                    @Html.ValidationMessageFor(model => model.FromLocation)
-                </div>
-
-                <strong>
-                    @Html.LabelFor(model => model.ToLocation)
-                </strong>
-                <div class="editor-field">
-                    @Html.DropDownList("ToLocation", String.Empty)
-                    @Html.ValidationMessageFor(model => model.ToLocation)
-                </div>
-
-                <strong>
-                    @Html.LabelFor(model => model.SenderAddress)
+                    Địa chỉ người gửi
                 </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.SenderAddress)
@@ -127,7 +136,7 @@
                 </div>
 
                 <strong>
-                    @Html.LabelFor(model => model.ReceiverAddress)
+                    Địa chỉ người nhận
                 </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverAddress)
@@ -135,7 +144,7 @@
                 </div>
 
                 <strong>
-                    @Html.LabelFor(model => model.SenderPhone)
+                    Số điện thoại người gửi
                 </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.SenderPhone)
@@ -143,7 +152,7 @@
                 </div>
 
                 <strong>
-                    @Html.LabelFor(model => model.ReceiverName)
+                    Tên người nhận
                 </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverName)
@@ -151,16 +160,32 @@
                 </div>
 
                 <strong>
-                    @Html.LabelFor(model => model.ReceiverPhone)
+                    Số điện thoại người nhận
                 </strong>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.ReceiverPhone)
                     @Html.ValidationMessageFor(model => model.ReceiverPhone)
                 </div>
+                <strong>
+                Thể tích ước tính
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EstimateVolume)
+                    @Html.ValidationMessageFor(model => model.EstimateVolume)
+                </div>
+        
+                <strong>
+                    Khối lượng ước tính
+                </strong>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EstimateWeight)
+                    @Html.ValidationMessageFor(model => model.EstimateWeight)
+                </div>
+
                 <br />
                 <p>
                     <input type="submit" value="Lưu thông tin" class="btn btn-primary" />
-                    <input type="button" value="Quay lại danh sách" class="btn btn-info" onclick="window.location.href = '/Request/Index'" />
+                    <input type="button" value="Trở lại" class="btn btn-info" onclick="window.location.href = '/Home/Index'" />
                 </p>
             </div>
         </div>

@@ -1,6 +1,7 @@
 ﻿@model Captone.Models.Request
 
 @{
+    Layout = "~/Views/Shared/_LayoutNoMap.cshtml";
     ViewBag.Title = "Thông tin chi tiết chuyển phát";
 }
 
@@ -14,9 +15,13 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <blockquote>
-                            < <div class="display-label">
-                            <strong>Khách hàng: </strong>
+                            <div class="display-label">
+                                <strong>Khách hàng: </strong>
                                 @Html.DisplayFor(model => model.Account.Username)
+                            </div>
+                            <div class="display-label">
+                            <strong>Tên người gửi: </strong>
+                                @Html.DisplayFor(model => model.SenderName)
                             </div>
                             <div class="display-label">
                             <strong>Địa chỉ người gửi: </strong>
@@ -26,10 +31,8 @@
                             <strong>Điện thoại người gửi: </strong>
                                 @Html.DisplayFor(model => model.SenderPhone)
                             </div>
-                            <br />
-                            <br />
                             <div class="display-label">
-                            <strong>Trạng thái vận chuyển</strong>
+                            <strong>Trạng thái vận chuyển: </strong>
                                 @Html.DisplayFor(model => model.DeliveryStatu.StatusName)
                             </div>
                         </blockquote>
@@ -45,7 +48,7 @@
                                 @Html.DisplayFor(model => model.ReceiverAddress)
                             </div>
                             <div class="display-label">
-                            <strong>điện thoại người nhận: </strong>
+                            <strong>Điện thoại người nhận: </strong>
                                 @Html.DisplayFor(model => model.ReceiverPhone)
                             </div>
                             <div class="display-label">
@@ -86,8 +89,8 @@
                     }
                     else
                     {
-                        <a href="/Request/Index">
-                            <input type="button" class="btn btn-info" value="Quay lại danh sách" /></a>
+                        <a href="/Home/Index">
+                            <input type="button" class="btn btn-info" value="Trở lại trang chủ" /></a>
                     }
                 </p>
             </div>
