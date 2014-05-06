@@ -148,6 +148,22 @@ namespace Captone.Controllers
             return Json(new { check = true }, JsonRequestBehavior.AllowGet);
         }
         //
+        public JsonResult CheckTripLate(List<Trip> tripId)
+        {
+
+            foreach (var trip in tripId)
+            {
+                if (trip.Status.Trim().Equals("Đang chạy"))
+                {
+                    if (trip.EstimateArrivalTime.TimeOfDay < DateTime.Now.TimeOfDay)
+                    {
+                        return Json(new { check = false, id = trip.TripID }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            return Json(new { check = true }, JsonRequestBehavior.AllowGet);
+        }
+        //
         public ActionResult RequestPeding(int stationId)
         {
             List<AssigningModel> item = (from p

@@ -14,5 +14,6 @@ namespace Captone.Models
         public string OneTrip { get; set; }
         public string MultipleTrip { get; set; }
         public string MiddleTrip { get; set; }
+        public string Suggest { get; set; }
     }
 }

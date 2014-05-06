@@ -2,9 +2,11 @@
 @{
     Layout = null;
     int stationId = Convert.ToInt32(Session["StationID"]);
+    var date = DateTime.Now;
 }
 <input type="hidden" id="stationId" value="@stationId"/>
-<div class="table-responsive">
+<input type="hidden" id="timenow" value="@date"/>
+<div class="table-responsive" id="TripCheck">
     <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
             <tr>
@@ -19,8 +21,10 @@
                 <th>
                     Trạng thái
                 </th>
+                 <th style="display: none"></th>
                 <th style="display: none"></th>
-              
+              <th  style="display: none">
+                    <input type="checkbox" id="selectallTrip" value="Select All"  style="display: none"/></th>
              
             </tr>
         </thead>
@@ -45,6 +49,10 @@
                     </td>
                     <td>
                         @item.Status
+                    </td>
+                    <td></td>
+                      <td  style="display: none" >
+                        <input type="checkbox" name="CheckTrip" class="case1"  style="display: none" />
                     </td>
                 </tr>
             }
@@ -165,6 +173,9 @@
             }
         });
     }
+    
+
+  
 </script>
 <style type="text/css">
     .bodyFix {
@@ -181,5 +192,8 @@
 
     .modal-title {
         font-weight: bolder;
+    }
+    .yellowClass {
+        background-color: red;
     }
 </style>
