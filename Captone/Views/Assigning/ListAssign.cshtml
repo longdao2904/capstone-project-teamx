@@ -8,10 +8,13 @@
     <table class="table-bordered table-striped table display KeyTable dataTable" id="TableRequest" aria-describedby="example_info">
         <thead>
             <tr>
-                <th>Người gởi</th>
-                <th>Mã yêu cầu</th>
-                <th>Chuyến đã xếp</th>
                 <th style="display: none"></th>
+                <th>Mã hàng</th>
+                <th>Tên người gửi</th>
+                <th>Số điện thoại người gửi</th>
+                <th>Địa chỉ người nhận</th>
+                <th>Ngày gửi</th>
+                <th>Chuyến đã xếp</th>
                 <th style="display: none"></th>
                 <th style="display: none"></th>
             </tr>
@@ -24,10 +27,19 @@
                         @item.RequestID
                     </td>
                     <td>
+                        @item.RequestCode
+                    </td>
+                    <td>
                         @item.SenderName
                     </td>
                     <td>
-                        @item.RequestCode
+                        @item.SenderPhone
+                    </td>
+                    <td>
+                        @item.ReceiverAddress
+                    </td>
+                    <td>
+                        @item.DateRequest
                     </td>
                     <td>
                         <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-primary" onclick="ListTrip(@item.RequestID);">Chi tiết chuyến đi</a>
