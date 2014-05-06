@@ -18,20 +18,20 @@
             <div style="margin-left: 3%;">
                 <!-- Only required for left/right tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin cơ bản *</a></li>
+                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin cơ bản</a></li>
                 </ul>
                 <br />
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
-                            <label class="control-label" for="username">Tên Người Gửi *</label>
+                            <label class="control-label" for="username">Tên Người Gửi</label>
                             <br />
-                            <input type="text" name="username" value="" class="form-control" id="username" autofocus />
+                            <input type="text" name="Username" value="" class="form-control" id="username" autofocus />
 
                         </div>
 
                         <div class="form-control-group">
-                            <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi *</label>
+                            <label class="control-label" for="AddressOfSender">Địa Chỉ Người Gửi</label>
                             <br />
                             <input type="text" name="SenderAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành" id="AddressOfSender" onchange="SuggestAddress()" class="form-control" />
                             <input type="text" id="locaAddress" style="display: none" />
@@ -44,20 +44,20 @@
 
                         <div class="form-control-group">
                             <br/>
-                            <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi *</label>
+                            <label class="control-label" for="SenderPhone">Điện Thoại Người Gửi</label>
                             <br />
                             <input type="text" name="SenderPhone"class="form-control" id="SenderPhone" />
                             
                         </div>
 
                         <div class="form-control-group">
-                            <label class="control-label" for="ReceiverName">Tên Người Nhận *</label>
+                            <label class="control-label" for="ReceiverName">Tên Người Nhận</label>
                             <br />
                             <input type="text" name="ReceiverName"  class="form-control" id="ReceiverName" />
                         
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận *</label>
+                            <label class="control-label" for="ReceiverAddress">Địa Chỉ Người Nhận</label>
                             <br />
                             <input type="text" name="ReceiverAddress" placeholder="Địa chỉ, Quận/huyện, Tỉnh thành"  id="AddressOfReceiver" onchange="SuggestToLocation()" class="form-control" />
                             <input type="text" id="ToAddress" style="display: none" />
@@ -70,7 +70,7 @@
                         </div>
                         <div class="form-control-group">
                             <br/>
-                            <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận *</label>
+                            <label class="control-label" style="width: 200px;"for="ReceiverPhone">Điện Thoại Người Nhận</label>
                            
                             <input type="text" name="ReceiverPhone" id=""class="form-control" />
                       
@@ -85,13 +85,13 @@
             <div>
                 <!-- Only required for left/right tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin gói hàng *</a></li>
+                    <li class="active"><a href="#tab1" data-toggle="tab">Thông tin sản phẩm</a></li>
                 </ul>
                 <br />
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
-                            <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg) *</label>
+                            <label class="control-label" for="EstimateWeight">Khối Lượng Ước Tính (kg)</label>
                             <br/>
                             <select id="Weigh" name="EstimateWeight" class="form-control">
                                 <option></option>
@@ -103,24 +103,24 @@
                             </select>
                             <input type="text" id="FeeID" name="FeeID" value="" style="display: none" />
 
-                            <input type="text" id="FromLocation" name="FromLocation" value="" name="FromLocation" style="display: none" />
-                            <input type="text" id="ToLocation" name="ToLocation" value="" style="display: none" />
+                            <input type="text" id="FromLocation" value="" name="FromLocation" style="display: none"  />
+                            <input type="text" id="ToLocation" name="ToLocation" value=""  style="display: none" />
                         
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Height">Cao (dm) *</label>
+                            <label class="control-label" for="Height">Cao (dcm)</label>
                            <br/>
                             <input type="text" name="Height" class="form-control" id="Height" onchange="checkHeight();"/>
 
                          </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Length">Dài (dm) *</label>
+                            <label class="control-label" for="Length">Dài (dcm)</label>
                             <br/>
                             <input type="text" name="Length"class="form-control" id="Length" onchange="checkLength();" />
                        
                         </div>
                         <div class="form-control-group">
-                            <label class="control-label" for="Width">Rộng (dm) *</label>
+                            <label class="control-label" for="Width">Rộng (dcm)</label>
                             <br/>
                             <input type="text" name="Width" class="form-control" id="Width" onchange="checkPackage();"/>
                   
@@ -128,16 +128,16 @@
                     </div>
                     <div id="check"></div>
                     <div class="form-control-group">
-                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dm3) *</label>
+                        <label class="control-label" for="EstimateVolume">Thể Tính Ước Tính(dcm3)</label>
                         <br />
-                        <input type="text"  class="form-control" name="EstimateVolume" id="Volume" disabled="disabled"/>
+                        <input type="text"  class="form-control" name="EstimateVolume" id="Volume" readonly="readonly"/>
                     </div>
                     <div style="margin-top: 5px;">
                         <div id="SuggestFee">
                         </div>
                     </div>
                     <div class="form-control-group">
-                        <label class="control-label" for="TypeOfPayment">Phương thức thanh toán *</label>
+                        <label class="control-label" for="TypeOfPayment">Phương thức thanh toán</label>
                         <br />
                         <select name="TypeOfPayment" id="" class="form-control">
                             <option></option>
@@ -402,12 +402,13 @@
                                 // Display the distance:
                                 if (index < result.length) {
                                     for (var m = 0; m < response.routes[0].legs.length; m++) {
-                                        var d = result[index].StationID + ". " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
+                                        var d = result[index].StationID + ". " + result[index].StationName + " : " + (response.routes[0].legs[m].distance.value) / 1000 + " km";
                                         index++;
                                         dis.push(d);
                                     }
                                     directionsDisplay.setDirections(response);
                                     if (record == result.length - 1) {
+
                                         ShortestDistance(dis);
                                     }
                                 }
@@ -419,23 +420,45 @@
         });
     }
     function ShortestDistance(dis) {
-        var first = dis[0];
-        var test = first.split(":");
-        var location = test[test.length - 1].split("km")[0];
-        var index = 0;
-        for (var i = 1; i < dis.length; i++) {
-            var station = dis[i].split(":");
-            var stationLast = station[station.length - 1].split("km")[0];
-            if (parseInt(stationLast, 10) < parseInt(location, 10)) {
-                first = dis[i];
-                index = i;
+        var allDistance = [];
+        var getDistance = [];
+        for (var i = 0; i < dis.length; i++) {
+            var first = dis[i];
+            var test = first.split(":");
+            var location = test[test.length - 1].split("km")[0];
+            allDistance.push({
+                location: first,
+                distance: parseFloat(location)
+            });
+            getDistance.push(allDistance[i].distance);
+        }
+        var Math1 = {
+            min: function (values) {
+                if (values.length == 0) {
+                    return NaN;
+                } else if (values.length == 1) {
+                    var val = values.pop();
+                    if (typeof val == "number") {
+                        return val;
+                    } else {
+                        return NaN;
+                    }
+                } else {
+                    var val = values.pop();
+                    return Math.min(val, this.min(values));
+                }
+            }
+        };
+        var min = Math1.min(getDistance);
+        $("#shortest").show();
+        for (var j = 0; j < allDistance.length; j++) {
+            //code here
+            if (parseFloat(min) == allDistance[j].distance) {
+                document.getElementById('shortest').innerHTML = dis[0] + "<br/>" + dis[1] + "<br/>" + dis[2] + "<br/><b>Trạm gần với vị trí của bạn nhất:</b> <br/>" + allDistance[j].location;
+                var id = allDistance[j].location.split(".")[0];
+                document.getElementById("FromLocation").value = id;
             }
         }
-        //code here
-        $("#shortest").show();
-        document.getElementById('shortest').innerHTML = "Trạm gần với vị trí của bạn nhất: <br/>" + first;
-        var id = first.split(".")[0];
-        document.getElementById("FromLocation").value = id;
 
     }
     function ToLocation() {
@@ -466,8 +489,9 @@
                             if (status == google.maps.DirectionsStatus.OK) {
                                 // Display the distance:
                                 if (index < result.length) {
-                                    for (var m = 0; m < response.routes[0].legs.length; m++) {
-                                        var d = result[index].StationID + " . " + result[index].StationName + " : " + Math.round((response.routes[0].legs[m].distance.value) * 1.609344 / 1000) + " km";
+
+                                    for (var m = 0; m < response.routes[0].legs.length ; m++) {
+                                        var d = result[index].StationID + " . " + result[index].StationName + " : " + (response.routes[0].legs[m].distance.value / 1000) + " km";
 
                                         index++;
                                         dis.push(d);
@@ -485,23 +509,46 @@
         });
     }
     function ShortestToLocation(dis) {
-        var first = dis[0];
-        var test = first.split(":");
-        var location = test[test.length - 1].split("km")[0];
-        var index = 0;
-        for (var i = 1; i < dis.length; i++) {
-            var station = dis[i].split(":");
-            var stationLast = station[station.length - 1].split("km")[0];
-            if (parseInt(stationLast, 10) < parseInt(location, 10)) {
-                first = dis[i];
-                index = i;
+        var allDistance = [];
+        var getDistance = [];
+        for (var i = 0; i < dis.length; i++) {
+            var first = dis[i];
+            var test = first.split(":");
+            var location = test[test.length - 1].split("km")[0];
+            allDistance.push({
+                location: first,
+                distance: parseFloat(location)
+            });
+            getDistance.push(allDistance[i].distance);
+        }
+        var Math1 = {
+            min: function (values) {
+                if (values.length == 0) {
+                    return NaN;
+                } else if (values.length == 1) {
+                    var val = values.pop();
+                    if (typeof val == "number") {
+                        return val;
+                    } else {
+                        return NaN;
+                    }
+                } else {
+                    var val = values.pop();
+                    return Math.min(val, this.min(values));
+                }
+            }
+        };
+        var min = Math1.min(getDistance);
+        $("#shortest").show();
+        for (var j = 0; j < allDistance.length; j++) {
+            //code here
+
+            if (parseFloat(min) == allDistance[j].distance) {
+                document.getElementById('shortest').innerHTML = dis[0] + "<br/>" + dis[1] + "<br/>" + dis[2] + "<br/><b>Trạm gần với vị trí của bạn nhất:</b> <br/>" + allDistance[j].location;
+                var id = allDistance[j].location.split(".")[0];
+                document.getElementById("ToLocation").value = id;
             }
         }
-        //code here
-        $("#shortest").show();
-        document.getElementById('shortest').innerHTML = "Trạm gần với vị trí của bạn nhất: <br/>" + first;
-        var id = first.split(".")[0];
-        document.getElementById("ToLocation").value = id;
     }
     function StationMaker() {
         var address = document.getElementById("AddressOfSender").value;
