@@ -18,6 +18,7 @@ namespace Captone.Controllers
 
         public ActionResult Index()
         {
+            if (Session["USERNAME"] != null && Session["USERNAME"].ToString() == "guest") Session["USERNAME"] = null;
             return View();
         }
 
@@ -41,7 +42,7 @@ namespace Captone.Controllers
 
         public ActionResult SentRequestForm()
         {
-
+            if (Session["USERNAME"] != null && Session["USERNAME"].ToString() == "guest") Session["USERNAME"] = null;
             if (Session["USERNAME"] == null)
             {
                 return RedirectToAction("SentRequestForm2");

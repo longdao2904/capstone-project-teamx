@@ -53,14 +53,15 @@ namespace Captone.Controllers
             return View(request);
         }
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id)
         {
+            if (Session["USERNAME"] != null && Session["USERNAME"].ToString() == "guest") Session["USERNAME"] = null;
             Request request = _db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Username = new SelectList(_db.Accounts, "Username", "Password", request.Username);
+            ViewBag.RequestID = new SelectList(_db.Accounts, "Username", "Password", request.Username);
             ViewBag.DeliveryStatusID = new SelectList(_db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
             ViewBag.FeeID = new SelectList(_db.ManageFees, "FeeID", "Fee", request.FeeID);
             ViewBag.FromLocation = new SelectList(_db.Stations, "StationID", "StationName", request.FromLocation);
@@ -74,17 +75,17 @@ namespace Captone.Controllers
         [HttpPost]
         public ActionResult Edit(Request request)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(request).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Username = new SelectList(_db.Accounts, "Username", "Password", request.Username);
-            ViewBag.DeliveryStatusID = new SelectList(_db.DeliveryStatus, "DeliveryStatusID", "StatusName", request.DeliveryStatusID);
-            ViewBag.FeeID = new SelectList(_db.ManageFees, "FeeID", "Fee", request.FeeID);
-            ViewBag.FromLocation = new SelectList(_db.Stations, "StationID", "StationName", request.FromLocation);
-            ViewBag.ToLocation = new SelectList(_db.Stations, "StationID", "StationName", request.ToLocation);
+            Request tmp = _db.Requests.Find(request.RequestID);
+            tmp.SenderName = request.SenderName;
+            tmp.ReceiverName = request.ReceiverName;
+            tmp.SenderAddress = request.SenderAddress;
+            tmp.ReceiverAddress = request.ReceiverAddress;
+            tmp.SenderPhone = request.SenderPhone;
+            tmp.ReceiverPhone = request.ReceiverPhone;
+            tmp.EstimateVolume = request.EstimateVolume;
+            tmp.EstimateWeight = request.EstimateWeight;
+
+            _db.SaveChanges();
             return View(request);
         }
 

@@ -1,73 +1,114 @@
 ﻿@model Captone.Models.Request
 @{
-    ViewBag.Title = "RequestCode";
+    ViewBag.Title = "Tài khoản khách";
     Layout = "~/Views/Shared/_LayoutNoMap.cshtml";
 }
 <script src="~/Content/js/demo/demo.js"></script>
 <div class="table-responsive" id="requestList" style="width: 103%; margin-left:0.3%;">
-    <table class="table table-bordered">
-        <tr>
-            <th>Địa chỉ người gửi
-            </th>
-            <th>Tên người nhận
-            </th>
-            <th>Địa chỉ người nhận
-            </th>
-            <th>Ngày gửi
-            </th>
-            <th>
-                Mã
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tbody> 
-        <tr id="requestCustomer-@Model.RequestID">
-            <td style="width: 250px;">
-                @Model.SenderAddress
-            </td>
-            <td>
-                @Model.ReceiverName
-            </td>
-            <td>
-                @Model.ReceiverAddress
-            </td>
-            <td>
-                @Model.DateRequest.ToShortDateString()
-            </td>
-            <td>
-                @Model.RequestCode
-            </td>
-      
-              
-            <td>
-             
-                <a data-toggle="modal" data-target="#myModal" id="@Model.RequestID" class="btn btn-primary" onclick="ListTripTracking(this.id);">Theo dõi</a>
-            </td>    
-                
+    <h4 style="color: blue">Thông tin yêu cầu có mã số @Model.RequestCode</h4>
 
-        </tr>
-  </tbody>
-       
-
-    </table>
-    <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width: 900px;margin-left: -150px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="list-trip">
+    <div class="panel panel-primary" style="width: 500px">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <blockquote>
+                        <div class="display-label">
+                            <strong>Khách hàng: </strong>
+                            @Html.DisplayFor(model => model.Account.Username)
+                        </div>
+                        <div class="display-label">
+                            <strong>Tên người gửi: </strong>
+                            @Html.DisplayFor(model => model.SenderName)
+                        </div>
+                        <div class="display-label">
+                            <strong>Địa chỉ người gửi: </strong>
+                            @Html.DisplayFor(model => model.SenderAddress)
+                        </div>
+                        <div class="display-label">
+                            <strong>Điện thoại người gửi: </strong>
+                            @Html.DisplayFor(model => model.SenderPhone)
+                        </div>
+                        <div class="display-label">
+                            <strong>Trạng thái vận chuyển: </strong>
+                            @Html.DisplayFor(model => model.DeliveryStatu.StatusName)
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="col-lg-6">
+                    <blockquote>
+                        <div class="display-label">
+                            <strong>Tên người nhận: </strong>
+                            @Html.DisplayFor(model => model.ReceiverName)
+                        </div>
+                        <div class="display-label">
+                            <strong>Địa chỉ người nhận: </strong>
+                            @Html.DisplayFor(model => model.ReceiverAddress)
+                        </div>
+                        <div class="display-label">
+                            <strong>Điện thoại người nhận: </strong>
+                            @Html.DisplayFor(model => model.ReceiverPhone)
+                        </div>
+                        <div class="display-label">
+                            <strong>Giá: </strong>
+                            @Html.DisplayFor(model => model.ManageFee.Fee)
+                        </div>
+                        <div class="display-label">
+                            <strong>Khối lượng ước tính: </strong>
+                            @Html.DisplayFor(model => model.EstimateWeight)
+                        </div>
+                        <div class="display-label">
+                            <strong>Thể tích ước tính: </strong>
+                            @Html.DisplayFor(model => model.EstimateVolume)
+                        </div>
+                        <div class="display-label">
+                            <strong>Ngày gửi yêu cầu: </strong>
+                            @Html.DisplayFor(model => model.DateRequest)
+                        </div>
+                        <div class="display-label">
+                            <strong>Trạm đầu: </strong>
+                            @Html.DisplayFor(model => model.Station.StationName)
+                        </div>
+                        <div class="display-label">
+                            <strong>Trạm cuối: </strong>
+                            @Html.DisplayFor(model => model.Station1.StationName)
+                        </div>
+                    </blockquote>
                 </div>
             </div>
-           
+            <br />
         </div>
-        <!-- /.modal-content -->
+        </div>
+    <div>
+                @if (Model.DeliveryStatusID == 1)
+                {
+                    <a class="btn btn-primary" href="Edit/@Model.RequestID">Chỉnh sửa</a>
+                    if (Model.TypeOfPayment == "Chuyển khoản")
+                    {
+                        <a class="btn btn-primary" href="Edit/@Model.RequestID">Thanh toán</a>
+                    }
+                }  
+                @if (Model.DeliveryStatusID == 4)
+                {
+                    <a data-toggle="modal" data-target="#myModal" id="@Model.RequestID" class="btn btn-primary" onclick=" ListTripTracking(this.id); ">Theo dõi</a>
+                }
+        </div>
+    <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 900px;margin-left: -150px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body bodyFix">
+                    <div id="list-trip">
+                    </div>
+                </div>
+           
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
 </div>
 <script type="text/javascript">
 
