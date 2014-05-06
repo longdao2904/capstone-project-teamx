@@ -17,7 +17,7 @@ namespace Captone.Controllers
                                              (from n in _db.Assignings
                                               join k in _db.Requests on n.RequestID equals k.RequestID
                                               join u in _db.Trips on n.TripID equals u.TripID
-                                              group u by new {n.RequestID, k.Username, n.Request.DeliveryStatusID, k.ToLocation, k.SenderPhone, k.FromLocation, k.RequestCode, k.SenderName }
+                                              group u by new {n.RequestID, k.Username, n.Request.DeliveryStatusID, k.ToLocation, k.SenderPhone, k.FromLocation, k.RequestCode, k.SenderName, k.ReceiverAddress, k.DateRequest }
                                                   into a
 
                                                   select new
@@ -29,7 +29,9 @@ namespace Captone.Controllers
                                                 a.Key.ToLocation,
                                                 a.Key.SenderPhone,
                                                 a.Key.FromLocation,
-                                                a.Key.RequestCode
+                                                a.Key.RequestCode,
+                                                a.Key.ReceiverAddress,
+                                                a.Key.DateRequest
                                             }
                             )
                                          where p.DeliveryStatusID == 3 & p.FromLocation == stationID
@@ -40,7 +42,9 @@ namespace Captone.Controllers
                                                 ToLocation = p.ToLocation,
                                                 SenderPhone = p.SenderPhone,
                                                 RequestCode = p.RequestCode,
-                                                SenderName =  p.SenderName
+                                                SenderName =  p.SenderName,
+                                                ReceiverAddress = p.ReceiverAddress,
+                                                DateRequest = p.DateRequest
                                             }
                        ).ToList();
             ViewBag.Assign = item;

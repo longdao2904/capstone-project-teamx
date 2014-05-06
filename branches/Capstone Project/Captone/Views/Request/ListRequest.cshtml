@@ -15,7 +15,9 @@
                 </th>
                 <th>Ngày gửi
                 </th>
-                <th>Trạm gửi
+                <th>Khối lượng (kg)
+                </th>
+                <th>Thể tích (dm3)
                 </th>
                 <th>Trạm nhận
                 </th>
@@ -42,7 +44,10 @@
                     @item.DateRequest.ToShortDateString()
                 </td>
                 <td>
-                    @item.Station.StationName
+                    @item.Invoices.First().Weight
+                </td>
+                <td>
+                    @item.Invoices.First().Volume
                 </td>
                 <td style="display: none">
                     @item.FromLocation

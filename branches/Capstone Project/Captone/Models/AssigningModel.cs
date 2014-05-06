@@ -13,6 +13,8 @@ namespace Captone.Models
         public string SenderName { get; set; }
         public int ToLocation { get; set; }
         public string SenderPhone { get; set; }
+        public string ReceiverAddress { get; set; }
+        public DateTime DateRequest { get; set; }
         public int StopStation { get; set; }
         public string RequestCode { get; set; }
     }
