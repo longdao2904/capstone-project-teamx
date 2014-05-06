@@ -37,9 +37,57 @@ function otherTrip(stationID) {
         type: "Post",
         success: function (result) {
             $("#otherTrip").html(result);
+            $('#TripCheck input:checkbox').attr('checked', 'checked');
+            Waring();
         }
     });
 }
+$(document).ready(function () {
+    $('#selectallTrip').click(function (event) {  //on click 
+        if (this.checked) { // check select status
+            $('.case1').each(function () { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"  
+            });
+        } else {
+            $('.case1').each(function () { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });
+        }
+    });
+
+});
+function getCheckTrip() {
+    var request = [];
+    $('[name="CheckTrip"]:checked').each(function () {
+        var row = $(this).closest('tr');
+        var emp = {
+            // we start at 2 because the first one is the checkbox
+            // also it would be easier if you have an id for each of the column
+            // and do this row.find('#idCol') / row.find('#nameCol')
+            EstimateArrivalTime: row.find('td:nth-child(5)').text(),
+            TripID: row.find('td:nth-child(1)').text(),
+            Status: row.find('td:nth-child(6)').text()
+        };
+        request.push(emp);
+        // SentObject(request);
+    });
+    return request;
+}
+function Waring() {
+   
+    var table = $("#TableDepartedTrip tbody");
+    
+    var images = "/Content/Images/warning-icon.png";
+    table.find('tr').each(function (i, el) {
+        var $tds = $(this).find('td'),
+            EstimateArrivalTime = $tds.eq(4).text();
+      
+        if (Date.parse(EstimateArrivalTime) < Date.parse(document.getElementById("timenow").value)) {
+            $tds.eq(6).html("<a href='#'><img src='" + images + "' style='width: 40px;'/></a>");
+        }
+    });
+}
+
 
 function arriveTrip(stationID) {
     $.ajax({

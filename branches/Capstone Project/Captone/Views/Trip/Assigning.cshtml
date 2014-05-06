@@ -27,6 +27,7 @@ else
             <th style="width: 200px">Trường hợp gửi một tuyến xe</th>
             <th style="width: 200px">Trường hợp gửi nhiều tuyến xe</th>
             <th style="width: 200px">Trường hợp gửi giữa tuyến xe</th>
+            <th style="width: 200px">Đề nghị</th>
         </thead>
         <tbody>
             @foreach (var r in Model)
@@ -39,6 +40,7 @@ else
                     <td style="width: 100px">@r.OneTrip</td>
                     <td style="width: 100px">@r.MultipleTrip</td>
                     <td style="width: 100px">@r.MiddleTrip</td>
+                    <td style="width: 100px">@r.Suggest</td>
                 </tr>
             }
         </tbody>

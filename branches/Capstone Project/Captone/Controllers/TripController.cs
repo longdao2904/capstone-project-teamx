@@ -356,6 +356,22 @@ namespace Captone.Controllers
 
             return View(rqID);
         }
+        public bool CheckRequestLate(int tripID)
+        {
+            var all = db.Assignings.Where(p => p.TripID != tripID & p.Request.DeliveryStatusID == 4).ToList();
+            var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
+            foreach (var assigning in rqID)
+            {
+                foreach (var assigning1 in all)
+                {
+                    if (assigning.RequestID == assigning1.RequestID)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         #region load and re-assigned requests of selected trip to be deleted
 
         // Retrieve requests assigned to selected trip, find by TripID
@@ -476,22 +492,24 @@ namespace Captone.Controllers
         public void ArrivedRequest(int tripID, int stationID)
         {
             var trip = db.Trips.Single(t => t.TripID == tripID);
-            // update real arrival time of trip
-            if (FindStageFromRoute(trip.Schedule.RouteID).Last().EndPoint == stationID)
-            {
-                trip.RealArrivalTime = DateTime.Now;
-                trip.Status = "Đã đến trạm";
-                db.Entry(trip).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            else
-            {
-                trip.Status = "Đã đến trạm";
-                db.SaveChanges();
-            }
-            //update for each request
-            var listRequest = FindRequestAssignToTrip(tripID);
-            if (listRequest == null) return;
+            
+                // update real arrival time of trip
+                if (FindStageFromRoute(trip.Schedule.RouteID).Last().EndPoint == stationID)
+                {
+                    trip.RealArrivalTime = DateTime.Now;
+                    trip.Status = "Đã đến trạm";
+                    db.Entry(trip).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    trip.Status = "Đã đến trạm";
+                    db.SaveChanges();
+                }
+                //update for each request
+                var listRequest = FindRequestAssignToTrip(tripID);
+                if (listRequest == null) return;
+            var requests = new List<Request>();
             foreach (var request in listRequest)
             {
                 if (request.ToLocation == stationID)
@@ -507,9 +525,33 @@ namespace Captone.Controllers
                     db.Entry(request).State = EntityState.Modified;
                     db.SaveChanges();
                 }
+                if (DateTime.Now > trip.EstimateArrivalTime)
+                {
+                    var assign = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
+                    int index = 0;
+                    foreach (var tmp in assign)
+                    {
+                        if (tmp.TripID == tripID) index = tmp.IndicateOrder;
+                    }
+                    if (index < assign.Count)
+                    {
+                        requests.Add(request);
+                    }
+                }
             }
-
+            foreach (var request in requests)
+            {
+                var list = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
+                foreach (var assigning in list)
+                {
+                    db.Assignings.Remove(assigning);
+                }
+                request.FromLocation = stationID;
+                db.SaveChanges();
+            }
+            Assigning(requests);
         }
+
         public ActionResult OtherStart(int stationId)
         {
             var trips = db.Trips.ToList();

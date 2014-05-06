@@ -173,6 +173,7 @@ namespace Captone.Services
             reason.OneTrip = "";
             reason.MultipleTrip = "";
             reason.MiddleTrip = "";
+            reason.Suggest = "";
             return reason;
         }
         //create the way list for request
@@ -224,6 +225,7 @@ namespace Captone.Services
             requests.Sort(RequestCompare);
             //try one trip -> multiple trip -> middle trip with this priority
             var remainRequest = new List<Request>();
+            var choose = new Route();
             foreach (var request in requests)
             {
                 if (CheckExist(request)) continue;
@@ -243,7 +245,9 @@ namespace Captone.Services
                     if (tmpSize == _finalResult.Count)
                     {
                         tmpReason.OneTrip = @"Có tuyến trực tiếp nhưng không có chuyến xe phù hợp";
-                        flag = ProcessingMultipleTrip(request);
+                        var tmpRoute = FindRouteFromStations(request.FromLocation, request.ToLocation);
+                        tmpReason.Suggest = @"Bạn nên tự tạo thêm chuyến " + tmpRoute.RouteName +". ";
+                        flag = ProcessingMultipleTrip(request, out choose);
                         tmpReason.NumberOfWay = _foundWays.Count;
                         tmpReason.WayList = AddWayList(request);
                     }
@@ -252,7 +256,7 @@ namespace Captone.Services
                 {
                     tmpReason.OneTrip = @"Không có chuyến trực tiếp nối hai trạm";
                     //if the request can't be assigned to the one trip of one route, try processing multiple trips
-                    flag = ProcessingMultipleTrip(request);
+                    flag = ProcessingMultipleTrip(request, out choose);
                     tmpReason.NumberOfWay = _foundWays.Count;
                     tmpReason.WayList = AddWayList(request);
                 }
@@ -263,6 +267,10 @@ namespace Captone.Services
                     else if (flag == 2)
                         tmpReason.MultipleTrip = @"Tìm được tuyến đường, chuyến xe chạy nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
                     else tmpReason.MultipleTrip = @"Không tìm được các tuyến xe để gửi hàng chỉ tại trạm đầu, trạm cuối chứ không gửi giữa đường";
+                    if ((flag == 1 || flag == 2) && choose != null)
+                    {
+                        tmpReason.Suggest += @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ". ";
+                    }
                     remainRequest.Add(request);
                 }
                 reasons.Add(request, tmpReason);
@@ -270,13 +278,19 @@ namespace Captone.Services
             //iterate the temp list to try process for the remaining request
             foreach (var request in remainRequest)
             {
-                int flag = ProcessingMiddleTrip(request);
+                int flag = ProcessingMiddleTrip(request, out choose);
                 var tmp = reasons.First(i => i.Key == request);
                 var tmpReason = tmp.Value;
                 reasons.Remove(tmp.Key);
                 if (flag == 1) tmpReason.MiddleTrip = @"Tìm được tuyến đường nhưng không chưa có xe chạy";
                 else if (flag == 2) tmpReason.MiddleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
                 else tmpReason.MiddleTrip = @"Hoàn toàn không tìm được tuyến đường nào cho yêu cầu vận chuyển này";
+                if ((flag == 1 || flag == 2) && choose != null)
+                {
+                    if (tmpReason.Suggest == "") tmpReason.Suggest = @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ".";
+                    else tmpReason.Suggest += @"Ngoài ra, cũng có thể thêm chuyến xe " + choose.RouteName + ".";
+                }
+                if (tmpReason.Suggest == "") tmpReason.Suggest = "Không có.";
                 reasons.Add(tmp.Key, tmpReason);
             }
             foreach (var reason in reasons)
@@ -351,8 +365,9 @@ namespace Captone.Services
             }
         }
         //processing with multiple trips
-        public int ProcessingMultipleTrip(Request request)
+        public int ProcessingMultipleTrip(Request request, out Route choose)
         {
+            choose = null;
             var volume = FindInvoiceFromRequest(request).Volume;
             var tmp = volume;
             int flag = 0; //for check status of reason
@@ -389,7 +404,11 @@ namespace Captone.Services
                     if (route == null) continue;
                     var tmpListTrip = FindTripFromRoute(route.RouteID);
                     //if some route of this way doesn't have trip, reject this way
-                    if (!CheckNotNull(tmpListTrip)) continue;
+                    if (!CheckNotNull(tmpListTrip))
+                    {
+                        choose = route;
+                        continue;
+                    }
                     tmpListTrip.Sort(SortTripCompare);
                     foreach (var trip in tmpListTrip)
                     {
@@ -401,6 +420,7 @@ namespace Captone.Services
                             resTrip.Add(trip);
                             break;
                         }
+                        choose = route;
                     }
                     //if there is not a chosen trip in one of route or the delivery time is too late
                     //reject whole list route of current ways
@@ -492,8 +512,9 @@ namespace Captone.Services
         }
 
         //processing middle trips
-        public int ProcessingMiddleTrip(Request request)
+        public int ProcessingMiddleTrip(Request request, out Route choose)
         {
+            choose = null;
             int flag = 0;
             _foundWays.Clear();
             FindPath(request);
@@ -514,6 +535,7 @@ namespace Captone.Services
                         var stations = new List<int> { request.ToLocation };
                         var res = new List<Route> { route };
                         var solution = CheckResult(stations, res, request);
+                        if (!CheckNotNull(solution)) choose = route;
                         var tmpMap = new Dictionary<Trip, int>();
                         if (CheckNotNull(solution))
                         {
@@ -545,6 +567,7 @@ namespace Captone.Services
                                 var stations = new List<int> { stages[i].EndPoint, request.ToLocation };
                                 var res = new List<Route> { a, b };
                                 var solution = CheckResult(stations, res, request);
+                                if (!CheckNotNull(solution)) choose = b;
                                 var tmpMap = new Dictionary<Trip, int>();
                                 if (CheckNotNull(solution) && CheckDistinct(res))
                                 {
@@ -587,6 +610,7 @@ namespace Captone.Services
                                             };
                                         var res = new List<Route> { a, b, c };
                                         var solution = CheckResult(stations, res, request);
+                                        if (!CheckNotNull(solution)) choose = c;
                                         var tmpMap = new Dictionary<Trip, int>();
                                         if (CheckNotNull(solution) && CheckDistinct(res))
                                         {
@@ -639,6 +663,7 @@ namespace Captone.Services
                                                 var res = new List<Route> { a, b, c, d };
                                                 var solution = CheckResult(stations, res, request);
                                                 var tmpMap = new Dictionary<Trip, int>();
+                                                if (!CheckNotNull(solution)) choose = d;
                                                 if (CheckNotNull(solution) && CheckDistinct(res))
                                                 {
                                                     for (int index = 0; index < solution.Count; index++)
