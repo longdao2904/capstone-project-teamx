@@ -1,5 +1,5 @@
 //Flot Line Chart
-$(document).ready(function() {
+$(document).ready(function () {
     console.log("document ready");
     var offset = 0;
     plot();
@@ -39,57 +39,93 @@ $(document).ready(function() {
         };
 
         var plotObj = $.plot($("#flot-line-chart"), [{
-                data: sin,
-                label: "sin(x)"
-            }, {
-                data: cos,
-                label: "cos(x)"
-            }],
+            data: sin,
+            label: "sin(x)"
+        }, {
+            data: cos,
+            label: "cos(x)"
+        }],
             options);
     }
 });
 
+//window.onloadstart = getCounts();
+
+//$(function () {
+//    var dataArray = [];
+//    $.ajax({
+//        url: "/Admin/PaymentChart",
+//        type: "POST",
+//        contentType: "application/json",
+//        dataType: "json",
+//        success: function (result) {
+//            for (var i = 0; i < result.length; i++) {
+//                var get = result[i].split(",");
+//                // pass 2 cái này
+//                // dat ten ham` kia roi` goi, pass 2 int vao`
+//                // vd flotPieChart(get[0], get[1]);
+//                // tạo hàm trên func này hay dưới ?
+//                // xuống dưới nó ko pass qua 
+//                // run thu xem sao
+//                console.log(get[0]);
+//                console.log(get[1]);
+//                dm = 33;
+//            }
+//        }
+//        //ra khỏi đây là mất value của get rồi
+//        // hàm dưới chạy ổn chưa?
+
+//    });
+//});
+
 //Flot Pie Chart
-$(function() {
-
-    var data = [{
-        label: "Series 0",
-        data: 1
-    }, {
-        label: "Series 1",
-        data: 3
-    }, {
-        label: "Series 2",
-        data: 9
-    }, {
-        label: "Series 3",
-        data: 20
-    }];
-
-    var plotObj = $.plot($("#flot-pie-chart"), data, {
-        series: {
-            pie: {
-                show: true
+$(function () {
+    var ca = 0;
+    var onl = 0;
+    $.ajax({
+        url: "/Admin/PaymentChart",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (result) {
+            for (var i = 0; i < result.length; i++) {
+                ca = result[i].Cash;
+                onl = result[i].Online;
             }
-        },
-        grid: {
-            hoverable: true
-        },
-        tooltip: true,
-        tooltipOpts: {
-            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-            shifts: {
-                x: 20,
-                y: 0
-            },
-            defaultTheme: false
+
+            data = [{
+                label: "Tiền mặt",
+                data: ca
+            }, {
+                label: "Chuyển khoản",
+                data: onl
+            }];
+
+            var plotObj = $.plot($("#flot-pie-chart"), data, {
+                series: {
+                    pie: {
+                        show: true
+                    }
+                },
+                grid: {
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%s: %p.0%, ", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: false
+                }
+            });
         }
     });
-
 });
 
 //Flot Multiple Axes Line Chart
-$(function() {
+$(function () {
     var oilprices = [
         [1167692400000, 61.05],
         [1167778800000, 58.32],
@@ -1084,7 +1120,7 @@ $(function() {
                 content: "%s for %x was %y",
                 xDateFormat: "%y-%0m-%0d",
 
-                onHover: function(flotItem, $tooltipEl) {
+                onHover: function (flotItem, $tooltipEl) {
                     // console.log(flotItem, $tooltipEl);
                 }
             }
@@ -1094,14 +1130,14 @@ $(function() {
 
     doPlot("right");
 
-    $("button").click(function() {
+    $("button").click(function () {
         doPlot($(this).text());
     });
 });
 
 //Flot Moving Line Chart
 
-$(function() {
+$(function () {
 
     var container = $("#flot-line-chart-moving");
 
@@ -1160,10 +1196,10 @@ $(function() {
                 bottom: 20,
                 left: 20
             },
-            markings: function(axes) {
+            markings: function (axes) {
                 var markings = [];
                 var xaxis = axes.xaxis;
-                for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                for (var x = Math.floor(xaxis.min) ; x < xaxis.max; x += xaxis.tickSize * 2) {
                     markings.push({
                         xaxis: {
                             from: x,
@@ -1176,7 +1212,7 @@ $(function() {
             }
         },
         xaxis: {
-            tickFormatter: function() {
+            tickFormatter: function () {
                 return "";
             }
         },
@@ -1201,7 +1237,7 @@ $(function() {
 
 //Flot Bar Chart
 
-$(function() {
+$(function () {
 
     var barOptions = {
         series: {
