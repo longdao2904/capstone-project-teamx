@@ -23,10 +23,33 @@ namespace Captone.Controllers
             {
                 var countRoute = _db.Trips.Count(p => p.Schedule.RouteID == item.RouteID);
                 var routeName = _db.Routes.Single(p => p.RouteID == item.RouteID);
-                array.Add(countRoute + " : " + routeName.RouteName);
+                array.Add(routeName.RouteName + " : " + countRoute);
             }
             return Json(array, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult PaymentChart()
+        {
+            var requests = _db.Requests.ToList();
+            ArrayList array = new ArrayList();
+            int cash = _db.Requests.Count(r => r.TypeOfPayment == "Tiền mặt");
+            int online = _db.Requests.Count(r => r.TypeOfPayment == "Chuyển khoản");
+            //foreach (var item in requests)
+            //{
+            //    cash = _db.Requests.Count(r => r.TypeOfPayment == "Tiền mặt");
+            //    online = _db.Requests.Count(r => r.TypeOfPayment == "Chuyển khoản");
+            //}
+            array.Add(cash + "," + online);
+            var list = new List<Object>();
+            list.Add(new 
+            { 
+                Cash = cash,
+                Online = online
+            });
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        #region Authentication
 
         public ActionResult LogIn()
         {
@@ -48,7 +71,7 @@ namespace Captone.Controllers
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         return RedirectToAction("LogIn", "Admin");
-                    if ((string) Session["UserRole"] == "Admin")
+                    if ((string)Session["UserRole"] == "Admin")
                     {
                         return RedirectToAction("Index", "Admin");
                     }
@@ -63,6 +86,7 @@ namespace Captone.Controllers
         {
             return View();
         }
+
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
@@ -70,5 +94,7 @@ namespace Captone.Controllers
             Session["UserRole"] = null;
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion
     }
 }
