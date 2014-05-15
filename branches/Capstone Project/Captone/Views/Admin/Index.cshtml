@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Captone.Models.ManageFee>
-@{
+﻿@{
     ViewBag.Title = "Thống kê";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -7,33 +6,16 @@
 <link href="/Content/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-<!-- Page-Level Plugin CSS - Flot -->
 <!-- SB Admin CSS - Include with every page -->
 <link href="/Content/css/sb-admin.css" rel="stylesheet">
 <div class="panel panel-primary">
     <div class="panel-heading"> Báo cáo thống kê</div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Số lượng yêu cầu theo hình thức thanh toán
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-pie-chart"></div>
-                        </div>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        Doanh thu trên mỗi tuyến
+                        Hiệu suất trên từng tuyến - BAR CHART
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -46,30 +28,45 @@
                 <!-- /.panel -->
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Số lượng yêu cầu theo hình thức thanh toán - PIE CHART
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Doanh thu theo từng tháng - LINE CHART
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <!-- Core Scripts - Include with every page -->
 <script src="/Content/js/jquery-1.10.2.js"></script>
 <script src="/Content/js/bootstrap.min.js"></script>
-<script src="/Content/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<!-- Page-Level Plugin Scripts - Flot -->
-<!--[if lte IE 8]><script src="/Content/js/excanvas.min.js"></script><![endif]-->
-<script src="/Content/js/plugins/flot/jquery.flot.js"></script>
-<script src="/Content/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="/Content/js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="/Content/js/plugins/flot/jquery.flot.pie.js"></script>
 
 <!-- SB Admin Scripts - Include with every page -->
 <script src="/Content/js/sb-admin.js"></script>
 
-<!-- Page-Level Demo Scripts - Flot - Use for reference -->
-<script src="/Content/js/demo/flot-demo.js"></script>
-<script>
-    function highlight(x) {
-        x.style.backgroundColor = "yellow";
-    }
-    function reset(x) {
-        x.style.backgroundColor = "white";
-    }
-</script>
+<!-- Highcharts Scripts -->
+<script src="/Content/js/Highcharts/highcharts.js"></script>
