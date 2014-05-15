@@ -1,160 +1,196 @@
-﻿@{
-    ViewBag.Title = "Quản lý phí";
-}
-
-<!doctype html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="~/Content/css/layout.css" type="text/css" media="screen" />
-    <script src="~/Content/js/jquery-1.10.2.js"></script>
-    <script src="~/Content/js/PieChart/highcharts.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="~/Content/js/bootstrap.js"></script>
     <!-- Core CSS - Include with every page -->
     <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/font-awesome/css/font-awesome.css">
 
+    <!-- Page-Level Plugin CSS - Dashboard -->
+    <link href="~/Content/Css/SentRequest.css" rel="stylesheet" />
     <!-- SB Admin CSS - Include with every page -->
     <link href="~/Content/css/sb-admin.css" rel="stylesheet">
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+    <link href="~/Content/Css/Ribbon.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <script src="~/Content/js/bootstrap.js"></script>
+    <script src="~/Content/TableJS/jquery.dataTables.js"></script>
+    <script src="~/Content/TableJS/KeyTable.js"></script>
+    <script src="~/Content/js/jquery.bpopup.min.js"></script>
+    <script src="~/Content/js/sb-admin.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
-            //When page loads...
-            $(".tab_content").hide(); //Hide all content
-            $("ul.tabs li:first").addClass("active").show(); //Activate first tab
-            $(".tab_content:first").show(); //Show first tab content
-
-            //On Click Event
-            $("ul.tabs li").click(function () {
-
-                $("ul.tabs li").removeClass("active"); //Remove any "active" class
-                $(this).addClass("active"); //Add "active" class to selected tab
-                $(".tab_content").hide(); //Hide all tab content
-
-                var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
-                $(activeTab).fadeIn(); //Fade in the active ID content
-                return false;
-            });
-
-        });
-
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            var array = [];
-            $.ajax({
-                url: "/Admin/PieChart",
-                type: "POST",
-                contentType: "application/json",
-                dataType: "json",
-                success: function (result) {
-                    for (var i = 0; i < result.length; i++) {
-                        var get = result[i].split(":");
-                        array.push([get[get.length - 1], parseInt(get[0])]
-                        );
-                    }
-                    $('#container').highcharts({
-                        chart: {
-                            plotBackgroundColor: null,
-                            plotBorderWidth: null,
-                            plotShadow: false
-                        },
-                        title: {
-                            text: 'Thống kê doanh thu'
-                        },
-                        tooltip: {
-                            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
-                        },
-                        plotOptions: {
-                            pie: {
-                                allowPointSelect: true,
-                                cursor: 'pointer',
-                                dataLabels: {
-                                    enabled: true,
-                                    color: '#000000',
-                                    connectorColor: '#000000',
-                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                                }
-                            }
-                        },
-
-                        series: [{
-                            type: 'pie',
-                            name: 'Browser share',
-                            data: array
-                        }]
-                    });
-                }
-            });
-
-        });
-
-    </script>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var Username = (string)Session["USERNAME"];
+        var UserRole = (string)Session["UserRole"];
+        int stationId = Convert.ToInt32(Session["StationID"]);
+        var stationName = (string)Session["StationName"];
+    }
 </head>
 <body>
-
-    <header id="header" style="color: blue">
-        <hgroup>
-            <h1 class="site_title">iDeliver</h1>
-            <h2 class="section_title">Hệ thống vận chuyển hàng hóa bằng xe khách đường dài</h2>
-            <div class="btn_view_site"><a href="/Home">Trang chủ</a></div>
-        </hgroup>
-    </header>
-    <!-- end of header bar -->
-
-    <section id="secondary_bar">
-        <div class="breadcrumbs_container">
-            <article class="breadcrumbs">
-                <a href="/Admin/Index">Dashboard</a>
-                <div class="breadcrumb_divider"></div>
-                <a class="current">@ViewBag.Title</a>
-            </article>
-        </div>
-    </section>
-    <!-- end of secondary bar -->
-
-    <aside id="sidebar" class="column">
-        <a href="/Admin/Index"><h3>Thống kê</h3></a>
-        <h3>Quản lý mức phí</h3>
-        <ul class="toggle">
-            <li class="icn_categories"><a href="~/Fee/Index">Danh sách các mức phí</a></li>
-            <li class="icn_new_article"><a href="~/Fee/Create">Tạo mới phí mới</a></li>            
-        </ul>
-        <h3>Quản lý nhân viên</h3>
-        <ul class="toggle">
-            <li class="icn_view_users"><a href="~/Staff/Index">Danh sách nhân viên</a></li>
-            <li class="icn_add_user"><a href="~/Staff/Create">Tạo tài khoản mới</a></li>
-        </ul>
-        <h3>Quản lý tài khoản khách hàng</h3>
-        <ul class="toggle">
-            <li class="icn_view_users"><a href="#">Các tài khoản hoạt động</a></li>
-            <li class="icn_view_users"><a href="#">Các tài khoản bị cấm</a></li>
-        </ul>
-        <h3>Quản lý bình luận/ đánh giá</h3>
-        <ul class="toggle">
-            <li class="icn_categories"><a href="~/FeedBack/ManageCommentList">Bình luận cho trạm</a></li>
-            <li class="icn_categories"><a href="~/FeedBack/ManageRatingList">Đánh giá cho trạm</a></li>
-        </ul>
-        <footer>
-            <hr />
-            <p><strong>Copyright &copy; iDeliver 2014</strong></p>
-        </footer>
-    </aside>
-    <!-- end of sidebar -->
-
-    <section id="main" class="column">
-        <article class="module width_full" style="height: auto">
-            <div class="module_content">
-                <div class="stats_graph" style="margin-left: 0px;">
-                    <div style="width: 500px">@RenderBody()</div>
-                </div>
-                <div class="clear"></div>
+    <input type="hidden" value="@Username" id="session" />
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #428bca; height: 70px;" style="margin-bottom: 0">
+            <!-- /.navbar-header -->
+            <div class="col-lg-4" id="truck">
+                <a class="navbar-brand" href="/Home/Index" style="color: white"><i class="fa fa-truck fa-3x">i-Deliver</i></a>
             </div>
-        </article>
-        <!-- end of stats article -->
-        <div class="clear"></div>
-    </section>
+            <div class="col-lg-4" style="margin-top: 0.5%"></div>
+            <div class="col-lg-4">
+                @if (Username != null)
+                {
+                    string username = Username.ToUpper();
+                <div class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
+                    <p style="color: white; float: right">
+                        <i class="fa fa-user fa-fw"></i>@username |
+                        <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                    </p>
+                    <br />
+                    <p style="color: white; float: right">Nhân viên trạm @stationName</p>
+                </div>
+                }
+                else
+                {
+                <a style="color: white" class="nav navbar-top-links navbar-right" data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()" style="margin-top: 1%;"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
+                }
+            </div>
+            <!-- /.navbar-top-links -->
+
+        </nav>
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <div class="rectangle">
+                            <a href="/Home/Index" style="color: white"><i class="fa fa-home fa-2x"></i> Trang chủ </a>
+                        </div>
+                        <div class="triangle-r"></div>
+                    </li>
+                    <li>
+                        <div class="dis">
+                            <div class="rectangle">
+                                <a href="/Admin" style="color: white"><i class="fa fa-gears fa-2x"></i> Quản trị hệ thống </a>
+                            </div>
+                            <div class="triangle-r"></div>
+                        </div>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/Admin/Index"><i class="fa fa-bar-chart-o"></i> Thống kê</a>
+                            </li>
+                            <li>
+                                <a href="/Staff/Index"><i class="fa fa-users"></i> Nhân viên</a>
+                            </li>
+                            <li>
+                                <a href="/Fee"><i class="fa fa-exchange"></i> Biểu giá vận chuyển</a>
+                            </li>
+                            <li>
+                                <a href="/Schedule/Index"><i class="fa fa-calendar"></i> Lịch trình xe và tuyến</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                </ul>
+                <!-- /#side-menu -->
+            </div>
+            <!-- /.sidebar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-8">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup modal -->
+    <div id="loginModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content loginbox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="accountModal">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div id="registerModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content regbox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="newModal">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-right"><a href="">Back to top</a></p>
+            <p>© 2014 Company, Inc. · <a href="">Privacy</a> · <a href="">Terms</a></p>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.signalR-2.0.3.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+        function LoginModal() {
+            $.ajax({
+                url: "/Account/LogOn",
+                type: "Get",
+                success: function (result) {
+                    $("#accountModal").html(result);
+                }
+            });
+        }
+
+        function RegisterModal() {
+            $.ajax({
+                url: "/Account/Register",
+                type: "Get",
+                success: function (result) {
+                    $("#newModal").html(result);
+                }
+            });
+        }
+    </script>
+    <style type="text/css">
+        .regbox {
+            margin: 10% -20%;
+            width: 130%;
+            text-align: center;
+        }
+
+        .loginbox {
+            margin: auto;
+            width: 65%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-weight: bolder;
+        }
+    </style>
 </body>
 </html>
