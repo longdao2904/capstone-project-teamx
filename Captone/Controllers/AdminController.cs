@@ -15,7 +15,7 @@ namespace Captone.Controllers
         // GET: /Admin/
         private iDeliverEntities _db = new iDeliverEntities();
 
-        public ActionResult PieChart()
+        public ActionResult BarChart()
         {
             var RouteID = _db.Routes.ToList();
             ArrayList array = new ArrayList();
