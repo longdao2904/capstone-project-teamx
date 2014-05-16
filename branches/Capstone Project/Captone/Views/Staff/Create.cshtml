@@ -1,50 +1,73 @@
 ﻿@model Captone.Models.StaffModel
 
 @{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = null;
 }
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend style="font-size: 18px; color: blue">Tạo mức phí mới</legend>
+<div class="col-md-8">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
         <div class="editor-label">
             Mức phí
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Fee)
-            @Html.ValidationMessageFor(model => model.Fee)
-        </div><br/>
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessageFor(model => model.Username)
+        </div><br />
         <div class="editor-label">
-           Khối lượng chặn dưới
+            Mức phí
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MinWeight)
-            @Html.ValidationMessageFor(model => model.MinWeight)
-        </div><br/>
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div><br />
         <div class="editor-label">
-           Khối lượng chặn trên
+            Khối lượng chặn dưới
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MaxWeight)
-            @Html.ValidationMessageFor(model => model.MaxWeight)
-        </div><br/>
+            @Html.EditorFor(model => model.Firstname)
+            @Html.ValidationMessageFor(model => model.Firstname)
+        </div><br />
+        <div class="editor-label">
+            Khối lượng chặn trên
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Lastname)
+            @Html.ValidationMessageFor(model => model.Lastname)
+        </div><br />
         <div class="editor-label">
             Thể tích chặn dưới
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MinVolume)
-            @Html.ValidationMessageFor(model => model.MinVolume)
-        </div><br/>
+            @Html.EditorFor(model => model.StationID)
+            @Html.ValidationMessageFor(model => model.StationID)
+        </div><br />
         <div class="editor-label">
             Thể tích chặn trên
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MaxVolume)
-            @Html.ValidationMessageFor(model => model.MaxVolume)
-        </div><br/>
-    </fieldset>
-<br/>
-}
-<input type="submit" value="Tạo mới" />   @Html.ActionLink("Quay lại danh sách", "Index")
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div><br />
+        <div class="editor-label">
+            Thể tích chặn trên
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div><br />
+        <p>
+            <button type="submit" class="btn btn-primary">Tạo mới</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Hủy</button>
+        </p>
+    }
+</div>
+<script>
+    window.onload = initialize();
+
+    function initialize() {
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    }
+</script>
