@@ -60,6 +60,73 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(function () {
+        var array = [];
+        $.ajax({
+            url: "/Admin/ColumnChart",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                
+                $('#ColumnCharts').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Thống kê số lượng yêu cầu chuyển phát'
+                    },
+                    //subtitle: {
+                    //    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                    //},
+                    xAxis: {
+                        type: 'category',
+                        labels: {
+                            rotation: -45,
+                            style: {
+                                fontSize: '13px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Yêu cầu chuyển phát'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        pointFormat: 'Yêu cầu: <b>{point.y:f} Lượt yêu cầu</b>',
+                    },
+                    series: [{
+                        name: 'Yêu cầu chuyển phát',
+                        data: result,
+                        dataLabels: {
+                            enabled: true,
+                            rotation: -90,
+                            color: '#FFFFFF',
+                            align: 'right',
+                            x: 4,
+                            y: 10,
+                            style: {
+                                fontSize: '13px',
+                                fontFamily: 'Verdana, sans-serif',
+                                textShadow: '0 0 3px black'
+                            }
+                        }
+                    }]
+                });
+            }
+        })
+
+    });
+
+</script>
+
 <div class="panel panel-primary">
     <div class="panel-heading"> Báo cáo thống kê</div>
     <div class="panel-body">
@@ -71,8 +138,7 @@
         </div>
         <div class="col-lg-8">
             <div class="well well-lg">
-                <h4>LINE CHART</h4>
-                <p></p>
+                <div id="ColumnCharts" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 <!-- /.panel-body -->
             </div>
         </div>
