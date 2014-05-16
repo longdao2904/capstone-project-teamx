@@ -8,65 +8,81 @@
 
 <!-- SB Admin CSS - Include with every page -->
 <link href="/Content/css/sb-admin.css" rel="stylesheet">
+
+<script type="text/javascript">
+    $(function () {
+        var array = [];
+        $.ajax({
+            url: "/Admin/PieChart",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    var get = result[i].split(":");
+                    array.push([get[get.length - 1], parseInt(get[0])]
+                    );
+                }
+                $('#container').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Hiệu suất trên từng tuyến'
+                    },
+                    tooltip: {
+                        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                color: '#000000',
+                                connectorColor: '#000000',
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+
+                    series: [{
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: array
+                    }]
+                });
+            }
+        });
+
+    });
+
+</script>
+
 <div class="panel panel-primary">
     <div class="panel-heading"> Báo cáo thống kê</div>
     <div class="panel-body">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Hiệu suất trên từng tuyến - BAR CHART
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-bar-chart"></div>
-                        </div>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
+        <div class="col-lg-8">
+            <div class="well well-lg">
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <!-- /.panel-body -->
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Số lượng yêu cầu theo hình thức thanh toán - PIE CHART
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-pie-chart"></div>
-                        </div>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
+        <div class="col-lg-8">
+            <div class="well well-lg">
+                <h4>LINE CHART</h4>
+                <p></p>
+                <!-- /.panel-body -->
             </div>
-            <div class="col-lg-7">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Doanh thu theo từng tháng - LINE CHART
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-pie-chart"></div>
-                        </div>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="well well-lg">
+                <h4>BAR CHART</h4>
+                <p></p>
+                <!-- /.panel-body -->
             </div>
         </div>
     </div>
 </div>
-
-<!-- Core Scripts - Include with every page -->
-<script src="/Content/js/jquery-1.10.2.js"></script>
-<script src="/Content/js/bootstrap.min.js"></script>
-
-<!-- SB Admin Scripts - Include with every page -->
-<script src="/Content/js/sb-admin.js"></script>
-
-<!-- Highcharts Scripts -->
-<script src="/Content/js/Highcharts/highcharts.js"></script>

@@ -14,53 +14,53 @@
 </script>
 <div class="row">
     <div class="col-lg-8" width="500px">
-        <div class="panel panel-primary">
-            <div class="panel-heading" style="padding-left: 5px">Mức phí vận chuyển</div>
+        <div class="panel panel-primary" style="width: 540px">
+            <div class="panel-title" style="padding-left: 5px">Mức phí vận chuyển</div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table display KeyTable dataTable" id="SchedulesTbl" aria-describedby="example_info">
-                        <thead>
-                            <tr style="text-align: center; background: #557FFF; color: white">
-                                <th rowspan="2" style="width: 150px">Mức phí</th>
-                                <th colspan="2" style="width: 150px">Khối lượng (kg)</th>
-                                <th colspan="2" style="width: 150px">Thể tích (dm3)</th>
-                                <th rowspan="2" style="width: 150px">Quản lý</th>
+                    <table style="border: 2px; font-size: 14px; width: 500px" class="table">
+                        <tr style="text-align: center; background: #557FFF; color: white">
+                            <th rowspan="2" style="width: 150px">ID</th>
+                            <th rowspan="2" style="width: 150px">Mức phí</th>
+                            <th colspan="2" style="width: 150px">Khối lượng</th>
+                            <th colspan="2" style="width: 150px">Thể tích</th>
+                            <th rowspan="2" style="width: 150px">Quản lý</th>
+                        </tr>
+                        <tr style="background: #557FFF; color: white">
+                            <th>Từ</th>
+                            <th>Đến</th>
+                            <th>Từ</th>
+                            <th>Đến</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.FeeID)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Fee)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MinWeight)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MaxWeight)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MinVolume)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.MaxVolume)
+                                </td>
+                                <td style="width: 120px">
+                                    <a href="/Fee/Edit/@item.FeeID">
+                                        <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
+                                    <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>
+                                </td>
                             </tr>
-                            <tr style="background: #557FFF; color: white">
-                                <th>Từ</th>
-                                <th>Đến</th>
-                                <th>Từ</th>
-                                <th>Đến</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.Fee)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.MinWeight)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.MaxWeight)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.MinVolume)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.MaxVolume)
-                                    </td>
-                                    <td style="width: 120px">
-                                        <a href="/Fee/Edit/@item.FeeID">
-                                            <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit">
-                                        </a>
-                                        <a href="/Fee/Details/@item.FeeID"><i class="fa fa-info fa-fw"></i></a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
+                        }
                     </table>
                 </div>
             </div>
