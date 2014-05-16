@@ -13,125 +13,65 @@
     }
 </script>
 <div class="row">
-    <div class="col-lg-8">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Danh sách nhân viên</div>
+    <div class="col-lg-8" width="600px">
+        <div class="panel panel-primary" style="width: 700px">
+            <div class="panel-title" style="padding-left: 5px">Danh sách nhân viên</div>
             <div class="panel-body">
-                <p>
-                    <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-outline btn-primary" onclick="CreateStaffAccount()">Tạo mới tài khoản nhân viên</a>
-                </p>
                 <div class="table-responsive">
-                    <table class="table display KeyTable dataTable" id="tblStaffs" aria-describedby="example_info">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Tài khoản
-                                </th>
-                                <th>
-                                    Họ tên
-                                </th>
-                                <th>
-                                    Điện thoại
-                                </th>
-                                <th>
-                                    Mã trạm
-                                </th>
-                                <th></th>
+                    <table style="border: 2px; font-size: 14px; width: 600px" class="table">
+                        <tr style="text-align: center; background: #557FFF; color: white">
+                            <th style="width: 150px">Tài khoản</th>
+                            <th style="width: 150px">Mật khẩu</th>
+                            <th style="width: 150px">Họ</th>
+                            <th style="width: 200px">Tên</th>
+                            <th style="width: 150px">Số điện thoại</th>
+                            <th style="width: 150px">Mã trạm</th>
+                            <th style="width: 150px">Email</th>
+                            <th style="width: 150px">Địa chỉ</th>
+                            <th style="width: 250px">Quản lý</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
+                                <td style="width: 150px">
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Password)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Firstname)
+                                </td>
+                                <td style="width: 200px">
+                                    @Html.DisplayFor(modelItem => item.Lastname)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.StationID)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td style="width: 120px">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td style="width: 250px">
+                                    <a href="/Staff/Edit/@item.Username">
+                                        <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit"></a>
+                                    <a href="/Staff/Details/@item.Username"><i class="fa fa-info fa-fw"></i></a> | 
+                                    <a href="/Staff/Delete/@item.Username">
+                                        <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Delete"></a>
+
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr style="text-align: center" onmouseover="highlight(this)" onmouseout="reset(this)">
-                                    <td style="width: 150px">
-                                        @Html.DisplayFor(modelItem => item.Username)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
-                                    </td>
-                                    <td style="width: 120px">
-                                        @Html.DisplayFor(modelItem => item.StationID)
-                                    </td>
-                                    <td style="width: 250px">
-                                        <a href="/Staff/Edit/@item.Username">
-                                            <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Edit">
-                                        </a>
-                                        <a href="/Staff/Details/@item.Username"><i class="fa fa-info fa-fw"></i></a> |
-                                        <a href="/Staff/Delete/@item.Username">
-                                            <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Delete">
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
+                        }
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Thông tin tài khoản mới</h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="modal">
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<script>
-    window.onload = loadTable();
 
-    function loadTable() {
-        var oTable = $('#tblStaffs').dataTable();
-
-        $.extend($.fn.dataTable.defaults, {
-            "bPaginate": true,
-            "bLengthChange": true,
-            "bFilter": true,
-            "bInfo": true,
-            "sPaginationType": "full_numbers"
-        });
-
-        var keys = new KeyTable({
-            "table": document.getElementById('tblStaffs'),
-            "datatable": oTable,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "bFilter": true,
-            "bInfo": true,
-            "bAutoWidth": false
-        });
-    }
-
-    function CreateStaffAccount() {
-        $.ajax({
-            url: "/Staff/Create",
-            type: "Get",
-            success: function (result) {
-                $("#modal").html(result);
-            }
-        });
-    }
-</script>
-<style type="text/css">
-    .bodyFix {
-        height: 100%;
-        overflow: scroll;
-    }
-
-    .modal-title {
-        font-weight: bolder;
-    }
-</style>
 
