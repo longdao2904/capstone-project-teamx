@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Captone.Models;
+using System.Data.Objects.SqlClient;
 
 namespace Captone.Controllers
 {
@@ -84,6 +85,34 @@ namespace Captone.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult ColumnChart()
+        {
+
+            var Requests = _db.Requests.ToList();
+            ArrayList array = new ArrayList();
+
+            var req = (from r in _db.Requests
+                       group r by new
+                       {
+                           Column1 = (int?)SqlFunctions.DatePart("month", r.DateRequest)
+                       }
+                           into g
+                           select new
+                           {
+                               SO_REQUEST = g.Count(p => p.RequestID != null),
+                               THANG = g.Key.Column1
+                           }).ToArray();
+            for (int i = 0; i < req.Length; i++)
+            {
+                ArrayList ar = new ArrayList();
+                ar.Add(req[i].THANG);
+                ar.Add(req[i].SO_REQUEST);
+
+                array.Add(ar);
+            }
+            return Json(array, JsonRequestBehavior.AllowGet);
         }
 
         #region Authentication
