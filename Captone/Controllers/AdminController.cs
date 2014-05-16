@@ -52,44 +52,28 @@ namespace Captone.Controllers
         {
             var requests = _db.Requests.Where(r => r.Payment == true).ToList();
             var invoices = _db.Invoices.ToList();
+            var bills = new List<Invoice>();
             ArrayList array = new ArrayList();
             // list bill of all requests
             List<double> prices = new List<double>();
-            List<DateTime> dates = new List<DateTime>();
-            foreach (var rq in requests)
+            List<string> dates = new List<string>();
+
+            var revenue = (from i in invoices
+                           group new { i.Request, i } by new { Ngay = (String)i.Request.DateRequest.Date.ToShortDateString().Substring(0, 5) } into g
+                           select new
+                           {
+                               Ngay = g.Key.Ngay,
+                               DoanhThu = (double?)g.Sum(p => p.i.Price)
+                           }).ToArray();
+            for (int i = 0; i < revenue.Count(); i++)
             {
-                var bill = invoices.FirstOrDefault(i => i.RequestID == rq.RequestID);
-                if (bill != null)
-                {
-                    prices.Add(bill.Price);
-                }
-            }
-            foreach (var inv in invoices)
-            {
-                var date = requests.FirstOrDefault(r => r.RequestID == inv.RequestID);
-                if (date != null)
-                {
-                    dates.Add(date.DateRequest.Date);
-                }
-            }
-            foreach (var p in prices)
-            {
-                foreach (var d in dates)
-                {
-                    array.Add("Bill: " + p);
-                }
+                array.Add(revenue[i].Ngay + ":" + revenue[i].DoanhThu);
             }
             return Json(array, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult ColumnChart()
         {
-
             var Requests = _db.Requests.ToList();
             ArrayList array = new ArrayList();
 
@@ -113,6 +97,11 @@ namespace Captone.Controllers
                 array.Add(ar);
             }
             return Json(array, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Index()
+        {
+            return View();
         }
 
         #region Authentication

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Thống kê";
+    ViewBag.Title = "Báo cáo thống kê";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!-- Core CSS - Include with every page -->
@@ -23,7 +23,7 @@
                     array.push([get[0], parseInt(get[1])]
                     );
                 }
-                $('#container').highcharts({
+                $('#pie-chart').highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -56,7 +56,6 @@
                 });
             }
         });
-
     });
 </script>
 
@@ -69,23 +68,21 @@
             contentType: "application/json",
             dataType: "json",
             success: function (result) {
-                
-                $('#ColumnCharts').highcharts({
+                $('#bar-chart').highcharts({
                     chart: {
                         type: 'column'
                     },
                     title: {
-                        text: 'Thống kê số lượng yêu cầu chuyển phát'
+                        text: 'Số lượng yêu cầu chuyển phát theo tháng'
                     },
-                    //subtitle: {
-                    //    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-                    //},
                     xAxis: {
                         type: 'category',
+                        title: {
+                            text: 'Tháng'
+                        },
                         labels: {
-                            rotation: -45,
                             style: {
-                                fontSize: '13px',
+                                fontSize: '16px',
                                 fontFamily: 'Verdana, sans-serif'
                             }
                         }
@@ -93,14 +90,18 @@
                     yAxis: {
                         min: 0,
                         title: {
-                            text: 'Yêu cầu chuyển phát'
+                            text: 'Yêu cầu chuyển phát',
+                            style: {
+                                fontSize: '16px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
                         }
                     },
                     legend: {
                         enabled: false
                     },
                     tooltip: {
-                        pointFormat: 'Yêu cầu: <b>{point.y:f} Lượt yêu cầu</b>',
+                        pointFormat: '<b>{point.y:f} Lượt yêu cầu</b>',
                     },
                     series: [{
                         name: 'Yêu cầu chuyển phát',
@@ -122,9 +123,63 @@
                 });
             }
         })
-
     });
+</script>
 
+<script type="text/javascript">
+    $(function () {
+        var dateArray = [];
+        var totalArray = [];
+        $.ajax({
+            url: "/Admin/LineChart",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    var get = result[i].split(":");
+                    totalArray.push(parseInt([get[1]]))
+                    dateArray.push([get[0]]);
+                }
+
+                console.log(dateArray);
+                console.log(totalArray);
+
+                $('#line-chart').highcharts({
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: 'Doanh thu theo ngày'
+                    },
+                    xAxis: {
+                        categories: dateArray
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Doanh thu (VNĐ)'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: true
+                        }
+                    },
+                    series: [{
+                        name: 'Tổng thu',
+                        data: totalArray
+                    }]
+                })
+            }
+        });
+    });
 </script>
 
 <div class="panel panel-primary">
@@ -132,20 +187,19 @@
     <div class="panel-body">
         <div class="col-lg-8">
             <div class="well well-lg">
-                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="pie-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 <!-- /.panel-body -->
             </div>
         </div>
         <div class="col-lg-8">
             <div class="well well-lg">
-                <div id="ColumnCharts" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="bar-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 <!-- /.panel-body -->
             </div>
         </div>
         <div class="col-lg-8">
             <div class="well well-lg">
-                <h4>BAR CHART</h4>
-                <p></p>
+                <div id="line-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 <!-- /.panel-body -->
             </div>
         </div>
