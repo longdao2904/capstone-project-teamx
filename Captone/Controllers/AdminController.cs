@@ -104,6 +104,11 @@ namespace Captone.Controllers
             return View();
         }
 
+        public ActionResult ManageReview()
+        {
+            return View();
+        }
+
         #region Authentication
         public ActionResult LogIn()
         {

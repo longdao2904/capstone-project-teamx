@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Phản hồi & Đánh giá";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Quản lý các phản hồi & đánh giá của khách hàng</h4>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="#home-pills" data-toggle="tab" onclick="loadComment()">Phản hồi của khách hàng</a>
+            </li>
+            <li class="">
+                <a href="#profile-pills" data-toggle="tab" onclick="loadRating()">Đánh giá từng trạm</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="home-pills">
+                
+            </div>
+            <div class="tab-pane fade" id="profile-pills">
+                <h4>Profile Tab</h4>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<script>
+    window.onload = loadComment();
+
+    function loadComment() {
+        $.ajax({
+            url: "/Feedback/ManageCommentList",
+            type: "Get",
+            success: function (result) {
+                $("#home-pills").html(result);
+            }
+        });
+    }
+
+    function loadRating() {
+        $.ajax({
+            url: "/Feedback/ManageRatingList",
+            type: "Get",
+            success: function (result) {
+                $("#profile-pills").html(result);
+            }
+        });
+    }
+</script>
