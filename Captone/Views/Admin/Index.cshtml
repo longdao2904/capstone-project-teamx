@@ -13,14 +13,14 @@
     $(function () {
         var array = [];
         $.ajax({
-            url: "/Admin/PieChart",
+            url: "/Admin/PaymentPieChart",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
             success: function (result) {
                 for (var i = 0; i < result.length; i++) {
                     var get = result[i].split(":");
-                    array.push([get[get.length - 1], parseInt(get[0])]
+                    array.push([get[0], parseInt(get[1])]
                     );
                 }
                 $('#container').highcharts({
@@ -30,7 +30,7 @@
                         plotShadow: false
                     },
                     title: {
-                        text: 'Hiệu suất trên từng tuyến'
+                        text: 'Tỉ lệ yêu cầu theo hình thức thanh toán'
                     },
                     tooltip: {
                         pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
@@ -58,7 +58,6 @@
         });
 
     });
-
 </script>
 
 <div class="panel panel-primary">
