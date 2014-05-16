@@ -1,17 +1,10 @@
 ﻿@model IEnumerable<Captone.Models.StaffModel>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
     ViewBag.Title = "Quản lý nhân viên";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<script>
-    function highlight(x) {
-        x.style.backgroundColor = "lightblue";
-    }
-    function reset(x) {
-        x.style.backgroundColor = "white";
-    }
-</script>
 <div class="row">
     <div class="col-lg-8">
         <div class="panel panel-primary">

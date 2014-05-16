@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<Captone.Models.Comment>
-
+<script src="~/Content/TableJS/jquery.dataTables.js"></script>
+<script src="~/Content/TableJS/KeyTable.js"></script>
 @{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = null;
 }
 
-<article class="module width_3_quater">
-    <header style="text-align: center">
-        <h3>Quản lí bình luận</h3>
-    </header>
-    <div class="module_content">
-        <table class="tablesorter">
+<div class="row">
+    <div class="col-lg-8">
+        <table class="table display KeyTable dataTable" id="tblComment" aria-describedby="example_info">
             <thead>
                 <tr style="text-align: center">
                     <td>Khách hàng</td>
@@ -36,16 +34,38 @@
                             @Html.DisplayFor(modelItem => item.StationID)
                         </td>
                         <td>
-                           @* <a href="/FeedBack/Details/@item.CommentID">
-                                <input type="image" src="~/Content/Images/Admin/icn_edit.png" title="Chi tiết"></a>*@
                             <a href="/FeedBack/DeleteComment/@item.CommentID">
-                                <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Xoá"></a>
+                                <input type="image" src="~/Content/Images/Admin/icn_trash.png" title="Xoá">
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <div class="clear"></div>
     </div>
-</article>
-<!-- end of stats article -->
+</div>
+<script>
+    window.onload = loadTable();
+
+    function loadTable() {
+        var oTable = $('#tblComment').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('SchedulesTbl'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+</script>
