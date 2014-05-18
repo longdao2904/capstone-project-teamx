@@ -43,6 +43,8 @@
         });
     }
 
+    window.onloadstart = loadRating();
+
     function loadRating() {
         $.ajax({
             url: "/Feedback/ManageRatingList",
