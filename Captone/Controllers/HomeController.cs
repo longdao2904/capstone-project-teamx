@@ -56,6 +56,10 @@ namespace Captone.Controllers
         public ActionResult SentRequestForm2()
         {
             var manageFee = _db.ManageFees.ToList();
+            var CoachType = _db.CoachTypes.ToList().Last();
+            ViewBag.MaxLenght = CoachType.Length;
+            ViewBag.MaxWidth = CoachType.Width;
+            ViewBag.MaxHeight = CoachType.Height;
             return View(manageFee);
         }
         public string CalculateFee(float minVolume, float maxVolume)
