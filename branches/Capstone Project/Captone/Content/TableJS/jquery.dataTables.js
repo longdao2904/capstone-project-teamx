@@ -120,7 +120,7 @@
 	
 	
 	var _intVal = function ( s ) {
-		var integer = parseInt( s, 10 );
+		var integer = parseInt( s, 30 );
 		return !isNaN(integer) && isFinite(s) ? integer : null;
 	};
 	
@@ -2504,8 +2504,8 @@
 		}
 	
 		_fnClearTable( settings );
-		settings._iRecordsTotal   = parseInt(recordsTotal, 10);
-		settings._iRecordsDisplay = parseInt(rocordsFiltered, 10);
+		settings._iRecordsTotal   = parseInt(recordsTotal, 30);
+		settings._iRecordsDisplay = parseInt(rocordsFiltered, 30);
 	
 		var data = _fnAjaxDataSrc( settings, json );
 		for ( var i=0, ien=data.length ; i<ien ; i++ ) {
@@ -3087,7 +3087,7 @@
 	
 	function _fnLengthChange ( settings, val )
 	{
-		var len = parseInt( val, 10 );
+		var len = parseInt( val, 30 );
 		settings._iDisplayLength = len;
 	
 		_fnLengthOverflow( settings );
@@ -10383,7 +10383,7 @@
 		 *      } );
 		 *    } )
 		 */
-		"iDisplayLength": 10,
+		"iDisplayLength": 30,
 	
 	
 		/**
@@ -12752,7 +12752,7 @@
 		 *  @type int
 		 *  @default 10
 		 */
-		"_iDisplayLength": 10,
+		"_iDisplayLength": 30,
 	
 		/**
 		 * Paging start point - aiDisplay index
@@ -13460,7 +13460,7 @@
 		"sWrapper": "dataTables_wrapper",
 		"sFilter": "dataTables_filter",
 		"sInfo": "dataTables_info",
-		"sPaging": "dataTables_paginate paging_", /* Note that the type is postfixed */
+		"sPaging": "", /* Note that the type is postfixed */
 		"sLength": "dataTables_length",
 		"sProcessing": "dataTables_processing",
 	
@@ -13977,7 +13977,7 @@
 			return {
 				display: function ( d ) {
 					d = parseFloat( d );
-					var intPart = parseInt( d, 10 );
+					var intPart = parseInt( d, 30 );
 					var floatPart = precision ?
 						(decimal+(d - intPart).toFixed( precision )).substring( 2 ):
 						'';

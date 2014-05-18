@@ -371,8 +371,12 @@ namespace Captone.Controllers
                                "<div style='float: left'>" +
                                "Θ Tên khách hàng: " + get.Request.SenderName +
                                "<br/>" +
+                               "Θ Điện thoại người gửi: " + get.Request.SenderPhone +
+                               "<br/>" +
                                "Θ Địa chỉ người gửi: " + get.Request.SenderAddress +
                                   "<br/>" +
+                              "Θ Điện thoại người nhận: " + get.Request.ReceiverPhone +
+                               "<br/>" +
                                "Θ Địa chỉ người nhận: " + get.Request.ReceiverAddress +
                                   "<br/>" +
                                "Θ Mã hàng: " + get.Request.RequestCode +
