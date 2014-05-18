@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Captone.Models.Reason>
+﻿@model IEnumerable<Captone.Models.Request>
 @{
     ViewBag.Title = "Các yêu cầu không xếp lịch được";
     Layout = null;
@@ -17,46 +17,5 @@ else if (!Model.Any())
 }
 else
 {
-    <h4 style="color: orange">Có một số yêu cầu xếp lịch đã không thực hiện được với nguyên nhân:</h4>
-    <table class="table" style="width: 800px">  
-        <thead>
-            <th style="width: 50px">Mã hàng</th>
-            <th style="width: 150px">Trạm đầu cuối</th>
-            <th style="width: 50px">Số đường tìm được</th>
-            <th style="width: 150px">Danh sách các đường đi</th>
-            <th style="width: 200px">Trường hợp gửi một tuyến xe</th>
-            <th style="width: 200px">Trường hợp gửi nhiều tuyến xe</th>
-            <th style="width: 200px">Trường hợp gửi giữa tuyến xe</th>
-            <th style="width: 200px">Đề nghị</th>
-        </thead>
-        <tbody>
-            @foreach (var r in Model)
-            {
-                <tr>
-                    <td style="width: 100px">@r.RequestCode</td>
-                    <td style="width: 100px">@r.FromTo</td>
-                    <td style="width: 100px">@r.NumberOfWay</td>
-                    <td><a data-toggle="modal" id="" data-target="#ModalWayList" class="" onclick="FoundWay(@Html.Raw(Json.Encode(r.WayList)));">Xem chi tiết</a></td>
-                    <td style="width: 100px">@r.OneTrip</td>
-                    <td style="width: 100px">@r.MultipleTrip</td>
-                    <td style="width: 100px">@r.MiddleTrip</td>
-                    <td style="width: 100px">@r.Suggest</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <h4 style="color: orange">Có @Model.Count() yêu cầu xếp lịch đã không thực hiện được.</h4>
 }
-<script type="text/javascript">
-
-    function FoundWay(ways) {
-        $.ajax({
-            url: "/Trip/ListWay",
-            type: "Post",
-            data: { ways: ways.toString() },
-            success: function (result) {
-                $('#close').click();
-                $('#ListWays').html(result);
-            }
-        });
-    }
-</script>

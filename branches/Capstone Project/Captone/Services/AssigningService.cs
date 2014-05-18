@@ -204,21 +204,18 @@ namespace Captone.Services
         }
 
         //MAIN FUNCTION OF ASSIGNING PROCESS
-        public Dictionary<Request, Dictionary<Trip, int>> Assigning(List<Request> requests, out List<Reason> failedReason)
+        public Dictionary<Request, Dictionary<Trip, int>> Assigning(List<Request> requests)
         {
             InitData();
-            failedReason = new List<Reason>();
             //if the list request is empty, terminate function
             if (!CheckNotNull(requests))
             {
-                failedReason = null;
                 return _finalResult;
             }
             //if some request doesn't have invoice, meaning there a big error because only requests have invoice are allowed
             //to assigning, the action in this situation is terminal and notice to staff
             if (requests.Any(request => FindInvoiceFromRequest(request) == null))
             {
-                failedReason = null;
                 return _finalResult;
             }
             //sort list request base on criteria
@@ -300,7 +297,6 @@ namespace Captone.Services
                 {
                     if (result.Key == reason.Key) flag = 1;
                 }
-                if (flag == 0) failedReason.Add(reason.Value);
             }
             return _finalResult;
         }
