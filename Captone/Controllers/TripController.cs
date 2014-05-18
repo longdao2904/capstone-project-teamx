@@ -292,39 +292,44 @@ namespace Captone.Controllers
         [WebMethod]
         public ActionResult Assigning(List<Request> request)
         {
-            var assign = new AssigningService();
-            var failedReason = new List<Reason>();
-            var result = assign.Assigning(request, out failedReason);
-
-            foreach (var item in result)
+            var requests = request;
+            if (request != null)
             {
-                for (var i = 0; i < item.Value.Count; i++)
+                requests = new List<Request>();
+                var assign = new AssigningService();
+                var result = assign.Assigning(request);
+                foreach (var rq in request)
                 {
-                    var ass = new Assigning();
-                    var requestId = item.Key.RequestID;
-                    ass.RequestID = requestId;
-                    var tripId = item.Value.Keys.ToList();
-                    var stop = item.Value.Values.ToList();
-                    ass.TripID = tripId[i].TripID;
-                    ass.StopStation = stop[i];
-                    ass.IndicateOrder = i + 1;
-                    ass.AssignedDate = DateTime.Now;
-                    var req = db.Requests.Single(p => p.RequestID == requestId);
-                    req.DeliveryStatusID = 3;
-                    db.Assignings.Add(ass);
-                    db.SaveChanges();
+                    int flag = 0;
+                    foreach (var item in result)
+                    {
+                        if (item.Key.RequestID == rq.RequestID) flag++;
+                    }
+                    if(flag == 0) requests.Add(rq);
+
+                }
+                foreach (var item in result)
+                {
+                    for (var i = 0; i < item.Value.Count; i++)
+                    {
+                        var ass = new Assigning();
+                        var requestId = item.Key.RequestID;
+                        ass.RequestID = requestId;
+                        var tripId = item.Value.Keys.ToList();
+                        var stop = item.Value.Values.ToList();
+                        ass.TripID = tripId[i].TripID;
+                        ass.StopStation = stop[i];
+                        ass.IndicateOrder = i + 1;
+                        ass.AssignedDate = DateTime.Now;
+                        var req = db.Requests.Single(p => p.RequestID == requestId);
+                        req.DeliveryStatusID = 3;
+                        db.Assignings.Add(ass);
+                        db.SaveChanges();
+                    }
                 }
             }
-            var stringView = RenderRazorViewToString("Assigning",failedReason);
+            var stringView = RenderRazorViewToString("Assigning", requests);
             return Json(stringView, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult ListWay(string ways)
-        {
-            string[] separator = {","};
-            var tmpList = ways.Split(separator, StringSplitOptions.RemoveEmptyEntries).ToList();
-            ViewBag.WayList = tmpList;
-            return PartialView("ListWay", tmpList);
         }
 
         public string RenderRazorViewToString(string viewName, object model)
