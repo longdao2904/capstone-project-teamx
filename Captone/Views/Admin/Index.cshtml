@@ -33,7 +33,8 @@
                         text: 'Tỉ lệ yêu cầu theo hình thức thanh toán'
                     },
                     tooltip: {
-                        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                        headerFormat: '{series.name}<br/>',
+                        pointFormat: '<b>{point.name}</b>: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
@@ -50,7 +51,7 @@
 
                     series: [{
                         type: 'pie',
-                        name: 'Browser share',
+                        name: 'Hình thức thanh toán',
                         data: array
                     }]
                 });
@@ -101,7 +102,8 @@
                         enabled: false
                     },
                     tooltip: {
-                        pointFormat: '<b>{point.y:f} Lượt yêu cầu</b>',
+                        headerFormat: '<b>Tháng: </b> {point.x}<br>',
+                        pointFormat: '{point.y:f} lượt yêu cầu</b>',
                     },
                     series: [{
                         name: 'Yêu cầu chuyển phát',
@@ -158,6 +160,14 @@
                         text: 'Doanh thu theo ngày'
                     },
                     xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: { // don't display the dummy year
+                            month: '%e. %b',
+                            year: '%b'
+                        },
+                        title: {
+                            text: 'Ngày'
+                        },
                         categories: dateArray
                     },
                     yAxis: {
@@ -179,7 +189,11 @@
                     series: [{
                         name: 'Tổng thu',
                         data: totalArray
-                    }]
+                    }],
+                    tooltip: {
+                        headerFormat: '<b>Ngày: </b> {point.x}<br>',
+                        pointFormat: 'Doanh thu: {point.y}'
+                    },
                 })
             }
         });
