@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Captone.Models;
 using Captone.Repositories;
@@ -30,6 +31,7 @@ namespace Captone.Services
             new GenericRepository<RouteStage>(new iDeliverEntities());
         private readonly GenericRepository<Schedule> _scheduleRepository =
             new GenericRepository<Schedule>(new iDeliverEntities());
+        private iDeliverEntities db = new iDeliverEntities();
         //declare class
         private List<Invoice> _invoices = new List<Invoice>();
         private List<Station> _stations = new List<Station>();
@@ -176,32 +178,32 @@ namespace Captone.Services
             reason.Suggest = "";
             return reason;
         }
-        //create the way list for request
-        public List<String> AddWayList(Request request)
-        {
-            if (!CheckNotNull(_foundWays)) return null;
-            var result = new List<String>();
-            foreach (var foundWay in _foundWays)
-            {
-                var tmpList = foundWay.First(i => i.Key == request).Value;
-                if (CheckNotNull(tmpList))
-                {
-                    string tmp = tmpList.Aggregate("", (current, stage) => current + (FindName(stage.StartPoint) + " => "));
-                    tmp += FindName(tmpList.Last().EndPoint);
-                    result.Add(tmp);
-                }
-            }
-            return result;
-        }
+        ////create the way list for request
+        //public List<String> AddWayList(Request request)
+        //{
+        //    if (!CheckNotNull(_foundWays)) return null;
+        //    var result = new List<String>();
+        //    foreach (var foundWay in _foundWays)
+        //    {
+        //        var tmpList = foundWay.First(i => i.Key == request).Value;
+        //        if (CheckNotNull(tmpList))
+        //        {
+        //            string tmp = tmpList.Aggregate("", (current, stage) => current + (FindName(stage.StartPoint) + " => "));
+        //            tmp += FindName(tmpList.Last().EndPoint);
+        //            result.Add(tmp);
+        //        }
+        //    }
+        //    return result;
+        //}
         //find name of station base on its id
-        public string FindName(int stationID)
-        {
-            foreach (var station in _stations.Where(station => station.StationID == stationID))
-            {
-                return station.StationName;
-            }
-            return "";
-        }
+        //public string FindName(int stationID)
+        //{
+        //    foreach (var station in _stations.Where(station => station.StationID == stationID))
+        //    {
+        //        return station.StationName;
+        //    }
+        //    return "";
+        //}
 
         //MAIN FUNCTION OF ASSIGNING PROCESS
         public Dictionary<Request, Dictionary<Trip, int>> Assigning(List<Request> requests)
@@ -226,14 +228,14 @@ namespace Captone.Services
             foreach (var request in requests)
             {
                 if (CheckExist(request)) continue;
-                var tmpReason = new Reason();
-                tmpReason = Init(tmpReason);
-                tmpReason.RequestCode = request.RequestCode;
-                tmpReason.FromTo = FindName(request.FromLocation) + " => " + FindName(request.ToLocation);
+            //    var tmpReason = new Reason();
+            //    tmpReason = Init(tmpReason);
+            //    tmpReason.RequestCode = request.RequestCode;
+            //    tmpReason.FromTo = FindName(request.FromLocation) + " => " + FindName(request.ToLocation);
                 //mark the current size to compare
                 int tmpSize = _finalResult.Count();
-                int flag = 0;
-                //check if there is a route connect two stations of request, if yes, get the routeID
+             //   int flag = 0;
+                //check if there is a route cofnnect two stations of request, if yes, get the routeID
                 int tmp = CheckOneTrip(request);
                 if (tmp > 0)
                 {
@@ -241,63 +243,63 @@ namespace Captone.Services
                     ProcessingOneTrip(tmp, request);
                     if (tmpSize == _finalResult.Count)
                     {
-                        tmpReason.OneTrip = @"Có tuyến trực tiếp nhưng không có chuyến xe phù hợp";
-                        var tmpRoute = FindRouteFromStations(request.FromLocation, request.ToLocation);
-                        tmpReason.Suggest = @"Bạn nên tự tạo thêm chuyến " + tmpRoute.RouteName +". ";
-                        flag = ProcessingMultipleTrip(request, out choose);
-                        tmpReason.NumberOfWay = _foundWays.Count;
-                        tmpReason.WayList = AddWayList(request);
+             //           tmpReason.OneTrip = @"Có tuyến trực tiếp nhưng không có chuyến xe phù hợp";
+            //            var tmpRoute = FindRouteFromStations(request.FromLocation, request.ToLocation);
+            //            tmpReason.Suggest = @"Bạn nên tự tạo thêm chuyến " + tmpRoute.RouteName +". ";
+            //            flag = ProcessingMultipleTrip(request, out choose);
+            //            tmpReason.NumberOfWay = _foundWays.Count;
+            //            tmpReason.WayList = AddWayList(request);
                     }
                 }
-                else
-                {
-                    tmpReason.OneTrip = @"Không có chuyến trực tiếp nối hai trạm";
+             //   else
+           //     {
+            //        tmpReason.OneTrip = @"Không có chuyến trực tiếp nối hai trạm";
                     //if the request can't be assigned to the one trip of one route, try processing multiple trips
-                    flag = ProcessingMultipleTrip(request, out choose);
-                    tmpReason.NumberOfWay = _foundWays.Count;
-                    tmpReason.WayList = AddWayList(request);
-                }
+             //       flag = ProcessingMultipleTrip(request, out choose);
+             //       tmpReason.NumberOfWay = _foundWays.Count;
+             //       tmpReason.WayList = AddWayList(request);
+           //     }
                 //if request hadn't been assigned, add to a temp list
                 if (_finalResult.Count == tmpSize)
                 {
-                    if (flag == 1) tmpReason.MultipleTrip = @"Tìm được tuyến đường nhưng không có xe chạy";
-                    else if (flag == 2)
-                        tmpReason.MultipleTrip = @"Tìm được tuyến đường, chuyến xe chạy nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
-                    else tmpReason.MultipleTrip = @"Không tìm được các tuyến xe để gửi hàng chỉ tại trạm đầu, trạm cuối chứ không gửi giữa đường";
-                    if ((flag == 1 || flag == 2) && choose != null)
-                    {
-                        tmpReason.Suggest += @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ". ";
-                    }
+              //      if (flag == 1) tmpReason.MultipleTrip = @"Tìm được tuyến đường nhưng không có xe chạy";
+              //      else if (flag == 2)
+              //          tmpReason.MultipleTrip = @"Tìm được tuyến đường, chuyến xe chạy nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
+              //      else tmpReason.MultipleTrip = @"Không tìm được các tuyến xe để gửi hàng chỉ tại trạm đầu, trạm cuối chứ không gửi giữa đường";
+             //       if ((flag == 1 || flag == 2) && choose != null)
+                    //{
+                    //    tmpReason.Suggest += @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ". ";
+                    //}
                     remainRequest.Add(request);
                 }
-                reasons.Add(request, tmpReason);
+           //     reasons.Add(request, tmpReason);
             }
             //iterate the temp list to try process for the remaining request
             foreach (var request in remainRequest)
             {
-                int flag = ProcessingMiddleTrip(request, out choose);
-                var tmp = reasons.First(i => i.Key == request);
-                var tmpReason = tmp.Value;
-                reasons.Remove(tmp.Key);
-                if (flag == 1) tmpReason.MiddleTrip = @"Tìm được tuyến đường nhưng không chưa có xe chạy";
-                else if (flag == 2) tmpReason.MiddleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
-                else tmpReason.MiddleTrip = @"Hoàn toàn không tìm được tuyến đường nào cho yêu cầu vận chuyển này";
-                if ((flag == 1 || flag == 2) && choose != null)
-                {
-                    if (tmpReason.Suggest == "") tmpReason.Suggest = @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ".";
-                    else tmpReason.Suggest += @"Ngoài ra, cũng có thể thêm chuyến xe " + choose.RouteName + ".";
-                }
-                if (tmpReason.Suggest == "") tmpReason.Suggest = "Không có.";
-                reasons.Add(tmp.Key, tmpReason);
+                 ProcessingMiddleTrip(request);
+              //  var tmp = reasons.First(i => i.Key == request);
+              //  var tmpReason = tmp.Value;
+              //  reasons.Remove(tmp.Key);
+              //  if (flag == 1) tmpReason.MiddleTrip = @"Tìm được tuyến đường nhưng không chưa có xe chạy";
+             //   else if (flag == 2) tmpReason.MiddleTrip = @"Tìm được tuyến đường, chuyến xe nhưng xe không thỏa mãn ràng buộc về thời gian - thể tích";
+             //   else tmpReason.MiddleTrip = @"Hoàn toàn không tìm được tuyến đường nào cho yêu cầu vận chuyển này";
+             //   if ((flag == 1 || flag == 2) && choose != null)
+                //{
+                //    if (tmpReason.Suggest == "") tmpReason.Suggest = @"Bạn có thể liên lạc với nhân viên khác tạo thêm chuyến xe " + choose.RouteName + ".";
+                //    else tmpReason.Suggest += @"Ngoài ra, cũng có thể thêm chuyến xe " + choose.RouteName + ".";
+                //}
+                //if (tmpReason.Suggest == "") tmpReason.Suggest = "Không có.";
+                //reasons.Add(tmp.Key, tmpReason);
             }
-            foreach (var reason in reasons)
-            {
-                int flag = 0;
-                foreach (var result in _finalResult)
-                {
-                    if (result.Key == reason.Key) flag = 1;
-                }
-            }
+            //foreach (var reason in reasons)
+            //{
+            //    int flag = 0;
+            //    foreach (var result in _finalResult)
+            //    {
+            //        if (result.Key == reason.Key) flag = 1;
+            //    }
+            //}
             return _finalResult;
         }
         //check if there exist a route connect two location of request
@@ -320,10 +322,7 @@ namespace Captone.Services
         //list all trips travel on the route
         public List<Trip> FindTripFromRoute(int routeID)
         {
-            var trips = (from trip in _trips
-                         from schedule in _schedules
-                         where schedule.ScheduleID == trip.ScheduleID && schedule.RouteID == routeID
-                         select trip).ToList();
+            var trips = db.Trips.Where(i => i.Schedule.Route.RouteID == routeID).ToList();
             if (!CheckNotNull(trips)) return null;
             trips.Sort((a, b) => (a.EstimateDepartureTime).CompareTo(b.EstimateDepartureTime));
             return trips;
@@ -508,13 +507,11 @@ namespace Captone.Services
         }
 
         //processing middle trips
-        public int ProcessingMiddleTrip(Request request, out Route choose)
+        public void ProcessingMiddleTrip(Request request)
         {
-            choose = null;
-            int flag = 0;
+          //  choose = null;
             _foundWays.Clear();
             FindPath(request);
-            if (!CheckNotNull(_foundWays)) return 0;
             var tmpResult = new List<Dictionary<Trip, int>>();
             foreach (var listStage in _foundWays)
             {
@@ -525,13 +522,12 @@ namespace Captone.Services
                 var oneRoute = CheckSubWay(CutList(stages, 0, stages.Count - 1));
                 if (CheckNotNull(oneRoute))
                 {
-                    if (flag == 0) flag = 1;
                     foreach (var route in oneRoute)
                     {
                         var stations = new List<int> { request.ToLocation };
                         var res = new List<Route> { route };
                         var solution = CheckResult(stations, res, request);
-                        if (!CheckNotNull(solution)) choose = route;
+                   //     if (!CheckNotNull(solution)) choose = route;
                         var tmpMap = new Dictionary<Trip, int>();
                         if (CheckNotNull(solution))
                         {
@@ -540,10 +536,6 @@ namespace Captone.Services
                                 tmpMap.Add(solution[index], stations[index]);
                             }
                             tmpResult.Add(tmpMap);
-                        }
-                        else
-                        {
-                            if (flag == 1) flag = 2;
                         }
                     }
                 }
@@ -555,7 +547,6 @@ namespace Captone.Services
                     var bList = CheckSubWay(CutList(stages, i + 1, count - 1));
                     if (CheckNotNull(aList) && CheckNotNull(bList))
                     {
-                        if (flag == 0) flag = 1;
                         foreach (var a in aList)
                         {
                             foreach (var b in bList)
@@ -563,7 +554,7 @@ namespace Captone.Services
                                 var stations = new List<int> { stages[i].EndPoint, request.ToLocation };
                                 var res = new List<Route> { a, b };
                                 var solution = CheckResult(stations, res, request);
-                                if (!CheckNotNull(solution)) choose = b;
+                              //  if (!CheckNotNull(solution)) choose = b;
                                 var tmpMap = new Dictionary<Trip, int>();
                                 if (CheckNotNull(solution) && CheckDistinct(res))
                                 {
@@ -572,10 +563,6 @@ namespace Captone.Services
                                         tmpMap.Add(solution[index], stations[index]);
                                     }
                                     tmpResult.Add(tmpMap);
-                                }
-                                else
-                                {
-                                    if (flag == 1) flag = 2;
                                 }
                             }
                         }
@@ -591,7 +578,6 @@ namespace Captone.Services
                         var cList = CheckSubWay(CutList(stages, j + 1, count - 1));
                         if (CheckNotNull(aList) && CheckNotNull(bList) && CheckNotNull(cList))
                         {
-                            if (flag == 0) flag = 1;
                             foreach (var a in aList)
                             {
                                 foreach (var b in bList)
@@ -606,7 +592,7 @@ namespace Captone.Services
                                             };
                                         var res = new List<Route> { a, b, c };
                                         var solution = CheckResult(stations, res, request);
-                                        if (!CheckNotNull(solution)) choose = c;
+                                     //   if (!CheckNotNull(solution)) choose = c;
                                         var tmpMap = new Dictionary<Trip, int>();
                                         if (CheckNotNull(solution) && CheckDistinct(res))
                                         {
@@ -615,10 +601,6 @@ namespace Captone.Services
                                                 tmpMap.Add(solution[index], stations[index]);
                                             }
                                             tmpResult.Add(tmpMap);
-                                        }
-                                        else
-                                        {
-                                            if (flag == 1) flag = 2;
                                         }
                                     }
                                 }
@@ -640,7 +622,6 @@ namespace Captone.Services
 
                             if (CheckNotNull(aList) && CheckNotNull(bList) && CheckNotNull(cList) && CheckNotNull(dList))
                             {
-                                if (flag == 0) flag = 1;
                                 foreach (var a in aList)
                                 {
                                     foreach (var b in bList)
@@ -659,7 +640,7 @@ namespace Captone.Services
                                                 var res = new List<Route> { a, b, c, d };
                                                 var solution = CheckResult(stations, res, request);
                                                 var tmpMap = new Dictionary<Trip, int>();
-                                                if (!CheckNotNull(solution)) choose = d;
+                                            //    if (!CheckNotNull(solution)) choose = d;
                                                 if (CheckNotNull(solution) && CheckDistinct(res))
                                                 {
                                                     for (int index = 0; index < solution.Count; index++)
@@ -667,10 +648,6 @@ namespace Captone.Services
                                                         tmpMap.Add(solution[index], stations[index]);
                                                     }
                                                     tmpResult.Add(tmpMap);
-                                                }
-                                                else
-                                                {
-                                                    if (flag == 1) flag = 2;
                                                 }
                                             }
                                         }
@@ -686,9 +663,6 @@ namespace Captone.Services
                 if (tmpResult.Count >= 2) tmpResult.Sort(CompareQualityOfSolution);
                 _finalResult.Add(request, tmpResult.First());
             }
-            if (flag == 1) return 1;
-            if (flag == 2) return 2;
-            return 3;
         }
         //check the list of route
         public bool CheckDistinct(List<Route> routes)
@@ -738,17 +712,14 @@ namespace Captone.Services
         }
         public List<Stage> FindListStageOfTrip(Trip trip)
         {
-            int routeID = 0;
-            foreach (var schedule in _schedules)
+            var curTrip = db.Trips.FirstOrDefault(i => i.TripID == trip.TripID);
+            if (curTrip != null)
             {
-                if (schedule.ScheduleID == trip.ScheduleID)
+                var routeID = curTrip.Schedule.Route.RouteID;
+                foreach (var stage in _stageOfRoute)
                 {
-                    routeID = schedule.RouteID;
+                    if (stage.Key.RouteID == routeID) return stage.Value;
                 }
-            }
-            foreach (var stage in _stageOfRoute)
-            {
-                if (stage.Key.RouteID == routeID) return stage.Value;
             }
             return null;
         }
@@ -831,20 +802,14 @@ namespace Captone.Services
         }
         public Route FindRouteFromStations(int start, int end)
         {
-            foreach (var route in _routes)
+            foreach (var stageOfRoute in _stageOfRoute)
             {
-                foreach (var stageOfRoute in _stageOfRoute)
-                {
-                    if (stageOfRoute.Key == route)
-                    {
-                        //list all stage of the route and find its start station and its end station
-                        var tmpStage = stageOfRoute.Value.ToList();
-                        if (tmpStage.Count == 0) break;
-                        Stage a = tmpStage.First();
-                        Stage b = tmpStage.Last();
-                        if (a.StartPoint == start && b.EndPoint == end) return route;
-                    }
-                }
+                //list all stage of the route and find its start station and its end station
+                var tmpStage = stageOfRoute.Value.ToList();
+                if (tmpStage.Count == 0) break;
+                Stage a = tmpStage.First();
+                Stage b = tmpStage.Last();
+                if (a.StartPoint == start && b.EndPoint == end) return stageOfRoute.Key;
             }
             return null;
         }
