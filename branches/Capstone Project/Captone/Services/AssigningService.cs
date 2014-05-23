@@ -322,7 +322,7 @@ namespace Captone.Services
         //list all trips travel on the route
         public List<Trip> FindTripFromRoute(int routeID)
         {
-            var trips = db.Trips.Where(i => i.Schedule.Route.RouteID == routeID).ToList();
+            var trips = _trips.Where(i => i.Schedule.Route.RouteID == routeID).ToList();
             if (!CheckNotNull(trips)) return null;
             trips.Sort((a, b) => (a.EstimateDepartureTime).CompareTo(b.EstimateDepartureTime));
             return trips;

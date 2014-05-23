@@ -17,6 +17,9 @@
         <div class="panel panel-primary">
             <div class="panel-heading" style="padding-left: 5px">Mức phí vận chuyển</div>
             <div class="panel-body">
+                <p>
+                    <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-outline btn-primary" onclick="window.location.href = '../Fee/Create' " >Tạo mức phí mới</a>
+                </p>
                 <div class="table-responsive">
                     <table class="table display KeyTable dataTable" id="SchedulesTbl" aria-describedby="example_info">
                         <thead>
@@ -67,5 +70,39 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload = loadTable();
 
+    function loadTable() {
+        var oTable = $('#tblStaffs').dataTable();
+
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "sPaginationType": "full_numbers"
+        });
+
+        var keys = new KeyTable({
+            "table": document.getElementById('tblStaffs'),
+            "datatable": oTable,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    }
+
+    function CreateFee() {
+        $.ajax({
+            url: "/Fee/Create",
+            type: "Get",
+            success: function (result) {
+                $("#modal").html(result);
+            }
+        });
+    }
+</script>
 
