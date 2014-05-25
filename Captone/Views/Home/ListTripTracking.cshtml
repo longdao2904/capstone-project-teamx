@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<Captone.Models.Assigning>
 <table class="table table-bordered">
     <thead>
-        <th></th>
+        <th>Mã chuyến</th>
+        <th>Chuyến xe</th>
+        <th>Trạm trung chuyển</th>
         <th>Trạng thái</th>
         <th>Dự kiến đến</th>
-
     </thead>
     @foreach (var item in Model)
     {
-   
         <input type="hidden" id="@item.TripID" name="@item.RequestID" value="@item.Trip.Schedule.Route.RouteName - @item.Station.StationName - @item.Trip.Status"/>
-
         <tbody>
             <tr>
+                <td>@item.Trip.TripID</td>
                 <td>@item.Trip.Schedule.Route.RouteName</td>
+                <td>@item.Station.StationName</td>
                 @if (item.Trip.Status == "Đã đến trạm")
                 {
                     <td>@item.Trip.Status</td>
@@ -24,7 +25,7 @@
                 }
                 @if (item.Trip.Status == "Đang chạy")
                 {
-                    <td>@item.Trip.EstimateArrivalTime.Subtract(DateTime.Now).Hours h</td>
+                    <td>Đã chạy được @item.Trip.EstimateArrivalTime.Subtract(DateTime.Now).Hours h</td>
                 }
                 <td>@item.Trip.EstimateArrivalTime</td>
             </tr>
