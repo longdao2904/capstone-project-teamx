@@ -17,7 +17,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             @ViewBag.Title
-            <a data-toggle="modal" class="btn btn-default" data-target="createTripModal" onclick="CreateTrip(@stationID)">Tạo chuyến mới</a>
+            <a data-toggle="modal" class="btn btn-default" data-target="createTripModal" onclick="CreateTrip(@stationID)">Kích hoạt tạo chuyến tự động</a>
         </div>
         <div class="panel-body">
             <ul class="nav nav-tabs">
@@ -31,7 +31,7 @@
                     <div class="panel-body">
                         <ul class="nav nav-pills">
                             <li>
-                                <a href="#new-pills" data-toggle="tab" onclick="newTrip(@stationID)">Chuyến xe vừa tạo</a>
+                                <a href="#new-pills" data-toggle="tab" onclick="newTrip(@stationID)">Chuyến xe đã tạo</a>
                             </li>
                             <li>
                                 <a href="#depart-pills" data-toggle="tab" onclick="departureTrip(@stationID)">Chuyến đã khởi hành</a>
