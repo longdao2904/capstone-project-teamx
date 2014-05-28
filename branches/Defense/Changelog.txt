@@ -1,0 +1,8 @@
+﻿Changelog
+- optimize cho hiệu suất nhanh gấp 2-4 lần
+- chỉnh sửa thông tin Hóa đơn
+- bổ sung các biểu đồ thống kê
+- sửa component diagram, thêm use-case
+- tự động hóa cho tạo chuyến
+- bỏ nguyên nhân, suggestion khi tạo chuyến
+- chỉnh sửa lại giao diện của Admin
