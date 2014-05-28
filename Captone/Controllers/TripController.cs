@@ -17,7 +17,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
         double _deltaTime = 2.0;  //the time between two times the trip run
-
+        private int _numberOfTrip = 100;
         //list all trip of the system
         public ActionResult Index()
         {
@@ -151,7 +151,7 @@ namespace Captone.Controllers
                         tmpTime = tmpTime.Add(schedule.EstimateDepartureTime);
                         if (GetTime(schedule.RouteID) < (24 - _deltaTime) / 2)
                         {
-                            for (int i = 0; i < 7; i++)
+                            for (int i = 0; i < _numberOfTrip; i++)
                             {
                                 t.EstimateDepartureTime = tmpTime.AddDays(i);
                                 t.EstimateArrivalTime = tmpTime.AddDays(i).AddHours(GetTime(schedule.RouteID));
@@ -161,7 +161,7 @@ namespace Captone.Controllers
                         }
                         else
                         {
-                            for (int i = 0; i < 7; i++)
+                            for (int i = 0; i < _numberOfTrip; i++)
                             {
                                 t.EstimateDepartureTime = tmpTime.AddDays(2 * i);
                                 t.EstimateArrivalTime = tmpTime.AddDays(2 * i).AddHours(GetTime(schedule.RouteID));
