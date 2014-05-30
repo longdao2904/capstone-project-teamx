@@ -319,7 +319,20 @@ namespace Captone.Controllers
         {
             if (stationID != 0)
             {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station.StationID == stationID | r.Station1.StationID == stationID).ToList();
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station.StationID == stationID).ToList();
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
+        }
+        //list request delivered to the customer at the current station
+        public ActionResult FinishedRequest(int stationID)
+        {
+            if (stationID != 0)
+            {
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station1.StationID == stationID).ToList();
                 return View(list);
             }
             else

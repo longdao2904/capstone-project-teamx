@@ -500,12 +500,12 @@ namespace Captone.Controllers
             return (priceVolume);
         }
 
-        //public void CancerRequest(int requestId)
-        //{
-        //    var get = _db.Requests.Where(p => p.RequestID == requestId).FirstOrDefault();
-        //    get.DeliveryStatusID = 7;
-        //    _db.SaveChanges();
+        public void CancerRequest(int requestId)
+        {
+            var get = _db.Requests.Where(p => p.RequestID == requestId).FirstOrDefault();
+            get.DeliveryStatusID = 7;
+            _db.SaveChanges();
 
-        //}
+        }
     }
 }
