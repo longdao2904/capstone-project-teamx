@@ -9,6 +9,7 @@ namespace Captone.Controllers
     public class AssigningController : Controller
     {
         iDeliverEntities _db = new iDeliverEntities();
+        
         //
         public ActionResult ListAssign(int stationID)
         {
@@ -319,7 +320,7 @@ namespace Captone.Controllers
         {
             if (stationID != 0)
             {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station.StationID == stationID).ToList();
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.FromLocation == stationID).ToList();
                 return View(list);
             }
             else
@@ -332,7 +333,7 @@ namespace Captone.Controllers
         {
             if (stationID != 0)
             {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.Station1.StationID == stationID).ToList();
+                var list = _db.Requests.Where(r => r.DeliveryStatusID == 6 && r.ToLocation == stationID).ToList();
                 return View(list);
             }
             else
@@ -358,7 +359,13 @@ namespace Captone.Controllers
         {
             if (stationID != 0)
             {
-                var list = _db.Requests.Where(r => r.DeliveryStatusID == 5 && r.ToLocation == stationID).ToList();
+                var lists = _db.Requests.ToList();
+                var list = new List<Request>();
+                foreach (var request in lists)
+                {
+                    if(request.DeliveryStatusID == 5 && request.ToLocation == stationID &&
+                        (DateTime.Now.Date - (DateTime)request.ArrivedDate).TotalDays <= 2) list.Add(request);
+                }
                 return View(list);
             }
             return View();

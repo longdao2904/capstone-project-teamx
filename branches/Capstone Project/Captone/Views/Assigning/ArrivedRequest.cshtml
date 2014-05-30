@@ -61,7 +61,7 @@
     </table>
     <p>
         <a id="btnCheckDeli" onclick="arrivedRQ()" style="display: none" href="/Assigning/ArrivedRequest?stationID=@stationID">Kiểm hàng</a>
-        <a onclick="delivered()" class="btn btn-success" href="/Assigning/FinishedRequest?stationID=@stationID">Xác nhận giao hàng</a>
+        <a onclick="delivered()" class="btn btn-success" @*href="/Assigning/FinishedRequest?stationID=@stationID"*@>Xác nhận giao hàng</a>
     </p>
 </div>
 <script type="text/javascript">
@@ -84,7 +84,7 @@
     function getRequests() {
         var request = [];
         $('[name="chk"]:checked').each(function () {
-            var id = document.getElementById('rqID').innerText.trim();
+            var id = document.getElementById("rqID").innerText;
             request.push(id);
         });
         return request;
@@ -93,15 +93,18 @@
     // set delivery status to 6 - delivered
     function delivered() {
         var requests = getRequests();
-        $.ajax({
-            url: "/Request/UpdateStatus",
-            type: "POST",
-            data: JSON.stringify({ requestIDs: requests }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-            }
-        });
+        //$.ajax({
+        //    url: "/Request/UpdateStatus",
+        //    type: "POST",
+        //    data: JSON.stringify({ requestIDs: requests }),
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (result) {
+        //    }
+        //});
+        for (var i = 0; i < requests.length; i++) {
+            console.log(requests[i]);
+        }
     }
 
     // check after 2days requests delivered or not
