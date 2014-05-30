@@ -1,135 +1,142 @@
 ﻿@model IEnumerable<Captone.Models.Trip>
 
-@{
+@if (Session["StationID"] == null)
+{
+    Html.ActionLink("Bạn chưa đăng nhập", "Index");
+}
+else
+{
     ViewBag.Title = "Quản lý chuyến";
     Layout = "~/Views/Shared/_LayoutStaff.cshtml";
     int stationID = int.Parse(Session["StationID"].ToString());
+
+    <script src="~/Content/js/jquery-1.10.2.js"></script>
+    <link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/js/bootstrap.js"></script>
+    <script src="~/Content/TableJS/jquery.dataTables.js"></script>
+    <script src="~/Content/TableJS/KeyTable.js"></script>
+
+    <script src="~/Content/ui/jquery-ui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                @ViewBag.Title
+                <a data-toggle="modal" class="btn btn-default" data-target="createTripModal"
+                   onclick=" CreateTrip(@stationID) ">Kích hoạt tạo chuyến tự động</a>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active" id="hihi"><a href="#company" data-toggle="tab">Chuyến trực thuộc trạm</a></li>
+                    <li id="hehe"><a href="#pressroom" data-toggle="tab">Chuyến từ trạm khác</a></li>
+
+                </ul>
+
+                <div class="tab-content">
+                    <div id="company" class="tab-pane fade in active">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li>
+                                    <a href="#new-pills" data-toggle="tab" onclick=" newTrip(@stationID) ">Danh sách chuyến xe</a>
+                                </li>
+                                <li>
+                                    <a href="#depart-pills" data-toggle="tab" onclick=" departureTrip(@stationID) ">Chuyến đã khởi hành</a>
+                                </li>
+                                <li>
+                                    <a href="#arrive-pills" data-toggle="tab" onclick=" arriveTrip(@stationID) ">Chuyến đã đến đích</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="new-pills">
+                                <br />
+                                <div id="newTrip"></div>
+                            </div>
+                            <div class="tab-pane fade" id="depart-pills">
+                                <br />
+                                <div id="departureTrip"></div>
+                            </div>
+                            <div class="tab-pane fade" id="arrive-pills">
+                                <br />
+                                <div id="arrivalTrip"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pressroom" class="tab-pane">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li id="huhu">
+                                    <a href="#other-pills" data-toggle="tab" onclick=" otherTrip(@stationID) ">Xác nhận đến trạm</a>
+                                </li>
+                                <li>
+                                    <a href="#other-pills-start" data-toggle="tab" onclick=" otherStart(@stationID) ">Xác nhận khởi hành</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="other-pills">
+                                <br />
+                                <div id="otherTrip"></div>
+                            </div>
+                            <div class="tab-pane fade" id="other-pills-start">
+                                <br />
+                                <div id="otherStart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Thông tin chuyến mới</h4>
+                </div>
+                <div class="modal-body detailPopup">
+                    <div id="tripmodal">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="createTripModal" tabindex="-1" role="dialog" aria-labelledby="createTripModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="createTripModalLabel">Thông tin chuyến mới</h4>
+                </div>
+                <div class="modal-body detailPopup">
+                    <div id="tripmodal-create">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content detailPopup">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Các yêu cầu chuyển phát đã xếp cho chuyến này</h4>
+                </div>
+                <div class="modal-body bodyFix">
+                    <div id="tripDetails">
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 }
-<script src="~/Content/js/jquery-1.10.2.js"></script>
-<link href="~/Content/Css/bootstrap.css" rel="stylesheet" />
-<script src="~/Content/js/bootstrap.js"></script>
-<script src="~/Content/TableJS/jquery.dataTables.js"></script>
-<script src="~/Content/TableJS/KeyTable.js"></script>
-
-<script src="~/Content/ui/jquery-ui.js" type="text/javascript"></script>
-<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
-<div class="col-lg-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            @ViewBag.Title
-            <a data-toggle="modal" class="btn btn-default" data-target="createTripModal" onclick="CreateTrip(@stationID)">Kích hoạt tạo chuyến tự động</a>
-        </div>
-        <div class="panel-body">
-            <ul class="nav nav-tabs">
-                <li class="active" id="hihi"><a href="#company" data-toggle="tab">Chuyến trực thuộc trạm</a></li>
-                <li id="hehe"><a href="#pressroom" data-toggle="tab">Chuyến từ trạm khác</a></li>
-
-            </ul>
-
-            <div class="tab-content">
-                <div id="company" class="tab-pane fade in active">
-                    <div class="panel-body">
-                        <ul class="nav nav-pills">
-                            <li>
-                                <a href="#new-pills" data-toggle="tab" onclick="newTrip(@stationID)">Chuyến xe đã tạo</a>
-                            </li>
-                            <li>
-                                <a href="#depart-pills" data-toggle="tab" onclick="departureTrip(@stationID)">Chuyến đã khởi hành</a>
-                            </li>
-                            <li>
-                                <a href="#arrive-pills" data-toggle="tab" onclick="arriveTrip(@stationID)">Chuyến đã đến đích</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade" id="new-pills">
-                            <br />
-                            <div id="newTrip"></div>
-                        </div>
-                        <div class="tab-pane fade" id="depart-pills">
-                            <br />
-                            <div id="departureTrip"></div>
-                        </div>
-                        <div class="tab-pane fade" id="arrive-pills">
-                            <br />
-                            <div id="arrivalTrip"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="pressroom" class="tab-pane">
-                    <div class="panel-body">
-                        <ul class="nav nav-pills">
-                            <li id="huhu">
-                                <a href="#other-pills" data-toggle="tab" onclick="otherTrip(@stationID)">Xác nhận đến trạm</a>
-                            </li>
-                             <li>
-                                <a href="#other-pills-start" data-toggle="tab" onclick="otherStart(@stationID)">Xác nhận khởi hành</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade" id="other-pills">
-                            <br />
-                            <div id="otherTrip"></div>
-                        </div>
-                        <div class="tab-pane fade" id="other-pills-start">
-                            <br />
-                            <div id="otherStart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Thông tin chuyến mới</h4>
-            </div>
-            <div class="modal-body detailPopup">
-                <div id="tripmodal">
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="createTripModal" tabindex="-1" role="dialog" aria-labelledby="createTripModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="createTripModalLabel">Thông tin chuyến mới</h4>
-            </div>
-            <div class="modal-body detailPopup">
-                <div id="tripmodal-create">
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content detailPopup">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Các yêu cầu chuyển phát đã xếp cho chuyến này</h4>
-            </div>
-            <div class="modal-body bodyFix">
-                <div id="tripDetails">
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 <script src="~/Scripts/trip-management.js"></script>
 
 <style type="text/css">
