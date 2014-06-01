@@ -17,7 +17,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
         double _deltaTime = 2.0;  //the time between two times the trip run
-        private int _numberOfTrip = 100;
+        private int _numberOfTrip = 10;
         //list all trip of the system
         public ActionResult Index()
         {
@@ -75,7 +75,7 @@ namespace Captone.Controllers
                     var flag = false;
                     foreach (var stage in stages)
                     {
-                        if (stage.EndPoint == stationID &&  trip.Status == "Đã đến trạm"
+                        if (stage.EndPoint == stationID && trip.Status == "Đã đến trạm"
                             && trip.RealArrivalTime == null) flag = true;
                     }
                     if (flag) listTrips.Add(trip);
@@ -306,7 +306,7 @@ namespace Captone.Controllers
                     {
                         if (item.Key.RequestID == rq.RequestID) flag++;
                     }
-                    if(flag == 0) requests.Add(rq);
+                    if (flag == 0) requests.Add(rq);
 
                 }
                 foreach (var item in result)
@@ -350,9 +350,9 @@ namespace Captone.Controllers
 
         public ActionResult AssignedRequest(int tripID)
         {
-           var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 3).ToList();
+            var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 3).ToList();
 
-           return View(rqID);
+            return View(rqID);
         }
         public ActionResult AssignedRequest2(int tripID)
         {
@@ -435,7 +435,7 @@ namespace Captone.Controllers
             var listTrip = db.Trips.ToList();
             foreach (var trip in listTrip)
             {
-                if(FindStageFromRoute(trip.Schedule.RouteID).First().StartPoint == stationID 
+                if (FindStageFromRoute(trip.Schedule.RouteID).First().StartPoint == stationID
                     && trip.RealArrivalTime != null) trips.Add(trip);
             }
             return View(trips);
@@ -471,7 +471,6 @@ namespace Captone.Controllers
         }
 
         // Update assigned requests of departed trip after click button 'Xe đã chạy'
-
         public void DepartedRequest(int[] tripsArray, int stationID)
         {
             foreach (var tID in tripsArray)
@@ -495,8 +494,6 @@ namespace Captone.Controllers
         }
 
         // Update assigned requests of arrived trip after click button 'Xe đã đến trạm'
-        [HttpPost]
-        [WebMethod]
         public void ArrivedRequest(int[] tripsArray, int stationID)
         {
             foreach (var tID in tripsArray)
@@ -567,9 +564,9 @@ namespace Captone.Controllers
         {
             var trips = db.Trips.ToList();
             trips = Filter2(trips, stationId, false);
-   
+
             return PartialView(trips);
         }
-      
+
     }
 }

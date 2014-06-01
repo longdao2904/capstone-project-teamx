@@ -51,7 +51,7 @@ else
         </table>
         <a class="btn btn-success" onclick="DepartedRequest()" style="float: right">Xác nhận rời bến</a>
     </div>
-     <input type="hidden" id="stationId" value="@stationId" />
+    <input type="hidden" id="stationId" value="@stationId" />
 }
 <script type="text/javascript">
     window.onloadstart = loadTable();
@@ -97,10 +97,6 @@ else
         });
     }
 
-    $("a").click(function (event) {
-        id = event.target.id;
-    });
-
     //get array of selected trips
     function getTrips() {
         var tripArray = [];
@@ -116,7 +112,7 @@ else
         var listT = getTrips();
         var tripIDs = [];
         var stationID = document.getElementById("stationId").value;
-        for(var i=0; i<listT.length; i++) {
+        for (var i = 0; i < listT.length; i++) {
             tripIDs.push(parseInt(listT[i]));
         }
         $.ajax({
@@ -126,8 +122,8 @@ else
             dataType: "JSON",
             data: JSON.stringify({ tripsArray: tripIDs, stationID: stationID }),
             success: function (result) {
-                window.location.href = "/Trip/Index";
             }
         });
+        window.location.href = "/Trip/Index";
     }
 </script>
