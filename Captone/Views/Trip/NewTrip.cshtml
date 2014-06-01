@@ -8,13 +8,17 @@
         <thead>
             <tr>
                 <th>Mã chuyến</th>
-                <th>Tuyến
+                <th>
+                    Tuyến
                 </th>
-                <th>Xe
+                <th>
+                    Xe
                 </th>
-                <th>Giờ đi       
+                <th>
+                    Giờ đi
                 </th>
-                <th>Giờ đến dự kiến
+                <th>
+                    Giờ đến dự kiến
                 </th>
             </tr>
         </thead>
@@ -22,11 +26,11 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td id="selTripID">
                         @item.TripID
                     </td>
                     <td>
-                       @item.Schedule.Route.RouteName
+                        @item.Schedule.Route.RouteName
                     </td>
                     <td>
                         <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
@@ -42,32 +46,33 @@
         </tbody>
     </table>
 </div>
- <div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-                    <div class="modal-dialog">
-                        <div class="modal-content detailPopup">
-                            <div class="modal-header">
-                                <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div id="requests">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a>
-                                    <button type="button" class="btn btn-success" onclick="departed()" id="btnDeparted">Xác nhận chuyển đi</button></a>
-                                <a href="/Trip/Delete/">
-                                    <button type="button" class="btn btn-danger">Xóa chuyến này </button>
-                                </a>
-                            </div>
-
-
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
+<div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content detailPopup">
+            <div class="modal-header">
+                <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
+            </div>
+            <div class="modal-body">
+                <div id="requests">
                 </div>
-                <!-- /.modal -->
+            </div>
+            <div class="modal-footer">
+                <a>
+                    <button type="button" class="btn btn-success" onclick="departedPackages()" id="btnDeparted">Xác nhận chuyển đi</button>
+                </a>
+                <a href="/Trip/Delete/">
+                    <button type="button" class="btn btn-danger">Xóa chuyến này </button>
+                </a>
+            </div>
+
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <script>
     $(function () {
         var oTable = $('#TableDepartedTrip').dataTable();
@@ -83,57 +88,47 @@
 
     });
     $(document).ready(function () {
-        $('#selectall').click(function (event) {  //on click 
+        $('#selectall').click(function (event) {  //on click
             if (this.checked) { // check select status
                 $('.case').each(function () { //loop through each checkbox
-                    this.checked = true;  //select all checkboxes with class "checkbox1"  
+                    this.checked = true;  //select all checkboxes with class "checkbox1"
                 });
             } else {
                 $('.case').each(function () { //loop through each checkbox
-                    this.checked = false; //deselect all checkboxes with class "checkbox1"                 
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"
                 });
             }
         });
 
     });
-    // change request status when checkbox 'arrived' checked
-    function getRequests() {
-        var listRq = [];
-        $('[name="chk"]:checked').each(function () {
-            var row = $(this).closest('tr');
-            var rq = document.getElementById("rqID").innerText;
-            // Push request object to collection
-            listRq.push(rq);
-        });
-        return listRq;
-    }
-    // Sent request collection to controller
-    function SentObject() {
-        var requests = getRequests();
-        $.ajax({
-            url: "/Request/UpdateStatus",
-            type: "POST",
-            data: JSON.stringify({ requestIDs: requests }),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result) {
-                window.location = "/Request/Index";
-                window.addActive(5);
-            }
-        });
-    }
-    // Click on button 'Đã đến trạm'
-    $('#sttSet').click(function () {
-        SentObject();
-    });
-    var id;
+
+    //Click on button 'Xác nhận chuyển đi'
+    var slTripId;
+    var listT = [];
     $("a").click(function (event) {
-       id=event.target.id;
+        //get tripID when click button
+        slTripId=event.target.id;
+        listT.push(slTripId);
     });
 
-    // I assume this is just for testing, otherwise leaving the page 
-    // immediately on click renders getting the id completely moot.
-    //window.location.href = "http://imes.********.com/app/userpanel.html#sfpp_page";
+    function departedPackages() {
+        var tripIDs = [];
+        for (var i = 0; i < listT.length; i++) {
+            tripIDs.push(parseInt(listT[i]));
+            //console.log(listT[i]);
+        }
+        var stationID = @int.Parse(Session["StationID"].ToString());
+        $.ajax({
+            url: "/Trip/DepartedRequest",
+            type: "Post",
+            contentType: "application/json; charset=utf-8",
+            dataType: "JSON",
+            data: JSON.stringify({ tripsArray: tripIDs, stationID: stationID }),
+            success: function (result) {
+            }
+        });
+        window.location.href = "/Trip/Index";
+    }
 
     // Get requests assigned to selected trip
     function AssignedRequest(tripID) {
@@ -143,19 +138,6 @@
             data: { tripID: tripID },
             success: function (result) {
                 $("#requests").html(result);
-            }
-        });
-    }
-    function departed() {
-        var tripID = id;
-        var stationID = @int.Parse(Session["StationID"].ToString())
-        $.ajax({
-            url: "/Trip/DepartedRequest",
-            type: "Post",
-            data: { tripID: tripID, stationID: stationID },
-            success: function (result) {
-                $("#close1").click();
-                $("#departed").click();
             }
         });
     }
