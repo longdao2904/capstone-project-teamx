@@ -16,8 +16,7 @@ namespace Captone.Controllers
 {
     public class RequestController : Controller
     {
-        private readonly iDeliverEntities _db = new iDeliverEntities();
-
+        private iDeliverEntities _db = new iDeliverEntities();
         #region CRUD
         //
         // GET: /Request/
@@ -122,24 +121,13 @@ namespace Captone.Controllers
         {
             if (requestIDs != null)
             {
-                foreach (var id in requestIDs)
+                var cur = requestIDs.Select(id => _db.Requests.Single(r => r.RequestID == id)).ToList();
+                foreach (var request in cur)
                 {
-                    Request rq = _db.Requests.FirstOrDefault(r => r.RequestID == id);
-                    if (rq != null && rq.DeliveryStatusID == 4)
-                    {
-                        rq.DeliveryStatusID = 5;
-                        rq.ArrivedDate = DateTime.Now.Date;
-                        _db.SaveChanges();
-                    }
-                    else if (rq != null && rq.DeliveryStatusID == 5)
-                    {
-                        rq.DeliveryStatusID = 6;
-                        rq.Type = true;
-
-                        _db.SaveChanges();
-                    }
-                    return true;
+                    request.DeliveryStatusID = 6;
+                    _db.SaveChanges();
                 }
+                return true;
             }
             return false;
         }

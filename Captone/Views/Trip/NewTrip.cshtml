@@ -7,6 +7,7 @@
     <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
             <tr>
+                <th>Mã chuyến</th>
                 <th>Tuyến
                 </th>
                 <th>Xe
@@ -15,14 +16,13 @@
                 </th>
                 <th>Giờ đến dự kiến
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td style="display: none">
+                    <td>
                         @item.TripID
                     </td>
                     <td>
@@ -46,7 +46,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content detailPopup">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
                             </div>
                             <div class="modal-body">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a href="/Trip/Index">
+                                <a>
                                     <button type="button" class="btn btn-success" onclick="departed()" id="btnDeparted">Xác nhận chuyển đi</button></a>
                                 <a href="/Trip/Delete/">
                                     <button type="button" class="btn btn-danger">Xóa chuyến này </button>
@@ -154,6 +154,8 @@
             type: "Post",
             data: { tripID: tripID, stationID: stationID },
             success: function (result) {
+                $("#close1").click();
+                $("#departed").click();
             }
         });
     }

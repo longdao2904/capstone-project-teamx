@@ -298,10 +298,7 @@ namespace Captone.Controllers
             {
                 requests = new List<Request>();
                 var assign = new AssigningService();
-                var watch = Stopwatch.StartNew();
                 var result = assign.Assigning(request);
-                watch.Stop();
-                var hehe = watch.ElapsedMilliseconds;
                 foreach (var rq in request)
                 {
                     int flag = 0;
