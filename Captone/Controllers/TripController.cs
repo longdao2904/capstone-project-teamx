@@ -347,13 +347,14 @@ namespace Captone.Controllers
         }
 
         //For view assigned request of selected trip
-
+        //Get assigned requests, not departed
         public ActionResult AssignedRequest(int tripID)
         {
             var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 3).ToList();
 
             return View(rqID);
         }
+        //Get assigned requests & departed
         public ActionResult AssignedRequest2(int tripID)
         {
 

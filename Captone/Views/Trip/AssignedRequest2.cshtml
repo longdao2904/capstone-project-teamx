@@ -4,36 +4,40 @@
     Layout = null;
 }
 <div class="table-responsive">
-        <table class="table table-bordered">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Mã hàng
+            </th>
+            <th>
+                Ngày gửi
+            </th>
+            <th>
+                Trạm gửi
+            </th>
+            <th>
+                Trạm nhận
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Mã hàng
-                </th>
-                <th>Ngày gửi
-                </th>
-                <th>Trạm gửi
-                </th>
-                <th>Trạm nhận</th>
+                <td style="display: none;">
+                    @item.RequestID
+                </td>
+                <td>
+                    @item.Request.RequestCode
+                </td>
+                <td>
+                    @item.Request.DateRequest.ToShortDateString()
+                </td>
+                <td>
+                    @item.Request.Station.StationName
+                </td>
+                <td>
+                    @item.Request.Station1.StationName
+                </td>
             </tr>
-
-            @foreach (var item in Model)
-            {            
-                <tr>
-                    <td style="display: none;">
-                        @item.RequestID
-                    </td>
-                    <td>
-                        @item.Request.RequestCode
-                    </td>
-                    <td>
-                        @item.Request.DateRequest.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.Request.Station.StationName
-                    </td>
-                    <td>
-                        @item.Request.Station1.StationName
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
+        }
+    </table>
+</div>

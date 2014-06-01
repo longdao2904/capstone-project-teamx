@@ -4,8 +4,10 @@
     int stationId = Convert.ToInt32(Session["StationID"]);
     var date = DateTime.Now;
 }
+
 <input type="hidden" id="stationId" value="@stationId" />
 <input type="hidden" id="timenow" value="@date" />
+
 <div class="table-responsive" id="TripCheck">
     <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
@@ -37,49 +39,49 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr id="trip-@item.TripID">
-                <td style="display: none">
-                    @item.TripID
-                </td>
-                <td>
-                    @item.Schedule.Route.RouteName
-                </td>
-                <td>
-                    <a data-toggle="modal" id="@item.TripID" data-target="#myModal" onclick="AssignedRequest2(@item.TripID)">@item.Schedule.Coach.NumberPlate</a>
-                </td>
-                <td>
-                    @item.RealDepartureTime
-                </td>
-                <td>
-                    @item.EstimateArrivalTime
-                </td>
-                <td>
-                    @item.Status
-                </td>
-                <td></td>
-                <td style="display: none">
-                    <input type="checkbox" name="CheckTrip" class="case1" style="display: none" />
-                </td>
-                <td><input type="checkbox" name="chk" class="case" /></td>
-            </tr>
+                <tr id="trip-@item.TripID">
+                    <td style="display: none">
+                        @item.TripID
+                    </td>
+                    <td>
+                        @item.Schedule.Route.RouteName
+                    </td>
+                    <td>
+                        <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalArrived" onclick="AssignedRequest2(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
+                    </td>
+                    <td>
+                        @item.RealDepartureTime
+                    </td>
+                    <td>
+                        @item.EstimateArrivalTime
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td></td>
+                    <td style="display: none">
+                        <input type="checkbox" name="CheckTrip" class="case1" style="display: none" />
+                    </td>
+                    <td><input type="checkbox" name="chk" class="case" /></td>
+                </tr>
             }
         </tbody>
     </table>
     <a class="btn btn-success" onclick="ArrivedRequest()" style="float: right">Xác nhận đến trạm</a>
 </div>
-<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+<div id="modalArrived" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content detailPopup">
             <div class="modal-header">
-                <button type="button" id="close2" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
             </div>
             <div class="modal-body">
-                <div id="requests">
+                <div id="rqforarrive">
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-success" id="AcceptGo" onclick="ArrivedRequest()">Xác nhận đến trạm</a>
+                <button type="button" class="btn btn-success" onclick="ArrivedRequest()">Xác nhận đến trạm</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -149,14 +151,14 @@
         window.location.href = "/Trip/Index";
     }
 
-    // Get requests assigned to selected trip
+    // Get departed packages assigned to selected trip
     function AssignedRequest2(tripID) {
         $.ajax({
             url: "/Trip/AssignedRequest2",
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {
-                $("#requests").html(result);
+                $("#rqforarrive").html(result);
             }
         });
     }
