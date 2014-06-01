@@ -88,9 +88,9 @@ function Waring() {
     });
 }
 
-//$(document).ready(function(){
-//    $("#new").click();
-//});
+$(document).ready(function(){
+    $("#new").click();
+});
 
 function arriveTrip(stationID) {
     $.ajax({
