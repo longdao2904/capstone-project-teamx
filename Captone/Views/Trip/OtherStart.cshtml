@@ -12,6 +12,9 @@ else
             <thead>
                 <tr>
                     <th>
+                        Mã tuyến
+                    </th>
+                    <th>
                         Tuyến
                     </th>
                     <th>
@@ -22,14 +25,13 @@ else
                     </th>
                     <th>Trạng thái</th>
                     <th><input type="checkbox" id="selectall" value="Select All" /></th>
-                    <th style="display: none"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td style="display: none" id="tripID">
+                        <td id="tripID">
                             @item.TripID
                         </td>
                         <td>
@@ -73,9 +75,9 @@ else
     <!-- /.modal-dialog -->
 </div>
 <script type="text/javascript">
-    window.onloadstart = loadTable();
+    window.onloadstart = loadTable1();
 
-    function loadTable() {
+    function loadTable1() {
         var oTable = $('#TableOtherStart').dataTable();
 
         $.extend($.fn.dataTable.defaults, {
@@ -115,7 +117,7 @@ else
             }
         });
     }
-    
+
     //get array of selected trips
     function getTrips() {
         var tripArray = [];

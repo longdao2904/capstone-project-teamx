@@ -1,74 +1,73 @@
 ﻿@model IEnumerable<Captone.Models.Trip>
-@{
+@if (Session["StationID"] == null)
+{
+    Html.ActionLink("Bạn chưa đăng nhập", "Index");
+}
+else
+{
     Layout = null;
     int stationId = Convert.ToInt32(Session["StationID"]);
     var date = DateTime.Now;
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="TableDepartedTrip" aria-describedby="example_info">
+            <thead>
+                <tr>
+                    <th>Mã tuyến</th>
+                    <th>
+                        Tuyến
+                    </th>
+                    <th>
+                        Xe
+                    </th>
+                    <th>
+                        Giờ đi
+                    </th>
+                    <th>
+                        Giờ đến dự kiến
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th>Trễ chuyến</th>
+                    <th><input type="checkbox" id="selectall" value="Select All" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="trip-@item.TripID">
+                        <td>
+                            @item.TripID
+                        </td>
+                        <td>
+                            @item.Schedule.Route.RouteName
+                        </td>
+                        <td>
+                            <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalArrived" onclick="AssignedRequest2(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
+                        </td>
+                        <td>
+                            @item.RealDepartureTime
+                        </td>
+                        <td>
+                            @item.EstimateArrivalTime
+                        </td>
+                        <td>
+                            @item.Status
+                        </td>
+                        <td></td>
+                        <td><input type="checkbox" name="chk" class="case" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a class="btn btn-success" onclick="ArrivedRequest()" style="float: right">Xác nhận đến trạm</a>
+    </div>
+
+    <input type="hidden" id="stationId" value="@stationId" />
+    <input type="hidden" id="timenow" value="@date" />
 }
 
-<input type="hidden" id="stationId" value="@stationId" />
-<input type="hidden" id="timenow" value="@date" />
-
-<div class="table-responsive" id="TripCheck">
-    <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
-        <thead>
-            <tr>
-                <th>
-                    Tuyến
-                </th>
-                <th>
-                    Xe
-                </th>
-                <th>
-                    Giờ đi
-                </th>
-                <th>
-                    Giờ đến dự kiến
-                </th>
-                <th>
-                    Trạng thái
-                </th>
-                <th style="display: none"></th>
-                <th style="display: none"></th>
-                <th style="display: none">
-                    <input type="checkbox" id="selectallTrip" value="Select All" style="display: none" />
-                </th>
-                <th>Trễ chuyến</th>
-                <th><input type="checkbox" id="selectall" value="Select All" /></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id="trip-@item.TripID">
-                    <td style="display: none">
-                        @item.TripID
-                    </td>
-                    <td>
-                        @item.Schedule.Route.RouteName
-                    </td>
-                    <td>
-                        <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalArrived" onclick="AssignedRequest2(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
-                    </td>
-                    <td>
-                        @item.RealDepartureTime
-                    </td>
-                    <td>
-                        @item.EstimateArrivalTime
-                    </td>
-                    <td>
-                        @item.Status
-                    </td>
-                    <td></td>
-                    <td style="display: none">
-                        <input type="checkbox" name="CheckTrip" class="case1" style="display: none" />
-                    </td>
-                    <td><input type="checkbox" name="chk" class="case" /></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <a class="btn btn-success" onclick="ArrivedRequest()" style="float: right">Xác nhận đến trạm</a>
-</div>
 <div id="modalArrived" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content detailPopup">
@@ -89,6 +88,8 @@
     <!-- /.modal-dialog -->
 </div>
 <script>
+    window.onloadstart = loadTable();
+
     function loadTable() {
         var oTable = $('#TableDepartedTrip').dataTable();
 
@@ -104,21 +105,6 @@
             "sPaginationType": "full_numbers"
         });
     }
-
-    $(document).ready(function () {
-        $('#selectall').click(function (event) {  //on click
-            if (this.checked) { // check select status
-                $('.case').each(function () { //loop through each checkbox
-                    this.checked = true;  //select all checkboxes with class "checkbox1"
-                });
-            } else {
-                $('.case').each(function () { //loop through each checkbox
-                    this.checked = false; //deselect all checkboxes with class "checkbox1"
-                });
-            }
-        });
-    });
-
     //get array of selected trips
     function getTrips() {
         var tripArray = [];
@@ -162,6 +148,22 @@
             }
         });
     }
+
+
+
+    $(document).ready(function () {
+        $('#selectall').click(function (event) {  //on click
+            if (this.checked) { // check select status
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"
+                });
+            } else {
+                $('.case').each(function () { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"
+                });
+            }
+        });
+    });
 </script>
 <style type="text/css">
     .bodyFix {
