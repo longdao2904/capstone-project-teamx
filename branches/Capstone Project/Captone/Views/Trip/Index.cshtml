@@ -37,10 +37,10 @@ else
                         <div class="panel-body">
                             <ul class="nav nav-pills">
                                 <li>
-                                    <a href="#new-pills" data-toggle="tab" onclick=" newTrip(@stationID) ">Danh sách chuyến xe</a>
+                                    <a href="#new-pills" data-toggle="tab" id="new" onclick=" newTrip(@stationID) ">Danh sách chuyến xe</a>
                                 </li>
                                 <li>
-                                    <a href="#depart-pills" data-toggle="tab" onclick=" departureTrip(@stationID) ">Chuyến đã khởi hành</a>
+                                    <a href="#depart-pills" data-toggle="tab" id="departed" onclick=" departureTrip(@stationID) ">Chuyến đã khởi hành</a>
                                 </li>
                                 <li>
                                     <a href="#arrive-pills" data-toggle="tab" onclick=" arriveTrip(@stationID) ">Chuyến đã đến đích</a>
@@ -69,7 +69,7 @@ else
                                     <a href="#other-pills" data-toggle="tab" onclick=" otherTrip(@stationID) ">Xác nhận đến trạm</a>
                                 </li>
                                 <li>
-                                    <a href="#other-pills-start" data-toggle="tab" onclick=" otherStart(@stationID) ">Xác nhận khởi hành</a>
+                                    <a href="#other-pills-start" id="start" data-toggle="tab" onclick=" otherStart(@stationID) ">Xác nhận khởi hành</a>
                                 </li>
                             </ul>
                         </div>

@@ -7,6 +7,7 @@
     <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
         <thead>
             <tr>
+                <th>Mã chuyến</th>
                 <th>Tuyến
                 </th>
                 <th>Xe
@@ -15,16 +16,14 @@
                 </th>
                 <th>Giờ đến dự kiến
                 </th>
-                <th></th>
-                <th style="display: none"></th>
-              
+                <th>Quản lý</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td style="display: none">
+                    <td>
                         @item.TripID
                     </td>
                     <td>
