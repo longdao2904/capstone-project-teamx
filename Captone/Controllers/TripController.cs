@@ -471,34 +471,38 @@ namespace Captone.Controllers
         }
 
         // Update assigned requests of departed trip after click button 'Xe đã chạy'
-        [HttpPost]
-        [WebMethod]
-        public void DepartedRequest(int tripID, int stationID)
+
+        public void DepartedRequest(int[] tripsArray, int stationID)
         {
-            var trip = db.Trips.Single(t => t.TripID == tripID);
-            var listRequest = FindRequestAssignToTrip(tripID);
-            // update real departed time and status of trip
-            trip.RealDepartureTime = DateTime.Now;
-            trip.Status = "Đang chạy";
-            db.Entry(trip).State = EntityState.Modified;
-            db.SaveChanges();
-            if (listRequest == null) return;
-            //update the status of all request in the list
-            foreach (var request in listRequest)
+            foreach (var tID in tripsArray)
             {
-                if (request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
-                db.Entry(request).State = EntityState.Modified;
+                var trip = db.Trips.Single(t => t.TripID == tID);
+                var listRequest = FindRequestAssignToTrip(tID);
+                // update real departed time and status of trip
+                trip.RealDepartureTime = DateTime.Now;
+                trip.Status = "Đang chạy";
+                db.Entry(trip).State = EntityState.Modified;
                 db.SaveChanges();
+                if (listRequest == null) return;
+                //update the status of all request in the list
+                foreach (var request in listRequest)
+                {
+                    if (request.DeliveryStatusID == 3) request.DeliveryStatusID = 4;
+                    db.Entry(request).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
         }
 
         // Update assigned requests of arrived trip after click button 'Xe đã đến trạm'
         [HttpPost]
         [WebMethod]
-        public void ArrivedRequest(int tripID, int stationID)
+        public void ArrivedRequest(int[] tripsArray, int stationID)
         {
-            var trip = db.Trips.Single(t => t.TripID == tripID);
-            
+            foreach (var tID in tripsArray)
+            {
+                var trip = db.Trips.Single(t => t.TripID == tID);
+
                 // update real arrival time of trip
                 if (FindStageFromRoute(trip.Schedule.RouteID).Last().EndPoint == stationID)
                 {
@@ -513,49 +517,50 @@ namespace Captone.Controllers
                     db.SaveChanges();
                 }
                 //update for each request
-                var listRequest = FindRequestAssignToTrip(tripID);
+                var listRequest = FindRequestAssignToTrip(tID);
                 if (listRequest == null) return;
-            var requests = new List<Request>();
-            foreach (var request in listRequest)
-            {
-                if (request.ToLocation == stationID)
+                var requests = new List<Request>();
+                foreach (var request in listRequest)
                 {
-                    request.DeliveryStatusID = 5;
-                    request.ArrivedDate = DateTime.Now;
-                    db.Entry(request).State = EntityState.Modified;
+                    if (request.ToLocation == stationID)
+                    {
+                        request.DeliveryStatusID = 5;
+                        request.ArrivedDate = DateTime.Now;
+                        db.Entry(request).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    if (request.FromLocation == stationID)
+                    {
+                        request.DeliveryStatusID = 4;
+                        db.Entry(request).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    if (DateTime.Now > trip.EstimateArrivalTime)
+                    {
+                        var assign = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
+                        int index = 0;
+                        foreach (var tmp in assign)
+                        {
+                            if (tmp.TripID == tID) index = tmp.IndicateOrder;
+                        }
+                        if (index < assign.Count)
+                        {
+                            requests.Add(request);
+                        }
+                    }
+                }
+                foreach (var request in requests)
+                {
+                    var list = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
+                    foreach (var assigning in list)
+                    {
+                        db.Assignings.Remove(assigning);
+                    }
+                    request.FromLocation = stationID;
                     db.SaveChanges();
                 }
-                if (request.FromLocation == stationID)
-                {
-                    request.DeliveryStatusID = 4;
-                    db.Entry(request).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-                if (DateTime.Now > trip.EstimateArrivalTime)
-                {
-                    var assign = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
-                    int index = 0;
-                    foreach (var tmp in assign)
-                    {
-                        if (tmp.TripID == tripID) index = tmp.IndicateOrder;
-                    }
-                    if (index < assign.Count)
-                    {
-                        requests.Add(request);
-                    }
-                }
+                Assigning(requests);
             }
-            foreach (var request in requests)
-            {
-                var list = db.Assignings.Where(i => i.RequestID == request.RequestID).ToList();
-                foreach (var assigning in list)
-                {
-                    db.Assignings.Remove(assigning);
-                }
-                request.FromLocation = stationID;
-                db.SaveChanges();
-            }
-            Assigning(requests);
         }
 
         public ActionResult OtherStart(int stationId)
