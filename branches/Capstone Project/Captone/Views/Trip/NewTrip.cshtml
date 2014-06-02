@@ -1,75 +1,82 @@
 ﻿@model IEnumerable<Captone.Models.Trip>
-@{
-    Layout = null;
+@if (Session["StationID"] == null)
+{
+    Html.ActionLink("Bạn chưa đăng nhập", "Index");
 }
+else
+{
+    int stationId = Convert.ToInt32(Session["StationID"]);
+    Layout = null;
 
-<div class="table-responsive">
-    <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
-        <thead>
-            <tr>
-                <th>Mã chuyến</th>
-                <th>
-                    Tuyến
-                </th>
-                <th>
-                    Xe
-                </th>
-                <th>
-                    Giờ đi
-                </th>
-                <th>
-                    Giờ đến dự kiến
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-bordered display KeyTable dataTable" id="TableDepartedTrip" aria-describedby="example_info">
+            <thead>
                 <tr>
-                    <td id="selTripID">
-                        @item.TripID
-                    </td>
-                    <td>
-                        @item.Schedule.Route.RouteName
-                    </td>
-                    <td>
-                        <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalDetail" onclick="AssignedRequest(@item.TripID)"> @item.Schedule.Coach.NumberPlate</a>
-                    </td>
-                    <td>
-                        @item.RealDepartureTime
-                    </td>
-                    <td>
-                        @item.EstimateArrivalTime
-                    </td>
+                    <th>Mã chuyến</th>
+                    <th>
+                        Tuyến
+                    </th>
+                    <th>
+                        Xe
+                    </th>
+                    <th>
+                        Giờ đi
+                    </th>
+                    <th>
+                        Giờ đến dự kiến
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog">
-        <div class="modal-content detailPopup">
-            <div class="modal-header">
-                <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
-            </div>
-            <div class="modal-body">
-                <div id="requests">
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td id="selTripID">
+                            @item.TripID
+                        </td>
+                        <td>
+                            @item.Schedule.Route.RouteName
+                        </td>
+                        <td>
+                            <a data-toggle="modal" class="getID" id="@item.TripID" data-target="#modalDetail" onclick=" AssignedRequest(@item.TripID) "> @item.Schedule.Coach.NumberPlate</a>
+                        </td>
+                        <td>
+                            @item.RealDepartureTime
+                        </td>
+                        <td>
+                            @item.EstimateArrivalTime
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input type="hidden" id="stationId" value="@stationId" />
+    </div>
+    <div id="modalDetail" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content detailPopup">
+                <div class="modal-header">
+                    <button type="button" id="close1" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="requests">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a>
+                        <button type="button" class="btn btn-success" onclick=" departedPackages() " id="btnDeparted">Xác nhận chuyển đi</button>
+                    </a>
+                    <a href="/Trip/Delete/">
+                        <button type="button" class="btn btn-danger">Xóa chuyến này </button>
+                    </a>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a>
-                    <button type="button" class="btn btn-success" onclick="departedPackages()" id="btnDeparted">Xác nhận chuyển đi</button>
-                </a>
-                <a href="/Trip/Delete/">
-                    <button type="button" class="btn btn-danger">Xóa chuyến này </button>
-                </a>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
+}
 <!-- /.modal -->
 <script>
     $(function () {
@@ -130,10 +137,11 @@
 
     // Get requests assigned to selected trip
     function AssignedRequest(tripID) {
+        var stationId = document.getElementById('stationId').value;
         $.ajax({
             url: "/Trip/AssignedRequest",
             type: "Post",
-            data: { tripID: tripID },
+            data: { tripID: tripID, stationID: stationId},
             success: function (result) {
                 $("#requests").html(result);
             }

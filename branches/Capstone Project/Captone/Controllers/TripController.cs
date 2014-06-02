@@ -348,20 +348,31 @@ namespace Captone.Controllers
 
         //For view assigned request of selected trip
         //Get assigned requests, not departed
-        public ActionResult AssignedRequest(int tripID)
+        public ActionResult AssignedRequest(int tripID, int stationID)
         {
-            var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 3).ToList();
-
-            return View(rqID);
+            var rqID = db.Assignings.Where(p => p.TripID == tripID).ToList();
+            var listRequest = new List<Assigning>();
+            foreach (var rq in rqID)
+            {
+                if (rq.Request.DeliveryStatusID == 4)
+                {
+                    var ass = db.Assignings.FirstOrDefault(p => (p.IndicateOrder == (rq.IndicateOrder - 1)) && p.RequestID == rq.RequestID);
+                    if (ass.StopStation == stationID) listRequest.Add(rq);
+                }
+                if(rq.Request.DeliveryStatusID == 3) listRequest.Add(rq);
+            }
+            return View(listRequest);
         }
         //Get assigned requests & departed
-        public ActionResult AssignedRequest2(int tripID)
+        public ActionResult AssignedRequest2(int tripID, int stationID)
         {
-
-
             var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
-
-            return View(rqID);
+            var listRequest = new List<Assigning>();
+            foreach (var rq in rqID)
+            {
+                if(rq.StopStation != stationID) listRequest.Add(rq);
+            }
+            return View(listRequest);
         }
         public bool CheckRequestLate(int tripID)
         {

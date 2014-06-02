@@ -1028,6 +1028,7 @@
     <Content Include="Views\Assigning\ListRequestPending.cshtml" />
     <Content Include="Views\Request\LatePayment.cshtml" />
     <Content Include="Views\Assigning\FinishedRequest.cshtml" />
+    <Content Include="Views\Request\DeletedRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

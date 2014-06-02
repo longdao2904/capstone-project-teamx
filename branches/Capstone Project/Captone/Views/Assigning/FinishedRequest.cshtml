@@ -10,13 +10,15 @@
             <tr>
                 <th>Mã hàng
                 </th>
-                <th>Người nhận
+                <th>Người gửi
                 </th>
                 <th>Ngày gửi
                 </th>
-                <th>Số điện thoại người gửi
+                <th>Người nhận
                 </th>
-                <th>Trạm nhận
+                <th>Số điện thoại người nhận
+                </th>
+                <th>Địa chỉ người nhận
                 </th>
                 <th>Ngày đến
                 </th>
@@ -30,16 +32,19 @@
                     @item.RequestCode
                 </td>
                 <td>
-                    @item.ReceiverName
+                    @item.SenderName
                 </td>
                 <td>
                     @item.DateRequest.ToShortDateString()
                 </td>
                 <td>
-                    @item.SenderPhone
+                    @item.ReceiverName
                 </td>
                 <td>
-                    @item.Station1.StationName
+                    @item.ReceiverPhone
+                </td>
+                <td>
+                    @item.ReceiverAddress
                 </td>
                 <td>
                     @item.ArrivedDate
