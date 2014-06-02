@@ -76,7 +76,7 @@ $(document).ready(function () {
                 required: true
             },
 
-            username: {
+            Username: {
                 minlength: 6,
                 required: true
             },
