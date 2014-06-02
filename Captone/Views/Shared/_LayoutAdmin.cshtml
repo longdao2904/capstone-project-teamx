@@ -35,20 +35,12 @@
             </div>
             <div class="col-lg-4" style="margin-top: 0.5%"></div>
             <div class="col-lg-4">
-                @if (Username != null)
-                {
-                    string username = Username.ToUpper();
                     <div class="nav navbar-top-links navbar-right" style="margin-top: 1%;">
                         <p style="color: white; float: right">
-                            <i class="fa fa-user fa-fw"></i>@username |
+                            <i class="fa fa-user fa-fw"></i>LONG |
                             <a href="/Account/LogOff" style="color: white"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                         </p>
                     </div>
-                }
-                else
-                {
-                    <a style="color: white" class="nav navbar-top-links navbar-right" data-toggle="modal" id="" data-target="#loginModal" onclick="LoginModal()" style="margin-top: 1%;"><i class="fa fa-sign-in fa-fw"></i>Đăng nhập</a>
-                }
             </div>
             <!-- /.navbar-top-links -->
 

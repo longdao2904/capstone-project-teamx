@@ -58,10 +58,10 @@
                         @item.RequestCode
                     </td>
                     <td>
-                        <input type="radio" name="chk" id="return" />
+                        <input type="radio" name="chk" class="return" onclick="getIDRequestReturn(@item.RequestID)"/>
                     </td>
                     <td>
-                        <input type="radio" name="chk" id="cancer" />
+                        <input type="radio" name="chk" class="cancer" onclick="getIDRequestCancer(@item.RequestID)" />
                     </td>
 
                 </tr>
@@ -73,61 +73,38 @@
     </p>
 </div>
 <script type="text/javascript">
-    if ($("#cancer").click(function () {
-                      $("#xacnhan").click(function () {
-                      removeRequest();
-    });
 
-    }))
-        if ($("#return").click(function () {
-                  $("#xacnhan").click(function () {
-
-                      returnPackage();
-        });
-        }))
-
-            $(document).ready(function () {
-                $('#selectall').click(function (event) {  //on click 
-                    if (this.checked) { // check select status
-                        $('.case').each(function () { //loop through each checkbox
-                            this.checked = true;  //select all checkboxes with class "checkbox1"  
-                        });
-                    } else {
-                        $('.case').each(function () { //loop through each checkbox
-                            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
-                        });
-                    }
-                });
-
-            });
+    function getIDRequestReturn(id) {
+           if( $("#xacnhan").click(function() {
+                returnPackage(id);
+        }));
+    }
+    function getIDRequestCancer(id) {
+        if( $("#xacnhan").click(function() {
+            removeRequest(id);
+        }));
+    }
+   
 
     // get checked requests id
-    function getRequests() {
-        var request = [];
-        $('[name="chk"]:checked').each(function () {
-            var id = document.getElementById('rqID').innerText.trim();
-            request.push(id);
-        });
-        return request;
-    }
-    function removeRequest() {
-        var requests = getRequests();
+
+    function removeRequest(id) {
         $.ajax({
             url: "/Request/CancerRequest",
             type: "POST",
-            data: { requestId: parseInt(requests) },
+            data: { requestId: parseInt(id) },
             success: function (result) {
 
             }
         });
     }
-    function returnPackage() {
-        var requests = getRequests();
+
+    function returnPackage(id) {
         $.ajax({
             url: "/Request/Return",
             type: "POST",
-            data: { listRequest: parseInt(requests) },
-            success: function (result) {
+            data: { listRequest: parseInt(id) },
+            success: function(result) {
             }
         });
     }
