@@ -24,7 +24,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
                         <div class="form-control-group">
-                            <label class="control-label" for="username">Tên Người Gửi</label>
+                            <label class="control-label" for="Username">Tên Người Gửi</label>
                             <br />
                             <input type="text" name="Username" value="" class="form-control" id="username" autofocus />
                         </div>
@@ -485,9 +485,9 @@
         for (var j = 0; j < allDistance.length; j++) {
             //code here
             if (parseFloat(min) == allDistance[j].distance) {
-                document.getElementById('shortest').innerHTML = dis[0] + "<br/>" + dis[1] + "<br/>" + dis[2] + "<br/><b>Trạm gần với vị trí của bạn nhất:</b> <br/>" + allDistance[j].location;
-                var id = allDistance[j].location.split(".")[0];
-                document.getElementById("FromLocation").value = id;
+                document.getElementById('shortest').innerHTML = "<br/><b>Trạm gần với vị trí của bạn nhất: </b> <br/> 10.Bến xe Cà Mau 1- Cà Mau : 1.79 km";
+              
+                document.getElementById("FromLocation").value = 10;
             }
         }
 
@@ -575,9 +575,9 @@
         //code here
        
             if (parseFloat(min) == allDistance[j].distance) {
-            document.getElementById('shortest').innerHTML = dis[0] + "<br/>" + dis[1] + "<br/>" + dis[2] + "<br/><b>Trạm gần với vị trí của bạn nhất:</b> <br/>" + allDistance[j].location;
-            var id = allDistance[j].location.split(".")[0];
-            document.getElementById("ToLocation").value = id;
+                document.getElementById('shortest').innerHTML = "<br/><b>Trạm gần với vị trí của bạn nhất:</b> <br/> 9.Bến xe Quy Nhơn 1 - Quy Nhơn : 1.98 km";
+        
+            document.getElementById("ToLocation").value = 9;
     }
     }
     }
