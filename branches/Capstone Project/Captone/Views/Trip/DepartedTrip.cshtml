@@ -40,7 +40,7 @@
                         @item.EstimateArrivalTime
                     </td>
                     <td>
-                        <a data-toggle="modal" id="" data-target="#myModal" class="btn btn-success" onclick="AssignedRequest2(@item.TripID)">Hàng trên chuyến</a>
+                        <a data-toggle="modal" id="" data-target="#departedTrip" class="btn btn-success" onclick="AssignedRequest2(@item.TripID)">Hàng trên chuyến</a>
                     </td>
               
                 </tr>
@@ -48,15 +48,15 @@
         </tbody>
     </table>
 </div>
-<div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+<div id="departedTrip" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content detailPopup">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" id="close3" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Các gói hàng trên chuyến này</h4>
             </div>
             <div class="modal-body">
-                <div id="requests">
+                <div id="rqfordepart">
                 </div>
             </div>
         </div>
@@ -95,44 +95,13 @@
         });
 
     });
-    // change request status when checkbox 'arrived' checked
-    function getRequests() {
-        var listRq = [];
-        $('[name="chk"]:checked').each(function () {
-            var row = $(this).closest('tr');
-            var rq = document.getElementById("rqID").innerText;
-            // Push request object to collection
-            listRq.push(rq);
-        });
-        return listRq;
-    }
-    // Sent request collection to controller
-    function SentObject() {
-        var requests = getRequests();
-        $.ajax({
-            url: "/Request/UpdateStatus",
-            type: "POST",
-            data: JSON.stringify({ requestIDs: requests }),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (result) {
-                window.location = "/Request/Index";
-                window.addActive(5);
-            }
-        });
-    }
-    // Click on button 'Đã đến trạm'
-    $('#sttSet').click(function () {
-        SentObject();
-    });
-    // Get requests assigned to selected trip
     function AssignedRequest2(tripID) {
         $.ajax({
             url: "/Trip/AssignedRequest2",
             type: "Post",
             data: { tripID: tripID },
             success: function (result) {
-                $("#requests").html(result);
+                $("#rqfordepart").html(result);
             }
         });
     }
