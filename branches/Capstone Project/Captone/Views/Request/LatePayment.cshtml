@@ -30,12 +30,8 @@
                     <td>@request.DateRequest</td>
                     <td>@request.DateRequest.AddDays(1)</td>
                     <td>
-                        <a href="/Request/LatePayment?stationID=@stationId">
-                            <button onclick="Update()" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Gia hạn thanh toán"><i class="fa fa-link"></i></button>
-                        </a>
-                        <a href="/Request/LatePayment?stationID=@stationId">
-                            <button onclick="DeleteRequest(@request.RequestID)" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="top" title="Xóa yêu cầu"><i class="fa fa-times"></i></button>
-                        </a>
+                        <button onclick="Update(@request.RequestID)" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="top" title="Gia hạn thanh toán"><i class="fa fa-link"></i></button>
+                        <button onclick="DeleteRequest(@request.RequestID)" class="btn btn-warning btn-circle" data-toggle="tooltip" data-placement="top" title="Xóa yêu cầu"><i class="fa fa-times"></i></button>
                         <input id="requestID" value="@request.RequestID" hidden=""/>
                 </tr>
             }
@@ -48,27 +44,18 @@
             url: "/Request/DeleteRequest",
             type: "POST",
             data: { id: parseInt(id) },
-            success: function () {
-                $('.closeModal').click();
-                $("#RequestList").fadeOut(200, function () {
-                    $("#Request-" + id).remove();
-                    $("#RequestList").fadeIn(200);
-                });
+            success: function() {
+                window.location.href = '/Request/LatePayment?stationID=@stationId';
             }
         });
     }
-    function Update() {
-        var id = document.getElementById("requestID").value;
+    function Update(id) {
         $.ajax({
             url: "/Request/UpdateDatePostForRequest",
             type: "POST",
-            data: { RequestID: parseInt(id) },
+            data: { requestID: parseInt(id) },
             success: function () {
-                $('.closeModal').click();
-                $("#RequestList").fadeOut(200, function () {
-                    $("#Request-" + id).remove();
-                    $("#RequestList").fadeIn(200);
-                });
+                    window.location.href = '/Request/LatePayment?stationID=@stationId';
             }
         });
     }

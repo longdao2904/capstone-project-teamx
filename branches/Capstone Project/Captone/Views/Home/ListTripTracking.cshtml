@@ -4,7 +4,6 @@
         <th>Mã chuyến</th>
         <th>Chuyến xe</th>
         <th>Trạm trung chuyển</th>
-        <th>Trạng thái</th>
         <th>Dự kiến đến</th>
     </thead>
     @foreach (var item in Model)
@@ -15,18 +14,6 @@
                 <td>@item.Trip.TripID</td>
                 <td>@item.Trip.Schedule.Route.RouteName</td>
                 <td>@item.Station.StationName</td>
-                @if (item.Trip.Status == "Đã đến trạm")
-                {
-                    <td>@item.Trip.Status</td>
-                }
-                @if (item.Trip.Status == "Chưa chạy")
-                {
-                    <td>@item.Trip.Status</td>
-                }
-                @if (item.Trip.Status == "Đang chạy")
-                {
-                    <td>Đã chạy được @item.Trip.RealDepartureTime.Value.Subtract(DateTime.Now).Hours h</td>
-                }
                 <td>@item.Trip.EstimateArrivalTime</td>
             </tr>
         </tbody>
@@ -36,7 +23,7 @@
 
 <input type="text" disabled="disabled" style="background-color: #DC143C; width: 40px" />
 Đang trên chuyến
-<input type="text" disabled="disabled" style="background-color: #9400D3; width: 40px" />
+<input type="text" disabled="disabled" style="background-color: yellow; width: 40px" />
 Chưa đến chuyến
 <input type="text" disabled="disabled" style="background-color: #00FF7F; width: 40px" />
 Đã qua chuyến

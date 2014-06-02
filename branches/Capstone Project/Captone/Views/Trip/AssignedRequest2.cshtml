@@ -6,10 +6,6 @@
 <script>
     function highlight(x) {
         x.style.backgroundColor = "lightblue";
-        
-    }
-    function reset(x) {
-        x.style.backgroundColor = "white";
     }
 </script>
 <div class="table-responsive">
@@ -32,7 +28,7 @@
         {
             if (item.StopStation == stationId && item.Request.ToLocation != stationId)
             {
-                <tr onmousemove="highlight(this)">
+                <tr onmouseover="highlight(this)">
                     <td style="display: none">
                         @item.RequestID
                     </td>

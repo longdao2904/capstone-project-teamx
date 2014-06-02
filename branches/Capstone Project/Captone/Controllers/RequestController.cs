@@ -363,7 +363,9 @@ namespace Captone.Controllers
                                "<br/>" +
                                "Θ Địa chỉ người gửi: " + get.Request.SenderAddress +
                                   "<br/>" +
-                              "Θ Điện thoại người nhận: " + get.Request.ReceiverPhone +
+                               "Θ Tên người nhận: " + get.Request.ReceiverName +
+                                  "<br/>" +
+                               "Θ Điện thoại người nhận: " + get.Request.ReceiverPhone +
                                "<br/>" +
                                "Θ Địa chỉ người nhận: " + get.Request.ReceiverAddress +
                                   "<br/>" +
