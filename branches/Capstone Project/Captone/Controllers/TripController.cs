@@ -17,7 +17,7 @@ namespace Captone.Controllers
     {
         private iDeliverEntities db = new iDeliverEntities();
         double _deltaTime = 2.0;  //the time between two times the trip run
-        private int _numberOfTrip = 10;
+        private int _numberOfTrip = 100;
         //list all trip of the system
         public ActionResult Index()
         {
