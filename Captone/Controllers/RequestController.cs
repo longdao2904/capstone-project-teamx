@@ -493,7 +493,13 @@ namespace Captone.Controllers
             var get = _db.Requests.Where(p => p.RequestID == requestId).FirstOrDefault();
             get.DeliveryStatusID = 7;
             _db.SaveChanges();
+        }
 
+        //list requests that have been cancelled by user
+        public ActionResult DeletedRequest(int stationID)
+        {
+            var request = _db.Requests.Where(p => p.ToLocation == stationID & p.DeliveryStatusID == 7).ToList();
+            return View(request);
         }
     }
 }
