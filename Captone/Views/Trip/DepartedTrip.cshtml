@@ -96,10 +96,11 @@
 
     });
     function AssignedRequest2(tripID) {
+        var stationId = document.getElementById('stationId').value;
         $.ajax({
             url: "/Trip/AssignedRequest2",
             type: "Post",
-            data: { tripID: tripID },
+            data: { tripID: tripID, stationID : stationId, type : 1},
             success: function (result) {
                 $("#rqfordepart").html(result);
             }
