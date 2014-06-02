@@ -79,9 +79,6 @@ else
                 <div id="rqforarrive">
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="ArrivedRequest()">Xác nhận đến trạm</button>
-            </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -139,10 +136,11 @@ else
 
     // Get departed packages assigned to selected trip
     function AssignedRequest2(tripID) {
+        var stationId = document.getElementById('stationId').value;
         $.ajax({
             url: "/Trip/AssignedRequest2",
             type: "Post",
-            data: { tripID: tripID },
+            data: { tripID: tripID, stationID: stationId, type : 1},
             success: function (result) {
                 $("#rqforarrive").html(result);
             }

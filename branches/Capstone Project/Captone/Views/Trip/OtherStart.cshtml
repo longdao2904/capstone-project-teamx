@@ -66,9 +66,6 @@ else
                 <div id="rqfordepart">
                 </div>
             </div>
-            <div class="modal-footer">
-                <a class="btn btn-success" onclick="DepartedRequest()" style="float: right">Xác nhận rời bến</a>
-            </div>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -112,7 +109,7 @@ else
         $.ajax({
             url: "/Trip/AssignedRequest2",
             type: "Post",
-            data: { tripID: tripID, stationID: stationId },
+            data: { tripID: tripID, stationID: stationId, type: 2},
             success: function (result) {
                 $("#rqfordepart").html(result);
             }

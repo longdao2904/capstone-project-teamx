@@ -364,9 +364,10 @@ namespace Captone.Controllers
             return View(listRequest);
         }
         //Get assigned requests & departed
-        public ActionResult AssignedRequest2(int tripID, int stationID)
+        public ActionResult AssignedRequest2(int tripID, int stationID, int type)
         {
             var rqID = db.Assignings.Where(p => p.TripID == tripID & p.Request.DeliveryStatusID == 4).ToList();
+            if (type == 1) return View(rqID);
             var listRequest = new List<Assigning>();
             foreach (var rq in rqID)
             {
@@ -374,6 +375,7 @@ namespace Captone.Controllers
             }
             return View(listRequest);
         }
+
         public bool CheckRequestLate(int tripID)
         {
             var all = db.Assignings.Where(p => p.TripID != tripID & p.Request.DeliveryStatusID == 4).ToList();
