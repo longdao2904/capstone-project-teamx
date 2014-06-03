@@ -3,19 +3,18 @@
     <table class="table" id="tripTblCheck">
         <thead>
             <tr>
-                <th>Chuyến
+                <th>Tuyến
                 </th>
                 <th>Dự kiến chạy
                 </th>
                 <th>Dự kiến đến 
                 </th>
+                <th>Mã chuyến</th>
                 <th>Trạng thái
                 </th>
-       
                 <th>Trạm dừng</th>
                 <th>
                     <input type="checkbox" id="selectallTrip" value="Select All" style="display: none" /></th>
-                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -34,13 +33,12 @@
                     <td id="est2">
                         @item.EstimateArrivalTime
                     </td>
-                    <td style="display: none" id="tripID">
+                    <td id="tripID">
                         @item.TripID
                     </td>
                     <td>
                         @item.Status
                     </td>
-                   
                     <td>@item.StopStationName</td>
                     <td></td>
                     <td>
